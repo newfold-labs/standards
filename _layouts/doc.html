@@ -2,76 +2,92 @@
 layout: default
 ---
 {%- comment -%}
-Standards document. The metadata strip is rendered from front matter so a
-reader can see, without reading the body, what the document binds and whether
-anything checks it.
+Standards document. The metadata row is rendered from front matter so a reader
+can see, without reading the body, what the document binds and whether anything
+checks it.
 {%- endcomment -%}
 
 {%- if page.status == 'deprecated' -%}
 <p class="doc-banner doc-banner--deprecated">
-  This standard is deprecated. It stays here so existing citations resolve, but
+  <strong>Deprecated.</strong> This stays here so existing citations resolve, but
   it no longer binds new work.
 </p>
 {%- elsif page.status == 'superseded' -%}
   {%- assign replacement = site.pages | where: "id", page.superseded_by | first -%}
 <p class="doc-banner doc-banner--deprecated">
-  This standard has been superseded{% if replacement %} by
-  <a href="{{ replacement.url | relative_url }}">{{ replacement.title }}</a>{% endif %}.
+  <strong>Superseded{% if replacement %} by
+  <a href="{{ replacement.url | relative_url }}">{{ replacement.title }}</a>{% endif %}.</strong>
+  This stays here so existing citations resolve.
 </p>
 {%- elsif page.status == 'draft' -%}
 <p class="doc-banner doc-banner--draft">
-  Draft. This is not settled yet and should not be treated as binding.
+  <strong>Draft.</strong> Not settled yet, and not binding.
 </p>
 {%- endif -%}
 
 <h1>{{ page.title }}</h1>
 
-<dl class="doc-meta">
-  <dt>Id</dt>
-  <dd><code>{{ page.id }}</code></dd>
+<p class="doc-summary">{{ page.summary }}</p>
 
-  <dt>Applies to</dt>
-  <dd>
-    {%- for target in page.applies_to -%}
-      <span class="doc-tag">{{ target }}</span>
-    {%- endfor -%}
-  </dd>
+<div class="doc-meta">
+  <span class="doc-meta__item">
+    <span class="doc-meta__label">Id</span>
+    <span class="doc-meta__value"><span class="chip chip--id">{{ page.id }}</span></span>
+  </span>
 
-  <dt>Status</dt>
-  <dd><span class="doc-tag doc-tag--{{ page.status }}">{{ page.status }}</span></dd>
+  <span class="doc-meta__item">
+    <span class="doc-meta__label">Applies to</span>
+    <span class="doc-meta__value">
+      {%- for target in page.applies_to -%}
+        <span class="chip">{{ target }}</span>
+      {%- endfor -%}
+    </span>
+  </span>
 
-  <dt>Enforceable</dt>
-  <dd>
-    {%- if page.enforceable -%}
-      {%- if page.enforced_by -%}
-        yes, by <code>{{ page.enforced_by }}</code>
+  <span class="doc-meta__item">
+    <span class="doc-meta__label">Status</span>
+    <span class="doc-meta__value"><span class="chip chip--{{ page.status }}">{{ page.status }}</span></span>
+  </span>
+
+  <span class="doc-meta__item">
+    <span class="doc-meta__label">Enforceable</span>
+    <span class="doc-meta__value">
+      {%- if page.enforceable -%}
+        {%- if page.enforced_by -%}
+          <span class="chip chip--yes">{{ page.enforced_by }}</span>
+        {%- else -%}
+          <span class="chip chip--yes">yes, no check yet</span>
+        {%- endif -%}
       {%- else -%}
-        yes, no automated check yet
+        <span class="chip">needs judgement</span>
       {%- endif -%}
-    {%- else -%}
-      no, this needs judgement
-    {%- endif -%}
-  </dd>
+    </span>
+  </span>
 
   {%- if page.tags.size > 0 %}
-  <dt>Tags</dt>
-  <dd>
-    {%- for tag in page.tags -%}
-      <span class="doc-tag">{{ tag }}</span>
-    {%- endfor -%}
-  </dd>
+  <span class="doc-meta__item">
+    <span class="doc-meta__label">Tags</span>
+    <span class="doc-meta__value">
+      {%- for tag in page.tags -%}
+        <span class="chip">{{ tag }}</span>
+      {%- endfor -%}
+    </span>
+  </span>
   {%- endif %}
-</dl>
+</div>
 
 {{ content }}
 
 {%- if page.related.size > 0 %}
 <h2 id="related">Related</h2>
-<ul>
+<ul class="card-grid">
   {%- for id in page.related -%}
     {%- assign doc = site.pages | where: "id", id | first -%}
     {%- if doc %}
-  <li><a href="{{ doc.url | relative_url }}">{{ doc.title }}</a> &mdash; {{ doc.summary }}</li>
+  <li class="card">
+    <a href="{{ doc.url | relative_url }}">{{ doc.title }}</a>
+    <p>{{ doc.summary }}</p>
+  </li>
     {%- endif -%}
   {%- endfor %}
 </ul>

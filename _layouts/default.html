@@ -2,41 +2,95 @@
 <html lang="{{ site.lang | default: 'en-US' }}">
   <head>
     <meta charset="UTF-8">
-{% seo %}
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link rel="preload" href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap" as="style" type="text/css" crossorigin>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#EC5328">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+{% seo %}
     <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
   </head>
   <body>
-    <a id="skip-to-content" href="#content">Skip to the content.</a>
+    <a id="skip-to-content" href="#content">Skip to the content</a>
 
-    <header class="page-header" role="banner">
-      <a href="{{ '/' | relative_url }}">
-        <h1 class="project-name">{{ site.title }}</h1>
+    <header class="topbar">
+      <a class="topbar__brand" href="{{ '/' | relative_url }}">
+        Newfold Labs <span class="topbar__sub">Standards</span>
       </a>
-      <h2 class="project-tagline">{{ page.summary | default: site.description }}</h2>
-      <a href="{{ site.repository_url }}" class="btn">View on GitHub</a>
+      <span class="topbar__spacer"></span>
+      <a class="topbar__link" href="{{ '/llms.txt' | relative_url }}">llms.txt</a>
+      <a class="topbar__link" href="{{ site.repository_url }}">GitHub</a>
+      <button class="topbar__toggle" type="button" aria-expanded="false" aria-controls="sidebar">Menu</button>
     </header>
 
-    <div class="page-body">
+    <div class="shell">
       {% include nav.html %}
 
-      <main id="content" class="main-content" role="main">
+      <main id="content" class="content" role="main">
         {{ content }}
 
-        <footer class="site-footer">
-          <span class="site-footer-owner">
-            <a href="{{ site.repository_url }}">standards</a> is maintained by
-            <a href="https://github.com/newfold-labs">newfold-labs</a>.
-          </span>
-          <span class="site-footer-credits">
-            Machine-readable index at <a href="{{ '/llms.txt' | relative_url }}">llms.txt</a>.
-          </span>
+        <footer class="footer">
+          <a href="{{ site.repository_url }}">newfold-labs/standards</a>.
+          Every document carries a stable id; cite it rather than the URL.
+          Machine-readable index at <a href="{{ '/llms.txt' | relative_url }}">llms.txt</a>.
         </footer>
       </main>
     </div>
+
+    <script>
+      // Sidebar toggle on narrow viewports.
+      (function () {
+        var toggle = document.querySelector('.topbar__toggle');
+        var sidebar = document.getElementById('sidebar');
+        if (!toggle || !sidebar) return;
+        toggle.addEventListener('click', function () {
+          var open = sidebar.classList.toggle('is-open');
+          toggle.setAttribute('aria-expanded', String(open));
+        });
+      })();
+
+      // Filter the nav. 43 documents is more than a person wants to scan.
+      (function () {
+        var input = document.getElementById('nav-filter');
+        if (!input) return;
+        var sidebar = document.getElementById('sidebar');
+        var items = Array.prototype.slice.call(sidebar.querySelectorAll('.nav-list li'));
+        var groups = Array.prototype.slice.call(sidebar.querySelectorAll('.nav-group'));
+        var sections = Array.prototype.slice.call(sidebar.querySelectorAll('.nav-section'));
+        var empty = document.getElementById('nav-empty');
+
+        function apply() {
+          var q = input.value.trim().toLowerCase();
+          var hits = 0;
+
+          items.forEach(function (li) {
+            var match = !q || li.dataset.search.indexOf(q) !== -1;
+            li.classList.toggle('is-hidden', !match);
+            if (match) hits++;
+          });
+
+          // Hide a group or section once everything inside it is filtered out.
+          groups.concat(sections).forEach(function (box) {
+            var visible = box.querySelectorAll('.nav-list li:not(.is-hidden)').length;
+            box.classList.toggle('is-hidden', visible === 0);
+          });
+
+          empty.classList.toggle('is-shown', hits === 0);
+        }
+
+        input.addEventListener('input', apply);
+        input.addEventListener('keydown', function (e) {
+          if (e.key === 'Escape') { input.value = ''; apply(); }
+        });
+      })();
+
+      // Let wide tables scroll inside their own box instead of the page.
+      (function () {
+        document.querySelectorAll('.content table').forEach(function (table) {
+          if (table.parentElement.classList.contains('table-scroll')) return;
+          var box = document.createElement('div');
+          box.className = 'table-scroll';
+          table.parentNode.insertBefore(box, table);
+          box.appendChild(table);
+        });
+      })();
+    </script>
   </body>
 </html>

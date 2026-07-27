@@ -1,40 +1,52 @@
 {%- comment -%}
-Navigation, generated from front matter. Nothing here is hand-maintained: a new
+Navigation, generated from front matter. Nothing here is hand-maintained: a
 document appears once it has a `section` (injected by _config.yml defaults from
 its directory) and an `order`.
 
 Deprecated and superseded documents drop out of nav by design. They stay
 reachable by direct link so citations do not rot.
+
+Each item carries a data-search attribute so the filter can match on title,
+summary and tags, not just the visible label.
 {%- endcomment -%}
-<nav class="doc-nav" aria-label="Standards">
+<nav id="sidebar" class="sidebar" aria-label="Standards">
+  <input id="nav-filter" class="nav-filter" type="search" placeholder="Filter standards&hellip;"
+         aria-label="Filter standards by title, summary or tag" autocomplete="off">
+  <p id="nav-empty" class="nav-empty">Nothing matches.</p>
+
   {%- for s in site.sections -%}
     {%- assign docs = site.pages
           | where: "section", s.key
           | where_exp: "d", "d.status != 'deprecated' and d.status != 'superseded'"
           | sort: "order" -%}
     {%- if docs.size > 0 -%}
-  <div class="doc-nav__section">
-    <p class="doc-nav__heading">{{ s.title }}</p>
-      {%- assign groups = docs | map: "group" | compact | uniq -%}
+  <div class="nav-section">
+    <p class="nav-section__title">{{ s.title }}</p>
+      {%- assign groups = s.groups | default: nil -%}
+      {%- unless groups -%}{%- assign groups = docs | map: "group" | compact | uniq -%}{%- endunless -%}
       {%- if groups.size == 0 -%}
-    <ul>
+    <ul class="nav-list">
         {%- for doc in docs -%}
-      <li{% if doc.url == page.url %} class="is-current"{% endif %}>
-        <a href="{{ doc.url | relative_url }}" title="{{ doc.summary }}">{{ doc.title }}</a>
+      <li{% if doc.url == page.url %} class="is-current"{% endif %} data-search="{{ doc.title | append: ' ' | append: doc.summary | append: ' ' | append: doc.tags | join: ' ' | downcase | escape }}">
+        <a href="{{ doc.url | relative_url }}">{{ doc.title }}</a>
       </li>
         {%- endfor -%}
     </ul>
       {%- else -%}
         {%- for g in groups -%}
-    <p class="doc-nav__group">{{ g }}</p>
-    <ul>
-          {%- assign in_group = docs | where: "group", g -%}
+    {%- assign in_group = docs | where: "group", g -%}
+    {%- if in_group.size > 0 -%}
+    <div class="nav-group">
+      <p class="nav-group__title">{{ g }}</p>
+      <ul class="nav-list">
           {%- for doc in in_group -%}
-      <li{% if doc.url == page.url %} class="is-current"{% endif %}>
-        <a href="{{ doc.url | relative_url }}" title="{{ doc.summary }}">{{ doc.title }}</a>
-      </li>
+        <li{% if doc.url == page.url %} class="is-current"{% endif %} data-search="{{ doc.title | append: ' ' | append: doc.summary | append: ' ' | append: doc.tags | join: ' ' | downcase | escape }}">
+          <a href="{{ doc.url | relative_url }}">{{ doc.title }}</a>
+        </li>
           {%- endfor -%}
-    </ul>
+      </ul>
+    </div>
+    {%- endif -%}
         {%- endfor -%}
       {%- endif -%}
   </div>
