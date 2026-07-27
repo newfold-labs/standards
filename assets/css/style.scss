@@ -1,0 +1,196 @@
+---
+---
+// Newfold palette, carried over from how-we-work so the site reads as the same
+// documentation moving house rather than a new one appearing.
+
+// Headers
+$header-heading-color: #fff !default;
+$header-bg-color: #EC5328 !default;
+$header-bg-color-secondary: #BD4220 !default;
+
+// Text
+$section-headings-color: #EC5328 !default;
+$body-text-color: #404040 !default;
+$body-link-color: #EC5328 !default;
+$blockquote-text-color: #82AEB9 !default;
+
+// Code
+$code-bg-color: #FDEEEA !default;
+$code-text-color: #000000 !default;
+
+// Borders
+$border-color: #5BABE2 !default;
+$table-border-color: #5BABE2 !default;
+$hr-border-color: #5BABE2 !default;
+
+@import "{{ site.theme }}";
+
+// Keep the site title link white.
+.page-header a {
+	color: $header-heading-color;
+}
+
+// Place the GitHub button in the top right corner.
+.page-header .btn {
+	position: absolute;
+	right: 1rem;
+	top: 1rem;
+}
+
+// Two-column shell: generated nav beside the document.
+.page-body {
+	display: flex;
+	align-items: flex-start;
+	max-width: 78rem;
+	margin: 0 auto;
+	gap: 1rem;
+}
+
+.page-body .main-content {
+	flex: 1 1 auto;
+	min-width: 0;
+	max-width: 58rem;
+}
+
+.doc-nav {
+	flex: 0 0 16rem;
+	position: sticky;
+	top: 0;
+	max-height: 100vh;
+	overflow-y: auto;
+	padding: 2rem 0 2rem 1rem;
+	font-size: 0.85rem;
+	line-height: 1.5;
+
+	ul {
+		list-style: none;
+		margin: 0 0 0.75rem;
+		padding: 0;
+	}
+
+	li {
+		margin: 0;
+		padding: 0.1rem 0;
+	}
+
+	a {
+		color: $body-text-color;
+		text-decoration: none;
+
+		&:hover {
+			color: $body-link-color;
+			text-decoration: underline;
+		}
+	}
+
+	.is-current > a {
+		color: $body-link-color;
+		font-weight: 700;
+	}
+}
+
+.doc-nav__heading {
+	margin: 1rem 0 0.35rem;
+	font-size: 0.75rem;
+	font-weight: 700;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	color: $section-headings-color;
+}
+
+.doc-nav__group {
+	margin: 0.6rem 0 0.2rem;
+	font-size: 0.75rem;
+	font-weight: 700;
+	color: $body-text-color;
+}
+
+// Front matter rendered for the reader.
+.doc-meta {
+	display: grid;
+	grid-template-columns: 8rem 1fr;
+	gap: 0.2rem 1rem;
+	margin: 0 0 2rem;
+	padding: 0.9rem 1rem;
+	border-left: 3px solid $border-color;
+	background: #f7fbfd;
+	font-size: 0.85rem;
+
+	dt {
+		font-weight: 700;
+		color: #6a6a6a;
+	}
+
+	dd {
+		margin: 0;
+	}
+
+	code {
+		font-size: 0.8rem;
+	}
+}
+
+.doc-tag {
+	display: inline-block;
+	margin: 0 0.25rem 0.15rem 0;
+	padding: 0.05rem 0.45rem;
+	border-radius: 0.75rem;
+	background: #e6eef2;
+	font-size: 0.75rem;
+	color: #37505c;
+
+	&--draft {
+		background: #fff3cd;
+		color: #6b5300;
+	}
+
+	&--deprecated,
+	&--superseded {
+		background: #f2dede;
+		color: #7a2020;
+	}
+}
+
+.doc-banner {
+	margin: 0 0 1.5rem;
+	padding: 0.75rem 1rem;
+	border-radius: 0.25rem;
+	font-size: 0.9rem;
+
+	&--deprecated {
+		background: #f2dede;
+		color: #7a2020;
+	}
+
+	&--draft {
+		background: #fff3cd;
+		color: #6b5300;
+	}
+}
+
+// Indentation for nested table-of-contents style headings.
+h3 + h4,
+h4 + h4 {
+	margin-left: 2rem;
+}
+
+@media screen and (max-width: 64em) {
+	.page-body {
+		display: block;
+	}
+
+	.doc-nav {
+		position: static;
+		max-height: none;
+		padding: 1.5rem 2rem 0;
+	}
+
+	.doc-meta {
+		grid-template-columns: 1fr;
+		gap: 0;
+
+		dd {
+			margin-bottom: 0.5rem;
+		}
+	}
+}

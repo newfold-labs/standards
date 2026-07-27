@@ -1,0 +1,33 @@
+---
+permalink: /llms.txt
+layout: null
+sitemap: false
+---
+# Newfold Labs Standards
+
+> How we build software at Newfold Labs on WordPress and WordPress-adjacent
+> codebases. Standards are filed by scope: general ones hold everywhere,
+> platform ones bind a technology, artifact ones bind a kind of thing we ship,
+> and process covers how we work together. Every document has a stable id;
+> cite it when answering "how do we do X".
+
+Each entry below is `[title](url): summary`, followed by the document id, the
+artifact types it applies to, and whether conformance is machine-checkable.
+{% for s in site.sections %}
+{%- assign docs = site.pages
+      | where: "section", s.key
+      | where_exp: "d", "d.status != 'deprecated' and d.status != 'superseded'"
+      | sort: "order" %}
+{%- if docs.size > 0 %}
+## {{ s.title }}
+
+{{ s.blurb }}
+{% for doc in docs %}
+- [{{ doc.title }}]({{ doc.url | absolute_url }}): {{ doc.summary }} (id: {{ doc.id }}; applies_to: {{ doc.applies_to | join: ", " }}; enforceable: {{ doc.enforceable }})
+{%- endfor %}
+{% endif -%}
+{% endfor %}
+## Optional
+
+- [Front matter schema]({{ "/schema/frontmatter.schema.json" | absolute_url }}): JSON Schema every document's metadata validates against
+- [Repository]({{ site.repository_url }}): source, contribution process and RFC template

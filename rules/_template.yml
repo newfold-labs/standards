@@ -1,0 +1,29 @@
+---
+# Copy this file to rules/<id>.yml and fill it in.
+# Format reference: meta/rules-format.md
+
+# Unique rule id. This is what a failing check reports.
+id: example-rule-id
+
+# The `id` of the standard this enforces. Must be a document with
+# `enforceable: true`.
+standard: example-standard-id
+
+# What the rule checks, phrased as the passing condition.
+title: Describe the state that passes, not the violation
+
+# error fails a build, warning does not.
+severity: error
+
+# phpcs | eslint | structure | ...
+engine: phpcs
+
+# Engine-specific payload.
+config:
+  sniff: Newfold.Category.SniffName
+
+# Same vocabulary as document front matter.
+applies_to: [plugin, module]
+
+# Repository version that introduced this rule, used for baselining.
+introduced_in: 0.0.0

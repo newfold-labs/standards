@@ -1,0 +1,63 @@
+---
+id: process-tokens
+title: Token management
+summary: Setting up a personal access token for private packages, and why runners never get one from the repo
+status: active
+applies_to: [any]
+tags: [tokens, npm, github-packages, secrets, access]
+related: [process-org-teams]
+order: 50
+enforceable: false
+---
+
+When dealing with various private packages hosted on GitHub, managing tokens
+effectively is crucial for local development environments. The following outlines
+the standard and recommended practices for ensuring access to these packages
+during local development and how to handle these tokens in runners.
+
+## Local development
+
+To provide developers (GitHub users) with access to private GitHub-hosted
+packages, two things are necessary:
+
+* They need to be added to a "newfold-labs" team on GitHub.
+* They must have a token set up with read access to packages.
+
+If you're not already a member of the appropriate team within the organization,
+please reach out to your team lead. To learn more about GitHub organization team
+management, please refer to the [Organization teams](org-teams.md) docs.
+
+Follow these steps to set up a personal access token:
+
+1. Navigate to GitHub's developer settings (currently located at the bottom of
+   the settings side navigation).
+2. Access the "Personal access tokens (classic)" page. (The URL should be
+   [https://github.com/settings/tokens](https://github.com/settings/tokens).)
+3. Generate a new (classic) token by clicking the button at the top of the page.
+4. Assign a name to your token and set an expiration date. Given that a user's
+   access is revoked when they are removed from an organization team on GitHub,
+   setting a lengthy expiration period is appropriate.
+5. Choose the desired access scope: mark the checkbox for `read:packages` and
+   then click "Generate token".
+6. Copy the generated token, which should be in the format `ghp_xXxXxX`.
+7. On your development machine, navigate to the root of your user directory and
+   either create or locate a `.npmrc` file. (You might need to make hidden files
+   visible.)
+8. Add the token to the file in the following manner:
+
+```
+legacy-peer-deps=true
+@newfold-labs:registry=https://npm.pkg.github.com/
+# My Personal Access Token
+//npm.pkg.github.com/:_authToken=ghp_xXxXxX
+```
+
+## GitHub runner access
+
+Keep in mind that GitHub workflows and actions require access to these files as
+well. However, we CANNOT add a token to any repository, as it would compromise
+the security of the private packages. Instead, the workflow will generate a
+similar `.npmrc` file while building the plugins and retrieve a token from a
+repository secret. This token will be used to install private packages. When
+preparing files for distribution, the workflow will ignore the file containing
+the token.

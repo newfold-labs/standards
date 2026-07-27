@@ -1,0 +1,78 @@
+---
+layout: default
+---
+{%- comment -%}
+Standards document. The metadata strip is rendered from front matter so a
+reader can see, without reading the body, what the document binds and whether
+anything checks it.
+{%- endcomment -%}
+
+{%- if page.status == 'deprecated' -%}
+<p class="doc-banner doc-banner--deprecated">
+  This standard is deprecated. It stays here so existing citations resolve, but
+  it no longer binds new work.
+</p>
+{%- elsif page.status == 'superseded' -%}
+  {%- assign replacement = site.pages | where: "id", page.superseded_by | first -%}
+<p class="doc-banner doc-banner--deprecated">
+  This standard has been superseded{% if replacement %} by
+  <a href="{{ replacement.url | relative_url }}">{{ replacement.title }}</a>{% endif %}.
+</p>
+{%- elsif page.status == 'draft' -%}
+<p class="doc-banner doc-banner--draft">
+  Draft. This is not settled yet and should not be treated as binding.
+</p>
+{%- endif -%}
+
+<h1>{{ page.title }}</h1>
+
+<dl class="doc-meta">
+  <dt>Id</dt>
+  <dd><code>{{ page.id }}</code></dd>
+
+  <dt>Applies to</dt>
+  <dd>
+    {%- for target in page.applies_to -%}
+      <span class="doc-tag">{{ target }}</span>
+    {%- endfor -%}
+  </dd>
+
+  <dt>Status</dt>
+  <dd><span class="doc-tag doc-tag--{{ page.status }}">{{ page.status }}</span></dd>
+
+  <dt>Enforceable</dt>
+  <dd>
+    {%- if page.enforceable -%}
+      {%- if page.enforced_by -%}
+        yes, by <code>{{ page.enforced_by }}</code>
+      {%- else -%}
+        yes, no automated check yet
+      {%- endif -%}
+    {%- else -%}
+      no, this needs judgement
+    {%- endif -%}
+  </dd>
+
+  {%- if page.tags.size > 0 %}
+  <dt>Tags</dt>
+  <dd>
+    {%- for tag in page.tags -%}
+      <span class="doc-tag">{{ tag }}</span>
+    {%- endfor -%}
+  </dd>
+  {%- endif %}
+</dl>
+
+{{ content }}
+
+{%- if page.related.size > 0 %}
+<h2 id="related">Related</h2>
+<ul>
+  {%- for id in page.related -%}
+    {%- assign doc = site.pages | where: "id", id | first -%}
+    {%- if doc %}
+  <li><a href="{{ doc.url | relative_url }}">{{ doc.title }}</a> &mdash; {{ doc.summary }}</li>
+    {%- endif -%}
+  {%- endfor %}
+</ul>
+{%- endif %}

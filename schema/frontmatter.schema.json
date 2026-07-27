@@ -1,0 +1,98 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://newfold-labs.github.io/standards/schema/frontmatter.schema.json",
+  "title": "Newfold Labs standards document front matter",
+  "description": "Every markdown document under general/, platform/, artifacts/, process/ and meta/ carries a front matter block matching this schema. Validated in CI before the site builds; invalid front matter fails the build.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "title", "summary", "status", "applies_to", "enforceable"],
+  "properties": {
+    "id": {
+      "description": "Stable, unique identifier. Checks and AI answers cite this, so it must not change once published. Rename means deprecate and supersede.",
+      "type": "string",
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+      "minLength": 3,
+      "maxLength": 64
+    },
+    "title": {
+      "description": "Human title, used in nav, the index and the page heading.",
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 120
+    },
+    "summary": {
+      "description": "One sentence, no trailing period. Used in the generated index, the nav tooltip and llms.txt.",
+      "type": "string",
+      "minLength": 10,
+      "maxLength": 200
+    },
+    "status": {
+      "description": "Lifecycle state. See meta/lifecycle.md. deprecated and superseded documents stay in the repo but drop out of nav and retrieval defaults.",
+      "enum": ["draft", "active", "deprecated", "superseded"]
+    },
+    "applies_to": {
+      "description": "Artifact types this standard binds. `any` means every artifact type we ship.",
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "enum": ["any", "plugin", "theme", "module", "worker", "service"]
+      }
+    },
+    "tags": {
+      "description": "Free-form topic tags, lowercase kebab-case. Used for retrieval, not for nav.",
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+      }
+    },
+    "related": {
+      "description": "Ids of related documents. Validated to exist.",
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+      }
+    },
+    "order": {
+      "description": "Sort position within its section. Ordering is otherwise undefined, so every document should set one. Leave gaps of 10 to allow insertion.",
+      "type": "integer",
+      "minimum": 0
+    },
+    "enforceable": {
+      "description": "Whether a machine could plausibly check conformance. Process and philosophy documents are false by definition: you cannot lint \"ask your team lead for access\".",
+      "type": "boolean"
+    },
+    "enforced_by": {
+      "description": "Identifier of the rule that enforces this standard, once one exists. Only meaningful when enforceable is true.",
+      "type": "string",
+      "minLength": 3
+    },
+    "superseded_by": {
+      "description": "Id of the document replacing this one. Required when status is superseded.",
+      "type": "string",
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": { "status": { "const": "superseded" } },
+        "required": ["status"]
+      },
+      "then": { "required": ["superseded_by"] }
+    },
+    {
+      "if": {
+        "properties": { "enforceable": { "const": false } },
+        "required": ["enforceable"]
+      },
+      "then": {
+        "not": { "required": ["enforced_by"] }
+      }
+    }
+  ]
+}

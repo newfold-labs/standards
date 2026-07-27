@@ -1,0 +1,227 @@
+---
+id: worker-cloudflare
+title: Cloudflare Workers
+summary: KV, Workers AI and the Vitest setup we use for edge workers
+status: active
+applies_to: [worker]
+tags: [cloudflare, workers, kv, vitest, edge]
+related: [general-testing, general-naming-projects]
+order: 10
+enforceable: false
+---
+
+We leverage [Cloudflare Workers](https://developers.cloudflare.com/workers/) for
+a variety of tasks that we want to run on the edge.
+
+## Quick reference
+
+The following command line snippets assume you have
+[Wrangler](https://developers.cloudflare.com/workers/wrangler/) installed and
+connected to your Cloudflare account.
+
+### Cloudflare Workers KV
+
+Cloudflare has a key-value store that can be used to store data that can be
+accessed by workers. This is an easy way to read and write data without the
+overhead of a database.
+
+### Creating a key-value namespace
+
+To create a new key-value namespace, run the following command:
+
+```shell
+wrangler kv namespace create <YOUR_NAMESPACE>
+```
+
+After running this, you'll want to bind your namespace to your worker. This is
+done in the `wrangler.toml` file.
+
+```toml
+kv-namespaces = [
+  { binding = "<YOUR_NAMESPACE>", id = "<YOUR_NAMESPACE_ID>" }
+]
+```
+
+You'll also most likely want to create a preview namespace for local development.
+Simply add the `--preview` flag to the `create` command:
+
+```shell
+wrangler kv namespace create <YOUR_NAMESPACE> --preview
+```
+
+Then add the preview namespace to your `wrangler.toml` file:
+
+```toml
+kv-namespaces = [
+  { binding = "<YOUR_NAMESPACE>", id = "<YOUR_NAMESPACE_ID>", preview_id = "<YOUR_NAMESPACE_ID_PREVIEW>" }
+]
+```
+
+### Reading and writing to KV
+
+With Wrangler:
+_To use the preview environment, add `--preview` to the command._
+
+```shell
+# Read from KV
+wrangler kv key get --binding=YOUR_NAMESPACE "some-key"
+
+# Write to KV
+wrangler kv key put --binding=YOUR_NAMESPACE "some-key" "some-value"
+```
+
+In your worker code:
+_Your worker will automatically use the preview environment when running locally,
+but you can use the normal environment by adding the `--remote` flag when running
+`wrangler dev`._
+
+```javascript
+// Read from KV
+const value = await env.MY_NAMESPACE.get('some-key');
+
+// Write to KV
+await env.MY_NAMESPACE.put('some-key', 'some-value');
+```
+
+### Workers AI
+
+Workers AI easily lets you use a
+[variety of AI models](https://developers.cloudflare.com/workers-ai/models/) in
+your code.
+
+### Adding Workers AI to your worker
+
+Simply add the following to your `wrangler.toml` file:
+
+```toml
+[ai]
+binding = "AI"
+```
+
+Then, in your worker code:
+
+```javascript
+const response = await env.AI.run('<some-model>', {
+  prompt: 'Write a haiku about WordPress',
+});
+```
+
+### Testing workers
+
+You can use the
+[Workers Vitest integration](https://developers.cloudflare.com/workers/testing/vitest-integration/get-started/)
+to easily add automated tests to your worker.
+
+#### Getting started
+
+Add the dependencies to your project:
+_Note: check the
+[Cloudflare Workers Vitest integration docs](https://developers.cloudflare.com/workers/testing/vitest-integration/get-started/write-your-first-test/)
+for the latest compatible version of `vitest`._
+
+```shell
+npm install vitest --save-dev
+npm install @cloudflare/vitest-pool-workers --save-dev
+```
+
+Then create a `vitest.config.js` file in your project root:
+
+```javascript
+import { cloudflareTest } from '@cloudflare/vitest-pool-workers';
+import { defineConfig } from 'vitest/config';
+
+export default defineConfig({
+  plugins: [
+    cloudflareTest({
+      singleWorker: true,
+      wrangler: { configPath: './wrangler.toml' },
+    }),
+  ],
+});
+```
+
+Finally, write your tests in a `test` directory in your project root:
+
+```javascript
+import { env } from "cloudflare:workers";
+import {
+  createExecutionContext,
+  waitOnExecutionContext,
+} from "cloudflare:test";
+import { describe, it, expect } from "vitest";
+// Import your worker so you can unit test it
+import worker from "../src";
+
+// For now, you'll need to do something like this to get a correctly-typed
+// `Request` to pass to `worker.fetch()`.
+const IncomingRequest = Request;
+
+describe("Hello World worker", () => {
+  it("responds with Hello World!", async () => {
+    const request = new IncomingRequest("http://example.com/404");
+    // Create an empty context to pass to `worker.fetch()`
+    const ctx = createExecutionContext();
+    const response = await worker.fetch(request, env, ctx);
+    // Wait for all `Promise`s passed to `ctx.waitUntil()` to settle before running test assertions
+    await waitOnExecutionContext(ctx);
+    expect(response.status).toBe(404);
+    expect(await response.text()).toBe("Not found");
+  });
+});
+```
+
+#### Tests with Workers KV
+
+```javascript
+import { SELF } from 'cloudflare:test';
+import { it } from 'vitest';
+
+it('stores in KV namespace', async ({ expect }) => {
+  let response = await SELF.fetch('https://example.com/kv/key', {
+    method: 'PUT',
+    body: 'value',
+  });
+  expect(response.status).toBe(204);
+
+  response = await SELF.fetch('https://example.com/kv/key');
+  expect(response.status).toBe(200);
+  expect(await response.text()).toBe('value');
+});
+```
+
+#### Testing with multiple workers
+
+[Testing with multiple workers](https://github.com/cloudflare/workers-sdk/tree/main/fixtures/vitest-pool-workers-examples/multiple-workers)
+is a bit more complex, as you can only read the `wrangler.toml` file for one
+worker at a time. You'll need to scaffold out the options for each worker in your
+`vitest.config.js` file:
+
+```javascript
+import { cloudflareTest } from '@cloudflare/vitest-pool-workers';
+import { defineConfig } from 'vitest/config';
+
+export default defineConfig({
+  plugins: [
+    cloudflareTest({
+      singleWorker: true,
+      wrangler: { configPath: './wrangler.toml' },
+      miniflare: {
+        workers: [
+          {
+            name: '<your-worker-name>',
+            modules: true,
+            scriptPath: './<your-worker-name>/index.js',
+            compatibilityDate: '2024-01-01',
+            compatibilityFlags: ['nodejs_compat'],
+          },
+        ],
+      },
+    }),
+  ],
+});
+```
+
+## Secrets
+
+Secrets live in Wrangler vars, not in the repository. Never commit a worker
+secret, and never deploy from a local machine when a workflow can do it.

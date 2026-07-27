@@ -1,0 +1,120 @@
+title: Newfold Labs Standards
+description: How we build software at Newfold Labs, organised by scope with machine-readable metadata on every standard.
+lang: en-US
+
+url: https://newfold-labs.github.io
+baseurl: /standards
+repository_url: https://github.com/newfold-labs/standards
+
+theme: jekyll-theme-cayman
+
+plugins:
+  - jekyll-seo-tag
+  - jekyll-relative-links
+  - jekyll-redirect-from
+  - jekyll-sitemap
+
+# Rewrites relative .md links to built URLs. The classic GitHub Pages build
+# enabled this for us; a custom build has to ask for it.
+relative_links:
+  enabled: true
+  collections: false
+
+# The content tiers, in nav order. Everything that renders the index or the
+# nav reads this list, so adding a tier is a config change, not a template one.
+sections:
+  - key: general
+    title: General
+    blurb: Standards that hold regardless of platform or artifact type.
+  - key: platform
+    title: Platform
+    blurb: Standards for a specific technology, applying across everything we build on it.
+  - key: artifacts
+    title: Artifacts
+    blurb: Standards for a specific kind of thing we ship.
+  - key: process
+    title: Process
+    blurb: How we work together. Judgement and coordination, not lintable rules.
+  - key: meta
+    title: Meta
+    blurb: How this repository itself works.
+
+# The artifact types `applies_to` can name, used to build the by-artifact index.
+artifact_types:
+  - key: plugin
+    title: Plugins
+  - key: theme
+    title: Themes
+  - key: module
+    title: Modules
+  - key: worker
+    title: Workers
+  - key: service
+    title: Services
+
+# rules/ holds machine-readable rule definitions. Jekyll would read the leading
+# `---` of a YAML file as front matter and mangle it, so it stays out entirely.
+# schema/ is deliberately not excluded: the JSON Schema is published alongside
+# the site so tooling in other repositories can fetch it.
+exclude:
+  - rules/
+  - scripts/
+  - node_modules/
+  - vendor/
+  - package.json
+  - package-lock.json
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - CONTRIBUTING.md
+
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: doc
+  - scope:
+      path: general
+    values:
+      section: general
+  - scope:
+      path: platform
+    values:
+      section: platform
+  - scope:
+      path: platform/wordpress
+    values:
+      section: platform
+      group: WordPress
+  - scope:
+      path: artifacts
+    values:
+      section: artifacts
+  - scope:
+      path: artifacts/plugin
+    values:
+      section: artifacts
+      group: Plugins
+  - scope:
+      path: artifacts/theme
+    values:
+      section: artifacts
+      group: Themes
+  - scope:
+      path: artifacts/module
+    values:
+      section: artifacts
+      group: Modules
+  - scope:
+      path: artifacts/worker
+    values:
+      section: artifacts
+      group: Workers
+  - scope:
+      path: process
+    values:
+      section: process
+  - scope:
+      path: meta
+    values:
+      section: meta

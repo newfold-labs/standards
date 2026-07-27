@@ -1,0 +1,17 @@
+{
+  "name": "@newfold-labs/standards",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Validation tooling for the Newfold Labs standards repository.",
+  "license": "UNLICENSED",
+  "type": "module",
+  "scripts": {
+    "validate": "npm run validate:frontmatter && npm run validate:links",
+    "validate:frontmatter": "node scripts/validate-frontmatter.mjs",
+    "validate:links": "node scripts/check-links.mjs"
+  },
+  "devDependencies": {
+    "ajv": "^8.17.1",
+    "gray-matter": "^4.0.3"
+  }
+}

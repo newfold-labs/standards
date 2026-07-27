@@ -1,0 +1,43 @@
+{%- comment -%}
+Navigation, generated from front matter. Nothing here is hand-maintained: a new
+document appears once it has a `section` (injected by _config.yml defaults from
+its directory) and an `order`.
+
+Deprecated and superseded documents drop out of nav by design. They stay
+reachable by direct link so citations do not rot.
+{%- endcomment -%}
+<nav class="doc-nav" aria-label="Standards">
+  {%- for s in site.sections -%}
+    {%- assign docs = site.pages
+          | where: "section", s.key
+          | where_exp: "d", "d.status != 'deprecated' and d.status != 'superseded'"
+          | sort: "order" -%}
+    {%- if docs.size > 0 -%}
+  <div class="doc-nav__section">
+    <p class="doc-nav__heading">{{ s.title }}</p>
+      {%- assign groups = docs | map: "group" | compact | uniq -%}
+      {%- if groups.size == 0 -%}
+    <ul>
+        {%- for doc in docs -%}
+      <li{% if doc.url == page.url %} class="is-current"{% endif %}>
+        <a href="{{ doc.url | relative_url }}" title="{{ doc.summary }}">{{ doc.title }}</a>
+      </li>
+        {%- endfor -%}
+    </ul>
+      {%- else -%}
+        {%- for g in groups -%}
+    <p class="doc-nav__group">{{ g }}</p>
+    <ul>
+          {%- assign in_group = docs | where: "group", g -%}
+          {%- for doc in in_group -%}
+      <li{% if doc.url == page.url %} class="is-current"{% endif %}>
+        <a href="{{ doc.url | relative_url }}" title="{{ doc.summary }}">{{ doc.title }}</a>
+      </li>
+          {%- endfor -%}
+    </ul>
+        {%- endfor -%}
+      {%- endif -%}
+  </div>
+    {%- endif -%}
+  {%- endfor -%}
+</nav>
