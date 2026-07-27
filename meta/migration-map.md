@@ -24,7 +24,7 @@ site.
 | Old file | New location |
 | --- | --- |
 | `README.md` | Generated index |
-| `0-SCRATCH.md` | Not migrated, converted to issues |
+| `0-SCRATCH.md` | Not migrated, its TODOs are listed below |
 | `1-intro.md` | [general/introduction.md](../general/introduction.md) |
 | `2-standards.md` | Merged into [general/introduction.md](../general/introduction.md) |
 | `3-naming.md` | [general/naming.md](../general/naming.md) |
@@ -41,7 +41,7 @@ site.
 | `5.4-wordpress-js.md` | [platform/wordpress/javascript.md](../platform/wordpress/javascript.md) |
 | `5.5-wordpress-security.md` | [platform/wordpress/security.md](../platform/wordpress/security.md) |
 | `5.6-wordpress-interfaces.md` | [platform/wordpress/interfaces.md](../platform/wordpress/interfaces.md) |
-| `5.7-wordpress-editor-and-blocks.md` | Not migrated, the file was empty. Tracked as an issue |
+| `5.7-wordpress-editor-and-blocks.md` | Not migrated, the file was empty |
 | `5.8-wordpress-performance.md` | [platform/wordpress/performance.md](../platform/wordpress/performance.md) |
 | `5.9-wp-i18n.md` | [platform/wordpress/i18n.md](../platform/wordpress/i18n.md) |
 | `5.10-wp-cli.md` | [platform/wordpress/wp-cli.md](../platform/wordpress/wp-cli.md) |
@@ -131,8 +131,28 @@ without reliable way to predic", which was dropped rather than guessed at.
 
 **`5.10-wp-cli.md` marked draft.** It ends with an empty "Custom WP-CLI Commands"
 heading. Rather than migrate an unfinished document as though it were settled, it
-carries `status: draft` and an issue tracks writing it.
+carries `status: draft` and is listed below.
 
 **Theme standards stubbed.** No theme-specific content ever existed.
 [artifacts/theme/structure.md](../artifacts/theme/structure.md) is a draft stub
 listing what needs writing, so every artifact type has a home.
+
+## Content still to be written
+
+`0-SCRATCH.md` in how-we-work was an untracked TODO list. It was not migrated,
+but the gaps it named are real and are recorded here so they are not lost a
+second time. Nothing below is tracked as an issue yet.
+
+| Gap | Where it would live | Origin |
+| --- | --- | --- |
+| Privacy standards | `general/` | `0-SCRATCH.md` TODO |
+| Documentation standards | `general/` | `0-SCRATCH.md` TODO |
+| Laravel standards | `platform/laravel/` | `0-SCRATCH.md` TODO, and `6-laravel.md` deleted in 2022 while still linked |
+| Serverless function standards | `artifacts/` | `0-SCRATCH.md` TODO |
+| WordPress editor and blocks | `platform/wordpress/` | `5.7` existed as a 0-byte file, plus a `0-SCRATCH.md` enhance item |
+| Deeper WordPress JavaScript standards | [platform/wordpress/javascript.md](../platform/wordpress/javascript.md) | `0-SCRATCH.md` enhance item |
+| Theme standards | [artifacts/theme/structure.md](../artifacts/theme/structure.md) | Never existed, stubbed as `draft` |
+| Custom WP-CLI commands | [platform/wordpress/wp-cli.md](../platform/wordpress/wp-cli.md) | Source ended on an empty heading, carried as `draft` |
+
+The two `draft` documents flip to `active` once written. The rest need an RFC
+first, per [contributing](contributing.md).
