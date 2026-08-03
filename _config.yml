@@ -6,8 +6,6 @@ url: https://newfold-labs.github.io
 baseurl: /standards
 repository_url: https://github.com/newfold-labs/standards
 
-theme: jekyll-theme-cayman
-
 plugins:
   - jekyll-seo-tag
   - jekyll-relative-links
@@ -29,9 +27,13 @@ sections:
   - key: platform
     title: Platform
     blurb: Standards for a specific technology, applying across everything we build on it.
+    # Group order within a section. Without this, groups appear in whatever order
+    # the first document of each happens to sort into, which is arbitrary.
+    groups: [WordPress]
   - key: artifacts
     title: Artifacts
     blurb: Standards for a specific kind of thing we ship.
+    groups: [Plugins, Themes, Modules, Workers]
   - key: process
     title: Process
     blurb: How we work together. Judgement and coordination, not lintable rules.
