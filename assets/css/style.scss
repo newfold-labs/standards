@@ -142,12 +142,21 @@ a {
 }
 
 .topbar__link {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.35rem;
 	color: var(--muted);
 	font-size: 0.85rem;
 
 	&:hover {
 		color: var(--accent);
 	}
+}
+
+// Tracks the link colour, including on hover.
+.topbar__icon {
+	flex: none;
+	fill: currentColor;
 }
 
 .topbar__toggle {
