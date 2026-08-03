@@ -210,17 +210,25 @@ a {
 	}
 }
 
+// Three levels live in this column: section, group, and document. Only the
+// documents are links, so the two labels are styled as labels (uppercase,
+// tracked, never full-strength text) and the links keep the body treatment.
+// Previously a group title was just slightly bolder text at nearly the same
+// size, which read as another entry in the list rather than a heading over it.
+
 .nav-section {
-	margin-bottom: 1.35rem;
+	margin-bottom: 1.5rem;
 }
 
 .nav-section__title {
-	margin: 0 0 0.4rem;
-	font-size: 0.7rem;
+	margin: 0 0 0.5rem;
+	padding-bottom: 0.3rem;
+	border-bottom: 1px solid var(--border);
+	font-size: 0.72rem;
 	font-weight: 700;
 	letter-spacing: 0.09em;
 	text-transform: uppercase;
-	color: var(--muted);
+	color: var(--text);
 }
 
 .nav-section__blurb {
@@ -230,18 +238,30 @@ a {
 	color: var(--muted);
 }
 
+.nav-group + .nav-group {
+	margin-top: 0.9rem;
+}
+
 .nav-group__title {
-	margin: 0.65rem 0 0.3rem;
+	margin: 0 0 0.25rem;
 	padding-left: 0.55rem;
-	font-size: 0.78rem;
-	font-weight: 600;
-	color: var(--text);
+	font-size: 0.67rem;
+	font-weight: 700;
+	letter-spacing: 0.07em;
+	text-transform: uppercase;
+	color: var(--muted);
 }
 
 .nav-list {
 	margin: 0;
 	padding: 0;
 	list-style: none;
+}
+
+// Indent a group's documents so the grouping survives without reading labels.
+.nav-group .nav-list {
+	margin-left: 0.55rem;
+	border-left: 1px solid var(--border);
 }
 
 .nav-list a {
@@ -308,9 +328,14 @@ a {
 	line-height: 1.3;
 }
 
+// The index puts an h3 directly above a grid of linked cards whose titles are
+// also bold. More size and weight, and more air above than below, keeps the
+// heading attached to the group it introduces.
 .content h3 {
-	margin: 1.9rem 0 0.5rem;
-	font-size: 1.1rem;
+	margin: 2.2rem 0 0.7rem;
+	font-size: 1.2rem;
+	font-weight: 700;
+	line-height: 1.3;
 }
 
 .content h4,
