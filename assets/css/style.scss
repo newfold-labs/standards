@@ -28,7 +28,12 @@ $topbar-height: 3.5rem;
 $sidebar-width: 17.5rem;
 $content-width: 46rem;
 
-:root {
+// Each theme is written once and applied twice: once for the system
+// preference, once for an explicit choice recorded on <html data-theme>.
+// The media query excludes the opposite override rather than relying on
+// source order, so choosing light on a dark-mode machine works as well as
+// the other way round.
+@mixin theme-light {
 	--bg: #{$bg};
 	--surface: #{$surface};
 	--text: #{$text};
@@ -38,20 +43,44 @@ $content-width: 46rem;
 	--accent: #{$accent};
 	--accent-strong: #{$accent-bright};
 	--shadow: rgba(27, 31, 36, 0.08);
+	--ok: #1a7f37;
+	--warn: #9a6700;
+	--bad: #cf222e;
+	color-scheme: light;
+}
+
+@mixin theme-dark {
+	--bg: #{$bg-dark};
+	--surface: #{$surface-dark};
+	--text: #{$text-dark};
+	--muted: #{$muted-dark};
+	--border: #{$border-dark};
+	--code-bg: #{$code-bg-dark};
+	--accent: #{$accent-dark};
+	--accent-strong: #{$accent-dark};
+	--shadow: rgba(0, 0, 0, 0.4);
+	--ok: #3fb950;
+	--warn: #d29922;
+	--bad: #f85149;
+	color-scheme: dark;
+}
+
+:root {
+	@include theme-light;
 }
 
 @media (prefers-color-scheme: dark) {
-	:root {
-		--bg: #{$bg-dark};
-		--surface: #{$surface-dark};
-		--text: #{$text-dark};
-		--muted: #{$muted-dark};
-		--border: #{$border-dark};
-		--code-bg: #{$code-bg-dark};
-		--accent: #{$accent-dark};
-		--accent-strong: #{$accent-dark};
-		--shadow: rgba(0, 0, 0, 0.4);
+	:root:not([data-theme="light"]) {
+		@include theme-dark;
 	}
+}
+
+:root[data-theme="dark"] {
+	@include theme-dark;
+}
+
+:root[data-theme="light"] {
+	@include theme-light;
 }
 
 *,
@@ -157,6 +186,60 @@ a {
 .topbar__icon {
 	flex: none;
 	fill: currentColor;
+}
+
+// Theme toggle. Both icons ship in the markup and CSS reveals the one for the
+// theme you would get by clicking, so the button reads as an action rather
+// than a status light.
+.topbar__theme {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 1.95rem;
+	height: 1.95rem;
+	padding: 0;
+	border: 1px solid var(--border);
+	border-radius: 6px;
+	background: var(--surface);
+	color: var(--muted);
+	cursor: pointer;
+
+	&:hover {
+		color: var(--accent);
+		border-color: var(--accent);
+	}
+
+	&:focus-visible {
+		outline: 2px solid var(--accent);
+		outline-offset: 1px;
+	}
+
+	svg {
+		width: 1rem;
+		height: 1rem;
+		fill: currentColor;
+	}
+
+	.icon-sun {
+		display: none;
+	}
+}
+
+@mixin theme-toggle-shows-sun {
+	.topbar__theme {
+		.icon-sun { display: block; }
+		.icon-moon { display: none; }
+	}
+}
+
+@media (prefers-color-scheme: dark) {
+	:root:not([data-theme="light"]) {
+		@include theme-toggle-shows-sun;
+	}
+}
+
+:root[data-theme="dark"] {
+	@include theme-toggle-shows-sun;
 }
 
 .topbar__toggle {
@@ -486,43 +569,27 @@ pre {
 	font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 }
 
+// Status colours read from the theme tokens, so the toggle switches them too
+// rather than leaving them pinned to the system preference.
 .chip--active {
-	border-color: #2da44e;
-	color: #1a7f37;
+	border-color: var(--ok);
+	color: var(--ok);
 }
 
 .chip--draft {
-	border-color: #bf8700;
-	color: #9a6700;
+	border-color: var(--warn);
+	color: var(--warn);
 }
 
 .chip--deprecated,
 .chip--superseded {
-	border-color: #cf222e;
-	color: #cf222e;
+	border-color: var(--bad);
+	color: var(--bad);
 }
 
 .chip--yes {
 	border-color: var(--accent);
 	color: var(--accent);
-}
-
-@media (prefers-color-scheme: dark) {
-	.chip--active {
-		border-color: #3fb950;
-		color: #3fb950;
-	}
-
-	.chip--draft {
-		border-color: #d29922;
-		color: #d29922;
-	}
-
-	.chip--deprecated,
-	.chip--superseded {
-		border-color: #f85149;
-		color: #f85149;
-	}
 }
 
 .doc-banner {
@@ -534,12 +601,12 @@ pre {
 	font-size: 0.9rem;
 
 	&--deprecated {
-		border-color: #cf222e;
+		border-color: var(--bad);
 		background: rgba(207, 34, 46, 0.07);
 	}
 
 	&--draft {
-		border-color: #bf8700;
+		border-color: var(--warn);
 		background: rgba(191, 135, 0, 0.09);
 	}
 }
