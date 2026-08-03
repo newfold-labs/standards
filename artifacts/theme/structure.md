@@ -32,4 +32,5 @@ What is missing and needs writing:
 * Which parts of the plugin distribution rules (`.distignore` and friends) carry
   over
 
-Writing this is tracked as an open issue against this repository.
+This sits alongside the rest of the outstanding content in
+[what still needs writing](../../meta/migration-map.md#content-still-to-be-written).

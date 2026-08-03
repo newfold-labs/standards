@@ -21,5 +21,7 @@ installations.
 
 ## Custom WP-CLI commands
 
-This section was never written. It is tracked as an open issue against this
-repository.
+This section was never written. The source document in how-we-work ended with
+this heading and nothing under it, so it is carried here as a draft rather than
+presented as a settled standard. See
+[what still needs writing](../../meta/migration-map.md#content-still-to-be-written).
