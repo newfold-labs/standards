@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" role="img" aria-label="Newfold">
+  <title>Newfold</title>
+  <!--
+    Traced from the brand mark. Four shapes with 180-degree rotational symmetry
+    about the centre: two orange strokes crossing, and the two grey arms that
+    complete the X. Brand colours are fixed, not themed, so the mark reads the
+    same on a light or a dark background.
+  -->
+  <g fill="#f27224">
+    <path d="M29.5 22.5H98.5L177.5 100L142.5 133.5Z"/>
+    <path d="M170.5 177.5H101.5L22.5 100L57.5 66.5Z"/>
+  </g>
+  <g fill="#939497">
+    <path d="M142.5 49.5L183.5 18.5V90.5Z"/>
+    <path d="M57.5 150.5L16.5 181.5V109.5Z"/>
+  </g>
+</svg>
