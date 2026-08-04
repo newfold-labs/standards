@@ -1,0 +1,62 @@
+{%- comment -%}
+One standard, as a card.
+
+It is an anchor, so the page is a working linked index with JavaScript off, it
+honours modifier-clicks, and it reads as a link to assistive technology.
+
+Both directions of the relationship are baked in here. `related` is what the
+document declares; `refs` is everyone who declares it. 33 of the 75
+relationships in this corpus are declared on one side only, so without the
+inbound half the atlas understates them by nearly half.
+{%- endcomment -%}
+{%- assign d = include.d -%}
+{%- assign all = include.all -%}
+
+{%- assign inbound = "" -%}
+{%- for o in all -%}
+  {%- if o.related contains d.id -%}
+    {%- assign inbound = inbound | append: o.id | append: "," -%}
+  {%- endif -%}
+{%- endfor -%}
+{%- assign inbound = inbound | split: "," -%}
+
+{%- comment -%}Unique link count, both directions, for the card footer.{%- endcomment -%}
+{%- assign linked = d.related | default: empty -%}
+{%- assign nlinks = linked.size -%}
+{%- for i in inbound -%}
+  {%- unless linked contains i -%}{%- assign nlinks = nlinks | plus: 1 -%}{%- endunless -%}
+{%- endfor -%}
+
+{%- if d.enforceable and d.enforced_by -%}
+  {%- assign mark = "check" -%}{%- assign markTitle = d.enforced_by -%}
+{%- elsif d.enforceable -%}
+  {%- assign mark = "soft" -%}{%- assign markTitle = "enforceable, no check yet" -%}
+{%- else -%}
+  {%- assign mark = "judge" -%}{%- assign markTitle = "needs judgement" -%}
+{%- endif -%}
+
+<a class="card" href="{{ d.url | relative_url }}"
+   id="card-{{ d.id }}"
+   data-id="{{ d.id }}"
+   data-title="{{ d.title | escape }}"
+   data-summary="{{ d.summary | escape }}"
+   data-section="{{ d.section }}"
+   data-group="{{ d.group }}"
+   data-status="{{ d.status }}"
+   data-binds="{{ d.applies_to | join: ',' }}"
+   data-enforced="{{ markTitle | escape }}"
+   data-tags="{{ d.tags | join: ' ' }}"
+   data-related="{{ d.related | join: ',' }}"
+   data-refs="{{ inbound | join: ',' }}"
+   data-search="{{ d.title | append: ' ' | append: d.summary | append: ' ' | append: d.id | append: ' ' | append: d.tags | join: ' ' | downcase | escape }}">
+  <span class="card__top">
+    <code class="card__id">{{ d.id }}</code>
+    <span class="card__mark card__mark--{{ mark }}" title="{{ markTitle }}"></span>
+  </span>
+  <span class="card__title">{{ d.title }}</span>
+  <span class="card__sum">{{ d.summary }}</span>
+  <span class="card__foot">
+    {%- if nlinks > 0 %}<span class="card__links">{{ nlinks }} linked</span>{% endif -%}
+    {%- if d.status != 'active' %}<span class="card__flag">{{ d.status }}</span>{% endif -%}
+  </span>
+</a>

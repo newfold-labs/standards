@@ -684,3 +684,935 @@ pre {
 	}
 }
 
+
+// Standards atlas -----------------------------------------------------------
+// A corpus you turn through a plate at a time, not a wall you scan.
+//
+// Three regions and one rule each. The left rail is the only thing that is
+// always the same, so it is the anchor. The middle shows one folder at a time,
+// so there is never more on screen than a person can take in. The right panel
+// is the payoff and only exists once you have chosen something.
+//
+// Depth is spent deliberately: cards lift, nothing else does. The five folder
+// colours identify a folder and tint its cards; the tangerine accent is kept
+// for the thing you are on right now, so "where am I" is never ambiguous.
+
+.atlas {
+	--rail: 15.5rem;
+	--panel: 22rem;
+	--top: 3.25rem;
+	--radius: 0.625rem;
+
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) 0fr;
+	grid-template-rows: var(--top) minmax(0, 1fr);
+	grid-template-areas: "top top" "stage panel";
+	height: 100%;
+	background: var(--surface);
+	transition: grid-template-columns 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.atlas.has-panel { grid-template-columns: minmax(0, 1fr) var(--panel); }
+
+// Section colour, resolved once and inherited. Anything inside a folder can
+// reach for var(--sec) without knowing which folder it is in.
+[data-section="general"] { --sec: var(--sec-general); }
+[data-section="platform"] { --sec: var(--sec-platform); }
+[data-section="artifacts"] { --sec: var(--sec-artifacts); }
+[data-section="process"] { --sec: var(--sec-process); }
+[data-section="meta"] { --sec: var(--sec-meta); }
+
+// ---- top bar ---------------------------------------------------------------
+
+.atlas__top {
+	grid-area: top;
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+	padding: 0 1rem;
+	background: var(--bg);
+	border-bottom: 1px solid var(--border);
+	min-width: 0;
+}
+
+.trail {
+	display: flex;
+	align-items: center;
+	gap: 0.4rem;
+	min-width: 0;
+	flex: 1 1 auto;
+	font-size: 0.8125rem;
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+.trail__root {
+	appearance: none;
+	background: none;
+	border: 0;
+	padding: 0;
+	font: inherit;
+	color: var(--muted);
+	cursor: pointer;
+
+	&:hover { color: var(--text); text-decoration: underline; }
+}
+
+.trail__sep { color: var(--border); }
+.trail__step { color: var(--muted); }
+.trail__step--quiet { color: var(--muted); opacity: 0.75; }
+
+.trail__step--now {
+	color: var(--text);
+	font-weight: 600;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+// search ---------------------------------------------------------------------
+
+.hunt {
+	position: relative;
+	display: flex;
+	align-items: center;
+	gap: 0.45rem;
+	flex: 0 1 22rem;
+	min-width: 9rem;
+	height: 2rem;
+	padding: 0 0.5rem 0 0.6rem;
+	background: var(--surface);
+	border: 1px solid var(--border);
+	border-radius: 999px;
+	transition: border-color 0.15s, box-shadow 0.15s;
+
+	&:focus-within {
+		border-color: var(--accent);
+		box-shadow: 0 0 0 3px color-mix(in oklab, var(--accent) 18%, transparent);
+	}
+}
+
+.hunt__icon { flex: none; fill: var(--muted); }
+
+.hunt__input {
+	flex: 1 1 auto;
+	min-width: 0;
+	appearance: none;
+	background: none;
+	border: 0;
+	padding: 0;
+	font: inherit;
+	font-size: 0.8125rem;
+	color: var(--text);
+
+	&::placeholder { color: var(--muted); }
+	&:focus { outline: 0; }
+	&::-webkit-search-cancel-button { display: none; }
+	&:focus + .hunt__key { opacity: 0; }
+}
+
+.hunt__key {
+	flex: none;
+	font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, monospace;
+	font-size: 0.6875rem;
+	line-height: 1;
+	padding: 0.2rem 0.35rem;
+	color: var(--muted);
+	background: var(--bg);
+	border: 1px solid var(--border);
+	border-radius: 0.25rem;
+	transition: opacity 0.15s;
+}
+
+.hunt__list {
+	position: absolute;
+	top: calc(100% + 0.4rem);
+	left: 0;
+	right: 0;
+	z-index: 30;
+	margin: 0;
+	padding: 0.25rem;
+	list-style: none;
+	max-height: 60vh;
+	overflow-y: auto;
+	background: var(--bg);
+	border: 1px solid var(--border);
+	border-radius: 0.5rem;
+	box-shadow: 0 12px 32px var(--shadow);
+
+	&[hidden] { display: none; }
+	li.is-on .hunt__hit { background: var(--surface); }
+}
+
+.hunt__hit {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	width: 100%;
+	padding: 0.4rem 0.5rem;
+	appearance: none;
+	background: none;
+	border: 0;
+	border-radius: 0.375rem;
+	font: inherit;
+	font-size: 0.8125rem;
+	text-align: left;
+	color: var(--text);
+	cursor: pointer;
+
+	&:hover { background: var(--surface); }
+	mark { background: color-mix(in oklab, var(--accent) 26%, transparent); color: inherit; border-radius: 2px; }
+}
+
+.hunt__dot {
+	flex: none;
+	width: 7px;
+	height: 7px;
+	border-radius: 50%;
+	background: var(--sec, var(--muted));
+}
+
+.hunt__name {
+	flex: 1 1 auto;
+	min-width: 0;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.hunt__where { flex: none; font-size: 0.6875rem; color: var(--muted); }
+
+.hunt__id {
+	flex: none;
+	font-size: 0.6875rem;
+	color: var(--muted);
+	background: var(--code-bg);
+	padding: 0.1rem 0.3rem;
+	border-radius: 0.25rem;
+}
+
+.hunt__none { padding: 0.6rem; font-size: 0.8125rem; color: var(--muted); }
+
+.tally {
+	flex: none;
+	margin: 0;
+	font-size: 0.75rem;
+	color: var(--muted);
+	font-variant-numeric: tabular-nums;
+	white-space: nowrap;
+}
+
+// ---- stage -----------------------------------------------------------------
+
+.stage {
+	grid-area: stage;
+	position: relative;
+	display: grid;
+	grid-template-columns: var(--rail) minmax(0, 1fr);
+	min-height: 0;
+	min-width: 0;
+}
+
+.wire {
+	position: absolute;
+	inset: 0;
+	z-index: 1;
+	pointer-events: none;
+	opacity: 0;
+	transition: opacity 0.3s;
+
+	path {
+		stroke: var(--sec, var(--accent));
+		stroke-width: 1.5;
+		stroke-linecap: round;
+		opacity: 0.5;
+	}
+}
+
+// ---- folder rail -----------------------------------------------------------
+
+.lane {
+	display: flex;
+	flex-direction: column;
+	gap: 0.375rem;
+	padding: 0.875rem 0.75rem;
+	overflow-y: auto;
+	border-right: 1px solid var(--border);
+	background: var(--bg);
+}
+
+.tile {
+	position: relative;
+	display: grid;
+	grid-template-columns: 1.375rem minmax(0, 1fr) auto;
+	grid-template-areas: "key name count" ". blurb blurb";
+	align-items: center;
+	gap: 0.15rem 0.5rem;
+	padding: 0.6rem 0.7rem;
+	border: 1px solid transparent;
+	border-radius: var(--radius);
+	color: var(--text);
+	text-decoration: none;
+	cursor: pointer;
+	transition: background 0.15s, border-color 0.15s, transform 0.15s;
+
+	&:hover {
+		background: var(--surface);
+		text-decoration: none;
+	}
+
+	&:focus-visible {
+		outline: 2px solid var(--accent);
+		outline-offset: 1px;
+	}
+}
+
+.tile.is-on {
+	background: color-mix(in oklab, var(--sec) 12%, var(--bg));
+	border-color: color-mix(in oklab, var(--sec) 42%, transparent);
+}
+
+.tile__key {
+	grid-area: key;
+	display: grid;
+	place-items: center;
+	width: 1.25rem;
+	height: 1.25rem;
+	font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, monospace;
+	font-size: 0.6875rem;
+	color: var(--muted);
+	background: var(--code-bg);
+	border-radius: 0.3125rem;
+	transition: background 0.15s, color 0.15s;
+}
+
+.tile.is-on .tile__key {
+	background: var(--sec);
+	color: #fff;
+}
+
+.tile__name {
+	grid-area: name;
+	font-size: 0.875rem;
+	font-weight: 600;
+	line-height: 1.3;
+}
+
+.tile__count {
+	grid-area: count;
+	font-size: 0.6875rem;
+	color: var(--muted);
+	font-variant-numeric: tabular-nums;
+}
+
+.tile__blurb {
+	grid-area: blurb;
+	font-size: 0.6875rem;
+	line-height: 1.4;
+	color: var(--muted);
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+}
+
+.key {
+	margin-top: auto;
+	padding-top: 1rem;
+
+	p {
+		display: flex;
+		align-items: center;
+		gap: 0.45rem;
+		margin: 0 0 0.25rem;
+		padding-left: 0.15rem;
+		font-size: 0.6875rem;
+		line-height: 1.4;
+		color: var(--muted);
+	}
+
+	.card__mark { margin-left: 0; }
+}
+
+.key__title {
+	padding-top: 0.75rem;
+	border-top: 1px solid var(--border);
+	font-weight: 600;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+}
+
+// ---- branches --------------------------------------------------------------
+
+.branches {
+	position: relative;
+	z-index: 2;
+	overflow-y: auto;
+	// no padding at the top: the sticky folder heading supplies its own, so its
+	// background reaches the edge of the scrollport and cards pass cleanly
+	// underneath it
+	padding: 0 1.5rem 3.5rem;
+	min-width: 0;
+}
+
+// Without JavaScript every folder is on the page, stacked, which is a complete
+// linked index. The moment the script runs, one folder shows at a time.
+.atlas.is-live .branch { display: none; }
+.atlas.is-live .branch.is-on { display: block; }
+
+.branch + .branch { margin-top: 2.5rem; }
+
+// Sticky, so a long folder never leaves you wondering which one you are in,
+// and so the connector from the rail always has something to land on.
+.branch__head {
+	position: sticky;
+	top: 0;
+	z-index: 3;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: baseline;
+	gap: 0.25rem 0.75rem;
+	padding: 1.25rem 0 0.75rem;
+	margin: 0 0 1rem;
+	border-bottom: 1px solid var(--border);
+	background: var(--surface);
+}
+
+.branch__title {
+	margin: 0;
+	font-size: 1.0625rem;
+	font-weight: 650;
+	letter-spacing: -0.01em;
+	color: var(--text);
+}
+
+.branch__blurb {
+	margin: 0;
+	font-size: 0.8125rem;
+	color: var(--muted);
+}
+
+.twig {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	margin: 1.75rem 0 0.75rem;
+	font-size: 0.6875rem;
+	font-weight: 600;
+	letter-spacing: 0.07em;
+	text-transform: uppercase;
+	color: var(--muted);
+
+	&::after {
+		content: "";
+		flex: 1 1 auto;
+		height: 1px;
+		background: var(--border);
+	}
+
+	&:first-of-type { margin-top: 0.25rem; }
+}
+
+.twig__name { position: relative; padding-left: 0.75rem; }
+
+.twig__name::before {
+	content: "";
+	position: absolute;
+	left: 0;
+	top: 50%;
+	width: 5px;
+	height: 5px;
+	margin-top: -2.5px;
+	border-radius: 50%;
+	background: var(--sec, var(--muted));
+}
+
+.twig__count {
+	font-size: 0.625rem;
+	letter-spacing: 0;
+	color: var(--muted);
+	background: var(--code-bg);
+	padding: 0.05rem 0.35rem;
+	border-radius: 999px;
+}
+
+// ---- cards -----------------------------------------------------------------
+
+.cards {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(15.5rem, 1fr));
+	gap: 0.75rem;
+}
+
+.card {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	gap: 0.3rem;
+	padding: 0.75rem 0.85rem 0.7rem;
+	background: var(--bg);
+	border: 1px solid var(--border);
+	border-radius: var(--radius);
+	color: var(--text);
+	text-decoration: none;
+	cursor: pointer;
+	overflow: hidden;
+	transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s, opacity 0.2s;
+
+	// the folder stripe: identity without painting the whole card
+	&::before {
+		content: "";
+		position: absolute;
+		left: 0;
+		top: 0;
+		bottom: 0;
+		width: 3px;
+		background: var(--sec, var(--border));
+		opacity: 0.75;
+		transition: opacity 0.15s, width 0.15s;
+	}
+
+	&:hover {
+		text-decoration: none;
+		border-color: color-mix(in oklab, var(--sec) 45%, var(--border));
+		box-shadow: 0 6px 18px var(--shadow);
+		transform: translateY(-2px);
+	}
+
+	&:hover::before { opacity: 1; }
+
+	&:focus-visible {
+		outline: 2px solid var(--accent);
+		outline-offset: 2px;
+	}
+}
+
+.card__top {
+	display: flex;
+	align-items: center;
+	gap: 0.4rem;
+}
+
+.card__id {
+	font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, monospace;
+	font-size: 0.6875rem;
+	color: var(--muted);
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.card__mark {
+	flex: none;
+	margin-left: auto;
+	width: 7px;
+	height: 7px;
+	border-radius: 50%;
+}
+
+.card__mark--check { background: var(--ok); }
+.card__mark--soft { background: var(--warn); }
+
+.card__mark--judge {
+	background: none;
+	border: 1px solid var(--muted);
+	opacity: 0.65;
+}
+
+.card__title {
+	font-size: 0.875rem;
+	font-weight: 600;
+	line-height: 1.35;
+	letter-spacing: -0.005em;
+}
+
+.card__sum {
+	font-size: 0.75rem;
+	line-height: 1.5;
+	color: var(--muted);
+	display: -webkit-box;
+	-webkit-line-clamp: 3;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+}
+
+.card__foot {
+	display: flex;
+	align-items: center;
+	gap: 0.4rem;
+	margin-top: 0.15rem;
+	min-height: 1rem;
+}
+
+.card__links,
+.card__flag {
+	font-size: 0.625rem;
+	letter-spacing: 0.04em;
+	text-transform: uppercase;
+	padding: 0.1rem 0.35rem;
+	border-radius: 999px;
+}
+
+.card__links {
+	color: var(--muted);
+	background: var(--code-bg);
+}
+
+.card__flag {
+	color: var(--warn);
+	background: color-mix(in oklab, var(--warn) 16%, transparent);
+	font-weight: 600;
+}
+
+// The one you are on. A 1px border and nothing doubling it: the lift, the left
+// stripe, and everything else stepping back already say which card is open, so
+// a ring on top of the border only reads as a heavy outline.
+.card.is-open {
+	border-color: var(--accent);
+	box-shadow: 0 6px 18px var(--shadow);
+	transform: translateY(-2px);
+}
+
+.card.is-open::before { width: 3px; background: var(--accent); opacity: 1; }
+.card.is-open .card__title { color: var(--text); }
+
+// its neighbours, and everything else stepped back so they read
+.card.is-linked {
+	border-color: color-mix(in oklab, var(--sec) 60%, var(--border));
+	background: color-mix(in oklab, var(--sec) 7%, var(--bg));
+}
+
+.card.is-linked::before { opacity: 1; }
+
+.atlas.has-panel .card:not(.is-open):not(.is-linked) { opacity: 0.55; }
+.atlas.has-panel .card:not(.is-open):not(.is-linked):hover { opacity: 1; }
+
+// The folder you just picked arrives rather than blinking into place. One
+// short, cheap transform, and it never runs under reduced motion.
+@keyframes branch-in {
+	from { opacity: 0; transform: translateY(6px); }
+	to { opacity: 1; transform: none; }
+}
+
+.branch.is-fresh .branch__head,
+.branch.is-fresh .twig,
+.branch.is-fresh .cards {
+	animation: branch-in 0.3s cubic-bezier(0.2, 0, 0.2, 1) both;
+}
+
+.branch.is-fresh .twig { animation-delay: 0.03s; }
+.branch.is-fresh .cards { animation-delay: 0.05s; }
+
+// ---- panel -----------------------------------------------------------------
+
+.panel {
+	grid-area: panel;
+	position: relative;
+	overflow-y: auto;
+	overflow-x: hidden;
+	background: var(--bg);
+	border-left: 1px solid var(--border);
+	opacity: 0;
+	visibility: hidden;
+	transition: opacity 0.2s;
+}
+
+.atlas.has-panel .panel {
+	opacity: 1;
+	visibility: visible;
+}
+
+.panel__body { padding: 1.125rem 1.25rem 3rem; }
+
+.panel__close {
+	position: absolute;
+	top: 0.6rem;
+	right: 0.7rem;
+	display: grid;
+	place-items: center;
+	width: 1.75rem;
+	height: 1.75rem;
+	appearance: none;
+	background: none;
+	border: 0;
+	border-radius: 0.375rem;
+	color: var(--muted);
+	cursor: pointer;
+
+	svg { fill: currentColor; }
+	&:hover { background: var(--surface); color: var(--text); }
+	&:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+}
+
+.panel__eyebrow {
+	display: flex;
+	align-items: center;
+	gap: 0.4rem;
+	margin: 0 2rem 0.4rem 0;
+	font-size: 0.6875rem;
+	letter-spacing: 0.05em;
+	text-transform: uppercase;
+	color: var(--muted);
+}
+
+.panel__dot {
+	width: 7px;
+	height: 7px;
+	border-radius: 50%;
+	background: var(--sec, var(--muted));
+}
+
+.panel__title {
+	margin: 0 0 0.4rem;
+	font-size: 1.125rem;
+	font-weight: 650;
+	line-height: 1.3;
+	letter-spacing: -0.01em;
+}
+
+.panel__summary {
+	margin: 0 0 0.9rem;
+	font-size: 0.8125rem;
+	line-height: 1.6;
+	color: var(--muted);
+}
+
+.panel__actions {
+	display: flex;
+	gap: 0.5rem;
+	margin: 0 0 1.1rem;
+}
+
+.btn {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.35rem;
+	padding: 0.4rem 0.75rem;
+	font-size: 0.8125rem;
+	font-weight: 500;
+	border: 1px solid var(--border);
+	border-radius: 0.4375rem;
+	color: var(--text);
+	background: var(--bg);
+	text-decoration: none;
+
+	svg { fill: currentColor; opacity: 0.7; }
+	&:hover { text-decoration: none; background: var(--surface); }
+	&:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+}
+
+.btn--primary {
+	background: var(--accent);
+	border-color: var(--accent);
+	color: #fff;
+
+	// The icon carries meaning here (it opens a tab), so it is not dimmed as
+	// far as a decorative one on a plain button.
+	svg { opacity: 0.85; }
+
+	&:hover { background: var(--accent-strong); border-color: var(--accent-strong); }
+}
+
+.panel__facts {
+	display: grid;
+	grid-template-columns: 4.75rem minmax(0, 1fr);
+	gap: 0.3rem 0.75rem;
+	margin: 0 0 1.25rem;
+	padding: 0.75rem 0;
+	border-top: 1px solid var(--border);
+	border-bottom: 1px solid var(--border);
+	font-size: 0.75rem;
+
+	dt { color: var(--muted); }
+	dd { margin: 0; overflow-wrap: anywhere; }
+	code { font-size: 0.75rem; background: var(--code-bg); padding: 0.05rem 0.3rem; border-radius: 0.25rem; }
+}
+
+.tag {
+	display: inline-block;
+	font-size: 0.6875rem;
+	color: var(--muted);
+	background: var(--code-bg);
+	padding: 0.05rem 0.35rem;
+	border-radius: 999px;
+}
+
+.panel__label {
+	display: flex;
+	align-items: center;
+	gap: 0.4rem;
+	margin: 0 0 0.4rem;
+	font-size: 0.6875rem;
+	font-weight: 600;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	color: var(--muted);
+
+	span {
+		font-size: 0.625rem;
+		letter-spacing: 0;
+		background: var(--code-bg);
+		padding: 0.05rem 0.35rem;
+		border-radius: 999px;
+	}
+}
+
+.refs {
+	margin: 0 0 1.1rem;
+	padding: 0;
+	list-style: none;
+}
+
+.ref {
+	display: flex;
+	align-items: center;
+	gap: 0.45rem;
+	width: 100%;
+	padding: 0.35rem 0.4rem;
+	appearance: none;
+	background: none;
+	border: 0;
+	border-radius: 0.375rem;
+	font: inherit;
+	font-size: 0.8125rem;
+	text-align: left;
+	color: var(--text);
+	cursor: pointer;
+
+	&:hover { background: var(--surface); }
+	&:focus-visible { outline: 2px solid var(--accent); outline-offset: -1px; }
+}
+
+.ref__dot {
+	flex: none;
+	width: 7px;
+	height: 7px;
+	border-radius: 50%;
+	background: var(--sec, var(--muted));
+}
+
+.ref__title {
+	flex: 1 1 auto;
+	min-width: 0;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.ref__where {
+	flex: none;
+	font-size: 0.625rem;
+	color: var(--muted);
+	background: var(--code-bg);
+	padding: 0.05rem 0.35rem;
+	border-radius: 999px;
+}
+
+.panel__note {
+	margin: 0;
+	padding: 0.6rem 0.7rem;
+	font-size: 0.75rem;
+	line-height: 1.55;
+	color: var(--muted);
+	background: var(--surface);
+	border-radius: 0.4375rem;
+}
+
+// ---- keyboard hints --------------------------------------------------------
+
+.atlas__hints {
+	position: absolute;
+	right: calc(var(--panel) + 1rem);
+	bottom: 0.75rem;
+	z-index: 5;
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	margin: 0;
+	padding: 0.3rem 0.6rem;
+	font-size: 0.6875rem;
+	color: var(--muted);
+	background: color-mix(in oklab, var(--bg) 88%, transparent);
+	backdrop-filter: blur(6px);
+	border: 1px solid var(--border);
+	border-radius: 999px;
+	pointer-events: none;
+	transition: right 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+
+	kbd {
+		font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, monospace;
+		font-size: 0.625rem;
+		padding: 0.05rem 0.3rem;
+		background: var(--code-bg);
+		border: 1px solid var(--border);
+		border-radius: 0.25rem;
+	}
+}
+
+.atlas:not(.has-panel) .atlas__hints { right: 1rem; }
+
+// ---- narrower --------------------------------------------------------------
+
+@media (max-width: 68rem) {
+	.atlas { --rail: 13rem; --panel: 20rem; }
+	.tile__blurb { display: none; }
+	.atlas__hints { display: none; }
+}
+
+@media (max-width: 54rem) {
+	// The panel stops being a column and becomes a sheet over the cards, so the
+	// cards never get squeezed to the point of being unreadable.
+	.atlas,
+	.atlas.has-panel {
+		grid-template-columns: minmax(0, 1fr);
+		grid-template-areas: "top" "stage";
+	}
+
+	.stage { grid-template-columns: 100%; grid-template-rows: auto minmax(0, 1fr); }
+
+	.lane {
+		flex-direction: row;
+		gap: 0.375rem;
+		overflow-x: auto;
+		border-right: 0;
+		border-bottom: 1px solid var(--border);
+		padding: 0.5rem 0.75rem;
+	}
+
+	.tile {
+		flex: none;
+		grid-template-columns: auto auto auto;
+		grid-template-areas: "key name count";
+		gap: 0.2rem 0.4rem;
+		padding: 0.4rem 0.6rem;
+	}
+
+	.key { display: none; }
+	.wire { display: none; }
+	.branches { padding: 1rem 1rem 3rem; }
+
+	.panel {
+		position: fixed;
+		top: auto;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		z-index: 40;
+		max-height: 72vh;
+		border-left: 0;
+		border-top: 1px solid var(--border);
+		border-radius: 0.875rem 0.875rem 0 0;
+		box-shadow: 0 -12px 32px var(--shadow);
+		transform: translateY(100%);
+		transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s;
+	}
+
+	.atlas.has-panel .panel { transform: none; }
+}
+
+@media (max-width: 40rem) {
+	.atlas__top { gap: 0.6rem; padding: 0 0.75rem; }
+	.trail { display: none; }
+	.hunt { flex: 1 1 auto; }
+	.tally { display: none; }
+	.cards { grid-template-columns: minmax(0, 1fr); }
+}
