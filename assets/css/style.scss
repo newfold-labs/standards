@@ -194,6 +194,112 @@ a {
 	fill: currentColor;
 }
 
+// The docs/atlas switch. A segmented control rather than two links, so which
+// view you are in is readable without reading the URL.
+.views {
+	display: flex;
+	gap: 2px;
+	padding: 2px;
+	border: 1px solid var(--border);
+	border-radius: 8px;
+	background: var(--code-bg);
+}
+
+.views__opt {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.35rem;
+	padding: 0.25rem 0.6rem;
+	border-radius: 6px;
+	color: var(--muted);
+	font-size: 0.8125rem;
+	line-height: 1.4;
+	white-space: nowrap;
+	transition: background 0.15s, color 0.15s;
+
+	svg { flex: none; fill: currentColor; }
+
+	&:hover {
+		color: var(--text);
+		text-decoration: none;
+	}
+
+	&.is-on {
+		color: var(--text);
+		background: var(--bg);
+		box-shadow: 0 1px 2px var(--shadow);
+		font-weight: 600;
+	}
+
+	&:focus-visible {
+		outline: 2px solid var(--accent);
+		outline-offset: 1px;
+	}
+}
+
+// The way into the atlas from the front page. One row, so it reads as a door
+// rather than a banner competing with the index below it.
+.atlas-cta {
+	display: flex;
+	align-items: center;
+	gap: 0.85rem;
+	margin: 1.5rem 0 0.5rem;
+	padding: 0.85rem 1rem;
+	border: 1px solid var(--border);
+	border-radius: 10px;
+	background: var(--surface);
+	color: var(--text);
+	transition: border-color 0.15s, background 0.15s, transform 0.15s;
+
+	&:hover {
+		text-decoration: none;
+		border-color: color-mix(in oklab, var(--accent) 55%, var(--border));
+		background: color-mix(in oklab, var(--accent) 5%, var(--surface));
+
+		.atlas-cta__go { transform: translateX(3px); color: var(--accent); }
+	}
+
+	&:focus-visible {
+		outline: 2px solid var(--accent);
+		outline-offset: 2px;
+	}
+}
+
+.atlas-cta__icon {
+	display: grid;
+	place-items: center;
+	flex: none;
+	width: 2.25rem;
+	height: 2.25rem;
+	border-radius: 8px;
+	background: color-mix(in oklab, var(--accent) 14%, transparent);
+	color: var(--accent);
+
+	svg { fill: currentColor; }
+}
+
+.atlas-cta__text {
+	flex: 1 1 auto;
+	min-width: 0;
+	font-size: 0.8125rem;
+	line-height: 1.5;
+	color: var(--muted);
+
+	b {
+		display: block;
+		font-size: 0.9375rem;
+		color: var(--text);
+	}
+}
+
+.atlas-cta__go {
+	flex: none;
+	color: var(--muted);
+	transition: transform 0.15s, color 0.15s;
+
+	svg { display: block; fill: currentColor; }
+}
+
 .topbar__toggle {
 	display: none;
 	padding: 0.3rem 0.6rem;
@@ -668,6 +774,20 @@ pre {
 	.topbar__sub {
 		display: none;
 	}
+}
+
+// On a phone the bar holds what you navigate with: the brand, the view switch,
+// and the repo. The machine-readable index is not one of those, and dropping it
+// is what keeps the brand on one line.
+@media (max-width: 34rem) {
+	.topbar {
+		gap: 0.6rem;
+		padding: 0 0.75rem;
+	}
+
+	.topbar__brand { white-space: nowrap; }
+	.topbar__link--extra { display: none; }
+	.views__opt { padding: 0.25rem 0.5rem; }
 }
 
 // Reduced motion -----------------------------------------------------------
