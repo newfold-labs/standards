@@ -14,6 +14,23 @@ answers cite, so a failure points at the exact standard behind it.
 This index and the navigation are generated from document metadata. Nothing on
 this page is hand-maintained.
 
+{%- assign live = site.pages
+      | where_exp: "d", "d.id"
+      | where_exp: "d", "d.status != 'deprecated' and d.status != 'superseded'" -%}
+
+<a class="atlas-cta" href="{{ '/atlas.html' | relative_url }}">
+  <span class="atlas-cta__icon" aria-hidden="true">
+    <svg viewBox="0 0 16 16" width="18" height="18" focusable="false"><rect x="1.5" y="1.5" width="5.5" height="5.5" rx="1.25"/><rect x="9" y="1.5" width="5.5" height="5.5" rx="1.25"/><rect x="1.5" y="9" width="5.5" height="5.5" rx="1.25"/><rect x="9" y="9" width="5.5" height="5.5" rx="1.25"/></svg>
+  </span>
+  <span class="atlas-cta__text">
+    <b>Open the atlas</b>
+    Browse all {{ live.size }} standards a folder at a time, and see what links to what.
+  </span>
+  <span class="atlas-cta__go" aria-hidden="true">
+    <svg viewBox="0 0 16 16" width="14" height="14" focusable="false"><path d="M8.22 2.97a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.749.749 0 0 1-1.275-.326.749.749 0 0 1 .215-.734L11.19 8.75H2.75a.75.75 0 0 1 0-1.5h8.44L8.22 4.03a.75.75 0 0 1 0-1.06Z"/></svg>
+  </span>
+</a>
+
 {% for s in site.sections %}
 {%- assign docs = site.pages
       | where: "section", s.key

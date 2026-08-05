@@ -1,0 +1,127 @@
+---
+layout: default
+title: Standards atlas
+description: Pick a folder, browse the standards in it, open one to see what it links to.
+permalink: /atlas.html
+fullscreen: true
+---
+{%- comment -%}
+Two moves and you are reading: pick a folder on the left, pick a card in the
+middle. The panel on the right is the third, optional move.
+
+Everything is server-rendered and every card is a real link, so with JavaScript
+off this page is a complete linked index of the corpus grouped by folder.
+JavaScript adds the navigation: it shows one folder at a time, draws the
+connector, and turns the search box into a jump.
+{%- endcomment -%}
+{%- assign all = site.pages
+      | where_exp: "d", "d.id"
+      | where_exp: "d", "d.status != 'deprecated' and d.status != 'superseded'" -%}
+
+<div class="atlas" id="atlas">
+
+  <header class="atlas__top">
+    <nav class="trail" id="trail" aria-label="Breadcrumb">
+      <button type="button" class="trail__root" data-goto-root>Standards</button>
+    </nav>
+
+    <div class="hunt" role="combobox" aria-expanded="false" aria-haspopup="listbox" aria-owns="hunt-list">
+      <svg class="hunt__icon" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" focusable="false"><path d="M10.68 11.74a6 6 0 0 1-7.922-8.982 6 6 0 0 1 8.982 7.922l3.04 3.04a.749.749 0 1 1-1.06 1.06ZM11.5 7a4.5 4.5 0 1 0-9 0 4.5 4.5 0 0 0 9 0Z"/></svg>
+      <input class="hunt__input" id="hunt-input" type="search" autocomplete="off"
+             placeholder="Search all {{ all.size }} standards" aria-controls="hunt-list" aria-autocomplete="list">
+      <kbd class="hunt__key">/</kbd>
+      <ul class="hunt__list" id="hunt-list" role="listbox" aria-label="Search results" hidden></ul>
+    </div>
+
+    <p class="tally">{{ all.size }} standards</p>
+  </header>
+
+  <div class="stage" id="stage">
+    {%- comment -%}
+    The connector between the chosen folder and its branch. Decorative: it
+    repeats a relationship the layout and the breadcrumb both already state.
+    {%- endcomment -%}
+    <svg class="wire" id="wire" aria-hidden="true" focusable="false"><path id="wire-path" fill="none"/></svg>
+
+    <nav class="lane" aria-label="Folders">
+      {%- for s in site.sections -%}
+        {%- assign n = all | where: "section", s.key -%}
+        {%- if n.size > 0 %}
+      <a class="tile" href="#branch-{{ s.key }}" id="tile-{{ s.key }}" data-section="{{ s.key }}">
+        <span class="tile__key" aria-hidden="true">{{ forloop.index }}</span>
+        <span class="tile__name">{{ s.title }}</span>
+        <span class="tile__blurb">{{ s.blurb }}</span>
+        <span class="tile__count">{{ n.size }}</span>
+      </a>
+        {%- endif -%}
+      {%- endfor -%}
+
+      {%- comment -%}
+      The dot in the corner of each card is the only notation on this page that
+      has to be taught, so the key stays on screen rather than hiding in a
+      tooltip.
+      {%- endcomment -%}
+      <div class="key">
+        <p class="key__title">Enforcement</p>
+        <p><span class="card__mark card__mark--check"></span> a check runs</p>
+        <p><span class="card__mark card__mark--soft"></span> checkable, none yet</p>
+        <p><span class="card__mark card__mark--judge"></span> needs judgement</p>
+      </div>
+    </nav>
+
+    <main class="branches" id="branches">
+      {%- for s in site.sections -%}
+        {%- assign docs = all | where: "section", s.key | sort: "order" -%}
+        {%- if docs.size > 0 %}
+      <section class="branch" id="branch-{{ s.key }}" data-section="{{ s.key }}">
+        <header class="branch__head">
+          <h1 class="branch__title">{{ s.title }}</h1>
+          <p class="branch__blurb">{{ s.blurb }}</p>
+        </header>
+
+        {%- assign subs = s.groups | default: nil -%}
+        {%- unless subs -%}{%- assign subs = docs | map: "group" | compact | uniq -%}{%- endunless -%}
+
+        {%- if subs.size == 0 %}
+        <div class="cards">
+          {%- for d in docs -%}{%- include atlas-card.html d=d all=all -%}{%- endfor -%}
+        </div>
+        {%- else -%}
+          {%- comment -%}
+          Every sub-group is labelled, including the three artifact groups that
+          hold a single document. Suppressing those reads as though the card
+          below belongs to the previous label.
+          {%- endcomment -%}
+          {%- for g in subs -%}
+            {%- assign in_group = docs | where: "group", g -%}
+            {%- if in_group.size > 0 %}
+        <p class="twig"><span class="twig__name">{{ g }}</span><span class="twig__count">{{ in_group.size }}</span></p>
+        <div class="cards">
+          {%- for d in in_group -%}{%- include atlas-card.html d=d all=all -%}{%- endfor -%}
+        </div>
+            {%- endif -%}
+          {%- endfor -%}
+        {%- endif %}
+      </section>
+        {%- endif -%}
+      {%- endfor %}
+    </main>
+  </div>
+
+  <aside class="panel" id="panel" aria-live="polite" aria-label="Standard detail">
+    <button type="button" class="panel__close" id="panel-close" aria-label="Close detail">
+      <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" focusable="false"><path d="M3.72 3.72a.75.75 0 0 1 1.06 0L8 6.94l3.22-3.22a.749.749 0 0 1 1.275.326.749.749 0 0 1-.215.734L9.06 8l3.22 3.22a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L8 9.06l-3.22 3.22a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042L6.94 8 3.72 4.78a.75.75 0 0 1 0-1.06Z"/></svg>
+    </button>
+    <div class="panel__body" id="panel-body"></div>
+  </aside>
+
+  <p class="atlas__hints" aria-hidden="true">
+    <kbd>1</kbd>&ndash;<kbd>5</kbd> folders
+    <kbd>/</kbd> search
+    <kbd>&larr;</kbd><kbd>&rarr;</kbd><kbd>&uarr;</kbd><kbd>&darr;</kbd> move
+    <kbd>Enter</kbd> open
+    <kbd>Esc</kbd> back
+  </p>
+</div>
+
+<script src="{{ '/assets/js/atlas.js' | relative_url }}" defer></script>
