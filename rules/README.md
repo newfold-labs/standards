@@ -7,9 +7,10 @@ This directory is **excluded from the Jekyll build** (see `exclude` in
 page whose front matter is the whole file, so Jekyll would parse a rule body as
 metadata and publish an empty page.
 
-It is deliberately empty of real rules. The format is fixed here so that the work
-of writing the lint configs has something to write against; populating it is
-separate work.
+The rules here cover the standards that the Newfold PHPCS standard already
+checks. Most `enforceable: true` documents still have no rule, which is the
+backlog rather than an oversight: a standard gets a rule when a check for it
+exists.
 
 The documented format lives at
 [meta/rules-format.md](../meta/rules-format.md), which is the version that

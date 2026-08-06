@@ -13,9 +13,9 @@ enforceable: false
 `rules/` holds machine-readable definitions linking a standard to the thing that
 checks it. A document says it is `enforceable`; a rule says how.
 
-The directory is deliberately empty of real rules for now. Populating it, and
-building the lint configs that consume it, is separate work. This document fixes
-the shape so that work has something to write against.
+A standard gets a rule when a check for it exists, so most `enforceable: true`
+documents still have none. That gap is the backlog, and it is meant to be
+visible.
 
 ## Why rules/ is excluded from the site
 
