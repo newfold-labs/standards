@@ -8,6 +8,7 @@ tags: [wordpress, php, phpcs, psr-4, autoloading]
 related: [wp-support-matrix, wp-security, wp-performance, general-naming-global-namespaces]
 order: 20
 enforceable: true
+enforced_by: wp-php-namespace-format
 ---
 
 WordPress has evolved a great deal since May 2003, both maintaining backwards

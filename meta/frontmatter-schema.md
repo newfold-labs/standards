@@ -34,7 +34,7 @@ tags: [wordpress, security, nonces, escaping]
 related: [wp-php, wp-performance]
 order: 40
 enforceable: true
-enforced_by: phpcs:Newfold.Security.NonceVerification
+enforced_by: wp-security-nonce-verification
 ---
 ```
 
@@ -51,7 +51,7 @@ enforced_by: phpcs:Newfold.Security.NonceVerification
 | `tags` | no | array | Lowercase kebab-case topic tags, for retrieval. |
 | `related` | no | array | Ids of related documents. Validated to exist. |
 | `order` | no by schema, yes in practice | integer | Sort position within the section. CI fails without one. |
-| `enforced_by` | no | string | Rule identifier, once a rule exists. |
+| `enforced_by` | no | string | The `id` of the rule in `rules/`, once one exists. |
 | `superseded_by` | conditional | string | Required when `status` is `superseded`. |
 
 `section`, `group` and `layout` also appear on every rendered page, but they are

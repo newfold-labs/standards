@@ -8,6 +8,7 @@ tags: [wordpress, hooks, naming, actions, filters]
 related: [wp-hooks, general-naming, general-naming-global-namespaces]
 order: 70
 enforceable: true
+enforced_by: wp-hooks-naming-hook-name-format
 ---
 
 A consistent naming convention for hooks is crucial when developing WordPress
