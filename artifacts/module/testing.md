@@ -75,6 +75,58 @@ npm run test:playwright   # npx playwright test
 npm run test:playwright:update-projects  # regenerate playwright-projects.json
 ```
 
+## CI workflows
+
+Playwright is wired into GitHub Actions at both the brand plugin and module level.
+These workflows use `wp-env` for the WordPress environment and `npx playwright test`
+for the test runner.
+
+### Brand plugin workflows
+
+Each brand plugin (for example `wp-plugin-bluehost`, `wp-plugin-hostgator`) defines
+workflows under `.github/workflows/`:
+
+| Workflow | File | When it runs | What it does |
+|----------|------|--------------|--------------|
+| **E2E / Playwright Tests** | `playwright-tests.yml` | Push to `main` / `develop`, PRs, manual | Builds a distribution copy of the plugin, starts `wp-env` with default PHP and WordPress versions from `.wp-env.json`, and runs the **full** Playwright suite — plugin specs plus every discovered module project. |
+| **Playwright Test Matrix** | `playwright-matrix.yml` | PRs, manual | Runs the full Playwright suite across the **supported PHP and WordPress version matrix** (PHP 7.4–8.4; WordPress 6.8, 6.9, 7.0). Each combination is a separate job; a summary job consolidates results. Dependabot PRs that do not touch `newfold-labs` packages may skip the matrix. |
+| **Playwright Tests in WordPress Beta** | `playwright-tests-beta.yml` | Weekly schedule, manual | Runs the full suite against the current WordPress beta release to catch upstream compatibility issues early. |
+
+Plugin workflows build the plugin the same way a release would (Composer production
+install, `npm run build`, rsync via `.distinclude` / `.distignore`), load it into
+`wp-env` via `.wp-env.override.json`, then discover and run module projects through
+`generate-playwright-projects.mjs`.
+
+### Module workflows
+
+Modules with Playwright tests include
+`.github/workflows/brand-plugin-test-playwright.yml`. On module PRs, this calls the
+shared reusable workflow
+[`module-plugin-test-playwright.yml`](https://github.com/newfold-labs/workflows/blob/main/.github/workflows/module-plugin-test-playwright.yml)
+in the `newfold-labs/workflows` repository.
+
+The module workflow:
+
+1. Checks out the brand plugin (typically `newfold-labs/wp-plugin-bluehost` on
+   `main`; some modules also test against `develop`).
+2. Reinstalls the **module from the PR branch** into `vendor/newfold-labs/` via
+   `composer reinstall`, so CI tests your changes before they are tagged.
+3. Builds the module (if it has a `package.json` build step) and the plugin.
+4. Starts `wp-env` with the built plugin and runs Playwright in two stages:
+   - **Module tests first** — `npm run test:playwright -- --project="<module-repo>"`
+     (for example `newfold-labs/wp-module-staging`) so failures in your specs surface
+     quickly.
+   - **Full suite** — `npm run test:playwright` runs plugin specs and **all other
+     module projects** to catch regressions where your change breaks another module's
+     tests or shared plugin behavior.
+
+The reusable workflow accepts an `only-module-tests` input to skip the full-suite
+stage when you only need isolated module coverage. By default, both stages run so
+module changes are validated in the same combined environment a brand plugin PR uses.
+
+Some modules test against multiple plugin branches (for example `main` and
+`develop`) via separate jobs in their `brand-plugin-test-playwright.yml`.
+
 ## Write tests any brand can run
 
 Do not hard-code a brand slug in URLs or expectations when the value is
