@@ -174,6 +174,27 @@ Moving tests into the module keeps them next to the code they verify and lets an
 brand plugin run them through a single shared helper layer. The long-term goal is
 module-level CI workflows that run e2e tests before tagging a release.
 
+## Legacy: Cypress tests
+
+Cypress is **legacy and no longer supported** for module or plugin e2e testing. Brand
+plugins no longer load or run Cypress specs in CI.
+
+If a module still has Cypress tests under `tests/cypress/` (typically
+`tests/cypress/integration/`), they must be migrated to Playwright under
+`tests/playwright/`. Do not add new Cypress tests or extend existing ones.
+
+When migrating:
+
+- Move specs to `tests/playwright/specs/` with a `*.spec.js` or `*.spec.mjs` name.
+- Replace `Cypress.env('pluginId')` with `process.env.PLUGIN_ID`.
+- Replace Cypress commands and intercepts with Playwright locators, `expect`, and
+  `page.route()`.
+- Import shared helpers from the brand plugin via the module helper pattern above
+  instead of Cypress-specific utilities.
+
+Remove Cypress config, dependencies, and the old `tests/cypress/` directory once the
+Playwright specs cover the same behavior.
+
 ## Learning resources
 
 - [Playwright documentation](https://playwright.dev/docs/intro) — getting started,
