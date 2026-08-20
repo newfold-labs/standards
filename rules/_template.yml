@@ -12,8 +12,8 @@ standard: example-standard-id
 # What the rule checks, phrased as the passing condition.
 title: Describe the state that passes, not the violation
 
-# error fails a build, warning does not.
-severity: error
+# warning unless the code cannot parse. See meta/rules-format.md.
+severity: warning
 
 # phpcs | eslint | structure | ...
 engine: phpcs
@@ -25,5 +25,8 @@ config:
 # Same vocabulary as document front matter.
 applies_to: [plugin, module]
 
-# Repository version that introduced this rule, used for baselining.
+# The package that ships the check, and the release of it that first did.
+# A repository pinned below that version cannot run this rule at all, which is a
+# different thing from failing it.
+package: newfold-labs/wp-php-standards
 introduced_in: 0.0.0

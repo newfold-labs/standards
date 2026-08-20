@@ -24,5 +24,6 @@ point.
    `true`. A rule against a `process/` document means one of the two is filed
    wrong.
 3. Set `enforced_by` in that document's front matter to your rule's `id`.
-4. Bump the **major** version. A new rule means a repository that passed before
-   can fail now.
+4. Set `package` and `introduced_in` to the release that ships the check. Write
+   the rule once that release exists: a rule pointing at a check nobody can run
+   yet says a standard is enforced when it is not.

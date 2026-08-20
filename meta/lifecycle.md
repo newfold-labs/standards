@@ -53,7 +53,8 @@ new document with the new id, mark the old one superseded, and point at it.
 
 ## Effect on enforcement
 
-Ruleset releases are gated on major versions of this repository. Deprecating an
-`enforceable` standard is a breaking change for anyone consuming the derived lint
-configs at a pinned version, which is exactly why it goes through
-[versioning](versioning.md) rather than landing quietly.
+Deprecating an `enforceable` standard retires the check that enforced it, which
+is a change to the enforcing package rather than to this repository. Retiring a
+check cannot fail a repository that passed before, so it is a minor release; the
+rule is removed from `rules/` in the same change. See
+[versioning and rollout](versioning.md).

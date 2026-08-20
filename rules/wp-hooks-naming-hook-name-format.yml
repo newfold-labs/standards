@@ -7,4 +7,5 @@ engine: phpcs
 config:
   sniff: Newfold.NamingConventions.ValidHookName
 applies_to: [plugin, theme, module]
-introduced_in: 0.1.0
+package: newfold-labs/wp-php-standards
+introduced_in: 2.0.0

@@ -1,60 +1,83 @@
 ---
 id: meta-versioning
-title: Versioning this repository
-summary: What a major, minor and patch release of the standards themselves mean
+title: Versioning and rollout
+summary: How a change to a standard reaches the repositories the standard applies to
 status: active
 applies_to: [any]
-tags: [meta, semver, versioning, governance]
-related: [meta-lifecycle, meta-contributing, general-releases]
+tags: [meta, semver, versioning, governance, rollout]
+related: [meta-lifecycle, meta-contributing, meta-rules-format, general-releases]
 order: 40
 enforceable: false
 ---
 
-This repository is versioned with [semantic versioning](https://semver.org/), the
-same as everything else we ship. That is not ceremony: derived lint configs are
-consumed at pinned versions, so "the standards changed" has to be something a
-consuming repository can see coming.
+This repository is not versioned. It publishes to GitHub Pages from `main`, so
+what the site shows is what the standards say, and there is no tag to pin.
 
-## What each bump means
+What is versioned is the tooling that enforces them: the
+[Newfold PHPCS standard](https://github.com/newfold-labs/wp-php-standards), the
+shared ESLint config, and anything else a repository installs. Those are what a
+repository pins, so those are where a change becomes something a team can see
+coming.
 
-**Major.** A repository that passed before could fail now.
+## Why the split
 
-* A new `enforceable: true` standard
-* An existing standard made stricter
-* A standard deprecated or superseded, since a rule enforcing it must retire
-* A change to the front matter schema that invalidates existing documents
-* A change to the taxonomy that moves documents between tiers
+A standard is a description. A check is a thing that runs in your CI at eight in
+the morning and decides whether you ship.
 
-**Minor.** New material that binds nothing retroactively.
+Changing the description should be cheap: correct an example, tighten wording,
+add a standard nobody checks yet. None of that can break a build, so none of it
+needs a release.
 
-* A new `enforceable: false` standard
-* A new document in `process/` or `meta/`
-* A standard relaxed, so anything passing before still passes
-* New optional front matter fields
+Changing the check is different, and that is where semver earns its keep. A
+repository pins the config, so a stricter check arrives as a version bump the
+team chooses to take, rather than as a red build that appeared overnight in
+twenty repositories at once.
 
-**Patch.** No change to what any standard requires.
+That is the whole arrangement. If a standards change could silently break
+everyone's CI, nobody would let us change the standards.
 
-* Typos, formatting, dead link fixes
-* Clarified wording with the same meaning
-* Site build and tooling changes
-* Filling in `enforced_by` for a rule that already shipped
+## What each bump of an enforcing package means
 
-## Why majors matter downstream
+**Major.** Not backwards compatible. Code that passed before can fail now.
 
-Ruleset releases are gated on major versions here. A repository pins a version of
-the derived PHPCS ruleset or ESLint config, so a standards change rolls out as a
-version bump the repository chooses to take, rather than as a CI failure that
-appears overnight in twenty repositories at once.
+* A new check that reports at `error`
+* An existing check promoted from `warning` to `error`
+* A check corrected so that it reports cases it used to miss
+* A stricter default in the shipped ruleset
 
-That is the whole reason this repository is versioned at all. If a standards
-change could silently break everyone's CI, nobody would let us change the
-standards.
+**Minor.** New capability that cannot fail anything that passed before.
 
-## Release process
+* A new check that reports at `warning`
+* A check relaxed, or a false positive removed
+* A dependency range widened
 
-Tag on `main` after the implementing PR merges. The tag is the release; there is
-no build artifact to publish, since the site deploys from `main` on every push.
+**Patch.** No change to which code passes.
 
-Because the site always tracks `main`, the published documentation is always
-ahead of or equal to the newest tag. The tag exists so consumers of the derived
-configs have something to pin, not to describe what the site shows.
+* A reworded message
+* Documentation and internal tooling
+
+A check that is more correct than it was still counts as a major. The check
+improved, but a repository that was green yesterday can be red today, and the
+version number exists to warn about exactly that.
+
+## How a change reaches a repository
+
+1. The standard changes here, and the site shows it immediately.
+2. If the standard is enforceable and a check exists or changes, that lands in
+   the enforcing package and is released under the rules above.
+3. The rule in `rules/` records which package and which release, so a repository
+   pinned below it reads as not yet upgraded rather than as failing. See
+   [rule definitions](rules-format.md).
+4. The repository takes the bump when it chooses to, and compliance reporting
+   shows who has and who has not.
+
+Steps 1 and 2 are deliberately separate. A standard can be written before anyone
+can check it, and that gap is visible rather than hidden: the document says it is
+`enforceable`, and the absence of a rule says no check exists yet.
+
+## Severity is the other half of this
+
+Most new checks should ship as warnings, which makes them a minor rather than a
+major and lets them roll out without a coordinated upgrade. `error` is reserved
+for code that does not parse. The reasoning lives in
+[rule definitions](rules-format.md#severity).
