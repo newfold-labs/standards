@@ -58,15 +58,15 @@ While in some situations use of the global namespace is required or sensible, ou
 default is namespaced PHP following `PSR-4` conventions for autoloading.
 
 We expect our WordPress code to follow
-`Newfold\WP\{Plugin|Theme|Module}\{Name}`.
+`NewfoldLabs\WP\{Plugin|Theme|Module}\{Name}`.
 
 ### Examples
 
 ```php
 <?php
-namespace Newfold\WP\Module\Staging;
-namespace Newfold\WP\Plugin\Bluehost;
-namespace Newfold\WP\Plugin\HostGator;
+namespace NewfoldLabs\WP\Module\Staging;
+namespace NewfoldLabs\WP\Plugin\Bluehost;
+namespace NewfoldLabs\WP\Plugin\HostGator;
 ```
 
 NOTE: When a brand name has explicit letter casing, like WordPress, HostGator or

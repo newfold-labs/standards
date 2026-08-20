@@ -1,8 +1,8 @@
 ---
 id: wp-php-namespace-format
 standard: wp-php
-title: Declared namespaces start with Newfold\WP\{Plugin|Theme|Module}\{Name}
-severity: error
+title: Declared namespaces start with NewfoldLabs\WP\{Plugin|Theme|Module}\{Name}
+severity: warning
 engine: phpcs
 config:
   sniff: Newfold.PHP.NamespaceDeclaration
