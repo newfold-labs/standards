@@ -8,6 +8,7 @@ tags: [wordpress, php, phpcs, psr-4, autoloading]
 related: [wp-support-matrix, wp-security, wp-performance, general-naming-global-namespaces]
 order: 20
 enforceable: true
+enforced_by: wp-php-namespace-format
 ---
 
 WordPress has evolved a great deal since May 2003, both maintaining backwards
@@ -57,15 +58,15 @@ While in some situations use of the global namespace is required or sensible, ou
 default is namespaced PHP following `PSR-4` conventions for autoloading.
 
 We expect our WordPress code to follow
-`Newfold\WP\{Plugin|Theme|Module}\{Name}`.
+`NewfoldLabs\WP\{Plugin|Theme|Module}\{Name}`.
 
 ### Examples
 
 ```php
 <?php
-namespace Newfold\WP\Module\Staging;
-namespace Newfold\WP\Plugin\Bluehost;
-namespace Newfold\WP\Plugin\HostGator;
+namespace NewfoldLabs\WP\Module\Staging;
+namespace NewfoldLabs\WP\Plugin\Bluehost;
+namespace NewfoldLabs\WP\Plugin\HostGator;
 ```
 
 NOTE: When a brand name has explicit letter casing, like WordPress, HostGator or

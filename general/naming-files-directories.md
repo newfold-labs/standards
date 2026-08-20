@@ -27,7 +27,7 @@ is common technology acronyms like `/css` or `/js` instead of
 
 ### While Composer PSR-4 autoloading is case-insensitive, directory structures should reflect namespace capitalization
 
-While `/includes/admin/Menu.php` works fine for `\Newfold\WP\Module\Admin\Menu()`
+While `/includes/admin/Menu.php` works fine for `\NewfoldLabs\WP\Module\Admin\Menu()`
 with proper root-mapping to `/includes`, `/includes/Admin/Menu.php` is preferred.
 
 ## WordPress

@@ -1,0 +1,11 @@
+---
+id: wp-php-namespace-format
+standard: wp-php
+title: Declared namespaces start with NewfoldLabs\WP\{Plugin|Theme|Module}\{Name}
+severity: warning
+engine: phpcs
+config:
+  sniff: Newfold.PHP.NamespaceDeclaration
+applies_to: [plugin, theme, module]
+package: newfold-labs/wp-php-standards
+introduced_in: 2.0.0

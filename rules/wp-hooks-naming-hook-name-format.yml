@@ -1,0 +1,11 @@
+---
+id: wp-hooks-naming-hook-name-format
+standard: wp-hooks-naming
+title: Hooks are fired as newfold/[context]/[action|filter]/[name]
+severity: warning
+engine: phpcs
+config:
+  sniff: Newfold.NamingConventions.ValidHookName
+applies_to: [plugin, theme, module]
+package: newfold-labs/wp-php-standards
+introduced_in: 2.0.0
