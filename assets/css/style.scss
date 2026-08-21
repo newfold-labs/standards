@@ -2300,3 +2300,113 @@ pre {
 	.grid__rule { display: none; }
 	.cell { display: none; }
 }
+
+// ---- scorecard: findings ---------------------------------------------------
+// Everything phpcs found is shown, so these carry the distinction the board
+// depends on: how much is wrong, versus how much of it maps to a standard we
+// have actually written down.
+
+.count__n { font-variant-numeric: tabular-nums; }
+
+.count__bad {
+	margin-left: 0.3rem;
+	color: var(--bad);
+	font-size: 0.7rem;
+	font-variant-numeric: tabular-nums;
+}
+
+.count__cited {
+	margin-left: 0.3rem;
+	color: var(--muted);
+	font-size: 0.7rem;
+}
+
+.src {
+	font-size: 0.7rem;
+	text-transform: uppercase;
+	letter-spacing: 0.03em;
+
+	// A repository telling us and us going and looking are different claims,
+	// so they do not get the same weight.
+	&--reported { color: var(--ok); font-weight: 600; }
+	&--scanned { color: var(--muted); }
+	&--none { color: var(--border); }
+}
+
+.spread {
+	border-top: 1px solid var(--border);
+	background: var(--surface);
+}
+
+.spread__head {
+	display: flex;
+	align-items: baseline;
+	gap: 0.6rem;
+	padding: 0.55rem 1.5rem;
+	font-size: 0.8rem;
+	font-weight: 600;
+	cursor: pointer;
+
+	&:hover { color: var(--accent); }
+}
+
+.spread__hint {
+	color: var(--muted);
+	font-weight: 400;
+	font-variant-numeric: tabular-nums;
+}
+
+.spread__body {
+	max-height: 22rem;
+	overflow: auto;
+	padding: 0 1.5rem 1rem;
+}
+
+.spread__table {
+	width: 100%;
+	border-collapse: collapse;
+	font-size: 0.78rem;
+
+	th[scope="col"] {
+		position: sticky;
+		top: 0;
+		background: var(--surface);
+		color: var(--muted);
+		font-size: 0.7rem;
+		font-weight: 600;
+		text-align: left;
+		padding: 0.3rem 0.5rem;
+	}
+
+	td,
+	th[scope="row"] {
+		padding: 0.25rem 0.5rem;
+		border-top: 1px solid var(--border);
+		text-align: left;
+		font-weight: 400;
+		font-variant-numeric: tabular-nums;
+	}
+
+	code { font-size: 0.72rem; }
+}
+
+.spread__bad { color: var(--bad); }
+.spread__uncited { color: var(--muted); font-style: italic; }
+
+.detail__source {
+	display: inline-block;
+	margin-left: 0.4rem;
+	padding: 0.05rem 0.3rem;
+	border: 1px solid var(--border);
+	border-radius: 0.25rem;
+	font-size: 0.65rem;
+	text-transform: uppercase;
+}
+
+.detail__cite a { font-size: 0.7rem; }
+
+.detail__uncited {
+	color: var(--muted);
+	font-size: 0.7rem;
+	font-style: italic;
+}
