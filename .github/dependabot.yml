@@ -1,4 +1,10 @@
 version: 2
+
+# One pull request per ecosystem per week rather than one per dependency.
+# Grouping keeps CI cost flat and avoids the conflict cascade where several
+# open bumps each invalidate the others' lockfile the moment one of them merges.
+# It is also what makes the scheduled auto-merge sweep worth having: a single
+# green PR to sweep instead of a queue that has to be rebased in order.
 updates:
 
   # Maintain dependencies for GitHub Actions
@@ -7,6 +13,9 @@ updates:
     target-branch: "main"
     allow:
       - dependency-type: direct
+    groups:
+      actions-all:
+        patterns: ["*"]
     schedule:
       interval: "weekly"
     commit-message:
@@ -22,6 +31,9 @@ updates:
     target-branch: "main"
     allow:
       - dependency-type: direct
+    groups:
+      npm-all:
+        patterns: ["*"]
     schedule:
       interval: "weekly"
     versioning-strategy: increase
@@ -39,6 +51,9 @@ updates:
     target-branch: "main"
     allow:
       - dependency-type: direct
+    groups:
+      bundler-all:
+        patterns: ["*"]
     schedule:
       interval: "weekly"
     versioning-strategy: increase
