@@ -296,11 +296,18 @@ export function summarise(repos, rules, levels) {
 	const bySniff = {};
 	for (const repo of repos) {
 		for (const [sniff, counts] of Object.entries(repo.scan?.by_sniff ?? {})) {
-			const bucket = (bySniff[sniff] ??= { errors: 0, warnings: 0, repos: 0, rule: counts.rule ?? null });
+			const bucket = (bySniff[sniff] ??= { errors: 0, warnings: 0, repos: 0, rule: counts.rule ?? null, in: [] });
 			bucket.errors += counts.errors;
 			bucket.warnings += counts.warnings;
 			bucket.repos++;
+			// Which repositories, not just how many. Fixing something across the
+			// fleet starts with the list of places to go, and making the board ask
+			// for that separately would mean a second request per issue.
+			bucket.in.push({ name: repo.name, errors: counts.errors, warnings: counts.warnings });
 		}
+	}
+	for (const bucket of Object.values(bySniff)) {
+		bucket.in.sort((a, b) => b.errors + b.warnings - (a.errors + a.warnings));
 	}
 
 	// Emitted as a sorted array rather than a map. Liquid cannot sort a hash by a
@@ -334,9 +341,27 @@ export function summarise(repos, rules, levels) {
 	// backlog, so the board should never merge them into one number.
 	const shown = repos.filter((repo) => repo.finding_source !== null && repo.finding_source !== undefined);
 
+	// Density rather than raw count. One repository holds 19% of every finding in
+	// the fleet purely by being large, and a list ordered by raw count is just a
+	// list of the biggest repositories. Findings per file is what says which
+	// codebase is actually in the worst shape.
+	const worst = repos
+		.filter((repo) => (repo.scan?.files ?? 0) > 0 && (repo.finding_count ?? 0) > 0)
+		.map((repo) => ({
+			name: repo.name,
+			findings: repo.finding_count,
+			errors: repo.error_count,
+			files: repo.scan.files,
+			per_file: Math.round((repo.finding_count / repo.scan.files) * 10) / 10,
+		}))
+		.sort((a, b) => b.per_file - a.per_file);
+
 	return {
 		repos: repos.length,
 		reporting: repos.filter((repo) => repo.signals.check_reports).length,
+		owned: repos.filter((repo) => repo.signals.has_codeowners).length,
+		ai_context: repos.filter((repo) => repo.signals.has_ai_context).length,
+		worst,
 		scanned: repos.filter((repo) => repo.finding_source === 'scanned').length,
 		with_findings: shown.filter((repo) => (repo.finding_count ?? 0) > 0).length,
 		findings: repos.reduce((total, repo) => total + (repo.finding_count ?? 0), 0),

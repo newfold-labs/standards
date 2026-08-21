@@ -251,6 +251,56 @@
                   "string",
                   "null"
                 ]
+              },
+              "in": {
+                "description": "The repositories this sniff fires in, worst first. Carried so an issue can be acted on across the fleet without a second request per issue.",
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "errors": {
+                      "type": "integer"
+                    },
+                    "warnings": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "owned": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "ai_context": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "worst": {
+          "description": "Repositories ranked by findings per file rather than by raw count. One large repository holds a fifth of every finding in the fleet, so a raw ranking is a list of the biggest repositories rather than the worst ones.",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "findings": {
+                "type": "integer"
+              },
+              "errors": {
+                "type": "integer"
+              },
+              "files": {
+                "type": "integer"
+              },
+              "per_file": {
+                "type": "number"
               }
             }
           }
