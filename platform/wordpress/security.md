@@ -8,6 +8,7 @@ tags: [wordpress, security, nonces, escaping, sanitization, xss]
 related: [wp-php, wp-performance, general-naming-global-namespaces]
 order: 40
 enforceable: true
+enforced_by: wp-security-checks
 ---
 
 WordPress powers over 43% of the internet and has a huge surface area for attack

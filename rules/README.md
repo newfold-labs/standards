@@ -7,10 +7,14 @@ This directory is **excluded from the Jekyll build** (see `exclude` in
 page whose front matter is the whole file, so Jekyll would parse a rule body as
 metadata and publish an empty page.
 
-The rules here cover the standards that the Newfold PHPCS standard already
-checks. Most `enforceable: true` documents still have no rule, which is the
-backlog rather than an oversight: a standard gets a rule when a check for it
-exists.
+A rule attaches a standard id to a sniff, or to a family of them. It does not
+decide what the board shows: every finding the standard produces is reported
+whether or not a rule names it, and a rule is what gives one a citation to
+follow. So the backlog here costs citations, not visibility.
+
+That is why `sniffs` takes prefixes. The standard runs about three hundred
+sniffs and four are ours; one rule claiming `WordPress.Security` covers a whole
+category, and a more precise rule naming a single sniff beats it for that sniff.
 
 The documented format lives at
 [meta/rules-format.md](../meta/rules-format.md), which is the version that

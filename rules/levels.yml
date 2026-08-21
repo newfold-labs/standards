@@ -50,10 +50,13 @@ signals:
   - id: no_error_findings
     title: No findings at error severity
     detail: >-
-      The reported findings contain nothing at error severity. Warnings do not
-      block a level. Under our severity policy an error means the code cannot
-      parse, so this is a real gate rather than a tidiness one.
-    read: standards-compliance artifact
+      Nothing at error severity that cites a documented standard. Raw phpcs
+      severity is not the gate: the inherited sniffs carry the severities WPCS
+      ships, where a missing docblock is an error and a security finding is a
+      warning, so gating on those would hold repositories off this rung against
+      a policy we did not write. Findings without a rule are still reported,
+      they just do not decide a level.
+    read: reported findings, or the central scan
 
   - id: has_codeowners
     title: Has an owner

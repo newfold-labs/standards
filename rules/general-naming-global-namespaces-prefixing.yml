@@ -1,0 +1,16 @@
+---
+id: general-naming-global-namespaces-prefixing
+standard: general-naming-global-namespaces
+title: Names entering the global namespace carry a company prefix
+severity: warning
+engine: phpcs
+config:
+  # A family, not one sniff. PrefixAllGlobals reports functions, classes,
+  # constants, variables and hooks separately, and every one of them is this
+  # same standard.
+  sniffs: [WordPress.NamingConventions.PrefixAllGlobals]
+applies_to: [plugin, theme, module]
+package: newfold-labs/wp-php-standards
+# WordPress-Extra has been in the ruleset since the first release, so every
+# repository that installs the package at any version can run this.
+introduced_in: '1.2'

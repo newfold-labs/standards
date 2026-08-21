@@ -27,35 +27,74 @@ context but no ruleset outrank one that lints cleanly.
 | L0 Not adopted | Nothing here enforces a standard yet |
 | L1 Configured | The enforcing package is installed, so the checks can run |
 | L2 Reporting | The check runs in the repository's own CI and publishes what it found |
-| L3 Clean | Nothing outstanding at error severity |
+| L3 Clean | Nothing outstanding at error severity for a documented standard |
 | L4 Current | Pinned to the current release, owned, and readable by AI tooling |
 
 The rungs and the signals under them live in
 [`rules/levels.yml`](https://github.com/newfold-labs/standards/blob/main/rules/levels.yml),
 which is the one definition both the documentation and the scorer read.
 
-## A check has three outcomes, not two
+## Everything found is shown
 
-This is the thing to understand before reading a row.
+The board reports every finding the standard produces, not only the ones some
+rule has named. The Newfold standard runs about three hundred sniffs; four are
+ours and the rest are inherited from WordPress Coding Standards and
+PHPCompatibility. Showing only what a rule had named meant showing two things
+out of three hundred.
 
-- **pass** — the check ran and found nothing.
-- **fail** — the check ran and found something.
-- **ineligible** — the check could not run. The package is not installed, or the
-  repository is pinned below the release that introduced the rule.
+So a rule is **enrichment, not a gate**. It attaches a standard id to a sniff or
+a family of them, and a finding with a rule gains a citation you can follow. A
+finding without one is still shown; it just has nothing to cite yet, and the gap
+between the two counts is the rules backlog rather than a gap in the scan.
 
-A rule records the `package` that enforces it and the `introduced_in` release
-that added it, so eligibility is answered from `composer.json` alone. See
-[the rule format](rules-format.md) for why the version is the package's rather
-than this repository's.
+A sniff added in a future WPCS release therefore appears on the board with no
+change here, and writing a rule adds a citation without ever being what makes a
+violation visible.
 
-Treating ineligible as a failure would invent violations that the owning team
-cannot act on. Treating it as a pass would claim a standard is met that was
-never tested. It gets its own state and its own neutral colour, and it is not
-counted against anyone.
+## A verdict follows the evidence
 
-The same care applies to a signal we could not read at all: unknown is not
-false, and a repository is never marked non-compliant because the sweep failed
-to reach it.
+- **pass** / **fail** — something looked at the code and this is what it said.
+- **ineligible** — nothing looked, and this repository could not have looked
+  itself: the package is absent, or pinned below the release that introduced
+  the rule.
+- **unknown** — nothing looked, and there is no reason it could not have.
+
+Note what `ineligible` does not mean. Once the scan has read the code, a
+violation is a violation whether or not the repository's own pinned version
+could have caught it. The pin is reported in its own column. Withholding a real
+finding because their CI would have missed it hides the problem rather than the
+version.
+
+Unknown is likewise not false, and a repository is never marked non-compliant
+because we failed to reach it.
+
+## Two sources, kept apart
+
+A repository's own report and our central scan are different claims, and the
+board says which one a row is showing.
+
+- **reported** — the repository's CI ran the checks and published what it found.
+  This is the one that counts: it is the repository adopting the standard.
+- **scanned** — we cloned it and ran the checks ourselves. Useful, and true, but
+  it is us looking rather than them telling us.
+
+A report always wins over a scan. Being scanned does not earn a level, because
+the ladder measures adoption and a central scan is not the repository adopting
+anything.
+
+## Severity is reported, not reinterpreted
+
+Our policy is that an error means the code cannot parse and everything else is a
+warning. The four Newfold sniffs follow it. The other ~298 carry the severities
+WordPress Coding Standards ships, which do not: across the fleet that is 13,991
+errors for short array syntax and 7,301 for call spacing, while
+`WordPress.Security` findings are warnings.
+
+The board reports what the tools said rather than quietly re-grading it, because
+silently overriding severity would hide a real disagreement between our policy
+and our ruleset. What it does not do is let that disagreement decide a level:
+L3 is gated on findings that cite a documented standard, so a repository is
+never held off a rung by a docblock convention nobody agreed to.
 
 ## Pinned, unpinned, behind
 
@@ -71,21 +110,33 @@ its own state and does not reach L4.
 
 ## How the sweep works, and what it costs
 
-The sweep **never runs a linter**. Findings come from the repositories
-themselves, which already lint their own pull requests; recomputing that
-centrally would cost hours of runner time a night to learn what their CI worked
-out for free. What the sweep does is aggregate.
+The sweep prefers to aggregate rather than to lint. A repository that reports its
+own findings has already done the work on its own pull requests, and recomputing
+that centrally would burn runner time to learn what its CI worked out for free.
 
-It reads in two tiers:
+It does lint what nobody has reported, because a board that waits for universal
+adoption before saying anything says nothing for months. That scan is built to
+be cheap enough not to matter and to become redundant on its own.
+
+It reads in three tiers, cheapest first:
 
 1. **Facts, from the API.** Repository metadata and a handful of files —
    `composer.json`, `package.json`, `CODEOWNERS`, `AGENTS.md` — arrive together,
    batched over GraphQL. Nothing is cloned, so a large repository costs what a
    small one does. The whole fleet is a handful of requests.
-2. **Findings, from the repositories.** Any repository that runs the shared
-   check publishes a `standards-compliance` artifact; the sweep downloads the
-   latest one. A repository that publishes nothing is not failing, it is not
-   reporting, and the board says so.
+2. **Reports, from the repositories.** Any repository that runs the shared check
+   publishes a `standards-compliance` artifact; the sweep downloads the latest.
+3. **A central scan, for everything else.** Every PHP repository is shallow
+   cloned and run through the standard: 89 repositories in about 140 seconds, no
+   `composer install` anywhere, each checkout deleted as soon as it is scanned so
+   disk stays flat. This exists so the board is populated before the fleet has
+   adopted anything, and becomes redundant as repositories start reporting.
+
+Findings are capped where they are published, never where they are counted. The
+scan produces about 83,000 findings and 25MB, nearly all of it in a few
+repositories: the median has 83 and the worst 15,735. Every total on the board is
+real; what is trimmed is how many example lines a detail file carries, to 25 per
+sniff and 300 per repository.
 
 A repository whose `pushedAt` has not moved since the last sweep is not read
 again. In steady state the sweep only reads what changed. The previous
@@ -131,10 +182,20 @@ Two consequences to keep in mind when adding to the sweep:
 
 ## Adding to it
 
-A new rule appears on the board automatically once it exists in `rules/` and
-names the release that ships its check; no template change is needed. A new
-signal means editing `rules/levels.yml` and the scorer that reads it, and the
-next sweep rescores every repository against the new model.
+A rule claims one or more sniff prefixes, and the longest prefix wins, so a rule
+naming one sniff beats a rule claiming its whole family:
+
+```yaml
+config:
+  sniffs: [WordPress.Security]     # a family
+```
+
+That is what keeps this from becoming a rule file per sniff. One rule can cite a
+whole category, and a more precise rule can carve out the part of it that has its
+own standard. Writing one changes what a finding cites, never whether it appears.
+
+A new signal means editing `rules/levels.yml` and the scorer that reads it, and
+the next sweep rescores every repository against the new model.
 
 To make a repository report, have its CI publish a `standards-compliance`
 artifact holding a JSON body with a `findings` array, each finding naming the
