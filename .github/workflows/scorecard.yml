@@ -106,6 +106,20 @@ jobs:
         env:
           GH_TOKEN: ${{ steps.app-token.outputs.token || secrets.GITHUB_TOKEN }}
 
+      # The scan is incremental on each repository's last push, so it needs the
+      # previous run's results to compare against. They are cached rather than
+      # published: 25MB of raw findings is far more than the board ever serves,
+      # and a cache miss costs a full scan rather than a wrong answer.
+      #
+      # The key rotates daily so the entry is refreshed; restore-keys falls back
+      # to the most recent one, which is what actually carries results forward.
+      - name: Restore the previous scan
+        uses: actions/cache@v4
+        with:
+          path: _scan
+          key: scan-${{ github.run_id }}
+          restore-keys: scan-
+
       # Not fatal. A scan that fails should cost the board its findings for the
       # night, not its adoption and eligibility data, which the sweep reads
       # straight from the API and is useful on its own.
@@ -118,7 +132,7 @@ jobs:
           node scripts/scan.mjs \
             --standard "${{ github.workspace }}/.standard/Newfold" \
             --out ./_scan \
-            --jobs 6
+            --jobs 4 ${{ inputs.full && '--full' || '' }}
 
       - name: Sweep
         env:

@@ -26,7 +26,8 @@
  *                         [--org newfold-labs] [--limit N] [--jobs N]
  */
 import { execFile } from 'node:child_process';
-import { mkdirSync, mkdtempSync, realpathSync, rmSync, writeFileSync } from 'node:fs';
+import { createHash } from 'node:crypto';
+import { existsSync, mkdirSync, mkdtempSync, readFileSync, realpathSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { promisify } from 'node:util';
@@ -51,13 +52,14 @@ const PHP_TYPES = new Set(['plugin', 'theme', 'module']);
 const IGNORE = ['*/vendor/*', '*/node_modules/*', '*/tests/*', '*/build/*', '*/dist/*', '*/.git/*'];
 
 function parseArgs(argv) {
-	const args = { org: 'newfold-labs', standard: null, out: join(ROOT, '_scan'), limit: 0, jobs: 4 };
+	const args = { org: 'newfold-labs', standard: null, out: join(ROOT, '_scan'), limit: 0, jobs: 4, full: false };
 	for (let i = 0; i < argv.length; i++) {
 		if (argv[i] === '--standard') args.standard = argv[++i];
 		else if (argv[i] === '--out') args.out = argv[++i];
 		else if (argv[i] === '--org') args.org = argv[++i];
 		else if (argv[i] === '--limit') args.limit = Number(argv[++i]);
 		else if (argv[i] === '--jobs') args.jobs = Number(argv[++i]);
+		else if (argv[i] === '--full') args.full = true;
 	}
 	return args;
 }
@@ -193,16 +195,53 @@ async function main() {
 	console.log(`Standard resolves to ${sniffs.length} sniffs.`);
 
 	const client = createClient({ org: args.org, token });
-	let fleet = (await client.listRepos())
-		.filter((repo) => PHP_TYPES.has(artifactTypeOf(repo.name)))
-		.map((repo) => repo.name);
+	let fleet = (await client.listRepos()).filter((repo) => PHP_TYPES.has(artifactTypeOf(repo.name)));
 	if (args.limit > 0) fleet = fleet.slice(0, args.limit);
 
-	console.log(`Scanning ${fleet.length} PHP repositories with ${args.jobs} in parallel.`);
 	mkdirSync(args.out, { recursive: true });
 
-	const pending = [...fleet];
-	const results = [];
+	// The sniff catalogue stands in for the standard itself. If a release adds,
+	// removes or re-scopes a sniff, every stored result was produced by a
+	// different standard and none of them can be carried forward.
+	const fingerprint = createHash('sha256').update(sniffs.join('\n')).digest('hex').slice(0, 16);
+
+	let previous = null;
+	const indexPath = join(args.out, 'index.json');
+	if (!args.full && existsSync(indexPath)) {
+		try {
+			const stored = JSON.parse(readFileSync(indexPath, 'utf8'));
+			if (stored.fingerprint === fingerprint) previous = stored;
+			else console.log('The standard changed since the last scan, so everything is scanned again.');
+		} catch {
+			previous = null;
+		}
+	}
+
+	const before = new Map((previous?.repos ?? []).map((entry) => [entry.repo, entry]));
+
+	// A repository nobody has pushed to cannot have new findings, and its result
+	// file from the last scan is still on disk. Cloning it again to produce an
+	// identical answer is the one genuinely wasted thing this job could do.
+	const carried = [];
+	const pending = [];
+	for (const repo of fleet) {
+		const stored = before.get(repo.name);
+		const unchanged =
+			stored && stored.scanned && stored.pushed_at === repo.pushedAt && existsSync(join(args.out, `${repo.name}.json`));
+		if (unchanged) carried.push(stored);
+		else pending.push(repo.name);
+	}
+
+	console.log(
+		`${fleet.length} PHP repositories: ${pending.length} to scan, ` +
+			`${carried.length} unchanged since the last scan.`
+	);
+
+	// Captured before the pool starts, because `pending` is the work queue the
+	// workers shift from: reading its length for progress reports a denominator
+	// that shrinks as the job proceeds.
+	const toScan = pending.length;
+	const results = [...carried];
 	const started = Date.now();
 
 	await Promise.all(
@@ -212,6 +251,7 @@ async function main() {
 				if (repo === undefined) return;
 
 				const result = await scanOne({ repo, token, org: args.org, phpcs, standard: args.standard });
+				result.pushed_at = fleet.find((entry) => entry.name === repo)?.pushedAt ?? null;
 				results.push(result);
 
 				// Findings go to their own file per repository. Holding the fleet's
@@ -232,9 +272,9 @@ async function main() {
 					})
 				);
 
-				const done = results.length;
-				if (done % 10 === 0 || done === fleet.length) {
-					console.log(`  ${done}/${fleet.length} scanned`);
+				const done = results.length - carried.length;
+				if (done % 10 === 0 || done === toScan) {
+					console.log(`  ${done}/${toScan} scanned`);
 				}
 			}
 		})
@@ -252,17 +292,23 @@ async function main() {
 			{
 				scanned_at: new Date().toISOString(),
 				org: args.org,
+				fingerprint,
 				sniffs,
-				repos: results.map((result) => ({
-					repo: result.repo,
-					scanned: result.scanned,
-					commit: result.commit ?? null,
-					reason: result.reason ?? null,
-					files: result.files ?? 0,
-					errors: result.errors ?? 0,
-					warnings: result.warnings ?? 0,
-					findings: result.findings.length,
-				})),
+				repos: results
+					.map((result) => ({
+						repo: result.repo,
+						scanned: result.scanned,
+						commit: result.commit ?? null,
+						pushed_at: result.pushed_at ?? null,
+						reason: result.reason ?? null,
+						files: result.files ?? 0,
+						errors: result.errors ?? 0,
+						warnings: result.warnings ?? 0,
+						// A freshly scanned result carries the findings themselves; one
+						// carried forward from the last scan carries only their count.
+						findings: Array.isArray(result.findings) ? result.findings.length : (result.findings ?? 0),
+					}))
+					.sort((a, b) => a.repo.localeCompare(b.repo)),
 			},
 			null,
 			'\t'
