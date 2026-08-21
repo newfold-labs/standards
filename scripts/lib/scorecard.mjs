@@ -319,11 +319,55 @@ export function summarise(repos, rules, levels) {
 	// repositories with one each is a standard nobody has been told about, and
 	// that is the more useful thing to see first.
 	const spread = Object.entries(bySniff)
-		.map(([sniff, counts]) => ({ sniff, ...counts }))
+		.map(([sniff, counts]) => ({ sniff, ...counts, total: counts.errors + counts.warnings }))
 		.sort((a, b) => {
 			if (b.repos !== a.repos) return b.repos - a.repos;
-			return b.errors + b.warnings - (a.errors + a.warnings);
+			return b.total - a.total;
 		});
+
+	// Plot coordinates for spread against volume, computed here because Liquid
+	// has no logarithm and volume spans four orders of magnitude.
+	//
+	// The two axes disagree on purpose, and the disagreement is the useful part.
+	// 18,257 findings confined to 25 repositories is one mechanical pass with
+	// phpcbf; 5,594 spread across 64 is a decision nobody has taken. A list
+	// ordered by either number alone hides the distinction.
+	const maxRepos = Math.max(1, ...spread.map((entry) => entry.repos));
+	const maxTotal = Math.max(1, ...spread.map((entry) => entry.total));
+	const logMax = Math.log10(maxTotal);
+	for (const entry of spread) {
+		entry.x = Math.round((entry.repos / maxRepos) * 1000) / 10;
+		entry.y = Math.round((Math.log10(Math.max(1, entry.total)) / logMax) * 1000) / 10;
+	}
+
+	// How much of the pile a handful of decisions would move. The headline number
+	// is otherwise 83,195, which is true, unusable, and impossible to feel.
+	const ranked = [...spread].sort((a, b) => b.total - a.total);
+	const allFindings = ranked.reduce((sum, entry) => sum + entry.total, 0);
+	const share = (n) =>
+		allFindings === 0 ? 0 : Math.round((ranked.slice(0, n).reduce((sum, e) => sum + e.total, 0) / allFindings) * 100);
+	const concentration = { top3: share(3), top10: share(10), top20: share(20) };
+
+	// Axis ticks, so the plot is a chart and not a decoration. Powers of ten up
+	// the log axis, and round counts across the linear one, each carrying the
+	// position the same formula gives the marks.
+	const axis = {
+		max_repos: maxRepos,
+		max_total: maxTotal,
+		x: [1, 5, 10, 20, 40, 60]
+			.filter((n) => n <= maxRepos)
+			.map((n) => ({ at: Math.round((n / maxRepos) * 1000) / 10, label: String(n) })),
+		y: [1, 10, 100, 1000, 10000]
+			.filter((n) => n <= maxTotal)
+			.map((n) => ({ at: Math.round((Math.log10(n) / logMax) * 1000) / 10, label: n >= 1000 ? `${n / 1000}k` : String(n) })),
+	};
+	const loudest = ranked.slice(0, 10).map((entry) => ({
+		sniff: entry.sniff,
+		total: entry.total,
+		errors: entry.errors,
+		repos: entry.repos,
+		rule: entry.rule,
+	}));
 
 	const byRule = {};
 	for (const rule of rules) {
@@ -371,5 +415,8 @@ export function summarise(repos, rules, levels) {
 		by_type: byType,
 		by_rule: byRule,
 		by_sniff: spread,
+		concentration,
+		axis,
+		loudest,
 	};
 }

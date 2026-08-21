@@ -269,6 +269,17 @@
                     }
                   }
                 }
+              },
+              "total": {
+                "type": "integer"
+              },
+              "x": {
+                "description": "Plot position for spread, 0-100.",
+                "type": "number"
+              },
+              "y": {
+                "description": "Plot position for volume on a log scale, 0-100.",
+                "type": "number"
               }
             }
           }
@@ -301,6 +312,68 @@
               },
               "per_file": {
                 "type": "number"
+              }
+            }
+          }
+        },
+        "concentration": {
+          "description": "What share of all findings the loudest few issues account for. 83,195 is true, unusable and impossible to feel; 'ten issues are half of it' is a plan.",
+          "type": "object",
+          "properties": {
+            "top3": {
+              "type": "integer"
+            },
+            "top10": {
+              "type": "integer"
+            },
+            "top20": {
+              "type": "integer"
+            }
+          }
+        },
+        "loudest": {
+          "description": "Issues by sheer volume, which is a different order from by spread and calls for a different response.",
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "axis": {
+          "description": "Tick positions for the overview plot, carrying the same positions the marks use so the two cannot drift apart.",
+          "type": "object",
+          "properties": {
+            "max_repos": {
+              "type": "integer"
+            },
+            "max_total": {
+              "type": "integer"
+            },
+            "x": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "at": {
+                    "type": "number"
+                  },
+                  "label": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "y": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "at": {
+                    "type": "number"
+                  },
+                  "label": {
+                    "type": "string"
+                  }
+                }
               }
             }
           }
