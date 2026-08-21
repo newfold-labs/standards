@@ -1,0 +1,17 @@
+---
+permalink: /scorecard/data.json
+layout: null
+sitemap: false
+---
+{%- comment -%}
+The swept scorecard, republished at a stable URL.
+
+_data/ is Jekyll's and never reaches the built site, so anything that wants this
+data — the MCP server, a bump bot, a spreadsheet — needs it served from
+somewhere. Serving it from the same build that renders the board means the two
+can never disagree about what the fleet looks like.
+
+Findings detail is not inlined. It sits beside this file under findings/, one
+file per repository, which is what the board fetches on demand.
+{%- endcomment -%}
+{{ site.data.scorecard | jsonify }}
