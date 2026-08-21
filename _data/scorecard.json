@@ -1,6 +1,6 @@
 {
 	"schema": 1,
-	"generated_at": "2026-08-21T10:42:27.374Z",
+	"generated_at": "2026-08-21T10:47:44.578Z",
 	"org": "newfold-labs",
 	"policy_fingerprint": "c4ba1b5f04c52c1e",
 	"levels": [
@@ -164,6 +164,577 @@
 	"summary": {
 		"repos": 125,
 		"reporting": 0,
+		"owned": 7,
+		"ai_context": 45,
+		"worst": [
+			{
+				"name": "wp-plugin-blu-store",
+				"findings": 15735,
+				"errors": 14621,
+				"files": 46,
+				"per_file": 342.1
+			},
+			{
+				"name": "wp-module-facebook",
+				"findings": 986,
+				"errors": 883,
+				"files": 10,
+				"per_file": 98.6
+			},
+			{
+				"name": "wp-plugin-ai-chat-poc",
+				"findings": 459,
+				"errors": 444,
+				"files": 5,
+				"per_file": 91.8
+			},
+			{
+				"name": "wp-plugin-wishlist",
+				"findings": 7257,
+				"errors": 5617,
+				"files": 116,
+				"per_file": 62.6
+			},
+			{
+				"name": "wp-plugin-product-add-ons",
+				"findings": 3960,
+				"errors": 2206,
+				"files": 68,
+				"per_file": 58.2
+			},
+			{
+				"name": "wp-plugin-creativ-email",
+				"findings": 5393,
+				"errors": 4974,
+				"files": 106,
+				"per_file": 50.9
+			},
+			{
+				"name": "wp-plugin-store-locator",
+				"findings": 3437,
+				"errors": 2123,
+				"files": 87,
+				"per_file": 39.5
+			},
+			{
+				"name": "wp-plugin-points-rewards",
+				"findings": 3773,
+				"errors": 2208,
+				"files": 105,
+				"per_file": 35.9
+			},
+			{
+				"name": "wp-module-ai-images",
+				"findings": 98,
+				"errors": 74,
+				"files": 3,
+				"per_file": 32.7
+			},
+			{
+				"name": "wp-plugin-memberships",
+				"findings": 3665,
+				"errors": 2270,
+				"files": 123,
+				"per_file": 29.8
+			},
+			{
+				"name": "wp-plugin-blueprint-exporter",
+				"findings": 58,
+				"errors": 27,
+				"files": 2,
+				"per_file": 29
+			},
+			{
+				"name": "wp-plugin-request-quote",
+				"findings": 4185,
+				"errors": 1235,
+				"files": 154,
+				"per_file": 27.2
+			},
+			{
+				"name": "wp-plugin-payments-shipping",
+				"findings": 6059,
+				"errors": 4112,
+				"files": 241,
+				"per_file": 25.1
+			},
+			{
+				"name": "wp-plugin-one-click-checkout",
+				"findings": 703,
+				"errors": 509,
+				"files": 29,
+				"per_file": 24.2
+			},
+			{
+				"name": "wp-plugin-gift-cards",
+				"findings": 3104,
+				"errors": 1540,
+				"files": 130,
+				"per_file": 23.9
+			},
+			{
+				"name": "wp-plugin-advanced-reviews",
+				"findings": 3451,
+				"errors": 2519,
+				"files": 156,
+				"per_file": 22.1
+			},
+			{
+				"name": "wp-plugin-pdf-invoices",
+				"findings": 2899,
+				"errors": 1251,
+				"files": 147,
+				"per_file": 19.7
+			},
+			{
+				"name": "wp-module-notifications",
+				"findings": 106,
+				"errors": 96,
+				"files": 6,
+				"per_file": 17.7
+			},
+			{
+				"name": "wp-plugin-customize-my-account-page",
+				"findings": 988,
+				"errors": 593,
+				"files": 60,
+				"per_file": 16.5
+			},
+			{
+				"name": "wp-plugin-sms-notifications",
+				"findings": 1324,
+				"errors": 698,
+				"files": 81,
+				"per_file": 16.3
+			},
+			{
+				"name": "wp-plugin-catalog-mode",
+				"findings": 836,
+				"errors": 298,
+				"files": 52,
+				"per_file": 16.1
+			},
+			{
+				"name": "wp-plugin-easy-login",
+				"findings": 418,
+				"errors": 270,
+				"files": 29,
+				"per_file": 14.4
+			},
+			{
+				"name": "wp-module-framework",
+				"findings": 1313,
+				"errors": 314,
+				"files": 92,
+				"per_file": 14.3
+			},
+			{
+				"name": "wp-plugin-ai-store",
+				"findings": 752,
+				"errors": 544,
+				"files": 53,
+				"per_file": 14.2
+			},
+			{
+				"name": "wp-module-install-checker",
+				"findings": 41,
+				"errors": 41,
+				"files": 3,
+				"per_file": 13.7
+			},
+			{
+				"name": "wp-plugin-email-templates",
+				"findings": 498,
+				"errors": 50,
+				"files": 39,
+				"per_file": 12.8
+			},
+			{
+				"name": "wp-plugin-subscriptions",
+				"findings": 2625,
+				"errors": 976,
+				"files": 205,
+				"per_file": 12.8
+			},
+			{
+				"name": "wp-plugin-ecomdash",
+				"findings": 841,
+				"errors": 700,
+				"files": 68,
+				"per_file": 12.4
+			},
+			{
+				"name": "wp-module-ecommerce",
+				"findings": 184,
+				"errors": 128,
+				"files": 15,
+				"per_file": 12.3
+			},
+			{
+				"name": "wp-module-runtime",
+				"findings": 24,
+				"errors": 15,
+				"files": 2,
+				"per_file": 12
+			},
+			{
+				"name": "wp-plugin-sales-promotions",
+				"findings": 704,
+				"errors": 344,
+				"files": 65,
+				"per_file": 10.8
+			},
+			{
+				"name": "wp-plugin-affiliates",
+				"findings": 2440,
+				"errors": 693,
+				"files": 236,
+				"per_file": 10.3
+			},
+			{
+				"name": "wp-module-sso",
+				"findings": 91,
+				"errors": 67,
+				"files": 9,
+				"per_file": 10.1
+			},
+			{
+				"name": "wp-plugin-product-comparison",
+				"findings": 509,
+				"errors": 169,
+				"files": 51,
+				"per_file": 10
+			},
+			{
+				"name": "wp-plugin-search-filter",
+				"findings": 1881,
+				"errors": 527,
+				"files": 204,
+				"per_file": 9.2
+			},
+			{
+				"name": "wp-plugin-web",
+				"findings": 188,
+				"errors": 117,
+				"files": 23,
+				"per_file": 8.2
+			},
+			{
+				"name": "wp-module-staging",
+				"findings": 56,
+				"errors": 33,
+				"files": 8,
+				"per_file": 7
+			},
+			{
+				"name": "wp-module-mcp",
+				"findings": 208,
+				"errors": 8,
+				"files": 33,
+				"per_file": 6.3
+			},
+			{
+				"name": "wp-module-loader",
+				"findings": 35,
+				"errors": 29,
+				"files": 6,
+				"per_file": 5.8
+			},
+			{
+				"name": "wp-plugin-crazy-domains",
+				"findings": 119,
+				"errors": 36,
+				"files": 24,
+				"per_file": 5
+			},
+			{
+				"name": "wp-plugin-vodien",
+				"findings": 104,
+				"errors": 31,
+				"files": 21,
+				"per_file": 5
+			},
+			{
+				"name": "wp-module-secure-passwords",
+				"findings": 24,
+				"errors": 5,
+				"files": 5,
+				"per_file": 4.8
+			},
+			{
+				"name": "wp-plugin-bigrock",
+				"findings": 100,
+				"errors": 26,
+				"files": 21,
+				"per_file": 4.8
+			},
+			{
+				"name": "wp-plugin-webhostbox",
+				"findings": 99,
+				"errors": 26,
+				"files": 21,
+				"per_file": 4.7
+			},
+			{
+				"name": "wp-module-ai-assistant",
+				"findings": 155,
+				"errors": 43,
+				"files": 35,
+				"per_file": 4.4
+			},
+			{
+				"name": "wp-plugin-blueprint",
+				"findings": 70,
+				"errors": 22,
+				"files": 16,
+				"per_file": 4.4
+			},
+			{
+				"name": "wp-plugin-hostgator",
+				"findings": 119,
+				"errors": 33,
+				"files": 27,
+				"per_file": 4.4
+			},
+			{
+				"name": "wp-module-onboarding-data",
+				"findings": 117,
+				"errors": 13,
+				"files": 27,
+				"per_file": 4.3
+			},
+			{
+				"name": "wp-plugin-mojo",
+				"findings": 83,
+				"errors": 10,
+				"files": 21,
+				"per_file": 4
+			},
+			{
+				"name": "wp-plugin-workflows-testing",
+				"findings": 8,
+				"errors": 7,
+				"files": 2,
+				"per_file": 4
+			},
+			{
+				"name": "wp-module-features",
+				"findings": 22,
+				"errors": 22,
+				"files": 6,
+				"per_file": 3.7
+			},
+			{
+				"name": "wp-module-deactivation",
+				"findings": 18,
+				"errors": 10,
+				"files": 5,
+				"per_file": 3.6
+			},
+			{
+				"name": "wp-module-data",
+				"findings": 151,
+				"errors": 108,
+				"files": 45,
+				"per_file": 3.4
+			},
+			{
+				"name": "wp-plugin-bluehost",
+				"findings": 150,
+				"errors": 38,
+				"files": 45,
+				"per_file": 3.3
+			},
+			{
+				"name": "wp-module-ai-page-designer",
+				"findings": 29,
+				"errors": 0,
+				"files": 9,
+				"per_file": 3.2
+			},
+			{
+				"name": "wp-module-onboarding",
+				"findings": 195,
+				"errors": 41,
+				"files": 69,
+				"per_file": 2.8
+			},
+			{
+				"name": "wp-module-template-drawer",
+				"findings": 22,
+				"errors": 18,
+				"files": 8,
+				"per_file": 2.8
+			},
+			{
+				"name": "wp-module-coming-soon",
+				"findings": 28,
+				"errors": 19,
+				"files": 11,
+				"per_file": 2.5
+			},
+			{
+				"name": "wp-module-help-center",
+				"findings": 22,
+				"errors": 12,
+				"files": 9,
+				"per_file": 2.4
+			},
+			{
+				"name": "wp-module-maestro",
+				"findings": 38,
+				"errors": 26,
+				"files": 16,
+				"per_file": 2.4
+			},
+			{
+				"name": "wp-module-marketplace",
+				"findings": 11,
+				"errors": 8,
+				"files": 5,
+				"per_file": 2.2
+			},
+			{
+				"name": "wp-module-context",
+				"findings": 8,
+				"errors": 2,
+				"files": 4,
+				"per_file": 2
+			},
+			{
+				"name": "wp-module-global-ctb",
+				"findings": 5,
+				"errors": 5,
+				"files": 3,
+				"per_file": 1.7
+			},
+			{
+				"name": "wp-module-solutions",
+				"findings": 9,
+				"errors": 0,
+				"files": 6,
+				"per_file": 1.5
+			},
+			{
+				"name": "wp-module-next-steps",
+				"findings": 35,
+				"errors": 0,
+				"files": 31,
+				"per_file": 1.1
+			},
+			{
+				"name": "wp-module-patterns",
+				"findings": 29,
+				"errors": 0,
+				"files": 29,
+				"per_file": 1
+			},
+			{
+				"name": "wp-module-performance",
+				"findings": 78,
+				"errors": 47,
+				"files": 82,
+				"per_file": 1
+			},
+			{
+				"name": "wp-plugin-hiive-config",
+				"findings": 3,
+				"errors": 0,
+				"files": 3,
+				"per_file": 1
+			},
+			{
+				"name": "wp-module-insights",
+				"findings": 7,
+				"errors": 0,
+				"files": 9,
+				"per_file": 0.8
+			},
+			{
+				"name": "wp-module-tasks",
+				"findings": 4,
+				"errors": 3,
+				"files": 5,
+				"per_file": 0.8
+			},
+			{
+				"name": "wp-module-htaccess",
+				"findings": 11,
+				"errors": 0,
+				"files": 16,
+				"per_file": 0.7
+			},
+			{
+				"name": "wp-module-ai",
+				"findings": 5,
+				"errors": 2,
+				"files": 8,
+				"per_file": 0.6
+			},
+			{
+				"name": "wp-module-10web",
+				"findings": 2,
+				"errors": 0,
+				"files": 6,
+				"per_file": 0.3
+			},
+			{
+				"name": "wp-module-editor-chat",
+				"findings": 1,
+				"errors": 0,
+				"files": 4,
+				"per_file": 0.3
+			},
+			{
+				"name": "wp-module-link-tracker",
+				"findings": 1,
+				"errors": 0,
+				"files": 3,
+				"per_file": 0.3
+			},
+			{
+				"name": "wp-module-migration",
+				"findings": 7,
+				"errors": 0,
+				"files": 26,
+				"per_file": 0.3
+			},
+			{
+				"name": "wp-theme-bluehost-blueprint",
+				"findings": 10,
+				"errors": 0,
+				"files": 31,
+				"per_file": 0.3
+			},
+			{
+				"name": "wp-module-adam",
+				"findings": 3,
+				"errors": 0,
+				"files": 15,
+				"per_file": 0.2
+			},
+			{
+				"name": "wp-module-installer",
+				"findings": 7,
+				"errors": 0,
+				"files": 33,
+				"per_file": 0.2
+			},
+			{
+				"name": "wp-module-activation",
+				"findings": 1,
+				"errors": 0,
+				"files": 12,
+				"per_file": 0.1
+			},
+			{
+				"name": "wp-module-reset",
+				"findings": 1,
+				"errors": 1,
+				"files": 10,
+				"per_file": 0.1
+			}
+		],
 		"scanned": 89,
 		"with_findings": 81,
 		"findings": 83195,
@@ -240,847 +811,8929 @@
 				"errors": 0,
 				"warnings": 5594,
 				"repos": 64,
-				"rule": "wp-hooks-naming-hook-name-format"
+				"rule": "wp-hooks-naming-hook-name-format",
+				"in": [
+					{
+						"name": "wp-plugin-request-quote",
+						"errors": 0,
+						"warnings": 683
+					},
+					{
+						"name": "wp-plugin-affiliates",
+						"errors": 0,
+						"warnings": 581
+					},
+					{
+						"name": "wp-plugin-wishlist",
+						"errors": 0,
+						"warnings": 534
+					},
+					{
+						"name": "wp-plugin-gift-cards",
+						"errors": 0,
+						"warnings": 435
+					},
+					{
+						"name": "wp-plugin-pdf-invoices",
+						"errors": 0,
+						"warnings": 434
+					},
+					{
+						"name": "wp-plugin-subscriptions",
+						"errors": 0,
+						"warnings": 424
+					},
+					{
+						"name": "wp-plugin-search-filter",
+						"errors": 0,
+						"warnings": 317
+					},
+					{
+						"name": "wp-plugin-points-rewards",
+						"errors": 0,
+						"warnings": 290
+					},
+					{
+						"name": "wp-plugin-product-add-ons",
+						"errors": 0,
+						"warnings": 208
+					},
+					{
+						"name": "wp-plugin-payments-shipping",
+						"errors": 0,
+						"warnings": 204
+					},
+					{
+						"name": "wp-plugin-memberships",
+						"errors": 0,
+						"warnings": 178
+					},
+					{
+						"name": "wp-plugin-advanced-reviews",
+						"errors": 0,
+						"warnings": 163
+					},
+					{
+						"name": "wp-plugin-catalog-mode",
+						"errors": 0,
+						"warnings": 140
+					},
+					{
+						"name": "wp-plugin-store-locator",
+						"errors": 0,
+						"warnings": 131
+					},
+					{
+						"name": "wp-plugin-customize-my-account-page",
+						"errors": 0,
+						"warnings": 100
+					},
+					{
+						"name": "wp-module-onboarding",
+						"errors": 0,
+						"warnings": 93
+					},
+					{
+						"name": "wp-module-onboarding-data",
+						"errors": 0,
+						"warnings": 85
+					},
+					{
+						"name": "wp-plugin-product-comparison",
+						"errors": 0,
+						"warnings": 79
+					},
+					{
+						"name": "wp-plugin-email-templates",
+						"errors": 0,
+						"warnings": 70
+					},
+					{
+						"name": "wp-plugin-sales-promotions",
+						"errors": 0,
+						"warnings": 54
+					},
+					{
+						"name": "wp-plugin-easy-login",
+						"errors": 0,
+						"warnings": 48
+					},
+					{
+						"name": "wp-plugin-sms-notifications",
+						"errors": 0,
+						"warnings": 41
+					},
+					{
+						"name": "wp-module-framework",
+						"errors": 0,
+						"warnings": 40
+					},
+					{
+						"name": "wp-plugin-one-click-checkout",
+						"errors": 0,
+						"warnings": 37
+					},
+					{
+						"name": "wp-plugin-creativ-email",
+						"errors": 0,
+						"warnings": 33
+					},
+					{
+						"name": "wp-module-ai-assistant",
+						"errors": 0,
+						"warnings": 23
+					},
+					{
+						"name": "wp-module-performance",
+						"errors": 0,
+						"warnings": 18
+					},
+					{
+						"name": "wp-module-mcp",
+						"errors": 0,
+						"warnings": 9
+					},
+					{
+						"name": "wp-plugin-crazy-domains",
+						"errors": 0,
+						"warnings": 9
+					},
+					{
+						"name": "wp-plugin-hostgator",
+						"errors": 0,
+						"warnings": 9
+					},
+					{
+						"name": "wp-plugin-mojo",
+						"errors": 0,
+						"warnings": 9
+					},
+					{
+						"name": "wp-module-data",
+						"errors": 0,
+						"warnings": 8
+					},
+					{
+						"name": "wp-module-sso",
+						"errors": 0,
+						"warnings": 8
+					},
+					{
+						"name": "wp-plugin-bigrock",
+						"errors": 0,
+						"warnings": 8
+					},
+					{
+						"name": "wp-plugin-vodien",
+						"errors": 0,
+						"warnings": 8
+					},
+					{
+						"name": "wp-plugin-web",
+						"errors": 0,
+						"warnings": 8
+					},
+					{
+						"name": "wp-module-ai-images",
+						"errors": 0,
+						"warnings": 7
+					},
+					{
+						"name": "wp-module-help-center",
+						"errors": 0,
+						"warnings": 7
+					},
+					{
+						"name": "wp-plugin-webhostbox",
+						"errors": 0,
+						"warnings": 7
+					},
+					{
+						"name": "wp-plugin-ai-store",
+						"errors": 0,
+						"warnings": 6
+					},
+					{
+						"name": "wp-module-maestro",
+						"errors": 0,
+						"warnings": 4
+					},
+					{
+						"name": "wp-module-migration",
+						"errors": 0,
+						"warnings": 4
+					},
+					{
+						"name": "wp-plugin-blu-store",
+						"errors": 0,
+						"warnings": 4
+					},
+					{
+						"name": "wp-plugin-bluehost",
+						"errors": 0,
+						"warnings": 4
+					},
+					{
+						"name": "wp-module-adam",
+						"errors": 0,
+						"warnings": 3
+					},
+					{
+						"name": "wp-module-ai-page-designer",
+						"errors": 0,
+						"warnings": 3
+					},
+					{
+						"name": "wp-module-coming-soon",
+						"errors": 0,
+						"warnings": 3
+					},
+					{
+						"name": "wp-plugin-ecomdash",
+						"errors": 0,
+						"warnings": 3
+					},
+					{
+						"name": "wp-module-10web",
+						"errors": 0,
+						"warnings": 2
+					},
+					{
+						"name": "wp-module-next-steps",
+						"errors": 0,
+						"warnings": 2
+					},
+					{
+						"name": "wp-module-runtime",
+						"errors": 0,
+						"warnings": 2
+					},
+					{
+						"name": "wp-module-staging",
+						"errors": 0,
+						"warnings": 2
+					},
+					{
+						"name": "wp-module-ai",
+						"errors": 0,
+						"warnings": 1
+					},
+					{
+						"name": "wp-module-context",
+						"errors": 0,
+						"warnings": 1
+					},
+					{
+						"name": "wp-module-ecommerce",
+						"errors": 0,
+						"warnings": 1
+					},
+					{
+						"name": "wp-module-htaccess",
+						"errors": 0,
+						"warnings": 1
+					},
+					{
+						"name": "wp-module-insights",
+						"errors": 0,
+						"warnings": 1
+					},
+					{
+						"name": "wp-module-installer",
+						"errors": 0,
+						"warnings": 1
+					},
+					{
+						"name": "wp-module-link-tracker",
+						"errors": 0,
+						"warnings": 1
+					},
+					{
+						"name": "wp-module-loader",
+						"errors": 0,
+						"warnings": 1
+					},
+					{
+						"name": "wp-module-marketplace",
+						"errors": 0,
+						"warnings": 1
+					},
+					{
+						"name": "wp-module-patterns",
+						"errors": 0,
+						"warnings": 1
+					},
+					{
+						"name": "wp-module-solutions",
+						"errors": 0,
+						"warnings": 1
+					},
+					{
+						"name": "wp-plugin-hiive-config",
+						"errors": 0,
+						"warnings": 1
+					}
+				]
 			},
 			{
 				"sniff": "WordPress.NamingConventions.PrefixAllGlobals",
 				"errors": 0,
 				"warnings": 14719,
 				"repos": 58,
-				"rule": "general-naming-global-namespaces-prefixing"
+				"rule": "general-naming-global-namespaces-prefixing",
+				"in": [
+					{
+						"name": "wp-plugin-request-quote",
+						"errors": 0,
+						"warnings": 1725
+					},
+					{
+						"name": "wp-plugin-subscriptions",
+						"errors": 0,
+						"warnings": 913
+					},
+					{
+						"name": "wp-module-framework",
+						"errors": 0,
+						"warnings": 912
+					},
+					{
+						"name": "wp-plugin-pdf-invoices",
+						"errors": 0,
+						"warnings": 904
+					},
+					{
+						"name": "wp-plugin-affiliates",
+						"errors": 0,
+						"warnings": 881
+					},
+					{
+						"name": "wp-plugin-search-filter",
+						"errors": 0,
+						"warnings": 849
+					},
+					{
+						"name": "wp-plugin-points-rewards",
+						"errors": 0,
+						"warnings": 835
+					},
+					{
+						"name": "wp-plugin-product-add-ons",
+						"errors": 0,
+						"warnings": 822
+					},
+					{
+						"name": "wp-plugin-payments-shipping",
+						"errors": 0,
+						"warnings": 821
+					},
+					{
+						"name": "wp-plugin-gift-cards",
+						"errors": 0,
+						"warnings": 795
+					},
+					{
+						"name": "wp-plugin-wishlist",
+						"errors": 0,
+						"warnings": 782
+					},
+					{
+						"name": "wp-plugin-store-locator",
+						"errors": 0,
+						"warnings": 612
+					},
+					{
+						"name": "wp-plugin-memberships",
+						"errors": 0,
+						"warnings": 608
+					},
+					{
+						"name": "wp-plugin-advanced-reviews",
+						"errors": 0,
+						"warnings": 543
+					},
+					{
+						"name": "wp-plugin-email-templates",
+						"errors": 0,
+						"warnings": 357
+					},
+					{
+						"name": "wp-plugin-catalog-mode",
+						"errors": 0,
+						"warnings": 344
+					},
+					{
+						"name": "wp-plugin-sms-notifications",
+						"errors": 0,
+						"warnings": 227
+					},
+					{
+						"name": "wp-plugin-creativ-email",
+						"errors": 0,
+						"warnings": 214
+					},
+					{
+						"name": "wp-plugin-sales-promotions",
+						"errors": 0,
+						"warnings": 212
+					},
+					{
+						"name": "wp-plugin-customize-my-account-page",
+						"errors": 0,
+						"warnings": 210
+					},
+					{
+						"name": "wp-plugin-product-comparison",
+						"errors": 0,
+						"warnings": 183
+					},
+					{
+						"name": "wp-plugin-ai-store",
+						"errors": 0,
+						"warnings": 109
+					},
+					{
+						"name": "wp-plugin-one-click-checkout",
+						"errors": 0,
+						"warnings": 101
+					},
+					{
+						"name": "wp-plugin-ecomdash",
+						"errors": 0,
+						"warnings": 74
+					},
+					{
+						"name": "wp-plugin-easy-login",
+						"errors": 0,
+						"warnings": 72
+					},
+					{
+						"name": "wp-plugin-blu-store",
+						"errors": 0,
+						"warnings": 68
+					},
+					{
+						"name": "wp-plugin-bluehost",
+						"errors": 0,
+						"warnings": 67
+					},
+					{
+						"name": "wp-module-mcp",
+						"errors": 0,
+						"warnings": 60
+					},
+					{
+						"name": "wp-plugin-hostgator",
+						"errors": 0,
+						"warnings": 46
+					},
+					{
+						"name": "wp-plugin-crazy-domains",
+						"errors": 0,
+						"warnings": 45
+					},
+					{
+						"name": "wp-plugin-web",
+						"errors": 0,
+						"warnings": 44
+					},
+					{
+						"name": "wp-plugin-bigrock",
+						"errors": 0,
+						"warnings": 43
+					},
+					{
+						"name": "wp-plugin-webhostbox",
+						"errors": 0,
+						"warnings": 43
+					},
+					{
+						"name": "wp-plugin-vodien",
+						"errors": 0,
+						"warnings": 42
+					},
+					{
+						"name": "wp-plugin-mojo",
+						"errors": 0,
+						"warnings": 35
+					},
+					{
+						"name": "wp-plugin-blueprint",
+						"errors": 0,
+						"warnings": 28
+					},
+					{
+						"name": "wp-module-staging",
+						"errors": 0,
+						"warnings": 19
+					},
+					{
+						"name": "wp-module-data",
+						"errors": 0,
+						"warnings": 10
+					},
+					{
+						"name": "wp-module-performance",
+						"errors": 0,
+						"warnings": 8
+					},
+					{
+						"name": "wp-theme-bluehost-blueprint",
+						"errors": 0,
+						"warnings": 7
+					},
+					{
+						"name": "wp-module-coming-soon",
+						"errors": 0,
+						"warnings": 6
+					},
+					{
+						"name": "wp-module-maestro",
+						"errors": 0,
+						"warnings": 6
+					},
+					{
+						"name": "wp-module-sso",
+						"errors": 0,
+						"warnings": 5
+					},
+					{
+						"name": "wp-module-ecommerce",
+						"errors": 0,
+						"warnings": 4
+					},
+					{
+						"name": "wp-module-secure-passwords",
+						"errors": 0,
+						"warnings": 4
+					},
+					{
+						"name": "wp-plugin-ai-chat-poc",
+						"errors": 0,
+						"warnings": 4
+					},
+					{
+						"name": "wp-module-insights",
+						"errors": 0,
+						"warnings": 3
+					},
+					{
+						"name": "wp-module-onboarding-data",
+						"errors": 0,
+						"warnings": 3
+					},
+					{
+						"name": "wp-module-ai-page-designer",
+						"errors": 0,
+						"warnings": 2
+					},
+					{
+						"name": "wp-module-migration",
+						"errors": 0,
+						"warnings": 2
+					},
+					{
+						"name": "wp-module-next-steps",
+						"errors": 0,
+						"warnings": 2
+					},
+					{
+						"name": "wp-plugin-blueprint-exporter",
+						"errors": 0,
+						"warnings": 2
+					},
+					{
+						"name": "wp-module-facebook",
+						"errors": 0,
+						"warnings": 1
+					},
+					{
+						"name": "wp-module-help-center",
+						"errors": 0,
+						"warnings": 1
+					},
+					{
+						"name": "wp-module-installer",
+						"errors": 0,
+						"warnings": 1
+					},
+					{
+						"name": "wp-module-onboarding",
+						"errors": 0,
+						"warnings": 1
+					},
+					{
+						"name": "wp-module-template-drawer",
+						"errors": 0,
+						"warnings": 1
+					},
+					{
+						"name": "wp-plugin-hiive-config",
+						"errors": 0,
+						"warnings": 1
+					}
+				]
 			},
 			{
 				"sniff": "WordPress.NamingConventions.ValidVariableName",
 				"errors": 1410,
 				"warnings": 0,
 				"repos": 44,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-plugin-creativ-email",
+						"errors": 984,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-bluehost",
+						"errors": 38,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-performance",
+						"errors": 36,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-hostgator",
+						"errors": 31,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-web",
+						"errors": 31,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-crazy-domains",
+						"errors": 30,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-facebook",
+						"errors": 27,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-bigrock",
+						"errors": 26,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-vodien",
+						"errors": 26,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-webhostbox",
+						"errors": 26,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-product-add-ons",
+						"errors": 14,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-search-filter",
+						"errors": 14,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-ecommerce",
+						"errors": 12,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-help-center",
+						"errors": 10,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-staging",
+						"errors": 10,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-install-checker",
+						"errors": 8,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-pdf-invoices",
+						"errors": 7,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-coming-soon",
+						"errors": 6,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-ai-chat-poc",
+						"errors": 6,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-blu-store",
+						"errors": 6,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-store-locator",
+						"errors": 6,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-data",
+						"errors": 5,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-marketplace",
+						"errors": 5,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-sso",
+						"errors": 5,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-features",
+						"errors": 4,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-global-ctb",
+						"errors": 4,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-loader",
+						"errors": 4,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-sales-promotions",
+						"errors": 4,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-template-drawer",
+						"errors": 3,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-request-quote",
+						"errors": 3,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-ai",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-notifications",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-ai-store",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-blueprint",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-memberships",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-affiliates",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-catalog-mode",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-easy-login",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-gift-cards",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-one-click-checkout",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-product-comparison",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-sms-notifications",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-subscriptions",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-wishlist",
+						"errors": 1,
+						"warnings": 0
+					}
+				]
 			},
 			{
 				"sniff": "WordPress.Arrays.MultipleStatementAlignment",
 				"errors": 0,
 				"warnings": 3714,
 				"repos": 40,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-plugin-blu-store",
+						"errors": 0,
+						"warnings": 531
+					},
+					{
+						"name": "wp-plugin-store-locator",
+						"errors": 0,
+						"warnings": 382
+					},
+					{
+						"name": "wp-plugin-product-add-ons",
+						"errors": 0,
+						"warnings": 361
+					},
+					{
+						"name": "wp-plugin-points-rewards",
+						"errors": 0,
+						"warnings": 305
+					},
+					{
+						"name": "wp-plugin-payments-shipping",
+						"errors": 0,
+						"warnings": 283
+					},
+					{
+						"name": "wp-plugin-sms-notifications",
+						"errors": 0,
+						"warnings": 281
+					},
+					{
+						"name": "wp-plugin-request-quote",
+						"errors": 0,
+						"warnings": 264
+					},
+					{
+						"name": "wp-plugin-wishlist",
+						"errors": 0,
+						"warnings": 189
+					},
+					{
+						"name": "wp-plugin-gift-cards",
+						"errors": 0,
+						"warnings": 175
+					},
+					{
+						"name": "wp-plugin-memberships",
+						"errors": 0,
+						"warnings": 139
+					},
+					{
+						"name": "wp-plugin-advanced-reviews",
+						"errors": 0,
+						"warnings": 138
+					},
+					{
+						"name": "wp-plugin-subscriptions",
+						"errors": 0,
+						"warnings": 107
+					},
+					{
+						"name": "wp-plugin-pdf-invoices",
+						"errors": 0,
+						"warnings": 98
+					},
+					{
+						"name": "wp-plugin-affiliates",
+						"errors": 0,
+						"warnings": 68
+					},
+					{
+						"name": "wp-module-mcp",
+						"errors": 0,
+						"warnings": 66
+					},
+					{
+						"name": "wp-module-ai-assistant",
+						"errors": 0,
+						"warnings": 46
+					},
+					{
+						"name": "wp-plugin-product-comparison",
+						"errors": 0,
+						"warnings": 40
+					},
+					{
+						"name": "wp-plugin-one-click-checkout",
+						"errors": 0,
+						"warnings": 29
+					},
+					{
+						"name": "wp-module-facebook",
+						"errors": 0,
+						"warnings": 27
+					},
+					{
+						"name": "wp-module-ecommerce",
+						"errors": 0,
+						"warnings": 25
+					},
+					{
+						"name": "wp-plugin-customize-my-account-page",
+						"errors": 0,
+						"warnings": 23
+					},
+					{
+						"name": "wp-module-patterns",
+						"errors": 0,
+						"warnings": 20
+					},
+					{
+						"name": "wp-plugin-search-filter",
+						"errors": 0,
+						"warnings": 17
+					},
+					{
+						"name": "wp-plugin-ai-store",
+						"errors": 0,
+						"warnings": 15
+					},
+					{
+						"name": "wp-module-ai-page-designer",
+						"errors": 0,
+						"warnings": 14
+					},
+					{
+						"name": "wp-plugin-easy-login",
+						"errors": 0,
+						"warnings": 14
+					},
+					{
+						"name": "wp-plugin-catalog-mode",
+						"errors": 0,
+						"warnings": 11
+					},
+					{
+						"name": "wp-module-ai-images",
+						"errors": 0,
+						"warnings": 9
+					},
+					{
+						"name": "wp-module-framework",
+						"errors": 0,
+						"warnings": 9
+					},
+					{
+						"name": "wp-module-notifications",
+						"errors": 0,
+						"warnings": 8
+					},
+					{
+						"name": "wp-plugin-email-templates",
+						"errors": 0,
+						"warnings": 5
+					},
+					{
+						"name": "wp-module-onboarding",
+						"errors": 0,
+						"warnings": 3
+					},
+					{
+						"name": "wp-plugin-sales-promotions",
+						"errors": 0,
+						"warnings": 3
+					},
+					{
+						"name": "wp-module-data",
+						"errors": 0,
+						"warnings": 2
+					},
+					{
+						"name": "wp-plugin-ecomdash",
+						"errors": 0,
+						"warnings": 2
+					},
+					{
+						"name": "wp-module-migration",
+						"errors": 0,
+						"warnings": 1
+					},
+					{
+						"name": "wp-module-onboarding-data",
+						"errors": 0,
+						"warnings": 1
+					},
+					{
+						"name": "wp-plugin-ai-chat-poc",
+						"errors": 0,
+						"warnings": 1
+					},
+					{
+						"name": "wp-plugin-crazy-domains",
+						"errors": 0,
+						"warnings": 1
+					},
+					{
+						"name": "wp-plugin-workflows-testing",
+						"errors": 0,
+						"warnings": 1
+					}
+				]
 			},
 			{
 				"sniff": "Generic.CodeAnalysis.UnusedFunctionParameter",
 				"errors": 0,
 				"warnings": 444,
 				"repos": 40,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-plugin-request-quote",
+						"errors": 0,
+						"warnings": 61
+					},
+					{
+						"name": "wp-plugin-ai-store",
+						"errors": 0,
+						"warnings": 44
+					},
+					{
+						"name": "wp-plugin-blu-store",
+						"errors": 0,
+						"warnings": 43
+					},
+					{
+						"name": "wp-plugin-affiliates",
+						"errors": 0,
+						"warnings": 35
+					},
+					{
+						"name": "wp-plugin-gift-cards",
+						"errors": 0,
+						"warnings": 32
+					},
+					{
+						"name": "wp-plugin-payments-shipping",
+						"errors": 0,
+						"warnings": 28
+					},
+					{
+						"name": "wp-plugin-search-filter",
+						"errors": 0,
+						"warnings": 27
+					},
+					{
+						"name": "wp-plugin-subscriptions",
+						"errors": 0,
+						"warnings": 25
+					},
+					{
+						"name": "wp-plugin-product-add-ons",
+						"errors": 0,
+						"warnings": 23
+					},
+					{
+						"name": "wp-plugin-memberships",
+						"errors": 0,
+						"warnings": 21
+					},
+					{
+						"name": "wp-plugin-store-locator",
+						"errors": 0,
+						"warnings": 13
+					},
+					{
+						"name": "wp-module-next-steps",
+						"errors": 0,
+						"warnings": 9
+					},
+					{
+						"name": "wp-plugin-advanced-reviews",
+						"errors": 0,
+						"warnings": 9
+					},
+					{
+						"name": "wp-plugin-customize-my-account-page",
+						"errors": 0,
+						"warnings": 9
+					},
+					{
+						"name": "wp-plugin-sales-promotions",
+						"errors": 0,
+						"warnings": 8
+					},
+					{
+						"name": "wp-plugin-catalog-mode",
+						"errors": 0,
+						"warnings": 5
+					},
+					{
+						"name": "wp-module-htaccess",
+						"errors": 0,
+						"warnings": 4
+					},
+					{
+						"name": "wp-plugin-crazy-domains",
+						"errors": 0,
+						"warnings": 4
+					},
+					{
+						"name": "wp-plugin-bigrock",
+						"errors": 0,
+						"warnings": 3
+					},
+					{
+						"name": "wp-plugin-blueprint",
+						"errors": 0,
+						"warnings": 3
+					},
+					{
+						"name": "wp-plugin-hostgator",
+						"errors": 0,
+						"warnings": 3
+					},
+					{
+						"name": "wp-plugin-mojo",
+						"errors": 0,
+						"warnings": 3
+					},
+					{
+						"name": "wp-plugin-sms-notifications",
+						"errors": 0,
+						"warnings": 3
+					},
+					{
+						"name": "wp-plugin-vodien",
+						"errors": 0,
+						"warnings": 3
+					},
+					{
+						"name": "wp-plugin-webhostbox",
+						"errors": 0,
+						"warnings": 3
+					},
+					{
+						"name": "wp-module-ai-assistant",
+						"errors": 0,
+						"warnings": 2
+					},
+					{
+						"name": "wp-module-ai-page-designer",
+						"errors": 0,
+						"warnings": 2
+					},
+					{
+						"name": "wp-module-secure-passwords",
+						"errors": 0,
+						"warnings": 2
+					},
+					{
+						"name": "wp-plugin-creativ-email",
+						"errors": 0,
+						"warnings": 2
+					},
+					{
+						"name": "wp-plugin-one-click-checkout",
+						"errors": 0,
+						"warnings": 2
+					},
+					{
+						"name": "wp-plugin-pdf-invoices",
+						"errors": 0,
+						"warnings": 2
+					},
+					{
+						"name": "wp-plugin-product-comparison",
+						"errors": 0,
+						"warnings": 2
+					},
+					{
+						"name": "wp-plugin-wishlist",
+						"errors": 0,
+						"warnings": 2
+					},
+					{
+						"name": "wp-module-installer",
+						"errors": 0,
+						"warnings": 1
+					},
+					{
+						"name": "wp-module-marketplace",
+						"errors": 0,
+						"warnings": 1
+					},
+					{
+						"name": "wp-module-mcp",
+						"errors": 0,
+						"warnings": 1
+					},
+					{
+						"name": "wp-module-solutions",
+						"errors": 0,
+						"warnings": 1
+					},
+					{
+						"name": "wp-plugin-bluehost",
+						"errors": 0,
+						"warnings": 1
+					},
+					{
+						"name": "wp-plugin-easy-login",
+						"errors": 0,
+						"warnings": 1
+					},
+					{
+						"name": "wp-plugin-ecomdash",
+						"errors": 0,
+						"warnings": 1
+					}
+				]
 			},
 			{
 				"sniff": "Newfold.PHP.NamespaceDeclaration",
 				"errors": 0,
 				"warnings": 1659,
 				"repos": 39,
-				"rule": "wp-php-namespace-format"
+				"rule": "wp-php-namespace-format",
+				"in": [
+					{
+						"name": "wp-plugin-payments-shipping",
+						"errors": 0,
+						"warnings": 165
+					},
+					{
+						"name": "wp-plugin-affiliates",
+						"errors": 0,
+						"warnings": 150
+					},
+					{
+						"name": "wp-plugin-subscriptions",
+						"errors": 0,
+						"warnings": 123
+					},
+					{
+						"name": "wp-plugin-search-filter",
+						"errors": 0,
+						"warnings": 117
+					},
+					{
+						"name": "wp-plugin-creativ-email",
+						"errors": 0,
+						"warnings": 76
+					},
+					{
+						"name": "wp-plugin-request-quote",
+						"errors": 0,
+						"warnings": 68
+					},
+					{
+						"name": "wp-plugin-pdf-invoices",
+						"errors": 0,
+						"warnings": 67
+					},
+					{
+						"name": "wp-plugin-memberships",
+						"errors": 0,
+						"warnings": 66
+					},
+					{
+						"name": "wp-plugin-sms-notifications",
+						"errors": 0,
+						"warnings": 66
+					},
+					{
+						"name": "wp-plugin-advanced-reviews",
+						"errors": 0,
+						"warnings": 65
+					},
+					{
+						"name": "wp-plugin-gift-cards",
+						"errors": 0,
+						"warnings": 58
+					},
+					{
+						"name": "wp-plugin-points-rewards",
+						"errors": 0,
+						"warnings": 58
+					},
+					{
+						"name": "wp-plugin-wishlist",
+						"errors": 0,
+						"warnings": 46
+					},
+					{
+						"name": "wp-plugin-sales-promotions",
+						"errors": 0,
+						"warnings": 44
+					},
+					{
+						"name": "wp-plugin-ecomdash",
+						"errors": 0,
+						"warnings": 43
+					},
+					{
+						"name": "wp-plugin-customize-my-account-page",
+						"errors": 0,
+						"warnings": 39
+					},
+					{
+						"name": "wp-module-framework",
+						"errors": 0,
+						"warnings": 30
+					},
+					{
+						"name": "wp-plugin-product-add-ons",
+						"errors": 0,
+						"warnings": 30
+					},
+					{
+						"name": "wp-plugin-store-locator",
+						"errors": 0,
+						"warnings": 30
+					},
+					{
+						"name": "wp-plugin-product-comparison",
+						"errors": 0,
+						"warnings": 29
+					},
+					{
+						"name": "wp-plugin-bluehost",
+						"errors": 0,
+						"warnings": 28
+					},
+					{
+						"name": "wp-module-mcp",
+						"errors": 0,
+						"warnings": 25
+					},
+					{
+						"name": "wp-plugin-catalog-mode",
+						"errors": 0,
+						"warnings": 23
+					},
+					{
+						"name": "wp-plugin-hostgator",
+						"errors": 0,
+						"warnings": 22
+					},
+					{
+						"name": "wp-plugin-crazy-domains",
+						"errors": 0,
+						"warnings": 21
+					},
+					{
+						"name": "wp-plugin-one-click-checkout",
+						"errors": 0,
+						"warnings": 20
+					},
+					{
+						"name": "wp-plugin-web",
+						"errors": 0,
+						"warnings": 19
+					},
+					{
+						"name": "wp-plugin-bigrock",
+						"errors": 0,
+						"warnings": 18
+					},
+					{
+						"name": "wp-plugin-mojo",
+						"errors": 0,
+						"warnings": 18
+					},
+					{
+						"name": "wp-plugin-vodien",
+						"errors": 0,
+						"warnings": 18
+					},
+					{
+						"name": "wp-plugin-webhostbox",
+						"errors": 0,
+						"warnings": 18
+					},
+					{
+						"name": "wp-plugin-email-templates",
+						"errors": 0,
+						"warnings": 16
+					},
+					{
+						"name": "wp-plugin-blueprint",
+						"errors": 0,
+						"warnings": 15
+					},
+					{
+						"name": "wp-plugin-easy-login",
+						"errors": 0,
+						"warnings": 10
+					},
+					{
+						"name": "wp-module-loader",
+						"errors": 0,
+						"warnings": 5
+					},
+					{
+						"name": "wp-plugin-ai-chat-poc",
+						"errors": 0,
+						"warnings": 4
+					},
+					{
+						"name": "wp-module-context",
+						"errors": 0,
+						"warnings": 3
+					},
+					{
+						"name": "wp-module-secure-passwords",
+						"errors": 0,
+						"warnings": 3
+					},
+					{
+						"name": "wp-theme-bluehost-blueprint",
+						"errors": 0,
+						"warnings": 3
+					}
+				]
 			},
 			{
 				"sniff": "Universal.Arrays.DisallowShortArraySyntax",
 				"errors": 13991,
 				"warnings": 0,
 				"repos": 38,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-plugin-advanced-reviews",
+						"errors": 1921,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-blu-store",
+						"errors": 1772,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-points-rewards",
+						"errors": 1769,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-gift-cards",
+						"errors": 1157,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-wishlist",
+						"errors": 1092,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-sms-notifications",
+						"errors": 684,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-request-quote",
+						"errors": 621,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-pdf-invoices",
+						"errors": 570,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-store-locator",
+						"errors": 554,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-customize-my-account-page",
+						"errors": 518,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-payments-shipping",
+						"errors": 472,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-subscriptions",
+						"errors": 456,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-search-filter",
+						"errors": 416,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-sales-promotions",
+						"errors": 298,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-catalog-mode",
+						"errors": 267,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-framework",
+						"errors": 244,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-memberships",
+						"errors": 220,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-easy-login",
+						"errors": 208,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-product-add-ons",
+						"errors": 191,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-affiliates",
+						"errors": 167,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-product-comparison",
+						"errors": 96,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-web",
+						"errors": 86,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-one-click-checkout",
+						"errors": 74,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-email-templates",
+						"errors": 40,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-ai-images",
+						"errors": 37,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-notifications",
+						"errors": 22,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-ai-chat-poc",
+						"errors": 13,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-install-checker",
+						"errors": 6,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-loader",
+						"errors": 4,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-sso",
+						"errors": 4,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-blueprint-exporter",
+						"errors": 4,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-workflows-testing",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-facebook",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-maestro",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-secure-passwords",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-tasks",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-ai-store",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-blueprint",
+						"errors": 1,
+						"warnings": 0
+					}
+				]
 			},
 			{
 				"sniff": "Squiz.Commenting.FunctionComment",
 				"errors": 2446,
 				"warnings": 0,
 				"repos": 37,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-plugin-blu-store",
+						"errors": 525,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-memberships",
+						"errors": 275,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-ecomdash",
+						"errors": 258,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-wishlist",
+						"errors": 219,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-creativ-email",
+						"errors": 202,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-product-add-ons",
+						"errors": 191,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-payments-shipping",
+						"errors": 169,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-request-quote",
+						"errors": 78,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-affiliates",
+						"errors": 74,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-gift-cards",
+						"errors": 68,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-store-locator",
+						"errors": 52,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-advanced-reviews",
+						"errors": 39,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-facebook",
+						"errors": 34,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-customize-my-account-page",
+						"errors": 34,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-pdf-invoices",
+						"errors": 34,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-sso",
+						"errors": 31,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-subscriptions",
+						"errors": 27,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-ai-assistant",
+						"errors": 16,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-data",
+						"errors": 12,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-one-click-checkout",
+						"errors": 12,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-ai-images",
+						"errors": 11,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-ecommerce",
+						"errors": 10,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-onboarding",
+						"errors": 10,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-onboarding-data",
+						"errors": 10,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-framework",
+						"errors": 8,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-ai-chat-poc",
+						"errors": 7,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-product-comparison",
+						"errors": 7,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-loader",
+						"errors": 6,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-blueprint-exporter",
+						"errors": 6,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-deactivation",
+						"errors": 4,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-ai-store",
+						"errors": 4,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-sales-promotions",
+						"errors": 4,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-coming-soon",
+						"errors": 3,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-runtime",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-points-rewards",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-notifications",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-blueprint",
+						"errors": 1,
+						"warnings": 0
+					}
+				]
 			},
 			{
 				"sniff": "Generic.Formatting.MultipleStatementAlignment",
 				"errors": 0,
 				"warnings": 1108,
 				"repos": 37,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-plugin-blu-store",
+						"errors": 0,
+						"warnings": 347
+					},
+					{
+						"name": "wp-plugin-product-add-ons",
+						"errors": 0,
+						"warnings": 111
+					},
+					{
+						"name": "wp-plugin-payments-shipping",
+						"errors": 0,
+						"warnings": 93
+					},
+					{
+						"name": "wp-plugin-store-locator",
+						"errors": 0,
+						"warnings": 78
+					},
+					{
+						"name": "wp-plugin-points-rewards",
+						"errors": 0,
+						"warnings": 69
+					},
+					{
+						"name": "wp-plugin-pdf-invoices",
+						"errors": 0,
+						"warnings": 67
+					},
+					{
+						"name": "wp-plugin-wishlist",
+						"errors": 0,
+						"warnings": 49
+					},
+					{
+						"name": "wp-plugin-memberships",
+						"errors": 0,
+						"warnings": 44
+					},
+					{
+						"name": "wp-plugin-gift-cards",
+						"errors": 0,
+						"warnings": 40
+					},
+					{
+						"name": "wp-module-ai-assistant",
+						"errors": 0,
+						"warnings": 38
+					},
+					{
+						"name": "wp-module-facebook",
+						"errors": 0,
+						"warnings": 27
+					},
+					{
+						"name": "wp-plugin-request-quote",
+						"errors": 0,
+						"warnings": 24
+					},
+					{
+						"name": "wp-module-ecommerce",
+						"errors": 0,
+						"warnings": 17
+					},
+					{
+						"name": "wp-plugin-ai-store",
+						"errors": 0,
+						"warnings": 13
+					},
+					{
+						"name": "wp-plugin-subscriptions",
+						"errors": 0,
+						"warnings": 12
+					},
+					{
+						"name": "wp-plugin-customize-my-account-page",
+						"errors": 0,
+						"warnings": 10
+					},
+					{
+						"name": "wp-plugin-advanced-reviews",
+						"errors": 0,
+						"warnings": 7
+					},
+					{
+						"name": "wp-module-data",
+						"errors": 0,
+						"warnings": 6
+					},
+					{
+						"name": "wp-plugin-affiliates",
+						"errors": 0,
+						"warnings": 6
+					},
+					{
+						"name": "wp-plugin-ecomdash",
+						"errors": 0,
+						"warnings": 6
+					},
+					{
+						"name": "wp-plugin-sales-promotions",
+						"errors": 0,
+						"warnings": 6
+					},
+					{
+						"name": "wp-plugin-product-comparison",
+						"errors": 0,
+						"warnings": 5
+					},
+					{
+						"name": "wp-module-onboarding",
+						"errors": 0,
+						"warnings": 4
+					},
+					{
+						"name": "wp-plugin-bluehost",
+						"errors": 0,
+						"warnings": 4
+					},
+					{
+						"name": "wp-module-ai-page-designer",
+						"errors": 0,
+						"warnings": 3
+					},
+					{
+						"name": "wp-module-onboarding-data",
+						"errors": 0,
+						"warnings": 3
+					},
+					{
+						"name": "wp-plugin-hostgator",
+						"errors": 0,
+						"warnings": 3
+					},
+					{
+						"name": "wp-plugin-search-filter",
+						"errors": 0,
+						"warnings": 3
+					},
+					{
+						"name": "wp-plugin-sms-notifications",
+						"errors": 0,
+						"warnings": 3
+					},
+					{
+						"name": "wp-module-next-steps",
+						"errors": 0,
+						"warnings": 2
+					},
+					{
+						"name": "wp-module-performance",
+						"errors": 0,
+						"warnings": 2
+					},
+					{
+						"name": "wp-module-patterns",
+						"errors": 0,
+						"warnings": 1
+					},
+					{
+						"name": "wp-module-solutions",
+						"errors": 0,
+						"warnings": 1
+					},
+					{
+						"name": "wp-plugin-ai-chat-poc",
+						"errors": 0,
+						"warnings": 1
+					},
+					{
+						"name": "wp-plugin-blueprint",
+						"errors": 0,
+						"warnings": 1
+					},
+					{
+						"name": "wp-plugin-blueprint-exporter",
+						"errors": 0,
+						"warnings": 1
+					},
+					{
+						"name": "wp-plugin-one-click-checkout",
+						"errors": 0,
+						"warnings": 1
+					}
+				]
 			},
 			{
 				"sniff": "WordPress.NamingConventions.ValidFunctionName",
 				"errors": 234,
 				"warnings": 0,
 				"repos": 37,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-plugin-creativ-email",
+						"errors": 53,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-subscriptions",
+						"errors": 29,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-staging",
+						"errors": 23,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-features",
+						"errors": 16,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-ecomdash",
+						"errors": 16,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-notifications",
+						"errors": 13,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-sso",
+						"errors": 12,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-performance",
+						"errors": 11,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-install-checker",
+						"errors": 8,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-catalog-mode",
+						"errors": 7,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-coming-soon",
+						"errors": 3,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-facebook",
+						"errors": 3,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-marketplace",
+						"errors": 3,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-pdf-invoices",
+						"errors": 3,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-store-locator",
+						"errors": 3,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-context",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-data",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-help-center",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-loader",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-runtime",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-advanced-reviews",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-ai-chat-poc",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-hostgator",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-search-filter",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-deactivation",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-global-ctb",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-affiliates",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-customize-my-account-page",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-easy-login",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-gift-cards",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-payments-shipping",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-points-rewards",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-product-add-ons",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-product-comparison",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-sales-promotions",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-sms-notifications",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-wishlist",
+						"errors": 1,
+						"warnings": 0
+					}
+				]
 			},
 			{
 				"sniff": "PEAR.Functions.FunctionCallSignature",
 				"errors": 7301,
 				"warnings": 0,
 				"repos": 36,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-plugin-creativ-email",
+						"errors": 3547,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-blu-store",
+						"errors": 1218,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-store-locator",
+						"errors": 322,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-affiliates",
+						"errors": 247,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-payments-shipping",
+						"errors": 233,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-wishlist",
+						"errors": 219,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-ecomdash",
+						"errors": 215,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-advanced-reviews",
+						"errors": 199,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-points-rewards",
+						"errors": 140,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-product-add-ons",
+						"errors": 139,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-facebook",
+						"errors": 118,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-ai-chat-poc",
+						"errors": 112,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-request-quote",
+						"errors": 96,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-memberships",
+						"errors": 91,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-pdf-invoices",
+						"errors": 70,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-subscriptions",
+						"errors": 63,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-gift-cards",
+						"errors": 58,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-data",
+						"errors": 47,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-ecommerce",
+						"errors": 31,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-one-click-checkout",
+						"errors": 27,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-ai-store",
+						"errors": 22,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-easy-login",
+						"errors": 14,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-search-filter",
+						"errors": 13,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-ai-images",
+						"errors": 11,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-notifications",
+						"errors": 9,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-install-checker",
+						"errors": 6,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-mcp",
+						"errors": 6,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-blueprint-exporter",
+						"errors": 6,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-customize-my-account-page",
+						"errors": 5,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-sales-promotions",
+						"errors": 5,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-coming-soon",
+						"errors": 3,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-framework",
+						"errors": 3,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-catalog-mode",
+						"errors": 3,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-runtime",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-template-drawer",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-blueprint",
+						"errors": 1,
+						"warnings": 0
+					}
+				]
 			},
 			{
 				"sniff": "PSR2.Classes.ClassDeclaration",
 				"errors": 167,
 				"warnings": 0,
 				"repos": 34,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-plugin-memberships",
+						"errors": 20,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-ecomdash",
+						"errors": 18,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-payments-shipping",
+						"errors": 17,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-wishlist",
+						"errors": 14,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-store-locator",
+						"errors": 10,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-product-comparison",
+						"errors": 8,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-gift-cards",
+						"errors": 7,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-product-add-ons",
+						"errors": 7,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-blueprint",
+						"errors": 6,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-maestro",
+						"errors": 5,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-mojo",
+						"errors": 5,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-loader",
+						"errors": 4,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-notifications",
+						"errors": 4,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-affiliates",
+						"errors": 4,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-framework",
+						"errors": 3,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-template-drawer",
+						"errors": 3,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-advanced-reviews",
+						"errors": 3,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-pdf-invoices",
+						"errors": 3,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-subscriptions",
+						"errors": 3,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-vodien",
+						"errors": 3,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-sso",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-catalog-mode",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-crazy-domains",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-creativ-email",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-customize-my-account-page",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-one-click-checkout",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-ai-assistant",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-facebook",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-install-checker",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-runtime",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-tasks",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-easy-login",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-points-rewards",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-sales-promotions",
+						"errors": 1,
+						"warnings": 0
+					}
+				]
 			},
 			{
 				"sniff": "PSR2.Methods.FunctionClosingBrace",
 				"errors": 242,
 				"warnings": 0,
 				"repos": 33,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-plugin-store-locator",
+						"errors": 48,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-payments-shipping",
+						"errors": 44,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-product-add-ons",
+						"errors": 35,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-maestro",
+						"errors": 19,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-memberships",
+						"errors": 14,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-gift-cards",
+						"errors": 9,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-wishlist",
+						"errors": 7,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-pdf-invoices",
+						"errors": 6,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-affiliates",
+						"errors": 5,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-mojo",
+						"errors": 5,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-request-quote",
+						"errors": 5,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-notifications",
+						"errors": 4,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-advanced-reviews",
+						"errors": 4,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-blueprint",
+						"errors": 4,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-subscriptions",
+						"errors": 4,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-loader",
+						"errors": 3,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-sso",
+						"errors": 3,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-creativ-email",
+						"errors": 3,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-catalog-mode",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-points-rewards",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-sales-promotions",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-search-filter",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-vodien",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-ai-images",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-install-checker",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-secure-passwords",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-tasks",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-template-drawer",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-customize-my-account-page",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-easy-login",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-one-click-checkout",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-product-comparison",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-workflows-testing",
+						"errors": 1,
+						"warnings": 0
+					}
+				]
 			},
 			{
 				"sniff": "PSR2.Files.EndFileNewline",
 				"errors": 253,
 				"warnings": 0,
 				"repos": 32,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-plugin-payments-shipping",
+						"errors": 67,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-memberships",
+						"errors": 43,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-wishlist",
+						"errors": 25,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-request-quote",
+						"errors": 18,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-product-add-ons",
+						"errors": 15,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-store-locator",
+						"errors": 15,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-pdf-invoices",
+						"errors": 11,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-subscriptions",
+						"errors": 7,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-framework",
+						"errors": 4,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-onboarding",
+						"errors": 4,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-affiliates",
+						"errors": 4,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-catalog-mode",
+						"errors": 4,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-one-click-checkout",
+						"errors": 4,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-points-rewards",
+						"errors": 4,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-install-checker",
+						"errors": 3,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-search-filter",
+						"errors": 3,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-advanced-reviews",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-crazy-domains",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-customize-my-account-page",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-easy-login",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-sales-promotions",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-workflows-testing",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-coming-soon",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-mcp",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-runtime",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-secure-passwords",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-template-drawer",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-ai-store",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-email-templates",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-gift-cards",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-product-comparison",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-sms-notifications",
+						"errors": 1,
+						"warnings": 0
+					}
+				]
 			},
 			{
 				"sniff": "WordPress.Security.NonceVerification",
 				"errors": 145,
 				"warnings": 358,
 				"repos": 31,
-				"rule": "wp-security-checks"
+				"rule": "wp-security-checks",
+				"in": [
+					{
+						"name": "wp-plugin-memberships",
+						"errors": 33,
+						"warnings": 90
+					},
+					{
+						"name": "wp-plugin-payments-shipping",
+						"errors": 19,
+						"warnings": 50
+					},
+					{
+						"name": "wp-plugin-store-locator",
+						"errors": 22,
+						"warnings": 43
+					},
+					{
+						"name": "wp-plugin-gift-cards",
+						"errors": 20,
+						"warnings": 13
+					},
+					{
+						"name": "wp-plugin-product-add-ons",
+						"errors": 22,
+						"warnings": 7
+					},
+					{
+						"name": "wp-plugin-request-quote",
+						"errors": 8,
+						"warnings": 19
+					},
+					{
+						"name": "wp-plugin-pdf-invoices",
+						"errors": 2,
+						"warnings": 16
+					},
+					{
+						"name": "wp-module-next-steps",
+						"errors": 0,
+						"warnings": 16
+					},
+					{
+						"name": "wp-plugin-blu-store",
+						"errors": 12,
+						"warnings": 4
+					},
+					{
+						"name": "wp-module-onboarding",
+						"errors": 0,
+						"warnings": 14
+					},
+					{
+						"name": "wp-module-secure-passwords",
+						"errors": 0,
+						"warnings": 10
+					},
+					{
+						"name": "wp-plugin-wishlist",
+						"errors": 0,
+						"warnings": 10
+					},
+					{
+						"name": "wp-plugin-affiliates",
+						"errors": 0,
+						"warnings": 9
+					},
+					{
+						"name": "wp-plugin-catalog-mode",
+						"errors": 0,
+						"warnings": 9
+					},
+					{
+						"name": "wp-plugin-creativ-email",
+						"errors": 6,
+						"warnings": 3
+					},
+					{
+						"name": "wp-module-ecommerce",
+						"errors": 0,
+						"warnings": 6
+					},
+					{
+						"name": "wp-plugin-sales-promotions",
+						"errors": 0,
+						"warnings": 6
+					},
+					{
+						"name": "wp-module-data",
+						"errors": 0,
+						"warnings": 4
+					},
+					{
+						"name": "wp-module-solutions",
+						"errors": 0,
+						"warnings": 4
+					},
+					{
+						"name": "wp-plugin-blueprint-exporter",
+						"errors": 1,
+						"warnings": 3
+					},
+					{
+						"name": "wp-module-patterns",
+						"errors": 0,
+						"warnings": 3
+					},
+					{
+						"name": "wp-module-help-center",
+						"errors": 0,
+						"warnings": 2
+					},
+					{
+						"name": "wp-module-onboarding-data",
+						"errors": 0,
+						"warnings": 2
+					},
+					{
+						"name": "wp-module-performance",
+						"errors": 0,
+						"warnings": 2
+					},
+					{
+						"name": "wp-module-sso",
+						"errors": 0,
+						"warnings": 2
+					},
+					{
+						"name": "wp-module-staging",
+						"errors": 0,
+						"warnings": 2
+					},
+					{
+						"name": "wp-plugin-ai-store",
+						"errors": 0,
+						"warnings": 2
+					},
+					{
+						"name": "wp-plugin-mojo",
+						"errors": 0,
+						"warnings": 2
+					},
+					{
+						"name": "wp-plugin-search-filter",
+						"errors": 0,
+						"warnings": 2
+					},
+					{
+						"name": "wp-plugin-subscriptions",
+						"errors": 0,
+						"warnings": 2
+					},
+					{
+						"name": "wp-module-template-drawer",
+						"errors": 0,
+						"warnings": 1
+					}
+				]
 			},
 			{
 				"sniff": "Squiz.Commenting.ClassComment",
 				"errors": 486,
 				"warnings": 0,
 				"repos": 31,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-plugin-creativ-email",
+						"errors": 58,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-request-quote",
+						"errors": 57,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-blu-store",
+						"errors": 49,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-payments-shipping",
+						"errors": 48,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-points-rewards",
+						"errors": 47,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-ecomdash",
+						"errors": 42,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-wishlist",
+						"errors": 32,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-product-add-ons",
+						"errors": 28,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-product-comparison",
+						"errors": 27,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-memberships",
+						"errors": 18,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-one-click-checkout",
+						"errors": 11,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-gift-cards",
+						"errors": 10,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-facebook",
+						"errors": 8,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-pdf-invoices",
+						"errors": 8,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-advanced-reviews",
+						"errors": 6,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-affiliates",
+						"errors": 5,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-store-locator",
+						"errors": 5,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-sms-notifications",
+						"errors": 4,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-sso",
+						"errors": 3,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-ai-chat-poc",
+						"errors": 3,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-subscriptions",
+						"errors": 3,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-install-checker",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-loader",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-catalog-mode",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-search-filter",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-data",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-ecommerce",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-framework",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-onboarding",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-onboarding-data",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-blueprint-exporter",
+						"errors": 1,
+						"warnings": 0
+					}
+				]
 			},
 			{
 				"sniff": "Squiz.WhiteSpace.SuperfluousWhitespace",
 				"errors": 240,
 				"warnings": 0,
 				"repos": 30,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-plugin-payments-shipping",
+						"errors": 56,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-gift-cards",
+						"errors": 22,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-store-locator",
+						"errors": 19,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-product-add-ons",
+						"errors": 16,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-pdf-invoices",
+						"errors": 14,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-subscriptions",
+						"errors": 13,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-onboarding",
+						"errors": 11,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-advanced-reviews",
+						"errors": 11,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-one-click-checkout",
+						"errors": 11,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-affiliates",
+						"errors": 10,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-memberships",
+						"errors": 10,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-ecommerce",
+						"errors": 7,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-wishlist",
+						"errors": 6,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-search-filter",
+						"errors": 4,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-deactivation",
+						"errors": 3,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-install-checker",
+						"errors": 3,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-blueprint",
+						"errors": 3,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-customize-my-account-page",
+						"errors": 3,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-coming-soon",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-framework",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-loader",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-notifications",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-points-rewards",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-request-quote",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-data",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-mcp",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-template-drawer",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-ai-chat-poc",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-ai-store",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-catalog-mode",
+						"errors": 1,
+						"warnings": 0
+					}
+				]
 			},
 			{
 				"sniff": "NormalizedArrays.Arrays.CommaAfterLast",
 				"errors": 592,
 				"warnings": 0,
 				"repos": 29,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-plugin-points-rewards",
+						"errors": 112,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-payments-shipping",
+						"errors": 107,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-store-locator",
+						"errors": 59,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-wishlist",
+						"errors": 59,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-subscriptions",
+						"errors": 40,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-blu-store",
+						"errors": 27,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-advanced-reviews",
+						"errors": 24,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-pdf-invoices",
+						"errors": 24,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-product-add-ons",
+						"errors": 18,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-affiliates",
+						"errors": 17,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-request-quote",
+						"errors": 14,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-ecommerce",
+						"errors": 13,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-facebook",
+						"errors": 12,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-notifications",
+						"errors": 11,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-customize-my-account-page",
+						"errors": 9,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-ai-images",
+						"errors": 7,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-memberships",
+						"errors": 6,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-search-filter",
+						"errors": 6,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-gift-cards",
+						"errors": 5,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-catalog-mode",
+						"errors": 4,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-easy-login",
+						"errors": 3,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-one-click-checkout",
+						"errors": 3,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-sales-promotions",
+						"errors": 3,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-email-templates",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-product-comparison",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-workflows-testing",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-install-checker",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-ecomdash",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-sms-notifications",
+						"errors": 1,
+						"warnings": 0
+					}
+				]
 			},
 			{
 				"sniff": "Universal.NamingConventions.NoReservedKeywordParameterNames",
 				"errors": 0,
 				"warnings": 146,
 				"repos": 27,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-plugin-payments-shipping",
+						"errors": 0,
+						"warnings": 35
+					},
+					{
+						"name": "wp-plugin-request-quote",
+						"errors": 0,
+						"warnings": 25
+					},
+					{
+						"name": "wp-plugin-memberships",
+						"errors": 0,
+						"warnings": 13
+					},
+					{
+						"name": "wp-plugin-search-filter",
+						"errors": 0,
+						"warnings": 11
+					},
+					{
+						"name": "wp-plugin-wishlist",
+						"errors": 0,
+						"warnings": 8
+					},
+					{
+						"name": "wp-plugin-product-add-ons",
+						"errors": 0,
+						"warnings": 7
+					},
+					{
+						"name": "wp-plugin-store-locator",
+						"errors": 0,
+						"warnings": 7
+					},
+					{
+						"name": "wp-plugin-sales-promotions",
+						"errors": 0,
+						"warnings": 6
+					},
+					{
+						"name": "wp-plugin-ai-store",
+						"errors": 0,
+						"warnings": 5
+					},
+					{
+						"name": "wp-module-mcp",
+						"errors": 0,
+						"warnings": 3
+					},
+					{
+						"name": "wp-module-patterns",
+						"errors": 0,
+						"warnings": 3
+					},
+					{
+						"name": "wp-plugin-creativ-email",
+						"errors": 0,
+						"warnings": 3
+					},
+					{
+						"name": "wp-module-context",
+						"errors": 0,
+						"warnings": 2
+					},
+					{
+						"name": "wp-plugin-blu-store",
+						"errors": 0,
+						"warnings": 2
+					},
+					{
+						"name": "wp-plugin-customize-my-account-page",
+						"errors": 0,
+						"warnings": 2
+					},
+					{
+						"name": "wp-plugin-ecomdash",
+						"errors": 0,
+						"warnings": 2
+					},
+					{
+						"name": "wp-plugin-mojo",
+						"errors": 0,
+						"warnings": 2
+					},
+					{
+						"name": "wp-plugin-bigrock",
+						"errors": 0,
+						"warnings": 1
+					},
+					{
+						"name": "wp-plugin-bluehost",
+						"errors": 0,
+						"warnings": 1
+					},
+					{
+						"name": "wp-plugin-blueprint",
+						"errors": 0,
+						"warnings": 1
+					},
+					{
+						"name": "wp-plugin-catalog-mode",
+						"errors": 0,
+						"warnings": 1
+					},
+					{
+						"name": "wp-plugin-crazy-domains",
+						"errors": 0,
+						"warnings": 1
+					},
+					{
+						"name": "wp-plugin-hostgator",
+						"errors": 0,
+						"warnings": 1
+					},
+					{
+						"name": "wp-plugin-pdf-invoices",
+						"errors": 0,
+						"warnings": 1
+					},
+					{
+						"name": "wp-plugin-product-comparison",
+						"errors": 0,
+						"warnings": 1
+					},
+					{
+						"name": "wp-plugin-vodien",
+						"errors": 0,
+						"warnings": 1
+					},
+					{
+						"name": "wp-plugin-webhostbox",
+						"errors": 0,
+						"warnings": 1
+					}
+				]
 			},
 			{
 				"sniff": "Generic.Commenting.Todo",
 				"errors": 0,
 				"warnings": 90,
 				"repos": 27,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-plugin-product-add-ons",
+						"errors": 0,
+						"warnings": 15
+					},
+					{
+						"name": "wp-plugin-request-quote",
+						"errors": 0,
+						"warnings": 11
+					},
+					{
+						"name": "wp-module-framework",
+						"errors": 0,
+						"warnings": 7
+					},
+					{
+						"name": "wp-module-runtime",
+						"errors": 0,
+						"warnings": 5
+					},
+					{
+						"name": "wp-plugin-payments-shipping",
+						"errors": 0,
+						"warnings": 5
+					},
+					{
+						"name": "wp-plugin-subscriptions",
+						"errors": 0,
+						"warnings": 5
+					},
+					{
+						"name": "wp-module-ai-images",
+						"errors": 0,
+						"warnings": 4
+					},
+					{
+						"name": "wp-plugin-gift-cards",
+						"errors": 0,
+						"warnings": 4
+					},
+					{
+						"name": "wp-plugin-memberships",
+						"errors": 0,
+						"warnings": 4
+					},
+					{
+						"name": "wp-module-installer",
+						"errors": 0,
+						"warnings": 3
+					},
+					{
+						"name": "wp-plugin-affiliates",
+						"errors": 0,
+						"warnings": 3
+					},
+					{
+						"name": "wp-module-data",
+						"errors": 0,
+						"warnings": 2
+					},
+					{
+						"name": "wp-module-notifications",
+						"errors": 0,
+						"warnings": 2
+					},
+					{
+						"name": "wp-module-onboarding-data",
+						"errors": 0,
+						"warnings": 2
+					},
+					{
+						"name": "wp-plugin-catalog-mode",
+						"errors": 0,
+						"warnings": 2
+					},
+					{
+						"name": "wp-plugin-search-filter",
+						"errors": 0,
+						"warnings": 2
+					},
+					{
+						"name": "wp-plugin-sms-notifications",
+						"errors": 0,
+						"warnings": 2
+					},
+					{
+						"name": "wp-plugin-store-locator",
+						"errors": 0,
+						"warnings": 2
+					},
+					{
+						"name": "wp-plugin-wishlist",
+						"errors": 0,
+						"warnings": 2
+					},
+					{
+						"name": "wp-module-maestro",
+						"errors": 0,
+						"warnings": 1
+					},
+					{
+						"name": "wp-module-solutions",
+						"errors": 0,
+						"warnings": 1
+					},
+					{
+						"name": "wp-plugin-advanced-reviews",
+						"errors": 0,
+						"warnings": 1
+					},
+					{
+						"name": "wp-plugin-blu-store",
+						"errors": 0,
+						"warnings": 1
+					},
+					{
+						"name": "wp-plugin-bluehost",
+						"errors": 0,
+						"warnings": 1
+					},
+					{
+						"name": "wp-plugin-crazy-domains",
+						"errors": 0,
+						"warnings": 1
+					},
+					{
+						"name": "wp-plugin-hostgator",
+						"errors": 0,
+						"warnings": 1
+					},
+					{
+						"name": "wp-plugin-pdf-invoices",
+						"errors": 0,
+						"warnings": 1
+					}
+				]
 			},
 			{
 				"sniff": "WordPress.WP.AlternativeFunctions",
 				"errors": 0,
 				"warnings": 136,
 				"repos": 26,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-plugin-blu-store",
+						"errors": 0,
+						"warnings": 32
+					},
+					{
+						"name": "wp-plugin-blueprint-exporter",
+						"errors": 0,
+						"warnings": 23
+					},
+					{
+						"name": "wp-module-onboarding",
+						"errors": 0,
+						"warnings": 14
+					},
+					{
+						"name": "wp-plugin-memberships",
+						"errors": 0,
+						"warnings": 9
+					},
+					{
+						"name": "wp-plugin-payments-shipping",
+						"errors": 0,
+						"warnings": 8
+					},
+					{
+						"name": "wp-module-data",
+						"errors": 0,
+						"warnings": 5
+					},
+					{
+						"name": "wp-module-htaccess",
+						"errors": 0,
+						"warnings": 5
+					},
+					{
+						"name": "wp-module-mcp",
+						"errors": 0,
+						"warnings": 4
+					},
+					{
+						"name": "wp-module-sso",
+						"errors": 0,
+						"warnings": 4
+					},
+					{
+						"name": "wp-plugin-request-quote",
+						"errors": 0,
+						"warnings": 4
+					},
+					{
+						"name": "wp-plugin-ai-chat-poc",
+						"errors": 0,
+						"warnings": 3
+					},
+					{
+						"name": "wp-plugin-ai-store",
+						"errors": 0,
+						"warnings": 3
+					},
+					{
+						"name": "wp-plugin-creativ-email",
+						"errors": 0,
+						"warnings": 3
+					},
+					{
+						"name": "wp-plugin-store-locator",
+						"errors": 0,
+						"warnings": 3
+					},
+					{
+						"name": "wp-module-ai-assistant",
+						"errors": 0,
+						"warnings": 2
+					},
+					{
+						"name": "wp-module-insights",
+						"errors": 0,
+						"warnings": 2
+					},
+					{
+						"name": "wp-module-onboarding-data",
+						"errors": 0,
+						"warnings": 2
+					},
+					{
+						"name": "wp-plugin-bluehost",
+						"errors": 0,
+						"warnings": 2
+					},
+					{
+						"name": "wp-module-ai-images",
+						"errors": 0,
+						"warnings": 1
+					},
+					{
+						"name": "wp-module-editor-chat",
+						"errors": 0,
+						"warnings": 1
+					},
+					{
+						"name": "wp-module-facebook",
+						"errors": 0,
+						"warnings": 1
+					},
+					{
+						"name": "wp-module-framework",
+						"errors": 0,
+						"warnings": 1
+					},
+					{
+						"name": "wp-module-patterns",
+						"errors": 0,
+						"warnings": 1
+					},
+					{
+						"name": "wp-plugin-mojo",
+						"errors": 0,
+						"warnings": 1
+					},
+					{
+						"name": "wp-plugin-product-add-ons",
+						"errors": 0,
+						"warnings": 1
+					},
+					{
+						"name": "wp-plugin-sales-promotions",
+						"errors": 0,
+						"warnings": 1
+					}
+				]
 			},
 			{
 				"sniff": "Generic.WhiteSpace.DisallowSpaceIndent",
 				"errors": 18257,
 				"warnings": 0,
 				"repos": 25,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-plugin-blu-store",
+						"errors": 9274,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-wishlist",
+						"errors": 3468,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-payments-shipping",
+						"errors": 1932,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-product-add-ons",
+						"errors": 736,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-memberships",
+						"errors": 702,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-store-locator",
+						"errors": 475,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-facebook",
+						"errors": 427,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-pdf-invoices",
+						"errors": 290,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-one-click-checkout",
+						"errors": 225,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-ai-chat-poc",
+						"errors": 222,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-advanced-reviews",
+						"errors": 198,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-request-quote",
+						"errors": 141,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-points-rewards",
+						"errors": 61,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-easy-login",
+						"errors": 38,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-subscriptions",
+						"errors": 24,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-affiliates",
+						"errors": 10,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-gift-cards",
+						"errors": 10,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-notifications",
+						"errors": 7,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-sales-promotions",
+						"errors": 5,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-runtime",
+						"errors": 4,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-ai-store",
+						"errors": 3,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-ecommerce",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-ai-images",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-catalog-mode",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-creativ-email",
+						"errors": 1,
+						"warnings": 0
+					}
+				]
 			},
 			{
 				"sniff": "WordPress.WhiteSpace.ControlStructureSpacing",
 				"errors": 498,
 				"warnings": 0,
 				"repos": 25,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-plugin-store-locator",
+						"errors": 92,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-product-add-ons",
+						"errors": 55,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-payments-shipping",
+						"errors": 54,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-pdf-invoices",
+						"errors": 40,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-facebook",
+						"errors": 34,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-ai-chat-poc",
+						"errors": 26,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-wishlist",
+						"errors": 26,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-memberships",
+						"errors": 25,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-data",
+						"errors": 23,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-gift-cards",
+						"errors": 17,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-request-quote",
+						"errors": 15,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-points-rewards",
+						"errors": 12,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-advanced-reviews",
+						"errors": 11,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-ecommerce",
+						"errors": 10,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-search-filter",
+						"errors": 10,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-blu-store",
+						"errors": 9,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-ecomdash",
+						"errors": 8,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-affiliates",
+						"errors": 7,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-one-click-checkout",
+						"errors": 6,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-subscriptions",
+						"errors": 5,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-notifications",
+						"errors": 4,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-customize-my-account-page",
+						"errors": 3,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-sales-promotions",
+						"errors": 3,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-onboarding-data",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-runtime",
+						"errors": 1,
+						"warnings": 0
+					}
+				]
 			},
 			{
 				"sniff": "Generic.Commenting.DocComment",
 				"errors": 499,
 				"warnings": 0,
 				"repos": 24,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-plugin-memberships",
+						"errors": 174,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-payments-shipping",
+						"errors": 100,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-pdf-invoices",
+						"errors": 53,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-one-click-checkout",
+						"errors": 39,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-blu-store",
+						"errors": 21,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-product-add-ons",
+						"errors": 17,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-store-locator",
+						"errors": 16,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-wishlist",
+						"errors": 12,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-request-quote",
+						"errors": 11,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-sales-promotions",
+						"errors": 9,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-sso",
+						"errors": 7,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-subscriptions",
+						"errors": 7,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-gift-cards",
+						"errors": 6,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-affiliates",
+						"errors": 5,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-points-rewards",
+						"errors": 5,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-search-filter",
+						"errors": 3,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-data",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-facebook",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-framework",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-loader",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-catalog-mode",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-product-comparison",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-deactivation",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-template-drawer",
+						"errors": 1,
+						"warnings": 0
+					}
+				]
 			},
 			{
 				"sniff": "WordPress.PHP.DiscouragedPHPFunctions",
 				"errors": 0,
 				"warnings": 66,
 				"repos": 24,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-plugin-memberships",
+						"errors": 0,
+						"warnings": 13
+					},
+					{
+						"name": "wp-plugin-creativ-email",
+						"errors": 0,
+						"warnings": 8
+					},
+					{
+						"name": "wp-plugin-blu-store",
+						"errors": 0,
+						"warnings": 7
+					},
+					{
+						"name": "wp-module-sso",
+						"errors": 0,
+						"warnings": 5
+					},
+					{
+						"name": "wp-module-data",
+						"errors": 0,
+						"warnings": 3
+					},
+					{
+						"name": "wp-plugin-ai-store",
+						"errors": 0,
+						"warnings": 3
+					},
+					{
+						"name": "wp-plugin-bluehost",
+						"errors": 0,
+						"warnings": 3
+					},
+					{
+						"name": "wp-module-mcp",
+						"errors": 0,
+						"warnings": 2
+					},
+					{
+						"name": "wp-module-onboarding",
+						"errors": 0,
+						"warnings": 2
+					},
+					{
+						"name": "wp-module-onboarding-data",
+						"errors": 0,
+						"warnings": 2
+					},
+					{
+						"name": "wp-plugin-payments-shipping",
+						"errors": 0,
+						"warnings": 2
+					},
+					{
+						"name": "wp-plugin-pdf-invoices",
+						"errors": 0,
+						"warnings": 2
+					},
+					{
+						"name": "wp-plugin-product-add-ons",
+						"errors": 0,
+						"warnings": 2
+					},
+					{
+						"name": "wp-plugin-request-quote",
+						"errors": 0,
+						"warnings": 2
+					},
+					{
+						"name": "wp-module-ai-images",
+						"errors": 0,
+						"warnings": 1
+					},
+					{
+						"name": "wp-module-ai-page-designer",
+						"errors": 0,
+						"warnings": 1
+					},
+					{
+						"name": "wp-module-insights",
+						"errors": 0,
+						"warnings": 1
+					},
+					{
+						"name": "wp-module-next-steps",
+						"errors": 0,
+						"warnings": 1
+					},
+					{
+						"name": "wp-plugin-bigrock",
+						"errors": 0,
+						"warnings": 1
+					},
+					{
+						"name": "wp-plugin-crazy-domains",
+						"errors": 0,
+						"warnings": 1
+					},
+					{
+						"name": "wp-plugin-hostgator",
+						"errors": 0,
+						"warnings": 1
+					},
+					{
+						"name": "wp-plugin-mojo",
+						"errors": 0,
+						"warnings": 1
+					},
+					{
+						"name": "wp-plugin-vodien",
+						"errors": 0,
+						"warnings": 1
+					},
+					{
+						"name": "wp-plugin-webhostbox",
+						"errors": 0,
+						"warnings": 1
+					}
+				]
 			},
 			{
 				"sniff": "WordPress.WhiteSpace.OperatorSpacing",
 				"errors": 334,
 				"warnings": 0,
 				"repos": 23,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-plugin-store-locator",
+						"errors": 78,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-blu-store",
+						"errors": 68,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-advanced-reviews",
+						"errors": 42,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-payments-shipping",
+						"errors": 37,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-ai-chat-poc",
+						"errors": 15,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-pdf-invoices",
+						"errors": 12,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-wishlist",
+						"errors": 12,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-facebook",
+						"errors": 11,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-product-add-ons",
+						"errors": 10,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-memberships",
+						"errors": 7,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-search-filter",
+						"errors": 7,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-gift-cards",
+						"errors": 6,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-one-click-checkout",
+						"errors": 5,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-affiliates",
+						"errors": 3,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-customize-my-account-page",
+						"errors": 3,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-points-rewards",
+						"errors": 3,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-product-comparison",
+						"errors": 3,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-request-quote",
+						"errors": 3,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-subscriptions",
+						"errors": 3,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-ecommerce",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-sales-promotions",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-install-checker",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-notifications",
+						"errors": 1,
+						"warnings": 0
+					}
+				]
 			},
 			{
 				"sniff": "Squiz.ControlStructures.ControlSignature",
 				"errors": 223,
 				"warnings": 0,
 				"repos": 22,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-plugin-store-locator",
+						"errors": 48,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-wishlist",
+						"errors": 26,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-payments-shipping",
+						"errors": 25,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-product-add-ons",
+						"errors": 25,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-pdf-invoices",
+						"errors": 20,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-request-quote",
+						"errors": 17,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-memberships",
+						"errors": 14,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-gift-cards",
+						"errors": 9,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-points-rewards",
+						"errors": 6,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-advanced-reviews",
+						"errors": 5,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-blu-store",
+						"errors": 5,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-search-filter",
+						"errors": 5,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-affiliates",
+						"errors": 3,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-sales-promotions",
+						"errors": 3,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-data",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-ecomdash",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-one-click-checkout",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-subscriptions",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-ecommerce",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-facebook",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-notifications",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-runtime",
+						"errors": 1,
+						"warnings": 0
+					}
+				]
 			},
 			{
 				"sniff": "WordPress.PHP.YodaConditions",
 				"errors": 553,
 				"warnings": 0,
 				"repos": 21,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-plugin-ai-store",
+						"errors": 295,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-blu-store",
+						"errors": 93,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-memberships",
+						"errors": 62,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-product-add-ons",
+						"errors": 22,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-request-quote",
+						"errors": 22,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-payments-shipping",
+						"errors": 15,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-ecommerce",
+						"errors": 12,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-store-locator",
+						"errors": 7,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-gift-cards",
+						"errors": 5,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-pdf-invoices",
+						"errors": 3,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-template-drawer",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-affiliates",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-one-click-checkout",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-product-comparison",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-search-filter",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-wishlist",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-data",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-install-checker",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-notifications",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-ai-chat-poc",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-subscriptions",
+						"errors": 1,
+						"warnings": 0
+					}
+				]
 			},
 			{
 				"sniff": "Squiz.Commenting.FileComment",
 				"errors": 252,
 				"warnings": 0,
 				"repos": 21,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-plugin-memberships",
+						"errors": 44,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-blu-store",
+						"errors": 40,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-payments-shipping",
+						"errors": 38,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-one-click-checkout",
+						"errors": 22,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-affiliates",
+						"errors": 17,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-ecomdash",
+						"errors": 14,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-store-locator",
+						"errors": 13,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-product-comparison",
+						"errors": 11,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-request-quote",
+						"errors": 11,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-wishlist",
+						"errors": 11,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-product-add-ons",
+						"errors": 9,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-email-templates",
+						"errors": 6,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-creativ-email",
+						"errors": 4,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-customize-my-account-page",
+						"errors": 3,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-crazy-domains",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-pdf-invoices",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-data",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-secure-passwords",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-ai-chat-poc",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-blueprint-exporter",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-subscriptions",
+						"errors": 1,
+						"warnings": 0
+					}
+				]
 			},
 			{
 				"sniff": "Universal.WhiteSpace.PrecisionAlignment",
 				"errors": 0,
 				"warnings": 503,
 				"repos": 18,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-plugin-payments-shipping",
+						"errors": 0,
+						"warnings": 184
+					},
+					{
+						"name": "wp-plugin-product-add-ons",
+						"errors": 0,
+						"warnings": 120
+					},
+					{
+						"name": "wp-plugin-pdf-invoices",
+						"errors": 0,
+						"warnings": 49
+					},
+					{
+						"name": "wp-module-facebook",
+						"errors": 0,
+						"warnings": 45
+					},
+					{
+						"name": "wp-plugin-sales-promotions",
+						"errors": 0,
+						"warnings": 19
+					},
+					{
+						"name": "wp-plugin-memberships",
+						"errors": 0,
+						"warnings": 16
+					},
+					{
+						"name": "wp-plugin-subscriptions",
+						"errors": 0,
+						"warnings": 16
+					},
+					{
+						"name": "wp-plugin-ecomdash",
+						"errors": 0,
+						"warnings": 10
+					},
+					{
+						"name": "wp-plugin-request-quote",
+						"errors": 0,
+						"warnings": 10
+					},
+					{
+						"name": "wp-plugin-blu-store",
+						"errors": 0,
+						"warnings": 9
+					},
+					{
+						"name": "wp-plugin-affiliates",
+						"errors": 0,
+						"warnings": 5
+					},
+					{
+						"name": "wp-plugin-wishlist",
+						"errors": 0,
+						"warnings": 5
+					},
+					{
+						"name": "wp-plugin-advanced-reviews",
+						"errors": 0,
+						"warnings": 4
+					},
+					{
+						"name": "wp-plugin-points-rewards",
+						"errors": 0,
+						"warnings": 4
+					},
+					{
+						"name": "wp-plugin-easy-login",
+						"errors": 0,
+						"warnings": 3
+					},
+					{
+						"name": "wp-plugin-gift-cards",
+						"errors": 0,
+						"warnings": 2
+					},
+					{
+						"name": "wp-module-ecommerce",
+						"errors": 0,
+						"warnings": 1
+					},
+					{
+						"name": "wp-module-runtime",
+						"errors": 0,
+						"warnings": 1
+					}
+				]
 			},
 			{
 				"sniff": "WordPress.Security.EscapeOutput",
 				"errors": 213,
 				"warnings": 0,
 				"repos": 18,
-				"rule": "wp-security-checks"
+				"rule": "wp-security-checks",
+				"in": [
+					{
+						"name": "wp-plugin-payments-shipping",
+						"errors": 84,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-blu-store",
+						"errors": 33,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-request-quote",
+						"errors": 16,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-product-add-ons",
+						"errors": 12,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-memberships",
+						"errors": 11,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-wishlist",
+						"errors": 11,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-onboarding",
+						"errors": 10,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-store-locator",
+						"errors": 9,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-affiliates",
+						"errors": 5,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-gift-cards",
+						"errors": 5,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-one-click-checkout",
+						"errors": 5,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-subscriptions",
+						"errors": 4,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-pdf-invoices",
+						"errors": 3,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-catalog-mode",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-creativ-email",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-easy-login",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-ecomdash",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-product-comparison",
+						"errors": 1,
+						"warnings": 0
+					}
+				]
 			},
 			{
 				"sniff": "WordPress.WP.I18n",
 				"errors": 80,
 				"warnings": 94,
 				"repos": 18,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-plugin-ecomdash",
+						"errors": 40,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-memberships",
+						"errors": 5,
+						"warnings": 34
+					},
+					{
+						"name": "wp-plugin-payments-shipping",
+						"errors": 5,
+						"warnings": 21
+					},
+					{
+						"name": "wp-plugin-affiliates",
+						"errors": 7,
+						"warnings": 8
+					},
+					{
+						"name": "wp-plugin-creativ-email",
+						"errors": 10,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-request-quote",
+						"errors": 4,
+						"warnings": 3
+					},
+					{
+						"name": "wp-module-deactivation",
+						"errors": 0,
+						"warnings": 5
+					},
+					{
+						"name": "wp-plugin-product-add-ons",
+						"errors": 2,
+						"warnings": 3
+					},
+					{
+						"name": "wp-plugin-pdf-invoices",
+						"errors": 1,
+						"warnings": 3
+					},
+					{
+						"name": "wp-plugin-points-rewards",
+						"errors": 2,
+						"warnings": 2
+					},
+					{
+						"name": "wp-plugin-store-locator",
+						"errors": 2,
+						"warnings": 2
+					},
+					{
+						"name": "wp-plugin-wishlist",
+						"errors": 0,
+						"warnings": 4
+					},
+					{
+						"name": "wp-module-onboarding-data",
+						"errors": 0,
+						"warnings": 3
+					},
+					{
+						"name": "wp-plugin-gift-cards",
+						"errors": 2,
+						"warnings": 1
+					},
+					{
+						"name": "wp-plugin-advanced-reviews",
+						"errors": 0,
+						"warnings": 2
+					},
+					{
+						"name": "wp-plugin-bluehost",
+						"errors": 0,
+						"warnings": 1
+					},
+					{
+						"name": "wp-plugin-customize-my-account-page",
+						"errors": 0,
+						"warnings": 1
+					},
+					{
+						"name": "wp-plugin-subscriptions",
+						"errors": 0,
+						"warnings": 1
+					}
+				]
 			},
 			{
 				"sniff": "Generic.WhiteSpace.ScopeIndent",
 				"errors": 860,
 				"warnings": 0,
 				"repos": 17,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-plugin-product-add-ons",
+						"errors": 245,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-subscriptions",
+						"errors": 217,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-payments-shipping",
+						"errors": 211,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-facebook",
+						"errors": 59,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-store-locator",
+						"errors": 36,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-memberships",
+						"errors": 33,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-wishlist",
+						"errors": 23,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-request-quote",
+						"errors": 10,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-pdf-invoices",
+						"errors": 9,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-gift-cards",
+						"errors": 5,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-product-comparison",
+						"errors": 3,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-ecommerce",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-affiliates",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-ecomdash",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-runtime",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-advanced-reviews",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-blu-store",
+						"errors": 1,
+						"warnings": 0
+					}
+				]
 			},
 			{
 				"sniff": "NormalizedArrays.Arrays.ArrayBraceSpacing",
 				"errors": 216,
 				"warnings": 0,
 				"repos": 17,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-plugin-blu-store",
+						"errors": 78,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-facebook",
+						"errors": 36,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-wishlist",
+						"errors": 27,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-one-click-checkout",
+						"errors": 16,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-ai-chat-poc",
+						"errors": 14,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-affiliates",
+						"errors": 13,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-payments-shipping",
+						"errors": 11,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-pdf-invoices",
+						"errors": 5,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-ecommerce",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-notifications",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-blueprint",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-memberships",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-sales-promotions",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-search-filter",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-store-locator",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-product-add-ons",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-request-quote",
+						"errors": 1,
+						"warnings": 0
+					}
+				]
 			},
 			{
 				"sniff": "Squiz.PHP.CommentedOutCode",
 				"errors": 0,
 				"warnings": 38,
 				"repos": 17,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-plugin-payments-shipping",
+						"errors": 0,
+						"warnings": 5
+					},
+					{
+						"name": "wp-plugin-request-quote",
+						"errors": 0,
+						"warnings": 4
+					},
+					{
+						"name": "wp-module-next-steps",
+						"errors": 0,
+						"warnings": 3
+					},
+					{
+						"name": "wp-plugin-ai-store",
+						"errors": 0,
+						"warnings": 3
+					},
+					{
+						"name": "wp-plugin-memberships",
+						"errors": 0,
+						"warnings": 3
+					},
+					{
+						"name": "wp-plugin-product-add-ons",
+						"errors": 0,
+						"warnings": 3
+					},
+					{
+						"name": "wp-plugin-wishlist",
+						"errors": 0,
+						"warnings": 3
+					},
+					{
+						"name": "wp-module-deactivation",
+						"errors": 0,
+						"warnings": 2
+					},
+					{
+						"name": "wp-module-onboarding",
+						"errors": 0,
+						"warnings": 2
+					},
+					{
+						"name": "wp-plugin-blu-store",
+						"errors": 0,
+						"warnings": 2
+					},
+					{
+						"name": "wp-plugin-one-click-checkout",
+						"errors": 0,
+						"warnings": 2
+					},
+					{
+						"name": "wp-module-htaccess",
+						"errors": 0,
+						"warnings": 1
+					},
+					{
+						"name": "wp-module-marketplace",
+						"errors": 0,
+						"warnings": 1
+					},
+					{
+						"name": "wp-module-performance",
+						"errors": 0,
+						"warnings": 1
+					},
+					{
+						"name": "wp-plugin-hiive-config",
+						"errors": 0,
+						"warnings": 1
+					},
+					{
+						"name": "wp-plugin-search-filter",
+						"errors": 0,
+						"warnings": 1
+					},
+					{
+						"name": "wp-plugin-store-locator",
+						"errors": 0,
+						"warnings": 1
+					}
+				]
 			},
 			{
 				"sniff": "WordPress.Arrays.ArrayIndentation",
 				"errors": 591,
 				"warnings": 0,
 				"repos": 16,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-plugin-wishlist",
+						"errors": 194,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-product-add-ons",
+						"errors": 149,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-gift-cards",
+						"errors": 76,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-payments-shipping",
+						"errors": 53,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-store-locator",
+						"errors": 34,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-blu-store",
+						"errors": 22,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-memberships",
+						"errors": 21,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-points-rewards",
+						"errors": 9,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-advanced-reviews",
+						"errors": 6,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-request-quote",
+						"errors": 6,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-notifications",
+						"errors": 5,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-one-click-checkout",
+						"errors": 5,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-ai-images",
+						"errors": 4,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-affiliates",
+						"errors": 3,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-subscriptions",
+						"errors": 3,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-search-filter",
+						"errors": 1,
+						"warnings": 0
+					}
+				]
 			},
 			{
 				"sniff": "WordPress.PHP.StrictInArray",
 				"errors": 0,
 				"warnings": 100,
 				"repos": 16,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-plugin-memberships",
+						"errors": 0,
+						"warnings": 45
+					},
+					{
+						"name": "wp-plugin-product-add-ons",
+						"errors": 0,
+						"warnings": 20
+					},
+					{
+						"name": "wp-plugin-request-quote",
+						"errors": 0,
+						"warnings": 7
+					},
+					{
+						"name": "wp-plugin-payments-shipping",
+						"errors": 0,
+						"warnings": 6
+					},
+					{
+						"name": "wp-module-data",
+						"errors": 0,
+						"warnings": 3
+					},
+					{
+						"name": "wp-plugin-ai-store",
+						"errors": 0,
+						"warnings": 3
+					},
+					{
+						"name": "wp-module-ecommerce",
+						"errors": 0,
+						"warnings": 2
+					},
+					{
+						"name": "wp-module-mcp",
+						"errors": 0,
+						"warnings": 2
+					},
+					{
+						"name": "wp-module-onboarding",
+						"errors": 0,
+						"warnings": 2
+					},
+					{
+						"name": "wp-plugin-blu-store",
+						"errors": 0,
+						"warnings": 2
+					},
+					{
+						"name": "wp-plugin-creativ-email",
+						"errors": 0,
+						"warnings": 2
+					},
+					{
+						"name": "wp-plugin-gift-cards",
+						"errors": 0,
+						"warnings": 2
+					},
+					{
+						"name": "wp-module-activation",
+						"errors": 0,
+						"warnings": 1
+					},
+					{
+						"name": "wp-plugin-mojo",
+						"errors": 0,
+						"warnings": 1
+					},
+					{
+						"name": "wp-plugin-pdf-invoices",
+						"errors": 0,
+						"warnings": 1
+					},
+					{
+						"name": "wp-plugin-search-filter",
+						"errors": 0,
+						"warnings": 1
+					}
+				]
 			},
 			{
 				"sniff": "Universal.CodeAnalysis.NoDoubleNegative",
 				"errors": 317,
 				"warnings": 0,
 				"repos": 15,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-plugin-memberships",
+						"errors": 98,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-store-locator",
+						"errors": 49,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-framework",
+						"errors": 46,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-payments-shipping",
+						"errors": 34,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-search-filter",
+						"errors": 20,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-advanced-reviews",
+						"errors": 16,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-request-quote",
+						"errors": 14,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-subscriptions",
+						"errors": 9,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-wishlist",
+						"errors": 9,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-product-add-ons",
+						"errors": 6,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-points-rewards",
+						"errors": 5,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-sms-notifications",
+						"errors": 5,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-pdf-invoices",
+						"errors": 4,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-gift-cards",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-product-comparison",
+						"errors": 1,
+						"warnings": 0
+					}
+				]
 			},
 			{
 				"sniff": "Squiz.Commenting.VariableComment",
 				"errors": 220,
 				"warnings": 0,
 				"repos": 15,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-plugin-creativ-email",
+						"errors": 93,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-ecomdash",
+						"errors": 73,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-memberships",
+						"errors": 18,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-facebook",
+						"errors": 8,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-payments-shipping",
+						"errors": 6,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-affiliates",
+						"errors": 4,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-ecommerce",
+						"errors": 3,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-advanced-reviews",
+						"errors": 3,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-one-click-checkout",
+						"errors": 3,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-gift-cards",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-store-locator",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-wishlist",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-deactivation",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-blu-store",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-request-quote",
+						"errors": 1,
+						"warnings": 0
+					}
+				]
 			},
 			{
 				"sniff": "WordPress.Arrays.ArrayDeclarationSpacing",
 				"errors": 653,
 				"warnings": 0,
 				"repos": 14,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-plugin-blu-store",
+						"errors": 538,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-affiliates",
+						"errors": 35,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-pdf-invoices",
+						"errors": 25,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-memberships",
+						"errors": 15,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-product-add-ons",
+						"errors": 9,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-wishlist",
+						"errors": 7,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-request-quote",
+						"errors": 6,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-advanced-reviews",
+						"errors": 5,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-payments-shipping",
+						"errors": 5,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-ai-store",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-gift-cards",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-store-locator",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-framework",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-points-rewards",
+						"errors": 1,
+						"warnings": 0
+					}
+				]
 			},
 			{
 				"sniff": "Universal.Operators.StrictComparisons",
 				"errors": 0,
 				"warnings": 147,
 				"repos": 14,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-plugin-creativ-email",
+						"errors": 0,
+						"warnings": 51
+					},
+					{
+						"name": "wp-plugin-memberships",
+						"errors": 0,
+						"warnings": 47
+					},
+					{
+						"name": "wp-plugin-request-quote",
+						"errors": 0,
+						"warnings": 18
+					},
+					{
+						"name": "wp-plugin-product-add-ons",
+						"errors": 0,
+						"warnings": 13
+					},
+					{
+						"name": "wp-plugin-store-locator",
+						"errors": 0,
+						"warnings": 4
+					},
+					{
+						"name": "wp-module-mcp",
+						"errors": 0,
+						"warnings": 3
+					},
+					{
+						"name": "wp-plugin-ai-store",
+						"errors": 0,
+						"warnings": 2
+					},
+					{
+						"name": "wp-plugin-blu-store",
+						"errors": 0,
+						"warnings": 2
+					},
+					{
+						"name": "wp-plugin-payments-shipping",
+						"errors": 0,
+						"warnings": 2
+					},
+					{
+						"name": "wp-module-onboarding-data",
+						"errors": 0,
+						"warnings": 1
+					},
+					{
+						"name": "wp-module-template-drawer",
+						"errors": 0,
+						"warnings": 1
+					},
+					{
+						"name": "wp-plugin-gift-cards",
+						"errors": 0,
+						"warnings": 1
+					},
+					{
+						"name": "wp-plugin-one-click-checkout",
+						"errors": 0,
+						"warnings": 1
+					},
+					{
+						"name": "wp-plugin-sales-promotions",
+						"errors": 0,
+						"warnings": 1
+					}
+				]
 			},
 			{
 				"sniff": "Squiz.Strings.DoubleQuoteUsage",
 				"errors": 140,
 				"warnings": 0,
 				"repos": 14,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-plugin-blu-store",
+						"errors": 44,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-memberships",
+						"errors": 26,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-payments-shipping",
+						"errors": 23,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-subscriptions",
+						"errors": 11,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-points-rewards",
+						"errors": 9,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-store-locator",
+						"errors": 6,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-notifications",
+						"errors": 5,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-affiliates",
+						"errors": 5,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-product-add-ons",
+						"errors": 4,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-ai-assistant",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-ai-chat-poc",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-facebook",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-blueprint-exporter",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-pdf-invoices",
+						"errors": 1,
+						"warnings": 0
+					}
+				]
 			},
 			{
 				"sniff": "WordPress.Arrays.ArrayKeySpacingRestrictions",
 				"errors": 128,
 				"warnings": 0,
 				"repos": 14,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-plugin-store-locator",
+						"errors": 44,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-wishlist",
+						"errors": 29,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-product-add-ons",
+						"errors": 23,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-payments-shipping",
+						"errors": 14,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-one-click-checkout",
+						"errors": 4,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-facebook",
+						"errors": 3,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-customize-my-account-page",
+						"errors": 3,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-subscriptions",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-data",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-ecommerce",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-advanced-reviews",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-blu-store",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-ecomdash",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-gift-cards",
+						"errors": 1,
+						"warnings": 0
+					}
+				]
 			},
 			{
 				"sniff": "Squiz.PHP.EmbeddedPhp",
 				"errors": 211,
 				"warnings": 0,
 				"repos": 13,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-plugin-memberships",
+						"errors": 71,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-product-add-ons",
+						"errors": 65,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-store-locator",
+						"errors": 20,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-request-quote",
+						"errors": 15,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-payments-shipping",
+						"errors": 12,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-wishlist",
+						"errors": 11,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-one-click-checkout",
+						"errors": 8,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-ecomdash",
+						"errors": 3,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-pdf-invoices",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-blu-store",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-points-rewards",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-product-comparison",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-subscriptions",
+						"errors": 1,
+						"warnings": 0
+					}
+				]
 			},
 			{
 				"sniff": "WordPress.DB.PreparedSQL",
 				"errors": 139,
 				"warnings": 0,
 				"repos": 13,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-plugin-blu-store",
+						"errors": 47,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-product-add-ons",
+						"errors": 31,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-memberships",
+						"errors": 12,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-request-quote",
+						"errors": 11,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-ai-assistant",
+						"errors": 8,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-affiliates",
+						"errors": 8,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-points-rewards",
+						"errors": 7,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-subscriptions",
+						"errors": 5,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-payments-shipping",
+						"errors": 4,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-blueprint-exporter",
+						"errors": 3,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-data",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-reset",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-store-locator",
+						"errors": 1,
+						"warnings": 0
+					}
+				]
 			},
 			{
 				"sniff": "WordPress.WP.Capabilities",
 				"errors": 7,
 				"warnings": 83,
 				"repos": 13,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-module-mcp",
+						"errors": 0,
+						"warnings": 24
+					},
+					{
+						"name": "wp-plugin-subscriptions",
+						"errors": 0,
+						"warnings": 21
+					},
+					{
+						"name": "wp-plugin-creativ-email",
+						"errors": 4,
+						"warnings": 4
+					},
+					{
+						"name": "wp-plugin-memberships",
+						"errors": 0,
+						"warnings": 7
+					},
+					{
+						"name": "wp-plugin-search-filter",
+						"errors": 0,
+						"warnings": 7
+					},
+					{
+						"name": "wp-plugin-gift-cards",
+						"errors": 0,
+						"warnings": 4
+					},
+					{
+						"name": "wp-plugin-request-quote",
+						"errors": 0,
+						"warnings": 4
+					},
+					{
+						"name": "wp-plugin-payments-shipping",
+						"errors": 0,
+						"warnings": 3
+					},
+					{
+						"name": "wp-plugin-sms-notifications",
+						"errors": 0,
+						"warnings": 3
+					},
+					{
+						"name": "wp-plugin-wishlist",
+						"errors": 0,
+						"warnings": 3
+					},
+					{
+						"name": "wp-plugin-customize-my-account-page",
+						"errors": 1,
+						"warnings": 1
+					},
+					{
+						"name": "wp-plugin-ecomdash",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-points-rewards",
+						"errors": 0,
+						"warnings": 2
+					}
+				]
 			},
 			{
 				"sniff": "Generic.Functions.FunctionCallArgumentSpacing",
 				"errors": 102,
 				"warnings": 0,
 				"repos": 12,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-plugin-payments-shipping",
+						"errors": 34,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-product-add-ons",
+						"errors": 27,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-blu-store",
+						"errors": 22,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-pdf-invoices",
+						"errors": 4,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-data",
+						"errors": 3,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-affiliates",
+						"errors": 3,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-gift-cards",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-store-locator",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-wishlist",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-ecomdash",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-request-quote",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-search-filter",
+						"errors": 1,
+						"warnings": 0
+					}
+				]
 			},
 			{
 				"sniff": "Generic.Functions.OpeningFunctionBraceKernighanRitchie",
 				"errors": 87,
 				"warnings": 0,
 				"repos": 12,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-module-facebook",
+						"errors": 35,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-store-locator",
+						"errors": 29,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-ai-chat-poc",
+						"errors": 10,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-advanced-reviews",
+						"errors": 4,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-gift-cards",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-data",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-memberships",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-payments-shipping",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-product-add-ons",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-search-filter",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-subscriptions",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-wishlist",
+						"errors": 1,
+						"warnings": 0
+					}
+				]
 			},
 			{
 				"sniff": "Squiz.Functions.FunctionDeclarationArgumentSpacing",
 				"errors": 70,
 				"warnings": 0,
 				"repos": 12,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-module-facebook",
+						"errors": 32,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-one-click-checkout",
+						"errors": 12,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-ai-chat-poc",
+						"errors": 6,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-payments-shipping",
+						"errors": 4,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-pdf-invoices",
+						"errors": 4,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-wishlist",
+						"errors": 3,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-data",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-creativ-email",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-memberships",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-ecommerce",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-email-templates",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-subscriptions",
+						"errors": 1,
+						"warnings": 0
+					}
+				]
 			},
 			{
 				"sniff": "WordPress.PHP.DevelopmentFunctions",
 				"errors": 0,
 				"warnings": 62,
 				"repos": 12,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-plugin-blu-store",
+						"errors": 0,
+						"warnings": 27
+					},
+					{
+						"name": "wp-module-onboarding",
+						"errors": 0,
+						"warnings": 9
+					},
+					{
+						"name": "wp-plugin-memberships",
+						"errors": 0,
+						"warnings": 7
+					},
+					{
+						"name": "wp-plugin-payments-shipping",
+						"errors": 0,
+						"warnings": 6
+					},
+					{
+						"name": "wp-plugin-pdf-invoices",
+						"errors": 0,
+						"warnings": 3
+					},
+					{
+						"name": "wp-module-ai",
+						"errors": 0,
+						"warnings": 2
+					},
+					{
+						"name": "wp-plugin-blueprint-exporter",
+						"errors": 0,
+						"warnings": 2
+					},
+					{
+						"name": "wp-plugin-creativ-email",
+						"errors": 0,
+						"warnings": 2
+					},
+					{
+						"name": "wp-module-ai-images",
+						"errors": 0,
+						"warnings": 1
+					},
+					{
+						"name": "wp-plugin-affiliates",
+						"errors": 0,
+						"warnings": 1
+					},
+					{
+						"name": "wp-plugin-product-add-ons",
+						"errors": 0,
+						"warnings": 1
+					},
+					{
+						"name": "wp-plugin-wishlist",
+						"errors": 0,
+						"warnings": 1
+					}
+				]
 			},
 			{
 				"sniff": "PSR2.Namespaces.NamespaceDeclaration",
 				"errors": 28,
 				"warnings": 0,
 				"repos": 12,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-plugin-advanced-reviews",
+						"errors": 7,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-affiliates",
+						"errors": 4,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-payments-shipping",
+						"errors": 4,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-memberships",
+						"errors": 3,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-store-locator",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-subscriptions",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-template-drawer",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-catalog-mode",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-pdf-invoices",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-points-rewards",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-search-filter",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-wishlist",
+						"errors": 1,
+						"warnings": 0
+					}
+				]
 			},
 			{
 				"sniff": "Squiz.Commenting.InlineComment",
 				"errors": 67,
 				"warnings": 0,
 				"repos": 11,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-plugin-product-add-ons",
+						"errors": 20,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-store-locator",
+						"errors": 13,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-ecommerce",
+						"errors": 8,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-payments-shipping",
+						"errors": 8,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-wishlist",
+						"errors": 4,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-ai-store",
+						"errors": 3,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-memberships",
+						"errors": 3,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-one-click-checkout",
+						"errors": 3,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-gift-cards",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-request-quote",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-pdf-invoices",
+						"errors": 1,
+						"warnings": 0
+					}
+				]
 			},
 			{
 				"sniff": "Universal.ControlStructures.DisallowLonelyIf",
 				"errors": 33,
 				"warnings": 0,
 				"repos": 11,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-plugin-payments-shipping",
+						"errors": 9,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-memberships",
+						"errors": 7,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-request-quote",
+						"errors": 6,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-product-add-ons",
+						"errors": 3,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-gift-cards",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-maestro",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-advanced-reviews",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-affiliates",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-creativ-email",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-customize-my-account-page",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-sms-notifications",
+						"errors": 1,
+						"warnings": 0
+					}
+				]
 			},
 			{
 				"sniff": "Squiz.Functions.MultiLineFunctionDeclaration",
 				"errors": 28,
 				"warnings": 0,
 				"repos": 11,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-plugin-subscriptions",
+						"errors": 12,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-blu-store",
+						"errors": 3,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-search-filter",
+						"errors": 3,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-creativ-email",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-wishlist",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-runtime",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-blueprint",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-blueprint-exporter",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-memberships",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-product-add-ons",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-store-locator",
+						"errors": 1,
+						"warnings": 0
+					}
+				]
 			},
 			{
 				"sniff": "Universal.Operators.DisallowShortTernary",
 				"errors": 359,
 				"warnings": 0,
 				"repos": 10,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-plugin-ai-store",
+						"errors": 209,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-blu-store",
+						"errors": 104,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-ai-assistant",
+						"errors": 16,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-pdf-invoices",
+						"errors": 10,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-wishlist",
+						"errors": 10,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-gift-cards",
+						"errors": 4,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-customize-my-account-page",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-payments-shipping",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-affiliates",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-request-quote",
+						"errors": 1,
+						"warnings": 0
+					}
+				]
 			},
 			{
 				"sniff": "Generic.WhiteSpace.IncrementDecrementSpacing",
 				"errors": 49,
 				"warnings": 0,
 				"repos": 10,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-plugin-wishlist",
+						"errors": 13,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-payments-shipping",
+						"errors": 10,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-memberships",
+						"errors": 6,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-request-quote",
+						"errors": 5,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-gift-cards",
+						"errors": 4,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-pdf-invoices",
+						"errors": 4,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-points-rewards",
+						"errors": 4,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-customize-my-account-page",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-product-add-ons",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-store-locator",
+						"errors": 1,
+						"warnings": 0
+					}
+				]
 			},
 			{
 				"sniff": "WordPress.WP.EnqueuedResourceParameters",
 				"errors": 0,
 				"warnings": 18,
 				"repos": 10,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-plugin-memberships",
+						"errors": 0,
+						"warnings": 5
+					},
+					{
+						"name": "wp-plugin-catalog-mode",
+						"errors": 0,
+						"warnings": 3
+					},
+					{
+						"name": "wp-plugin-ai-chat-poc",
+						"errors": 0,
+						"warnings": 2
+					},
+					{
+						"name": "wp-plugin-wishlist",
+						"errors": 0,
+						"warnings": 2
+					},
+					{
+						"name": "wp-module-deactivation",
+						"errors": 0,
+						"warnings": 1
+					},
+					{
+						"name": "wp-module-facebook",
+						"errors": 0,
+						"warnings": 1
+					},
+					{
+						"name": "wp-module-onboarding",
+						"errors": 0,
+						"warnings": 1
+					},
+					{
+						"name": "wp-module-runtime",
+						"errors": 0,
+						"warnings": 1
+					},
+					{
+						"name": "wp-module-solutions",
+						"errors": 0,
+						"warnings": 1
+					},
+					{
+						"name": "wp-module-template-drawer",
+						"errors": 0,
+						"warnings": 1
+					}
+				]
 			},
 			{
 				"sniff": "Universal.WhiteSpace.CommaSpacing",
 				"errors": 98,
 				"warnings": 0,
 				"repos": 9,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-plugin-blu-store",
+						"errors": 76,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-search-filter",
+						"errors": 6,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-payments-shipping",
+						"errors": 5,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-subscriptions",
+						"errors": 3,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-ecommerce",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-pdf-invoices",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-wishlist",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-affiliates",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-memberships",
+						"errors": 1,
+						"warnings": 0
+					}
+				]
 			},
 			{
 				"sniff": "Generic.CodeAnalysis.RequireExplicitBooleanOperatorPrecedence",
 				"errors": 27,
 				"warnings": 0,
 				"repos": 9,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-plugin-product-add-ons",
+						"errors": 7,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-memberships",
+						"errors": 5,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-gift-cards",
+						"errors": 4,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-payments-shipping",
+						"errors": 3,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-affiliates",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-request-quote",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-store-locator",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-one-click-checkout",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-subscriptions",
+						"errors": 1,
+						"warnings": 0
+					}
+				]
 			},
 			{
 				"sniff": "WordPress.WP.GlobalVariablesOverride",
 				"errors": 34,
 				"warnings": 0,
 				"repos": 8,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-plugin-memberships",
+						"errors": 24,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-payments-shipping",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-subscriptions",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-wishlist",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-secure-passwords",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-customize-my-account-page",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-pdf-invoices",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-product-add-ons",
+						"errors": 1,
+						"warnings": 0
+					}
+				]
 			},
 			{
 				"sniff": "Squiz.Strings.ConcatenationSpacing",
 				"errors": 32,
 				"warnings": 0,
 				"repos": 8,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-plugin-payments-shipping",
+						"errors": 10,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-affiliates",
+						"errors": 9,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-wishlist",
+						"errors": 4,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-gift-cards",
+						"errors": 3,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-advanced-reviews",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-product-add-ons",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-template-drawer",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-points-rewards",
+						"errors": 1,
+						"warnings": 0
+					}
+				]
 			},
 			{
 				"sniff": "Generic.Classes.OpeningBraceSameLine",
 				"errors": 30,
 				"warnings": 0,
 				"repos": 8,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-module-facebook",
+						"errors": 6,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-payments-shipping",
+						"errors": 6,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-product-add-ons",
+						"errors": 6,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-wishlist",
+						"errors": 5,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-ai-chat-poc",
+						"errors": 3,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-advanced-reviews",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-product-comparison",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-store-locator",
+						"errors": 1,
+						"warnings": 0
+					}
+				]
 			},
 			{
 				"sniff": "Universal.WhiteSpace.DisallowInlineTabs",
 				"errors": 23,
 				"warnings": 0,
 				"repos": 8,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-plugin-request-quote",
+						"errors": 5,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-affiliates",
+						"errors": 4,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-one-click-checkout",
+						"errors": 4,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-payments-shipping",
+						"errors": 3,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-subscriptions",
+						"errors": 3,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-gift-cards",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-notifications",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-product-add-ons",
+						"errors": 1,
+						"warnings": 0
+					}
+				]
 			},
 			{
 				"sniff": "Generic.CodeAnalysis.EmptyPHPStatement",
 				"errors": 0,
 				"warnings": 19,
 				"repos": 8,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-plugin-request-quote",
+						"errors": 0,
+						"warnings": 5
+					},
+					{
+						"name": "wp-plugin-memberships",
+						"errors": 0,
+						"warnings": 3
+					},
+					{
+						"name": "wp-plugin-payments-shipping",
+						"errors": 0,
+						"warnings": 3
+					},
+					{
+						"name": "wp-plugin-store-locator",
+						"errors": 0,
+						"warnings": 3
+					},
+					{
+						"name": "wp-plugin-product-add-ons",
+						"errors": 0,
+						"warnings": 2
+					},
+					{
+						"name": "wp-module-facebook",
+						"errors": 0,
+						"warnings": 1
+					},
+					{
+						"name": "wp-module-maestro",
+						"errors": 0,
+						"warnings": 1
+					},
+					{
+						"name": "wp-plugin-creativ-email",
+						"errors": 0,
+						"warnings": 1
+					}
+				]
 			},
 			{
 				"sniff": "Universal.Operators.DisallowStandalonePostIncrementDecrement",
 				"errors": 0,
 				"warnings": 44,
 				"repos": 7,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-plugin-blu-store",
+						"errors": 0,
+						"warnings": 22
+					},
+					{
+						"name": "wp-plugin-payments-shipping",
+						"errors": 0,
+						"warnings": 10
+					},
+					{
+						"name": "wp-plugin-memberships",
+						"errors": 0,
+						"warnings": 5
+					},
+					{
+						"name": "wp-module-onboarding",
+						"errors": 0,
+						"warnings": 3
+					},
+					{
+						"name": "wp-plugin-product-add-ons",
+						"errors": 0,
+						"warnings": 2
+					},
+					{
+						"name": "wp-plugin-request-quote",
+						"errors": 0,
+						"warnings": 1
+					},
+					{
+						"name": "wp-plugin-store-locator",
+						"errors": 0,
+						"warnings": 1
+					}
+				]
 			},
 			{
 				"sniff": "WordPress.DateTime.RestrictedFunctions",
 				"errors": 29,
 				"warnings": 0,
 				"repos": 7,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-plugin-memberships",
+						"errors": 19,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-payments-shipping",
+						"errors": 3,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-product-add-ons",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-subscriptions",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-coming-soon",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-data",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-blueprint-exporter",
+						"errors": 1,
+						"warnings": 0
+					}
+				]
 			},
 			{
 				"sniff": "WordPress.PHP.NoSilencedErrors",
 				"errors": 0,
 				"warnings": 21,
 				"repos": 7,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-plugin-payments-shipping",
+						"errors": 0,
+						"warnings": 7
+					},
+					{
+						"name": "wp-plugin-blu-store",
+						"errors": 0,
+						"warnings": 5
+					},
+					{
+						"name": "wp-module-onboarding",
+						"errors": 0,
+						"warnings": 3
+					},
+					{
+						"name": "wp-module-ai-page-designer",
+						"errors": 0,
+						"warnings": 2
+					},
+					{
+						"name": "wp-plugin-memberships",
+						"errors": 0,
+						"warnings": 2
+					},
+					{
+						"name": "wp-module-ai-images",
+						"errors": 0,
+						"warnings": 1
+					},
+					{
+						"name": "wp-module-mcp",
+						"errors": 0,
+						"warnings": 1
+					}
+				]
 			},
 			{
 				"sniff": "PSR2.ControlStructures.SwitchDeclaration",
 				"errors": 28,
 				"warnings": 0,
 				"repos": 6,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-plugin-memberships",
+						"errors": 8,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-payments-shipping",
+						"errors": 8,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-blu-store",
+						"errors": 6,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-product-add-ons",
+						"errors": 4,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-points-rewards",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-wishlist",
+						"errors": 1,
+						"warnings": 0
+					}
+				]
 			},
 			{
 				"sniff": "Generic.Formatting.DisallowMultipleStatements",
 				"errors": 25,
 				"warnings": 0,
 				"repos": 6,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-plugin-blu-store",
+						"errors": 17,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-memberships",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-payments-shipping",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-request-quote",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-facebook",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-store-locator",
+						"errors": 1,
+						"warnings": 0
+					}
+				]
 			},
 			{
 				"sniff": "Squiz.WhiteSpace.SemicolonSpacing",
 				"errors": 9,
 				"warnings": 0,
 				"repos": 6,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-plugin-memberships",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-payments-shipping",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-product-add-ons",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-ecomdash",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-request-quote",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-store-locator",
+						"errors": 1,
+						"warnings": 0
+					}
+				]
 			},
 			{
 				"sniff": "Squiz.Commenting.BlockComment",
 				"errors": 120,
 				"warnings": 0,
 				"repos": 5,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-plugin-blu-store",
+						"errors": 112,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-wishlist",
+						"errors": 5,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-ai-store",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-gift-cards",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-memberships",
+						"errors": 1,
+						"warnings": 0
+					}
+				]
 			},
 			{
 				"sniff": "Squiz.Commenting.DocCommentAlignment",
 				"errors": 55,
 				"warnings": 0,
 				"repos": 5,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-plugin-payments-shipping",
+						"errors": 46,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-memberships",
+						"errors": 6,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-product-add-ons",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-subscriptions",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-wishlist",
+						"errors": 1,
+						"warnings": 0
+					}
+				]
 			},
 			{
 				"sniff": "Generic.WhiteSpace.ArbitraryParenthesesSpacing",
 				"errors": 20,
 				"warnings": 0,
 				"repos": 5,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-module-ecommerce",
+						"errors": 8,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-facebook",
+						"errors": 6,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-data",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-template-drawer",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-store-locator",
+						"errors": 2,
+						"warnings": 0
+					}
+				]
 			},
 			{
 				"sniff": "PSR12.Files.FileHeader",
 				"errors": 13,
 				"warnings": 0,
 				"repos": 5,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-plugin-memberships",
+						"errors": 7,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-subscriptions",
+						"errors": 3,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-ai-images",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-request-quote",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-store-locator",
+						"errors": 1,
+						"warnings": 0
+					}
+				]
 			},
 			{
 				"sniff": "WordPress.Security.SafeRedirect",
 				"errors": 0,
 				"warnings": 10,
 				"repos": 5,
-				"rule": "wp-security-checks"
+				"rule": "wp-security-checks",
+				"in": [
+					{
+						"name": "wp-plugin-blu-store",
+						"errors": 0,
+						"warnings": 5
+					},
+					{
+						"name": "wp-plugin-memberships",
+						"errors": 0,
+						"warnings": 2
+					},
+					{
+						"name": "wp-module-onboarding",
+						"errors": 0,
+						"warnings": 1
+					},
+					{
+						"name": "wp-plugin-mojo",
+						"errors": 0,
+						"warnings": 1
+					},
+					{
+						"name": "wp-plugin-request-quote",
+						"errors": 0,
+						"warnings": 1
+					}
+				]
 			},
 			{
 				"sniff": "PSR2.ControlStructures.ElseIfDeclaration",
 				"errors": 0,
 				"warnings": 9,
 				"repos": 5,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-plugin-payments-shipping",
+						"errors": 0,
+						"warnings": 4
+					},
+					{
+						"name": "wp-plugin-memberships",
+						"errors": 0,
+						"warnings": 2
+					},
+					{
+						"name": "wp-plugin-blu-store",
+						"errors": 0,
+						"warnings": 1
+					},
+					{
+						"name": "wp-plugin-product-add-ons",
+						"errors": 0,
+						"warnings": 1
+					},
+					{
+						"name": "wp-plugin-store-locator",
+						"errors": 0,
+						"warnings": 1
+					}
+				]
 			},
 			{
 				"sniff": "WordPress.DB.PreparedSQLPlaceholders",
 				"errors": 6,
 				"warnings": 3,
 				"repos": 5,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-plugin-memberships",
+						"errors": 3,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-creativ-email",
+						"errors": 0,
+						"warnings": 2
+					},
+					{
+						"name": "wp-plugin-subscriptions",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-product-add-ons",
+						"errors": 0,
+						"warnings": 1
+					},
+					{
+						"name": "wp-plugin-store-locator",
+						"errors": 1,
+						"warnings": 0
+					}
+				]
 			},
 			{
 				"sniff": "Generic.ControlStructures.InlineControlStructure",
 				"errors": 385,
 				"warnings": 0,
 				"repos": 4,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-plugin-blu-store",
+						"errors": 379,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-affiliates",
+						"errors": 4,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-store-locator",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-wishlist",
+						"errors": 1,
+						"warnings": 0
+					}
+				]
 			},
 			{
 				"sniff": "Squiz.Commenting.FunctionCommentThrowTag",
 				"errors": 29,
 				"warnings": 0,
 				"repos": 4,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-plugin-payments-shipping",
+						"errors": 22,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-onboarding",
+						"errors": 5,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-memberships",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-pdf-invoices",
+						"errors": 1,
+						"warnings": 0
+					}
+				]
 			},
 			{
 				"sniff": "Squiz.Scope.MethodScope",
 				"errors": 26,
 				"warnings": 0,
 				"repos": 4,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-module-facebook",
+						"errors": 12,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-memberships",
+						"errors": 9,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-gift-cards",
+						"errors": 3,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-product-add-ons",
+						"errors": 2,
+						"warnings": 0
+					}
+				]
 			},
 			{
 				"sniff": "PSR2.Classes.PropertyDeclaration",
 				"errors": 3,
 				"warnings": 19,
 				"repos": 4,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-plugin-memberships",
+						"errors": 0,
+						"warnings": 10
+					},
+					{
+						"name": "wp-plugin-request-quote",
+						"errors": 0,
+						"warnings": 8
+					},
+					{
+						"name": "wp-plugin-wishlist",
+						"errors": 3,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-one-click-checkout",
+						"errors": 0,
+						"warnings": 1
+					}
+				]
 			},
 			{
 				"sniff": "Squiz.Classes.SelfMemberReference",
 				"errors": 16,
 				"warnings": 0,
 				"repos": 4,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-module-facebook",
+						"errors": 5,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-payments-shipping",
+						"errors": 5,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-gift-cards",
+						"errors": 4,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-features",
+						"errors": 2,
+						"warnings": 0
+					}
+				]
 			},
 			{
 				"sniff": "Squiz.PHP.DisallowMultipleAssignments",
 				"errors": 14,
 				"warnings": 0,
 				"repos": 4,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-plugin-memberships",
+						"errors": 9,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-advanced-reviews",
+						"errors": 3,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-payments-shipping",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-subscriptions",
+						"errors": 1,
+						"warnings": 0
+					}
+				]
 			},
 			{
 				"sniff": "Universal.UseStatements.NoLeadingBackslash",
 				"errors": 13,
 				"warnings": 0,
 				"repos": 4,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-plugin-memberships",
+						"errors": 7,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-store-locator",
+						"errors": 4,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-payments-shipping",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-product-add-ons",
+						"errors": 1,
+						"warnings": 0
+					}
+				]
 			},
 			{
 				"sniff": "Newfold.PHP.ForbiddenUnionType",
 				"errors": 12,
 				"warnings": 0,
 				"repos": 4,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-plugin-blu-store",
+						"errors": 8,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-blueprint-exporter",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-advanced-reviews",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-pdf-invoices",
+						"errors": 1,
+						"warnings": 0
+					}
+				]
 			},
 			{
 				"sniff": "Squiz.PHP.NonExecutableCode",
 				"errors": 0,
 				"warnings": 10,
 				"repos": 4,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-plugin-memberships",
+						"errors": 0,
+						"warnings": 7
+					},
+					{
+						"name": "wp-plugin-creativ-email",
+						"errors": 0,
+						"warnings": 1
+					},
+					{
+						"name": "wp-plugin-payments-shipping",
+						"errors": 0,
+						"warnings": 1
+					},
+					{
+						"name": "wp-plugin-request-quote",
+						"errors": 0,
+						"warnings": 1
+					}
+				]
 			},
 			{
 				"sniff": "Generic.WhiteSpace.LanguageConstructSpacing",
 				"errors": 7,
 				"warnings": 0,
 				"repos": 4,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-plugin-payments-shipping",
+						"errors": 4,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-product-add-ons",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-request-quote",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-wishlist",
+						"errors": 1,
+						"warnings": 0
+					}
+				]
 			},
 			{
 				"sniff": "WordPress.PHP.DontExtract",
 				"errors": 26,
 				"warnings": 0,
 				"repos": 3,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-plugin-product-add-ons",
+						"errors": 18,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-memberships",
+						"errors": 6,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-store-locator",
+						"errors": 2,
+						"warnings": 0
+					}
+				]
 			},
 			{
 				"sniff": "Generic.CodeAnalysis.AssignmentInCondition",
 				"errors": 0,
 				"warnings": 11,
 				"repos": 3,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-plugin-memberships",
+						"errors": 0,
+						"warnings": 9
+					},
+					{
+						"name": "wp-module-ai-assistant",
+						"errors": 0,
+						"warnings": 1
+					},
+					{
+						"name": "wp-plugin-store-locator",
+						"errors": 0,
+						"warnings": 1
+					}
+				]
 			},
 			{
 				"sniff": "Generic.CodeAnalysis.EmptyStatement",
 				"errors": 4,
 				"warnings": 0,
 				"repos": 3,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-plugin-payments-shipping",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-module-template-drawer",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-request-quote",
+						"errors": 1,
+						"warnings": 0
+					}
+				]
 			},
 			{
 				"sniff": "Squiz.Commenting.EmptyCatchComment",
 				"errors": 3,
 				"warnings": 0,
 				"repos": 3,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-plugin-gift-cards",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-payments-shipping",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-wishlist",
+						"errors": 1,
+						"warnings": 0
+					}
+				]
 			},
 			{
 				"sniff": "PSR12.Functions.ReturnTypeDeclaration",
 				"errors": 49,
 				"warnings": 0,
 				"repos": 2,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-plugin-memberships",
+						"errors": 48,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-creativ-email",
+						"errors": 1,
+						"warnings": 0
+					}
+				]
 			},
 			{
 				"sniff": "PSR12.Traits.UseDeclaration",
 				"errors": 18,
 				"warnings": 0,
 				"repos": 2,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-plugin-payments-shipping",
+						"errors": 17,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-memberships",
+						"errors": 1,
+						"warnings": 0
+					}
+				]
 			},
 			{
 				"sniff": "PSR2.Methods.MethodDeclaration",
 				"errors": 9,
 				"warnings": 5,
 				"repos": 2,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-plugin-wishlist",
+						"errors": 9,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-memberships",
+						"errors": 0,
+						"warnings": 5
+					}
+				]
 			},
 			{
 				"sniff": "PSR2.Files.ClosingTag",
 				"errors": 6,
 				"warnings": 0,
 				"repos": 2,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-plugin-memberships",
+						"errors": 5,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-wishlist",
+						"errors": 1,
+						"warnings": 0
+					}
+				]
 			},
 			{
 				"sniff": "PSR12.Classes.ClassInstantiation",
 				"errors": 5,
 				"warnings": 0,
 				"repos": 2,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-plugin-blu-store",
+						"errors": 4,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-payments-shipping",
+						"errors": 1,
+						"warnings": 0
+					}
+				]
 			},
 			{
 				"sniff": "Universal.CodeAnalysis.NoEchoSprintf",
 				"errors": 5,
 				"warnings": 0,
 				"repos": 2,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-plugin-memberships",
+						"errors": 3,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-ecomdash",
+						"errors": 2,
+						"warnings": 0
+					}
+				]
 			},
 			{
 				"sniff": "Generic.Strings.UnnecessaryStringConcat",
 				"errors": 5,
 				"warnings": 0,
 				"repos": 2,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-plugin-product-add-ons",
+						"errors": 4,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-memberships",
+						"errors": 1,
+						"warnings": 0
+					}
+				]
 			},
 			{
 				"sniff": "Universal.CodeAnalysis.ConstructorDestructorReturn",
 				"errors": 0,
 				"warnings": 4,
 				"repos": 2,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-module-onboarding",
+						"errors": 0,
+						"warnings": 2
+					},
+					{
+						"name": "wp-plugin-request-quote",
+						"errors": 0,
+						"warnings": 2
+					}
+				]
 			},
 			{
 				"sniff": "WordPress.WP.DeprecatedFunctions",
 				"errors": 3,
 				"warnings": 0,
 				"repos": 2,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-plugin-memberships",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-subscriptions",
+						"errors": 1,
+						"warnings": 0
+					}
+				]
 			},
 			{
 				"sniff": "Universal.Arrays.DuplicateArrayKey",
 				"errors": 3,
 				"warnings": 0,
 				"repos": 2,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-plugin-store-locator",
+						"errors": 2,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-request-quote",
+						"errors": 1,
+						"warnings": 0
+					}
+				]
 			},
 			{
 				"sniff": "PEAR.Files.IncludingFile",
 				"errors": 1,
 				"warnings": 1,
 				"repos": 2,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-module-ai-images",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-payments-shipping",
+						"errors": 0,
+						"warnings": 1
+					}
+				]
 			},
 			{
 				"sniff": "WordPress.WP.CronInterval",
 				"errors": 0,
 				"warnings": 2,
 				"repos": 2,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-module-installer",
+						"errors": 0,
+						"warnings": 1
+					},
+					{
+						"name": "wp-module-tasks",
+						"errors": 0,
+						"warnings": 1
+					}
+				]
 			},
 			{
 				"sniff": "Modernize.FunctionCalls.Dirname",
 				"errors": 2,
 				"warnings": 0,
 				"repos": 2,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-plugin-blueprint",
+						"errors": 1,
+						"warnings": 0
+					},
+					{
+						"name": "wp-plugin-product-add-ons",
+						"errors": 1,
+						"warnings": 0
+					}
+				]
 			},
 			{
 				"sniff": "WordPress.DateTime.CurrentTimeTimestamp",
 				"errors": 0,
 				"warnings": 2,
 				"repos": 2,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-plugin-gift-cards",
+						"errors": 0,
+						"warnings": 1
+					},
+					{
+						"name": "wp-plugin-memberships",
+						"errors": 0,
+						"warnings": 1
+					}
+				]
 			},
 			{
 				"sniff": "Generic.CodeAnalysis.UselessOverridingMethod",
 				"errors": 0,
 				"warnings": 11,
 				"repos": 1,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-plugin-creativ-email",
+						"errors": 0,
+						"warnings": 11
+					}
+				]
 			},
 			{
 				"sniff": "Generic.Files.OneObjectStructurePerFile",
 				"errors": 5,
 				"warnings": 0,
 				"repos": 1,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-plugin-blu-store",
+						"errors": 5,
+						"warnings": 0
+					}
+				]
 			},
 			{
 				"sniff": "Generic.Files.LineEndings",
 				"errors": 4,
 				"warnings": 0,
 				"repos": 1,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-plugin-memberships",
+						"errors": 4,
+						"warnings": 0
+					}
+				]
 			},
 			{
 				"sniff": "WordPress.WP.DeprecatedParameters",
 				"errors": 4,
 				"warnings": 0,
 				"repos": 1,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-plugin-store-locator",
+						"errors": 4,
+						"warnings": 0
+					}
+				]
 			},
 			{
 				"sniff": "WordPress.WP.CapitalPDangit",
 				"errors": 0,
 				"warnings": 3,
 				"repos": 1,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-plugin-creativ-email",
+						"errors": 0,
+						"warnings": 3
+					}
+				]
 			},
 			{
 				"sniff": "Squiz.WhiteSpace.ScopeKeywordSpacing",
 				"errors": 3,
 				"warnings": 0,
 				"repos": 1,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-plugin-search-filter",
+						"errors": 3,
+						"warnings": 0
+					}
+				]
 			},
 			{
 				"sniff": "WordPress.PHP.IniSet",
 				"errors": 0,
 				"warnings": 2,
 				"repos": 1,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-module-ai-page-designer",
+						"errors": 0,
+						"warnings": 2
+					}
+				]
 			},
 			{
 				"sniff": "Generic.Formatting.SpaceAfterCast",
 				"errors": 2,
 				"warnings": 0,
 				"repos": 1,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-plugin-store-locator",
+						"errors": 2,
+						"warnings": 0
+					}
+				]
 			},
 			{
 				"sniff": "WordPress.WP.EnqueuedResources",
 				"errors": 1,
 				"warnings": 0,
 				"repos": 1,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-module-notifications",
+						"errors": 1,
+						"warnings": 0
+					}
+				]
 			},
 			{
 				"sniff": "WordPress.WP.GetMetaSingle",
 				"errors": 0,
 				"warnings": 1,
 				"repos": 1,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-plugin-gift-cards",
+						"errors": 0,
+						"warnings": 1
+					}
+				]
 			},
 			{
 				"sniff": "Generic.PHP.ForbiddenFunctions",
 				"errors": 1,
 				"warnings": 0,
 				"repos": 1,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-plugin-memberships",
+						"errors": 1,
+						"warnings": 0
+					}
+				]
 			},
 			{
 				"sniff": "Squiz.WhiteSpace.CastSpacing",
 				"errors": 1,
 				"warnings": 0,
 				"repos": 1,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-plugin-one-click-checkout",
+						"errors": 1,
+						"warnings": 0
+					}
+				]
 			},
 			{
 				"sniff": "Generic.PHP.LowerCaseConstant",
 				"errors": 1,
 				"warnings": 0,
 				"repos": 1,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-plugin-product-add-ons",
+						"errors": 1,
+						"warnings": 0
+					}
+				]
 			},
 			{
 				"sniff": "Generic.CodeAnalysis.ForLoopWithTestFunctionCall",
 				"errors": 0,
 				"warnings": 1,
 				"repos": 1,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-plugin-product-add-ons",
+						"errors": 0,
+						"warnings": 1
+					}
+				]
 			},
 			{
 				"sniff": "Squiz.PHP.DisallowSizeFunctionsInLoops",
 				"errors": 1,
 				"warnings": 0,
 				"repos": 1,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-plugin-product-add-ons",
+						"errors": 1,
+						"warnings": 0
+					}
+				]
 			},
 			{
 				"sniff": "PHPCompatibility.FunctionNameRestrictions.ReservedFunctionNames",
 				"errors": 0,
 				"warnings": 1,
 				"repos": 1,
-				"rule": null
+				"rule": null,
+				"in": [
+					{
+						"name": "wp-plugin-product-comparison",
+						"errors": 0,
+						"warnings": 1
+					}
+				]
 			}
 		]
 	},
