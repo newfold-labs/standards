@@ -1,0 +1,39 @@
+##
+# Scheduled batch auto-merge of Dependabot pull requests.
+#
+# It sweeps rather than reacting to each pull request as it opens, so the cost is
+# one run whatever Dependabot did overnight. Only patch and minor bumps are
+# eligible; a major is left for a human.
+##
+name: Dependabot Auto-Merge
+
+on:
+  schedule:
+    # Twice a day. The sweep is cheap, and the second run is what merges a pull
+    # request that only went green after the first one had already passed.
+    - cron: "0 6,18 * * *"
+  workflow_dispatch:
+    inputs:
+      dry-run:
+        description: Log what would be merged without merging.
+        type: boolean
+        default: false
+
+# Nothing by default; the job below grants only what the sweep needs.
+permissions: {}
+
+jobs:
+  auto-merge:
+    name: Auto-merge Dependabot PRs
+    uses: newfold-labs/workflows/.github/workflows/reusable-dependabot-auto-merge.yml@main
+    with:
+      merge-method: squash
+      update-types: patch,minor
+      dry-run: ${{ github.event_name == 'workflow_dispatch' && inputs.dry-run || false }}
+    # checks: read lets the reusable read check-run status through the Checks
+    # API. GITHUB_TOKEN reaches a called workflow on its own, so there is no
+    # secrets: inherit here.
+    permissions:
+      contents: write
+      pull-requests: write
+      checks: read
