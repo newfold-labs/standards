@@ -15,7 +15,7 @@ import { createHash } from 'node:crypto';
 import { readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import yaml from 'js-yaml';
-import { admits } from './constraint.mjs';
+import { admits, isFloating } from './constraint.mjs';
 import { ROOT } from './docs.mjs';
 
 export const RULES_DIR = join(ROOT, 'rules');
@@ -108,14 +108,29 @@ export function signalsFor({ node, compliance, rules, latestVersions }) {
 	// shows every rule as not applicable to them, so no credit is implied.
 	const present = expected.length === 0 ? true : expected.every((name) => constraintFor(composer, name) !== null);
 
+	// Pinning is judged before currency, because an unpinned constraint admits the
+	// latest release and would otherwise score as the most current thing in the
+	// fleet while being the least predictable.
+	const pinned =
+		expected.length === 0
+			? true
+			: expected.every((name) => {
+					const constraint = constraintFor(composer, name);
+					return constraint !== null && !isFloating(constraint);
+				});
+
 	let current = null;
-	if (expected.length > 0 && present) {
+	if (expected.length === 0) {
+		current = true;
+	} else if (present && pinned) {
 		const verdicts = expected.map((name) => {
 			const latest = latestVersions[name];
 			if (!latest) return null;
 			return admits(constraintFor(composer, name), latest);
 		});
 		current = verdicts.some((verdict) => verdict === null) ? null : verdicts.every(Boolean);
+	} else if (present && !pinned) {
+		current = false;
 	}
 
 	const owners = node.codeowners?.text ?? node.codeownersRoot?.text ?? null;
@@ -123,6 +138,7 @@ export function signalsFor({ node, compliance, rules, latestVersions }) {
 
 	return {
 		standards_package_present: present,
+		standards_package_pinned: pinned,
 		standards_package_current: current,
 		check_reports: compliance !== null,
 		no_error_findings: compliance === null ? null : !compliance.findings.some((f) => f.severity === 'error'),
@@ -194,6 +210,18 @@ export function verdictsFor({ node, compliance, rules, type }) {
 	}
 
 	return verdicts;
+}
+
+/** The constraint each expected package is declared at, for display and for bump PRs. */
+export function packagesFor(node, rules) {
+	const composer = parseJson(node.composer?.text);
+	const type = artifactTypeOf(node.name);
+	const declared = {};
+	for (const rule of rules) {
+		if (!rule.package || !(rule.applies_to ?? []).includes(type)) continue;
+		declared[rule.package] = constraintFor(composer, rule.package);
+	}
+	return declared;
 }
 
 /** Fleet rollups. Computed here so the page never has to add anything up itself. */

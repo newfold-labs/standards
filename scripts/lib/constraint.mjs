@@ -14,6 +14,23 @@
  * bug report against a team that did nothing wrong, so silence beats a guess.
  */
 
+/**
+ * Whether a constraint declines to pin at all.
+ *
+ * `@stable`, `*` and a branch alias all install whatever is newest at the time
+ * `composer update` runs. They admit the current release, so a naive reading
+ * scores them as the most up-to-date repositories in the fleet, when they are
+ * the ones a release can break without warning. Rolling a standards change out
+ * as a version bump instead of an overnight CI failure is the point of pinning,
+ * so this is tracked as its own state rather than folded into "current".
+ */
+export function isFloating(constraint) {
+	if (typeof constraint !== 'string') return false;
+	const raw = constraint.trim();
+	if (raw === '' || raw === '*' || raw.startsWith('@')) return true;
+	return raw.startsWith('dev-') || raw.endsWith('.x-dev');
+}
+
 /** Split a version into comparable integers. Trailing junk (-beta, +build) is dropped. */
 function parts(version) {
 	const cleaned = String(version).trim().replace(/^v/, '').split(/[-+]/)[0];

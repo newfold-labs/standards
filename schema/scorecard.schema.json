@@ -99,6 +99,11 @@
           "private": { "type": "boolean" },
           "artifact_type": { "enum": ["plugin", "theme", "module", "worker", "service"] },
           "language": { "type": ["string", "null"] },
+          "packages": {
+            "description": "The constraint this repository declares for each package a rule names, verbatim. Carried so the board can show what to change rather than only that something should change.",
+            "type": "object",
+            "additionalProperties": { "type": ["string", "null"] }
+          },
           "pushed_at": { "type": ["string", "null"] },
           "level": { "type": "integer", "minimum": 0 },
           "signals": {

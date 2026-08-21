@@ -19,6 +19,17 @@ signals:
       trivially rather than failing a check that does not exist for them.
     read: composer.json
 
+  - id: standards_package_pinned
+    title: Pins the standards package
+    detail: >-
+      The declared constraint names a version rather than floating. @stable, *
+      and branch aliases install whatever is newest whenever composer update
+      runs, which admits the current release and so reads as maximally
+      up-to-date while being the least predictable thing in the fleet. Rolling a
+      change out as a version bump rather than an overnight CI failure is the
+      point of pinning, so it is measured separately.
+    read: composer.json
+
   - id: standards_package_current
     title: Pinned to the current release
     detail: >-
@@ -91,4 +102,4 @@ levels:
     id: current
     title: Current
     summary: On the current release, owned, and readable by AI tooling
-    requires: [standards_package_current, has_codeowners, has_ai_context]
+    requires: [standards_package_pinned, standards_package_current, has_codeowners, has_ai_context]

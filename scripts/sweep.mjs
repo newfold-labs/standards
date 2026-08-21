@@ -33,6 +33,7 @@ import {
 	levelOf,
 	loadLevels,
 	loadRules,
+	packagesFor,
 	policyFingerprint,
 	signalsFor,
 	summarise,
@@ -43,7 +44,7 @@ const ARTIFACT_NAME = 'standards-compliance';
 const DATA_DIR = join(ROOT, '_data');
 const FINDINGS_DIR = join(ROOT, 'scorecard', 'findings');
 const SCORECARD_PATH = join(DATA_DIR, 'scorecard.json');
-const HISTORY_PATH = join(DATA_DIR, 'scorecard-history.json');
+const HISTORY_PATH = join(DATA_DIR, 'scorecard_history.json');
 
 /** Trend needs enough points to show a shape, not every point ever recorded. */
 const HISTORY_LIMIT = 400;
@@ -240,6 +241,7 @@ async function main() {
 			private: repo.isPrivate,
 			artifact_type: type,
 			language: repo.primaryLanguage?.name ?? null,
+			packages: packagesFor(node, rules),
 			pushed_at: repo.pushedAt,
 			level: levelOf(signals, levels),
 			signals,
