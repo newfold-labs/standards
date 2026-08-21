@@ -35,6 +35,11 @@ jobs:
     uses: newfold-labs/workflows/.github/workflows/reusable-code-review.yml@main
     with:
       prompts_ref: main
+      # The reviewer loads one file as guidance and defaults to CLAUDE.md, which
+      # this repository does not have. Contributing is the closer fit: it is the
+      # only place that says which changes can go in as a pull request and which
+      # need an RFC first, and that is a judgement npm run validate cannot make.
+      guidance_file: meta/contributing.md
     permissions:
       contents: read
       pull-requests: write
