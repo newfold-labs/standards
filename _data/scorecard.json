@@ -1,0 +1,3182 @@
+{
+	"schema": 1,
+	"generated_at": "2026-08-21T08:55:15.417Z",
+	"org": "newfold-labs",
+	"policy_fingerprint": "90e06236aeed6f31",
+	"levels": [
+		{
+			"level": 0,
+			"id": "unadopted",
+			"title": "Not adopted",
+			"summary": "Nothing here enforces a standard yet",
+			"requires": []
+		},
+		{
+			"level": 1,
+			"id": "configured",
+			"title": "Configured",
+			"summary": "The enforcing package is installed, so the checks can run",
+			"requires": [
+				"standards_package_present"
+			]
+		},
+		{
+			"level": 2,
+			"id": "reporting",
+			"title": "Reporting",
+			"summary": "The check runs in the repository's own CI and publishes what it found",
+			"requires": [
+				"check_reports"
+			]
+		},
+		{
+			"level": 3,
+			"id": "clean",
+			"title": "Clean",
+			"summary": "Nothing outstanding at error severity",
+			"requires": [
+				"no_error_findings"
+			]
+		},
+		{
+			"level": 4,
+			"id": "current",
+			"title": "Current",
+			"summary": "On the current release, owned, and readable by AI tooling",
+			"requires": [
+				"standards_package_current",
+				"has_codeowners",
+				"has_ai_context"
+			]
+		}
+	],
+	"signals": [
+		{
+			"id": "standards_package_present",
+			"title": "Installs the standards package",
+			"detail": "composer.json requires newfold-labs/wp-php-standards, for artifact types that have a PHP standard. Types with no PHP standard yet satisfy this trivially rather than failing a check that does not exist for them.",
+			"read": "composer.json"
+		},
+		{
+			"id": "standards_package_current",
+			"title": "Pinned to the current release",
+			"detail": "The declared constraint admits the latest release of the package. A constraint that cannot reach the current version is what stops a repository from ever running a newly added rule, so it is the signal that gates the top of the ladder.",
+			"read": "composer.json"
+		},
+		{
+			"id": "check_reports",
+			"title": "Reports compliance from its own CI",
+			"detail": "The repository has uploaded a standards-compliance artifact. This is the definition of adoption: the sweep never runs a linter itself, so a repository that does not report is one we have no findings for.",
+			"read": "actions artifact"
+		},
+		{
+			"id": "no_error_findings",
+			"title": "No findings at error severity",
+			"detail": "The reported findings contain nothing at error severity. Warnings do not block a level. Under our severity policy an error means the code cannot parse, so this is a real gate rather than a tidiness one.",
+			"read": "standards-compliance artifact"
+		},
+		{
+			"id": "has_codeowners",
+			"title": "Has an owner",
+			"detail": "CODEOWNERS exists and is not empty. A row nobody owns is a row nobody fixes, which is why ownership is a level and not a footnote.",
+			"read": ".github/CODEOWNERS"
+		},
+		{
+			"id": "has_ai_context",
+			"title": "Carries AI context",
+			"detail": "AGENTS.md exists, so AI tooling working in the repository can reach the standards rather than guessing at them.",
+			"read": "AGENTS.md"
+		}
+	],
+	"rules": [
+		{
+			"id": "wp-hooks-naming-hook-name-format",
+			"standard": "wp-hooks-naming",
+			"title": "Hooks are fired as newfold/[context]/[action|filter]/[name]",
+			"severity": "warning",
+			"engine": "phpcs",
+			"applies_to": [
+				"plugin",
+				"theme",
+				"module"
+			],
+			"package": "newfold-labs/wp-php-standards",
+			"introduced_in": "2.0.0"
+		},
+		{
+			"id": "wp-php-namespace-format",
+			"standard": "wp-php",
+			"title": "Declared namespaces start with NewfoldLabs\\WP\\{Plugin|Theme|Module}\\{Name}",
+			"severity": "warning",
+			"engine": "phpcs",
+			"applies_to": [
+				"plugin",
+				"theme",
+				"module"
+			],
+			"package": "newfold-labs/wp-php-standards",
+			"introduced_in": "2.0.0"
+		}
+	],
+	"package_versions": {
+		"newfold-labs/wp-php-standards": "2.0.0"
+	},
+	"summary": {
+		"repos": 125,
+		"reporting": 0,
+		"findings": 0,
+		"by_level": {
+			"0": 13,
+			"1": 112,
+			"2": 0,
+			"3": 0,
+			"4": 0
+		},
+		"by_type": {
+			"worker": {
+				"repos": 36,
+				"levels": {
+					"1": 36
+				}
+			},
+			"module": {
+				"repos": 49,
+				"levels": {
+					"0": 6,
+					"1": 43
+				}
+			},
+			"plugin": {
+				"repos": 39,
+				"levels": {
+					"0": 6,
+					"1": 33
+				}
+			},
+			"theme": {
+				"repos": 1,
+				"levels": {
+					"0": 1
+				}
+			}
+		},
+		"by_rule": {
+			"wp-hooks-naming-hook-name-format": {
+				"pass": 0,
+				"fail": 0,
+				"ineligible": 83,
+				"unknown": 6,
+				"not_applicable": 36
+			},
+			"wp-php-namespace-format": {
+				"pass": 0,
+				"fail": 0,
+				"ineligible": 83,
+				"unknown": 6,
+				"not_applicable": 36
+			}
+		}
+	},
+	"repos": [
+		{
+			"name": "cf-worker-ai-chat",
+			"url": "https://github.com/newfold-labs/cf-worker-ai-chat",
+			"private": true,
+			"artifact_type": "worker",
+			"language": "TypeScript",
+			"pushed_at": "2026-08-19T11:00:09Z",
+			"level": 1,
+			"signals": {
+				"standards_package_present": true,
+				"standards_package_current": null,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": false
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "not_applicable",
+				"wp-php-namespace-format": "not_applicable"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "cf-worker-ai-image-generation",
+			"url": "https://github.com/newfold-labs/cf-worker-ai-image-generation",
+			"private": true,
+			"artifact_type": "worker",
+			"language": "JavaScript",
+			"pushed_at": "2026-06-23T03:29:47Z",
+			"level": 1,
+			"signals": {
+				"standards_package_present": true,
+				"standards_package_current": null,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": false
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "not_applicable",
+				"wp-php-namespace-format": "not_applicable"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "cf-worker-ai-proxy",
+			"url": "https://github.com/newfold-labs/cf-worker-ai-proxy",
+			"private": true,
+			"artifact_type": "worker",
+			"language": "JavaScript",
+			"pushed_at": "2026-06-23T03:32:47Z",
+			"level": 1,
+			"signals": {
+				"standards_package_present": true,
+				"standards_package_current": null,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": false
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "not_applicable",
+				"wp-php-namespace-format": "not_applicable"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "cf-worker-ai-sitegen",
+			"url": "https://github.com/newfold-labs/cf-worker-ai-sitegen",
+			"private": true,
+			"artifact_type": "worker",
+			"language": "JavaScript",
+			"pushed_at": "2026-06-24T07:56:14Z",
+			"level": 1,
+			"signals": {
+				"standards_package_present": true,
+				"standards_package_current": null,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": false
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "not_applicable",
+				"wp-php-namespace-format": "not_applicable"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "cf-worker-cache-preload",
+			"url": "https://github.com/newfold-labs/cf-worker-cache-preload",
+			"private": true,
+			"artifact_type": "worker",
+			"language": "JavaScript",
+			"pushed_at": "2026-05-14T23:23:14Z",
+			"level": 1,
+			"signals": {
+				"standards_package_present": true,
+				"standards_package_current": null,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": false
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "not_applicable",
+				"wp-php-namespace-format": "not_applicable"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "cf-worker-content-gen-proxy",
+			"url": "https://github.com/newfold-labs/cf-worker-content-gen-proxy",
+			"private": true,
+			"artifact_type": "worker",
+			"language": "JavaScript",
+			"pushed_at": "2026-05-15T03:20:41Z",
+			"level": 1,
+			"signals": {
+				"standards_package_present": true,
+				"standards_package_current": null,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": false
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "not_applicable",
+				"wp-php-namespace-format": "not_applicable"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "cf-worker-content-tones",
+			"url": "https://github.com/newfold-labs/cf-worker-content-tones",
+			"private": true,
+			"artifact_type": "worker",
+			"language": "JavaScript",
+			"pushed_at": "2026-05-15T03:13:18Z",
+			"level": 1,
+			"signals": {
+				"standards_package_present": true,
+				"standards_package_current": null,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": false
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "not_applicable",
+				"wp-php-namespace-format": "not_applicable"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "cf-worker-event-ingest",
+			"url": "https://github.com/newfold-labs/cf-worker-event-ingest",
+			"private": true,
+			"artifact_type": "worker",
+			"language": "TypeScript",
+			"pushed_at": "2026-07-30T17:37:54Z",
+			"level": 1,
+			"signals": {
+				"standards_package_present": true,
+				"standards_package_current": null,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": true
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "not_applicable",
+				"wp-php-namespace-format": "not_applicable"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "cf-worker-event-process",
+			"url": "https://github.com/newfold-labs/cf-worker-event-process",
+			"private": true,
+			"artifact_type": "worker",
+			"language": "TypeScript",
+			"pushed_at": "2026-07-30T17:37:58Z",
+			"level": 1,
+			"signals": {
+				"standards_package_present": true,
+				"standards_package_current": null,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": true
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "not_applicable",
+				"wp-php-namespace-format": "not_applicable"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "cf-worker-font-pair-api",
+			"url": "https://github.com/newfold-labs/cf-worker-font-pair-api",
+			"private": true,
+			"artifact_type": "worker",
+			"language": "JavaScript",
+			"pushed_at": "2026-05-15T03:13:42Z",
+			"level": 1,
+			"signals": {
+				"standards_package_present": true,
+				"standards_package_current": null,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": false
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "not_applicable",
+				"wp-php-namespace-format": "not_applicable"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "cf-worker-hosting-plan-data",
+			"url": "https://github.com/newfold-labs/cf-worker-hosting-plan-data",
+			"private": true,
+			"artifact_type": "worker",
+			"language": "JavaScript",
+			"pushed_at": "2026-05-15T03:25:06Z",
+			"level": 1,
+			"signals": {
+				"standards_package_present": true,
+				"standards_package_current": null,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": true,
+				"has_ai_context": false
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "not_applicable",
+				"wp-php-namespace-format": "not_applicable"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "cf-worker-hub-verification",
+			"url": "https://github.com/newfold-labs/cf-worker-hub-verification",
+			"private": true,
+			"artifact_type": "worker",
+			"language": "JavaScript",
+			"pushed_at": "2026-05-15T03:15:54Z",
+			"level": 1,
+			"signals": {
+				"standards_package_present": true,
+				"standards_package_current": null,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": false
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "not_applicable",
+				"wp-php-namespace-format": "not_applicable"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "cf-worker-image-optimization",
+			"url": "https://github.com/newfold-labs/cf-worker-image-optimization",
+			"private": true,
+			"artifact_type": "worker",
+			"language": "JavaScript",
+			"pushed_at": "2026-05-14T23:24:06Z",
+			"level": 1,
+			"signals": {
+				"standards_package_present": true,
+				"standards_package_current": null,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": true,
+				"has_ai_context": false
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "not_applicable",
+				"wp-php-namespace-format": "not_applicable"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "cf-worker-impressions",
+			"url": "https://github.com/newfold-labs/cf-worker-impressions",
+			"private": true,
+			"artifact_type": "worker",
+			"language": "JavaScript",
+			"pushed_at": "2026-05-15T03:28:10Z",
+			"level": 1,
+			"signals": {
+				"standards_package_present": true,
+				"standards_package_current": null,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": false
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "not_applicable",
+				"wp-php-namespace-format": "not_applicable"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "cf-worker-jetpack-connect",
+			"url": "https://github.com/newfold-labs/cf-worker-jetpack-connect",
+			"private": true,
+			"artifact_type": "worker",
+			"language": "TypeScript",
+			"pushed_at": "2026-07-30T17:38:01Z",
+			"level": 1,
+			"signals": {
+				"standards_package_present": true,
+				"standards_package_current": null,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": true
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "not_applicable",
+				"wp-php-namespace-format": "not_applicable"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "cf-worker-jetpack-site-connect",
+			"url": "https://github.com/newfold-labs/cf-worker-jetpack-site-connect",
+			"private": true,
+			"artifact_type": "worker",
+			"language": "JavaScript",
+			"pushed_at": "2026-05-15T03:33:26Z",
+			"level": 1,
+			"signals": {
+				"standards_package_present": true,
+				"standards_package_current": null,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": false
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "not_applicable",
+				"wp-php-namespace-format": "not_applicable"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "cf-worker-log",
+			"url": "https://github.com/newfold-labs/cf-worker-log",
+			"private": true,
+			"artifact_type": "worker",
+			"language": "JavaScript",
+			"pushed_at": "2026-05-15T03:35:38Z",
+			"level": 1,
+			"signals": {
+				"standards_package_present": true,
+				"standards_package_current": null,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": false
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "not_applicable",
+				"wp-php-namespace-format": "not_applicable"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "cf-worker-migration-proxy",
+			"url": "https://github.com/newfold-labs/cf-worker-migration-proxy",
+			"private": true,
+			"artifact_type": "worker",
+			"language": "JavaScript",
+			"pushed_at": "2026-07-24T05:36:03Z",
+			"level": 1,
+			"signals": {
+				"standards_package_present": true,
+				"standards_package_current": null,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": true,
+				"has_ai_context": false
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "not_applicable",
+				"wp-php-namespace-format": "not_applicable"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "cf-worker-newfold-services-jwt",
+			"url": "https://github.com/newfold-labs/cf-worker-newfold-services-jwt",
+			"private": true,
+			"artifact_type": "worker",
+			"language": "TypeScript",
+			"pushed_at": "2026-06-03T16:37:47Z",
+			"level": 1,
+			"signals": {
+				"standards_package_present": true,
+				"standards_package_current": null,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": false
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "not_applicable",
+				"wp-php-namespace-format": "not_applicable"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "cf-worker-pls",
+			"url": "https://github.com/newfold-labs/cf-worker-pls",
+			"private": true,
+			"artifact_type": "worker",
+			"language": null,
+			"pushed_at": "2026-07-17T10:11:47Z",
+			"level": 1,
+			"signals": {
+				"standards_package_present": true,
+				"standards_package_current": null,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": false
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "not_applicable",
+				"wp-php-namespace-format": "not_applicable"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "cf-worker-plugin-downloads",
+			"url": "https://github.com/newfold-labs/cf-worker-plugin-downloads",
+			"private": true,
+			"artifact_type": "worker",
+			"language": "JavaScript",
+			"pushed_at": "2026-05-14T23:24:49Z",
+			"level": 1,
+			"signals": {
+				"standards_package_present": true,
+				"standards_package_current": null,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": false
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "not_applicable",
+				"wp-php-namespace-format": "not_applicable"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "cf-worker-plugin-recommendation-api",
+			"url": "https://github.com/newfold-labs/cf-worker-plugin-recommendation-api",
+			"private": true,
+			"artifact_type": "worker",
+			"language": "JavaScript",
+			"pushed_at": "2026-05-14T23:24:56Z",
+			"level": 1,
+			"signals": {
+				"standards_package_present": true,
+				"standards_package_current": null,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": false
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "not_applicable",
+				"wp-php-namespace-format": "not_applicable"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "cf-worker-proxy-edge-cache",
+			"url": "https://github.com/newfold-labs/cf-worker-proxy-edge-cache",
+			"private": true,
+			"artifact_type": "worker",
+			"language": null,
+			"pushed_at": "2026-05-07T17:22:53Z",
+			"level": 1,
+			"signals": {
+				"standards_package_present": true,
+				"standards_package_current": null,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": false
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "not_applicable",
+				"wp-php-namespace-format": "not_applicable"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "cf-worker-proxy-events-rate-limit",
+			"url": "https://github.com/newfold-labs/cf-worker-proxy-events-rate-limit",
+			"private": true,
+			"artifact_type": "worker",
+			"language": null,
+			"pushed_at": "2026-05-07T17:25:04Z",
+			"level": 1,
+			"signals": {
+				"standards_package_present": true,
+				"standards_package_current": null,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": false
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "not_applicable",
+				"wp-php-namespace-format": "not_applicable"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "cf-worker-screenshot-service",
+			"url": "https://github.com/newfold-labs/cf-worker-screenshot-service",
+			"private": true,
+			"artifact_type": "worker",
+			"language": "JavaScript",
+			"pushed_at": "2026-05-15T03:39:01Z",
+			"level": 1,
+			"signals": {
+				"standards_package_present": true,
+				"standards_package_current": null,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": false
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "not_applicable",
+				"wp-php-namespace-format": "not_applicable"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "cf-worker-shorturl",
+			"url": "https://github.com/newfold-labs/cf-worker-shorturl",
+			"private": true,
+			"artifact_type": "worker",
+			"language": "JavaScript",
+			"pushed_at": "2026-07-22T00:17:48Z",
+			"level": 1,
+			"signals": {
+				"standards_package_present": true,
+				"standards_package_current": null,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": false
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "not_applicable",
+				"wp-php-namespace-format": "not_applicable"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "cf-worker-site-classification-api",
+			"url": "https://github.com/newfold-labs/cf-worker-site-classification-api",
+			"private": true,
+			"artifact_type": "worker",
+			"language": null,
+			"pushed_at": "2026-05-15T03:43:10Z",
+			"level": 1,
+			"signals": {
+				"standards_package_present": true,
+				"standards_package_current": null,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": false
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "not_applicable",
+				"wp-php-namespace-format": "not_applicable"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "cf-worker-social-connect",
+			"url": "https://github.com/newfold-labs/cf-worker-social-connect",
+			"private": true,
+			"artifact_type": "worker",
+			"language": "JavaScript",
+			"pushed_at": "2026-05-15T03:44:25Z",
+			"level": 1,
+			"signals": {
+				"standards_package_present": true,
+				"standards_package_current": null,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": false
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "not_applicable",
+				"wp-php-namespace-format": "not_applicable"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "cf-worker-teams-notifier",
+			"url": "https://github.com/newfold-labs/cf-worker-teams-notifier",
+			"private": true,
+			"artifact_type": "worker",
+			"language": "JavaScript",
+			"pushed_at": "2026-05-15T03:44:52Z",
+			"level": 1,
+			"signals": {
+				"standards_package_present": true,
+				"standards_package_current": null,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": false
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "not_applicable",
+				"wp-php-namespace-format": "not_applicable"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "cf-worker-token-proxy",
+			"url": "https://github.com/newfold-labs/cf-worker-token-proxy",
+			"private": true,
+			"artifact_type": "worker",
+			"language": "JavaScript",
+			"pushed_at": "2026-05-15T03:45:36Z",
+			"level": 1,
+			"signals": {
+				"standards_package_present": true,
+				"standards_package_current": null,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": false
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "not_applicable",
+				"wp-php-namespace-format": "not_applicable"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "cf-worker-transient",
+			"url": "https://github.com/newfold-labs/cf-worker-transient",
+			"private": true,
+			"artifact_type": "worker",
+			"language": "JavaScript",
+			"pushed_at": "2026-05-15T03:46:12Z",
+			"level": 1,
+			"signals": {
+				"standards_package_present": true,
+				"standards_package_current": null,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": false
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "not_applicable",
+				"wp-php-namespace-format": "not_applicable"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "cf-worker-unsplash",
+			"url": "https://github.com/newfold-labs/cf-worker-unsplash",
+			"private": true,
+			"artifact_type": "worker",
+			"language": "JavaScript",
+			"pushed_at": "2026-05-14T23:26:03Z",
+			"level": 1,
+			"signals": {
+				"standards_package_present": true,
+				"standards_package_current": null,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": false
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "not_applicable",
+				"wp-php-namespace-format": "not_applicable"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "cf-worker-website-capture",
+			"url": "https://github.com/newfold-labs/cf-worker-website-capture",
+			"private": true,
+			"artifact_type": "worker",
+			"language": "JavaScript",
+			"pushed_at": "2026-05-15T03:47:04Z",
+			"level": 1,
+			"signals": {
+				"standards_package_present": true,
+				"standards_package_current": null,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": false
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "not_applicable",
+				"wp-php-namespace-format": "not_applicable"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "cf-worker-wonderblocks-assets",
+			"url": "https://github.com/newfold-labs/cf-worker-wonderblocks-assets",
+			"private": true,
+			"artifact_type": "worker",
+			"language": "JavaScript",
+			"pushed_at": "2026-05-15T03:47:38Z",
+			"level": 1,
+			"signals": {
+				"standards_package_present": true,
+				"standards_package_current": null,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": false
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "not_applicable",
+				"wp-php-namespace-format": "not_applicable"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "cf-worker-wp-github-release-api",
+			"url": "https://github.com/newfold-labs/cf-worker-wp-github-release-api",
+			"private": false,
+			"artifact_type": "worker",
+			"language": "JavaScript",
+			"pushed_at": "2026-07-07T08:35:56Z",
+			"level": 1,
+			"signals": {
+				"standards_package_present": true,
+				"standards_package_current": null,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": false
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "not_applicable",
+				"wp-php-namespace-format": "not_applicable"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "cf-worker-wp-release-api",
+			"url": "https://github.com/newfold-labs/cf-worker-wp-release-api",
+			"private": true,
+			"artifact_type": "worker",
+			"language": "TypeScript",
+			"pushed_at": "2026-07-15T14:52:51Z",
+			"level": 1,
+			"signals": {
+				"standards_package_present": true,
+				"standards_package_current": null,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": false
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "not_applicable",
+				"wp-php-namespace-format": "not_applicable"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "wp-module-10web",
+			"url": "https://github.com/newfold-labs/wp-module-10web",
+			"private": false,
+			"artifact_type": "module",
+			"language": "PHP",
+			"pushed_at": "2026-08-20T22:14:16Z",
+			"level": 1,
+			"signals": {
+				"standards_package_present": true,
+				"standards_package_current": false,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": true
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "ineligible",
+				"wp-php-namespace-format": "ineligible"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "wp-module-activation",
+			"url": "https://github.com/newfold-labs/wp-module-activation",
+			"private": false,
+			"artifact_type": "module",
+			"language": "PHP",
+			"pushed_at": "2026-08-20T20:45:22Z",
+			"level": 1,
+			"signals": {
+				"standards_package_present": true,
+				"standards_package_current": false,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": true
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "ineligible",
+				"wp-php-namespace-format": "ineligible"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "wp-module-adam",
+			"url": "https://github.com/newfold-labs/wp-module-adam",
+			"private": false,
+			"artifact_type": "module",
+			"language": "PHP",
+			"pushed_at": "2026-07-31T14:24:42Z",
+			"level": 1,
+			"signals": {
+				"standards_package_present": true,
+				"standards_package_current": false,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": true
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "ineligible",
+				"wp-php-namespace-format": "ineligible"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "wp-module-ai",
+			"url": "https://github.com/newfold-labs/wp-module-ai",
+			"private": false,
+			"artifact_type": "module",
+			"language": "PHP",
+			"pushed_at": "2026-08-20T23:14:14Z",
+			"level": 1,
+			"signals": {
+				"standards_package_present": true,
+				"standards_package_current": false,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": true
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "ineligible",
+				"wp-php-namespace-format": "ineligible"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "wp-module-ai-assistant",
+			"url": "https://github.com/newfold-labs/wp-module-ai-assistant",
+			"private": false,
+			"artifact_type": "module",
+			"language": "PHP",
+			"pushed_at": "2026-06-23T10:29:58Z",
+			"level": 0,
+			"signals": {
+				"standards_package_present": false,
+				"standards_package_current": null,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": false
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "ineligible",
+				"wp-php-namespace-format": "ineligible"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "wp-module-ai-chat",
+			"url": "https://github.com/newfold-labs/wp-module-ai-chat",
+			"private": false,
+			"artifact_type": "module",
+			"language": "JavaScript",
+			"pushed_at": "2026-08-18T06:11:20Z",
+			"level": 1,
+			"signals": {
+				"standards_package_present": true,
+				"standards_package_current": false,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": true
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "ineligible",
+				"wp-php-namespace-format": "ineligible"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "wp-module-ai-images",
+			"url": "https://github.com/newfold-labs/wp-module-ai-images",
+			"private": true,
+			"artifact_type": "module",
+			"language": "PHP",
+			"pushed_at": "2026-05-14T23:31:07Z",
+			"level": 1,
+			"signals": {
+				"standards_package_present": true,
+				"standards_package_current": false,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": false
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "ineligible",
+				"wp-php-namespace-format": "ineligible"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "wp-module-ai-page-designer",
+			"url": "https://github.com/newfold-labs/wp-module-ai-page-designer",
+			"private": false,
+			"artifact_type": "module",
+			"language": "TypeScript",
+			"pushed_at": "2026-08-12T15:18:17Z",
+			"level": 1,
+			"signals": {
+				"standards_package_present": true,
+				"standards_package_current": false,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": true
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "ineligible",
+				"wp-php-namespace-format": "ineligible"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "wp-module-atomic",
+			"url": "https://github.com/newfold-labs/wp-module-atomic",
+			"private": false,
+			"artifact_type": "module",
+			"language": "PHP",
+			"pushed_at": "2026-08-17T18:54:48Z",
+			"level": 1,
+			"signals": {
+				"standards_package_present": true,
+				"standards_package_current": false,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": true
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "ineligible",
+				"wp-php-namespace-format": "ineligible"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "wp-module-coming-soon",
+			"url": "https://github.com/newfold-labs/wp-module-coming-soon",
+			"private": false,
+			"artifact_type": "module",
+			"language": "PHP",
+			"pushed_at": "2026-08-20T18:11:35Z",
+			"level": 1,
+			"signals": {
+				"standards_package_present": true,
+				"standards_package_current": false,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": true
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "ineligible",
+				"wp-php-namespace-format": "ineligible"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "wp-module-context",
+			"url": "https://github.com/newfold-labs/wp-module-context",
+			"private": false,
+			"artifact_type": "module",
+			"language": "PHP",
+			"pushed_at": "2026-08-21T06:24:17Z",
+			"level": 1,
+			"signals": {
+				"standards_package_present": true,
+				"standards_package_current": false,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": true
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "ineligible",
+				"wp-php-namespace-format": "ineligible"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "wp-module-data",
+			"url": "https://github.com/newfold-labs/wp-module-data",
+			"private": false,
+			"artifact_type": "module",
+			"language": "PHP",
+			"pushed_at": "2026-08-20T18:01:11Z",
+			"level": 1,
+			"signals": {
+				"standards_package_present": true,
+				"standards_package_current": false,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": true
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "ineligible",
+				"wp-php-namespace-format": "ineligible"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "wp-module-deactivation",
+			"url": "https://github.com/newfold-labs/wp-module-deactivation",
+			"private": false,
+			"artifact_type": "module",
+			"language": "PHP",
+			"pushed_at": "2026-08-21T00:06:37Z",
+			"level": 1,
+			"signals": {
+				"standards_package_present": true,
+				"standards_package_current": false,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": true
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "ineligible",
+				"wp-php-namespace-format": "ineligible"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "wp-module-ecommerce",
+			"url": "https://github.com/newfold-labs/wp-module-ecommerce",
+			"private": false,
+			"artifact_type": "module",
+			"language": "CSS",
+			"pushed_at": "2026-08-20T20:35:18Z",
+			"level": 1,
+			"signals": {
+				"standards_package_present": true,
+				"standards_package_current": true,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": true
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "unknown",
+				"wp-php-namespace-format": "unknown"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "wp-module-editor-chat",
+			"url": "https://github.com/newfold-labs/wp-module-editor-chat",
+			"private": false,
+			"artifact_type": "module",
+			"language": "JavaScript",
+			"pushed_at": "2026-08-20T17:48:38Z",
+			"level": 1,
+			"signals": {
+				"standards_package_present": true,
+				"standards_package_current": false,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": true
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "ineligible",
+				"wp-php-namespace-format": "ineligible"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "wp-module-facebook",
+			"url": "https://github.com/newfold-labs/wp-module-facebook",
+			"private": false,
+			"artifact_type": "module",
+			"language": "PHP",
+			"pushed_at": "2026-08-18T16:26:17Z",
+			"level": 1,
+			"signals": {
+				"standards_package_present": true,
+				"standards_package_current": false,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": true
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "ineligible",
+				"wp-php-namespace-format": "ineligible"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "wp-module-features",
+			"url": "https://github.com/newfold-labs/wp-module-features",
+			"private": false,
+			"artifact_type": "module",
+			"language": "PHP",
+			"pushed_at": "2026-08-17T18:17:10Z",
+			"level": 1,
+			"signals": {
+				"standards_package_present": true,
+				"standards_package_current": false,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": true
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "ineligible",
+				"wp-php-namespace-format": "ineligible"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "wp-module-fields",
+			"url": "https://github.com/newfold-labs/wp-module-fields",
+			"private": false,
+			"artifact_type": "module",
+			"language": null,
+			"pushed_at": "2026-06-16T19:50:53Z",
+			"level": 0,
+			"signals": {
+				"standards_package_present": false,
+				"standards_package_current": null,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": false
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "ineligible",
+				"wp-php-namespace-format": "ineligible"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "wp-module-framework",
+			"url": "https://github.com/newfold-labs/wp-module-framework",
+			"private": true,
+			"artifact_type": "module",
+			"language": "PHP",
+			"pushed_at": "2026-08-20T10:37:44Z",
+			"level": 1,
+			"signals": {
+				"standards_package_present": true,
+				"standards_package_current": false,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": false
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "ineligible",
+				"wp-php-namespace-format": "ineligible"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "wp-module-global-ctb",
+			"url": "https://github.com/newfold-labs/wp-module-global-ctb",
+			"private": false,
+			"artifact_type": "module",
+			"language": "JavaScript",
+			"pushed_at": "2026-08-20T22:32:54Z",
+			"level": 1,
+			"signals": {
+				"standards_package_present": true,
+				"standards_package_current": false,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": true
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "ineligible",
+				"wp-php-namespace-format": "ineligible"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "wp-module-help-center",
+			"url": "https://github.com/newfold-labs/wp-module-help-center",
+			"private": false,
+			"artifact_type": "module",
+			"language": "JavaScript",
+			"pushed_at": "2026-08-20T18:00:09Z",
+			"level": 1,
+			"signals": {
+				"standards_package_present": true,
+				"standards_package_current": true,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": true
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "unknown",
+				"wp-php-namespace-format": "unknown"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "wp-module-htaccess",
+			"url": "https://github.com/newfold-labs/wp-module-htaccess",
+			"private": false,
+			"artifact_type": "module",
+			"language": "PHP",
+			"pushed_at": "2026-08-21T03:43:58Z",
+			"level": 1,
+			"signals": {
+				"standards_package_present": true,
+				"standards_package_current": false,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": true,
+				"has_ai_context": true
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "ineligible",
+				"wp-php-namespace-format": "ineligible"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "wp-module-insights",
+			"url": "https://github.com/newfold-labs/wp-module-insights",
+			"private": false,
+			"artifact_type": "module",
+			"language": "CSS",
+			"pushed_at": "2026-08-21T03:45:30Z",
+			"level": 1,
+			"signals": {
+				"standards_package_present": true,
+				"standards_package_current": false,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": true
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "ineligible",
+				"wp-php-namespace-format": "ineligible"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "wp-module-install-checker",
+			"url": "https://github.com/newfold-labs/wp-module-install-checker",
+			"private": false,
+			"artifact_type": "module",
+			"language": "PHP",
+			"pushed_at": "2026-08-18T06:18:31Z",
+			"level": 0,
+			"signals": {
+				"standards_package_present": false,
+				"standards_package_current": null,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": true
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "ineligible",
+				"wp-php-namespace-format": "ineligible"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "wp-module-installer",
+			"url": "https://github.com/newfold-labs/wp-module-installer",
+			"private": false,
+			"artifact_type": "module",
+			"language": "PHP",
+			"pushed_at": "2026-08-21T00:27:25Z",
+			"level": 1,
+			"signals": {
+				"standards_package_present": true,
+				"standards_package_current": false,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": true
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "ineligible",
+				"wp-php-namespace-format": "ineligible"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "wp-module-link-tracker",
+			"url": "https://github.com/newfold-labs/wp-module-link-tracker",
+			"private": false,
+			"artifact_type": "module",
+			"language": "PHP",
+			"pushed_at": "2026-08-21T02:34:15Z",
+			"level": 1,
+			"signals": {
+				"standards_package_present": true,
+				"standards_package_current": false,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": true
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "ineligible",
+				"wp-php-namespace-format": "ineligible"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "wp-module-loader",
+			"url": "https://github.com/newfold-labs/wp-module-loader",
+			"private": false,
+			"artifact_type": "module",
+			"language": "PHP",
+			"pushed_at": "2026-08-18T06:17:21Z",
+			"level": 0,
+			"signals": {
+				"standards_package_present": false,
+				"standards_package_current": null,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": true
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "ineligible",
+				"wp-php-namespace-format": "ineligible"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "wp-module-logo-gen",
+			"url": "https://github.com/newfold-labs/wp-module-logo-gen",
+			"private": true,
+			"artifact_type": "module",
+			"language": null,
+			"pushed_at": "2026-02-09T22:54:17Z",
+			"level": 0,
+			"signals": {
+				"standards_package_present": false,
+				"standards_package_current": null,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": false
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "ineligible",
+				"wp-php-namespace-format": "ineligible"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "wp-module-maestro",
+			"url": "https://github.com/newfold-labs/wp-module-maestro",
+			"private": false,
+			"artifact_type": "module",
+			"language": "PHP",
+			"pushed_at": "2026-06-23T03:26:47Z",
+			"level": 1,
+			"signals": {
+				"standards_package_present": true,
+				"standards_package_current": true,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": false
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "unknown",
+				"wp-php-namespace-format": "unknown"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "wp-module-marketplace",
+			"url": "https://github.com/newfold-labs/wp-module-marketplace",
+			"private": false,
+			"artifact_type": "module",
+			"language": "JavaScript",
+			"pushed_at": "2026-08-21T07:34:07Z",
+			"level": 1,
+			"signals": {
+				"standards_package_present": true,
+				"standards_package_current": false,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": true
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "ineligible",
+				"wp-php-namespace-format": "ineligible"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "wp-module-mcp",
+			"url": "https://github.com/newfold-labs/wp-module-mcp",
+			"private": false,
+			"artifact_type": "module",
+			"language": "PHP",
+			"pushed_at": "2026-08-20T14:38:28Z",
+			"level": 1,
+			"signals": {
+				"standards_package_present": true,
+				"standards_package_current": false,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": true
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "ineligible",
+				"wp-php-namespace-format": "ineligible"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "wp-module-migration",
+			"url": "https://github.com/newfold-labs/wp-module-migration",
+			"private": false,
+			"artifact_type": "module",
+			"language": "PHP",
+			"pushed_at": "2026-08-17T14:05:41Z",
+			"level": 1,
+			"signals": {
+				"standards_package_present": true,
+				"standards_package_current": false,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": true,
+				"has_ai_context": true
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "ineligible",
+				"wp-php-namespace-format": "ineligible"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "wp-module-next-steps",
+			"url": "https://github.com/newfold-labs/wp-module-next-steps",
+			"private": false,
+			"artifact_type": "module",
+			"language": "PHP",
+			"pushed_at": "2026-08-20T19:50:35Z",
+			"level": 1,
+			"signals": {
+				"standards_package_present": true,
+				"standards_package_current": false,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": true
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "ineligible",
+				"wp-php-namespace-format": "ineligible"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "wp-module-notifications",
+			"url": "https://github.com/newfold-labs/wp-module-notifications",
+			"private": false,
+			"artifact_type": "module",
+			"language": "JavaScript",
+			"pushed_at": "2026-08-20T20:30:26Z",
+			"level": 1,
+			"signals": {
+				"standards_package_present": true,
+				"standards_package_current": false,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": true
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "ineligible",
+				"wp-php-namespace-format": "ineligible"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "wp-module-onboarding",
+			"url": "https://github.com/newfold-labs/wp-module-onboarding",
+			"private": false,
+			"artifact_type": "module",
+			"language": "PHP",
+			"pushed_at": "2026-08-21T08:43:04Z",
+			"level": 1,
+			"signals": {
+				"standards_package_present": true,
+				"standards_package_current": false,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": true
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "ineligible",
+				"wp-php-namespace-format": "ineligible"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "wp-module-onboarding-data",
+			"url": "https://github.com/newfold-labs/wp-module-onboarding-data",
+			"private": false,
+			"artifact_type": "module",
+			"language": "PHP",
+			"pushed_at": "2026-08-20T10:37:22Z",
+			"level": 1,
+			"signals": {
+				"standards_package_present": true,
+				"standards_package_current": false,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": true
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "ineligible",
+				"wp-php-namespace-format": "ineligible"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "wp-module-patterns",
+			"url": "https://github.com/newfold-labs/wp-module-patterns",
+			"private": false,
+			"artifact_type": "module",
+			"language": "JavaScript",
+			"pushed_at": "2026-08-21T06:14:55Z",
+			"level": 1,
+			"signals": {
+				"standards_package_present": true,
+				"standards_package_current": false,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": true
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "ineligible",
+				"wp-php-namespace-format": "ineligible"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "wp-module-performance",
+			"url": "https://github.com/newfold-labs/wp-module-performance",
+			"private": false,
+			"artifact_type": "module",
+			"language": "PHP",
+			"pushed_at": "2026-08-20T09:11:36Z",
+			"level": 1,
+			"signals": {
+				"standards_package_present": true,
+				"standards_package_current": false,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": true,
+				"has_ai_context": true
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "ineligible",
+				"wp-php-namespace-format": "ineligible"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "wp-module-pls",
+			"url": "https://github.com/newfold-labs/wp-module-pls",
+			"private": false,
+			"artifact_type": "module",
+			"language": "PHP",
+			"pushed_at": "2026-08-20T21:44:12Z",
+			"level": 1,
+			"signals": {
+				"standards_package_present": true,
+				"standards_package_current": false,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": true
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "ineligible",
+				"wp-php-namespace-format": "ineligible"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "wp-module-reset",
+			"url": "https://github.com/newfold-labs/wp-module-reset",
+			"private": false,
+			"artifact_type": "module",
+			"language": "PHP",
+			"pushed_at": "2026-07-31T14:28:25Z",
+			"level": 1,
+			"signals": {
+				"standards_package_present": true,
+				"standards_package_current": false,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": true
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "ineligible",
+				"wp-php-namespace-format": "ineligible"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "wp-module-runtime",
+			"url": "https://github.com/newfold-labs/wp-module-runtime",
+			"private": false,
+			"artifact_type": "module",
+			"language": "PHP",
+			"pushed_at": "2026-08-20T23:54:42Z",
+			"level": 1,
+			"signals": {
+				"standards_package_present": true,
+				"standards_package_current": true,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": true
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "unknown",
+				"wp-php-namespace-format": "unknown"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "wp-module-secure-passwords",
+			"url": "https://github.com/newfold-labs/wp-module-secure-passwords",
+			"private": false,
+			"artifact_type": "module",
+			"language": "PHP",
+			"pushed_at": "2026-08-18T06:19:34Z",
+			"level": 1,
+			"signals": {
+				"standards_package_present": true,
+				"standards_package_current": true,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": true
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "unknown",
+				"wp-php-namespace-format": "unknown"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "wp-module-settings",
+			"url": "https://github.com/newfold-labs/wp-module-settings",
+			"private": false,
+			"artifact_type": "module",
+			"language": null,
+			"pushed_at": "2026-06-16T20:05:30Z",
+			"level": 0,
+			"signals": {
+				"standards_package_present": false,
+				"standards_package_current": null,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": false
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "ineligible",
+				"wp-php-namespace-format": "ineligible"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "wp-module-solutions",
+			"url": "https://github.com/newfold-labs/wp-module-solutions",
+			"private": false,
+			"artifact_type": "module",
+			"language": "CSS",
+			"pushed_at": "2026-08-21T07:35:05Z",
+			"level": 1,
+			"signals": {
+				"standards_package_present": true,
+				"standards_package_current": false,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": true
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "ineligible",
+				"wp-php-namespace-format": "ineligible"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "wp-module-sso",
+			"url": "https://github.com/newfold-labs/wp-module-sso",
+			"private": false,
+			"artifact_type": "module",
+			"language": "PHP",
+			"pushed_at": "2026-08-21T00:13:11Z",
+			"level": 1,
+			"signals": {
+				"standards_package_present": true,
+				"standards_package_current": false,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": true
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "ineligible",
+				"wp-php-namespace-format": "ineligible"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "wp-module-staging",
+			"url": "https://github.com/newfold-labs/wp-module-staging",
+			"private": false,
+			"artifact_type": "module",
+			"language": "CSS",
+			"pushed_at": "2026-08-20T08:12:35Z",
+			"level": 1,
+			"signals": {
+				"standards_package_present": true,
+				"standards_package_current": false,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": true,
+				"has_ai_context": true
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "ineligible",
+				"wp-php-namespace-format": "ineligible"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "wp-module-survey",
+			"url": "https://github.com/newfold-labs/wp-module-survey",
+			"private": false,
+			"artifact_type": "module",
+			"language": "PHP",
+			"pushed_at": "2026-08-21T06:15:12Z",
+			"level": 1,
+			"signals": {
+				"standards_package_present": true,
+				"standards_package_current": false,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": true
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "ineligible",
+				"wp-php-namespace-format": "ineligible"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "wp-module-tasks",
+			"url": "https://github.com/newfold-labs/wp-module-tasks",
+			"private": false,
+			"artifact_type": "module",
+			"language": "PHP",
+			"pushed_at": "2026-08-07T11:01:57Z",
+			"level": 1,
+			"signals": {
+				"standards_package_present": true,
+				"standards_package_current": true,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": false
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "unknown",
+				"wp-php-namespace-format": "unknown"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "wp-module-template-drawer",
+			"url": "https://github.com/newfold-labs/wp-module-template-drawer",
+			"private": true,
+			"artifact_type": "module",
+			"language": "CSS",
+			"pushed_at": "2026-08-17T07:21:43Z",
+			"level": 1,
+			"signals": {
+				"standards_package_present": true,
+				"standards_package_current": false,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": false
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "ineligible",
+				"wp-php-namespace-format": "ineligible"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "wp-plugin-advanced-reviews",
+			"url": "https://github.com/newfold-labs/wp-plugin-advanced-reviews",
+			"private": true,
+			"artifact_type": "plugin",
+			"language": "PHP",
+			"pushed_at": "2026-08-04T08:23:54Z",
+			"level": 1,
+			"signals": {
+				"standards_package_present": true,
+				"standards_package_current": false,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": false
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "ineligible",
+				"wp-php-namespace-format": "ineligible"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "wp-plugin-affiliates",
+			"url": "https://github.com/newfold-labs/wp-plugin-affiliates",
+			"private": true,
+			"artifact_type": "plugin",
+			"language": "PHP",
+			"pushed_at": "2026-08-03T14:26:22Z",
+			"level": 1,
+			"signals": {
+				"standards_package_present": true,
+				"standards_package_current": false,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": false
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "ineligible",
+				"wp-php-namespace-format": "ineligible"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "wp-plugin-ai-chat-poc",
+			"url": "https://github.com/newfold-labs/wp-plugin-ai-chat-poc",
+			"private": true,
+			"artifact_type": "plugin",
+			"language": "TypeScript",
+			"pushed_at": "2026-06-16T20:11:22Z",
+			"level": 0,
+			"signals": {
+				"standards_package_present": false,
+				"standards_package_current": null,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": false
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "ineligible",
+				"wp-php-namespace-format": "ineligible"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "wp-plugin-ai-store",
+			"url": "https://github.com/newfold-labs/wp-plugin-ai-store",
+			"private": true,
+			"artifact_type": "plugin",
+			"language": "JavaScript",
+			"pushed_at": "2026-08-20T15:28:30Z",
+			"level": 1,
+			"signals": {
+				"standards_package_present": true,
+				"standards_package_current": false,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": false
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "ineligible",
+				"wp-php-namespace-format": "ineligible"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "wp-plugin-bigrock",
+			"url": "https://github.com/newfold-labs/wp-plugin-bigrock",
+			"private": false,
+			"artifact_type": "plugin",
+			"language": "JavaScript",
+			"pushed_at": "2026-08-20T13:02:28Z",
+			"level": 1,
+			"signals": {
+				"standards_package_present": true,
+				"standards_package_current": false,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": false
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "ineligible",
+				"wp-php-namespace-format": "ineligible"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "wp-plugin-blu-store",
+			"url": "https://github.com/newfold-labs/wp-plugin-blu-store",
+			"private": true,
+			"artifact_type": "plugin",
+			"language": "HTML",
+			"pushed_at": "2026-03-12T21:11:50Z",
+			"level": 0,
+			"signals": {
+				"standards_package_present": false,
+				"standards_package_current": null,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": false
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "ineligible",
+				"wp-php-namespace-format": "ineligible"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "wp-plugin-bluehost",
+			"url": "https://github.com/newfold-labs/wp-plugin-bluehost",
+			"private": false,
+			"artifact_type": "plugin",
+			"language": "JavaScript",
+			"pushed_at": "2026-08-21T02:41:55Z",
+			"level": 1,
+			"signals": {
+				"standards_package_present": true,
+				"standards_package_current": false,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": true
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "ineligible",
+				"wp-php-namespace-format": "ineligible"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "wp-plugin-blueprint",
+			"url": "https://github.com/newfold-labs/wp-plugin-blueprint",
+			"private": false,
+			"artifact_type": "plugin",
+			"language": "JavaScript",
+			"pushed_at": "2026-08-12T04:52:13Z",
+			"level": 1,
+			"signals": {
+				"standards_package_present": true,
+				"standards_package_current": false,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": false
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "ineligible",
+				"wp-php-namespace-format": "ineligible"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "wp-plugin-blueprint-exporter",
+			"url": "https://github.com/newfold-labs/wp-plugin-blueprint-exporter",
+			"private": true,
+			"artifact_type": "plugin",
+			"language": "PHP",
+			"pushed_at": "2026-07-07T08:55:17Z",
+			"level": 0,
+			"signals": {
+				"standards_package_present": false,
+				"standards_package_current": null,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": false
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "ineligible",
+				"wp-php-namespace-format": "ineligible"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "wp-plugin-catalog-mode",
+			"url": "https://github.com/newfold-labs/wp-plugin-catalog-mode",
+			"private": true,
+			"artifact_type": "plugin",
+			"language": "PHP",
+			"pushed_at": "2026-08-03T13:43:57Z",
+			"level": 1,
+			"signals": {
+				"standards_package_present": true,
+				"standards_package_current": false,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": false
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "ineligible",
+				"wp-php-namespace-format": "ineligible"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "wp-plugin-crazy-domains",
+			"url": "https://github.com/newfold-labs/wp-plugin-crazy-domains",
+			"private": false,
+			"artifact_type": "plugin",
+			"language": "JavaScript",
+			"pushed_at": "2026-08-12T04:52:19Z",
+			"level": 1,
+			"signals": {
+				"standards_package_present": true,
+				"standards_package_current": false,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": false
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "ineligible",
+				"wp-php-namespace-format": "ineligible"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "wp-plugin-creativ-email",
+			"url": "https://github.com/newfold-labs/wp-plugin-creativ-email",
+			"private": true,
+			"artifact_type": "plugin",
+			"language": "PHP",
+			"pushed_at": "2026-06-15T16:18:29Z",
+			"level": 0,
+			"signals": {
+				"standards_package_present": false,
+				"standards_package_current": null,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": false
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "ineligible",
+				"wp-php-namespace-format": "ineligible"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "wp-plugin-customize-my-account-page",
+			"url": "https://github.com/newfold-labs/wp-plugin-customize-my-account-page",
+			"private": true,
+			"artifact_type": "plugin",
+			"language": "PHP",
+			"pushed_at": "2026-08-03T14:34:05Z",
+			"level": 1,
+			"signals": {
+				"standards_package_present": true,
+				"standards_package_current": false,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": false
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "ineligible",
+				"wp-php-namespace-format": "ineligible"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "wp-plugin-easy-login",
+			"url": "https://github.com/newfold-labs/wp-plugin-easy-login",
+			"private": true,
+			"artifact_type": "plugin",
+			"language": "PHP",
+			"pushed_at": "2026-08-03T14:05:18Z",
+			"level": 1,
+			"signals": {
+				"standards_package_present": true,
+				"standards_package_current": false,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": false
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "ineligible",
+				"wp-php-namespace-format": "ineligible"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "wp-plugin-ecomdash",
+			"url": "https://github.com/newfold-labs/wp-plugin-ecomdash",
+			"private": true,
+			"artifact_type": "plugin",
+			"language": "JavaScript",
+			"pushed_at": "2026-06-15T16:18:48Z",
+			"level": 0,
+			"signals": {
+				"standards_package_present": false,
+				"standards_package_current": null,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": false
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "ineligible",
+				"wp-php-namespace-format": "ineligible"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "wp-plugin-email-templates",
+			"url": "https://github.com/newfold-labs/wp-plugin-email-templates",
+			"private": true,
+			"artifact_type": "plugin",
+			"language": "PHP",
+			"pushed_at": "2026-08-04T08:45:14Z",
+			"level": 1,
+			"signals": {
+				"standards_package_present": true,
+				"standards_package_current": false,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": false
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "ineligible",
+				"wp-php-namespace-format": "ineligible"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "wp-plugin-gift-cards",
+			"url": "https://github.com/newfold-labs/wp-plugin-gift-cards",
+			"private": true,
+			"artifact_type": "plugin",
+			"language": "PHP",
+			"pushed_at": "2026-08-03T14:42:44Z",
+			"level": 1,
+			"signals": {
+				"standards_package_present": true,
+				"standards_package_current": false,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": false
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "ineligible",
+				"wp-php-namespace-format": "ineligible"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "wp-plugin-hiive-config",
+			"url": "https://github.com/newfold-labs/wp-plugin-hiive-config",
+			"private": true,
+			"artifact_type": "plugin",
+			"language": "PHP",
+			"pushed_at": "2026-08-12T04:52:23Z",
+			"level": 1,
+			"signals": {
+				"standards_package_present": true,
+				"standards_package_current": false,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": false
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "ineligible",
+				"wp-php-namespace-format": "ineligible"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "wp-plugin-hostgator",
+			"url": "https://github.com/newfold-labs/wp-plugin-hostgator",
+			"private": false,
+			"artifact_type": "plugin",
+			"language": "JavaScript",
+			"pushed_at": "2026-08-20T18:06:00Z",
+			"level": 1,
+			"signals": {
+				"standards_package_present": true,
+				"standards_package_current": false,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": false
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "ineligible",
+				"wp-php-namespace-format": "ineligible"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "wp-plugin-internal-tools-monorepo",
+			"url": "https://github.com/newfold-labs/wp-plugin-internal-tools-monorepo",
+			"private": true,
+			"artifact_type": "plugin",
+			"language": null,
+			"pushed_at": "2026-06-16T20:16:13Z",
+			"level": 0,
+			"signals": {
+				"standards_package_present": false,
+				"standards_package_current": null,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": false
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "ineligible",
+				"wp-php-namespace-format": "ineligible"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "wp-plugin-memberships",
+			"url": "https://github.com/newfold-labs/wp-plugin-memberships",
+			"private": true,
+			"artifact_type": "plugin",
+			"language": "PHP",
+			"pushed_at": "2026-08-11T12:43:42Z",
+			"level": 1,
+			"signals": {
+				"standards_package_present": true,
+				"standards_package_current": false,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": false
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "ineligible",
+				"wp-php-namespace-format": "ineligible"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "wp-plugin-mojo",
+			"url": "https://github.com/newfold-labs/wp-plugin-mojo",
+			"private": false,
+			"artifact_type": "plugin",
+			"language": "JavaScript",
+			"pushed_at": "2026-08-12T04:52:37Z",
+			"level": 1,
+			"signals": {
+				"standards_package_present": true,
+				"standards_package_current": false,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": false
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "ineligible",
+				"wp-php-namespace-format": "ineligible"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "wp-plugin-one-click-checkout",
+			"url": "https://github.com/newfold-labs/wp-plugin-one-click-checkout",
+			"private": true,
+			"artifact_type": "plugin",
+			"language": "PHP",
+			"pushed_at": "2026-08-12T15:00:31Z",
+			"level": 1,
+			"signals": {
+				"standards_package_present": true,
+				"standards_package_current": false,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": false
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "ineligible",
+				"wp-php-namespace-format": "ineligible"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "wp-plugin-payments-shipping",
+			"url": "https://github.com/newfold-labs/wp-plugin-payments-shipping",
+			"private": true,
+			"artifact_type": "plugin",
+			"language": "PHP",
+			"pushed_at": "2026-08-21T01:34:16Z",
+			"level": 1,
+			"signals": {
+				"standards_package_present": true,
+				"standards_package_current": false,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": false
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "ineligible",
+				"wp-php-namespace-format": "ineligible"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "wp-plugin-pdf-invoices",
+			"url": "https://github.com/newfold-labs/wp-plugin-pdf-invoices",
+			"private": true,
+			"artifact_type": "plugin",
+			"language": "PHP",
+			"pushed_at": "2026-08-03T13:04:25Z",
+			"level": 1,
+			"signals": {
+				"standards_package_present": true,
+				"standards_package_current": false,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": false
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "ineligible",
+				"wp-php-namespace-format": "ineligible"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "wp-plugin-points-rewards",
+			"url": "https://github.com/newfold-labs/wp-plugin-points-rewards",
+			"private": true,
+			"artifact_type": "plugin",
+			"language": "PHP",
+			"pushed_at": "2026-08-04T12:26:42Z",
+			"level": 1,
+			"signals": {
+				"standards_package_present": true,
+				"standards_package_current": false,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": false
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "ineligible",
+				"wp-php-namespace-format": "ineligible"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "wp-plugin-product-add-ons",
+			"url": "https://github.com/newfold-labs/wp-plugin-product-add-ons",
+			"private": true,
+			"artifact_type": "plugin",
+			"language": "PHP",
+			"pushed_at": "2026-08-12T14:03:49Z",
+			"level": 1,
+			"signals": {
+				"standards_package_present": true,
+				"standards_package_current": false,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": false
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "ineligible",
+				"wp-php-namespace-format": "ineligible"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "wp-plugin-product-comparison",
+			"url": "https://github.com/newfold-labs/wp-plugin-product-comparison",
+			"private": true,
+			"artifact_type": "plugin",
+			"language": "PHP",
+			"pushed_at": "2026-08-12T12:52:42Z",
+			"level": 1,
+			"signals": {
+				"standards_package_present": true,
+				"standards_package_current": false,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": false
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "ineligible",
+				"wp-php-namespace-format": "ineligible"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "wp-plugin-request-quote",
+			"url": "https://github.com/newfold-labs/wp-plugin-request-quote",
+			"private": true,
+			"artifact_type": "plugin",
+			"language": "PHP",
+			"pushed_at": "2026-08-12T09:27:55Z",
+			"level": 1,
+			"signals": {
+				"standards_package_present": true,
+				"standards_package_current": false,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": false
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "ineligible",
+				"wp-php-namespace-format": "ineligible"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "wp-plugin-sales-promotions",
+			"url": "https://github.com/newfold-labs/wp-plugin-sales-promotions",
+			"private": true,
+			"artifact_type": "plugin",
+			"language": "PHP",
+			"pushed_at": "2026-08-04T07:50:11Z",
+			"level": 1,
+			"signals": {
+				"standards_package_present": true,
+				"standards_package_current": false,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": false
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "ineligible",
+				"wp-php-namespace-format": "ineligible"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "wp-plugin-search-filter",
+			"url": "https://github.com/newfold-labs/wp-plugin-search-filter",
+			"private": true,
+			"artifact_type": "plugin",
+			"language": "PHP",
+			"pushed_at": "2026-08-03T14:19:50Z",
+			"level": 1,
+			"signals": {
+				"standards_package_present": true,
+				"standards_package_current": false,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": false
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "ineligible",
+				"wp-php-namespace-format": "ineligible"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "wp-plugin-sms-notifications",
+			"url": "https://github.com/newfold-labs/wp-plugin-sms-notifications",
+			"private": true,
+			"artifact_type": "plugin",
+			"language": "PHP",
+			"pushed_at": "2026-08-06T10:42:05Z",
+			"level": 1,
+			"signals": {
+				"standards_package_present": true,
+				"standards_package_current": false,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": false
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "ineligible",
+				"wp-php-namespace-format": "ineligible"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "wp-plugin-store-locator",
+			"url": "https://github.com/newfold-labs/wp-plugin-store-locator",
+			"private": true,
+			"artifact_type": "plugin",
+			"language": "JavaScript",
+			"pushed_at": "2026-08-04T13:15:59Z",
+			"level": 1,
+			"signals": {
+				"standards_package_present": true,
+				"standards_package_current": false,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": false
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "ineligible",
+				"wp-php-namespace-format": "ineligible"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "wp-plugin-subscriptions",
+			"url": "https://github.com/newfold-labs/wp-plugin-subscriptions",
+			"private": true,
+			"artifact_type": "plugin",
+			"language": "PHP",
+			"pushed_at": "2026-08-03T13:17:05Z",
+			"level": 1,
+			"signals": {
+				"standards_package_present": true,
+				"standards_package_current": false,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": false
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "ineligible",
+				"wp-php-namespace-format": "ineligible"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "wp-plugin-vodien",
+			"url": "https://github.com/newfold-labs/wp-plugin-vodien",
+			"private": false,
+			"artifact_type": "plugin",
+			"language": "JavaScript",
+			"pushed_at": "2026-08-21T05:46:05Z",
+			"level": 1,
+			"signals": {
+				"standards_package_present": true,
+				"standards_package_current": false,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": false
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "ineligible",
+				"wp-php-namespace-format": "ineligible"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "wp-plugin-web",
+			"url": "https://github.com/newfold-labs/wp-plugin-web",
+			"private": false,
+			"artifact_type": "plugin",
+			"language": "JavaScript",
+			"pushed_at": "2026-08-20T13:00:54Z",
+			"level": 1,
+			"signals": {
+				"standards_package_present": true,
+				"standards_package_current": false,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": true
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "ineligible",
+				"wp-php-namespace-format": "ineligible"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "wp-plugin-webhostbox",
+			"url": "https://github.com/newfold-labs/wp-plugin-webhostbox",
+			"private": false,
+			"artifact_type": "plugin",
+			"language": "JavaScript",
+			"pushed_at": "2026-08-06T10:24:46Z",
+			"level": 1,
+			"signals": {
+				"standards_package_present": true,
+				"standards_package_current": false,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": false
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "ineligible",
+				"wp-php-namespace-format": "ineligible"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "wp-plugin-wishlist",
+			"url": "https://github.com/newfold-labs/wp-plugin-wishlist",
+			"private": true,
+			"artifact_type": "plugin",
+			"language": "PHP",
+			"pushed_at": "2026-08-05T10:38:23Z",
+			"level": 1,
+			"signals": {
+				"standards_package_present": true,
+				"standards_package_current": false,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": false
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "ineligible",
+				"wp-php-namespace-format": "ineligible"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "wp-plugin-workflows-testing",
+			"url": "https://github.com/newfold-labs/wp-plugin-workflows-testing",
+			"private": true,
+			"artifact_type": "plugin",
+			"language": "JavaScript",
+			"pushed_at": "2026-05-15T02:15:59Z",
+			"level": 1,
+			"signals": {
+				"standards_package_present": true,
+				"standards_package_current": false,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": false
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "ineligible",
+				"wp-php-namespace-format": "ineligible"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		},
+		{
+			"name": "wp-theme-bluehost-blueprint",
+			"url": "https://github.com/newfold-labs/wp-theme-bluehost-blueprint",
+			"private": false,
+			"artifact_type": "theme",
+			"language": "PHP",
+			"pushed_at": "2026-05-15T01:41:16Z",
+			"level": 0,
+			"signals": {
+				"standards_package_present": false,
+				"standards_package_current": null,
+				"check_reports": false,
+				"no_error_findings": null,
+				"has_codeowners": false,
+				"has_ai_context": false
+			},
+			"rules": {
+				"wp-hooks-naming-hook-name-format": "ineligible",
+				"wp-php-namespace-format": "ineligible"
+			},
+			"finding_count": 0,
+			"error_count": 0,
+			"reported_at": null
+		}
+	]
+}
