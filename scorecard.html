@@ -1,0 +1,415 @@
+---
+layout: default
+title: Scorecard
+description: How the fleet measures against these standards, what is wrong across it, and where to start.
+permalink: /scorecard.html
+fullscreen: true
+---
+{%- comment -%}
+Three views over one dataset, because there are three questions and a single
+table answers none of them well.
+
+  Overview      how are we doing, and what should we do first
+  Issues        one problem, everywhere it occurs
+  Repositories  one repository, everything wrong with it
+
+Issues is the one that earns its place. A table of 125 repositories says nothing
+about a single sniff firing in 64 of them, and that is one decision and one sweep
+of work rather than 64 separate investigations.
+
+Everything is server-rendered, including the repository list under every issue.
+With JavaScript off the views stack instead of switching, every disclosure is a
+real <details>, and the page is a complete report. JavaScript adds the view
+switch, filtering, sorting and the findings panel, and no data.
+
+Two numbers are deliberately not the headline. The maturity ladder is flat today,
+112 of 125 on one rung, so leading with it would be leading with nothing. And raw
+finding counts are dominated by one repository holding a fifth of the fleet's
+total, so anything ordered by them ranks size rather than badness. Density is
+used instead.
+{%- endcomment -%}
+{%- assign board = site.data.scorecard -%}
+
+{%- if board == nil -%}
+<div class="dash dash--empty">
+  <h1>Nothing swept yet</h1>
+  <p>
+    The scorecard is written by the org sweep, which has not run against this
+    checkout. Run <code>npm run sweep</code> with a token that can read the org,
+    or wait for the scheduled run.
+  </p>
+</div>
+{%- else -%}
+
+{%- assign history = site.data.scorecard_history -%}
+{%- assign levels_desc = board.levels | sort: "level" | reverse -%}
+{%- assign top_issue = board.summary.by_sniff | first -%}
+{%- assign cited_pct = board.summary.cited | times: 100 | divided_by: board.summary.findings -%}
+
+<div class="dash" id="dash"
+     data-findings-base="{{ '/scorecard/findings/' | relative_url }}"
+     data-atlas-base="{{ '/atlas.html' | relative_url }}">
+
+  <header class="dash__top">
+    <div class="dash__id">
+      <h1>Scorecard</h1>
+      <p>
+        swept <time datetime="{{ board.generated_at }}">{{ board.generated_at | date: "%-d %b %Y" }}</time>
+        {%- if board.scan %} &middot; {{ board.scan.repos_scanned }} scanned against {{ board.scan.sniffs }} sniffs{% endif -%}
+      </p>
+    </div>
+
+    <nav class="switch" id="switch" aria-label="View">
+      <a class="switch__opt is-on" href="#overview" data-view="overview">Overview</a>
+      <a class="switch__opt" href="#issues" data-view="issues">Issues<span class="switch__n">{{ board.summary.by_sniff.size }}</span></a>
+      <a class="switch__opt" href="#repositories" data-view="repositories">Repositories<span class="switch__n">{{ board.summary.repos }}</span></a>
+    </nav>
+  </header>
+
+  {%- comment -%} ---------------------------------------------------- overview
+
+  Rewritten after watching it: the previous version encoded its most useful idea
+  as the position of a dot on a scatter plot and left the reader to decode it.
+  Saying a thing is clearer than plotting it.
+
+  So the work is named. phpcs already knows which of its findings phpcbf can
+  rewrite, which is the difference between "run one command" and "somebody has to
+  decide something", and that is the single most useful fact on the page. Each
+  issue carries the kind of work it is, and the table is ordered so the biggest
+  wins are at the top.
+  {%- endcomment -%}
+  <section class="view is-on" id="view-overview" data-view="overview">
+    <div class="ovw">
+
+      <div class="hero">
+        <p class="hero__kicker">Ten issues account for</p>
+        <p class="hero__big">{{ board.summary.concentration.top10 }}<span>%</span></p>
+        <p class="hero__say">
+          of all {{ board.summary.findings | thousands }} findings across
+          {{ board.summary.scanned }} repositories. Three of them alone are
+          {{ board.summary.concentration.top3 }}%.
+        </p>
+
+        {%- if board.summary.fixable > 0 -%}
+        {%- assign fix_pct = board.summary.fixable | times: 100 | divided_by: board.summary.findings -%}
+        <p class="hero__fix">
+          <b>{{ board.summary.fixable | thousands }}</b> of them ({{ fix_pct }}%)
+          are fixed by running <code>phpcbf</code>&mdash; one command, no discussion.
+        </p>
+        {%- endif -%}
+      </div>
+
+      <div class="work">
+        <div class="work__head">
+          <h2>What the work is</h2>
+          <p>Ordered by size. The kind of work matters more than the count.</p>
+        </div>
+
+        <table class="wt">
+          <thead>
+            <tr>
+              <th scope="col">Issue</th>
+              <th scope="col">Kind</th>
+              <th scope="col" class="wt__num">Repos</th>
+              <th scope="col" class="wt__num">Findings</th>
+              <th scope="col">Share of all findings</th>
+              <th scope="col">Standard</th>
+            </tr>
+          </thead>
+          <tbody>
+            {%- assign biggest = board.summary.loudest | first -%}
+            {%- for entry in board.summary.loudest -%}
+            <tr>
+              <th scope="row">
+                <a href="#issues" data-goto-issue="{{ entry.sniff }}">{{ entry.sniff }}</a>
+              </th>
+              <td>
+                {%- case entry.shape -%}
+                {%- when 'fix' -%}<span class="kind kind--fix">run phpcbf</span>
+                {%- when 'decide' -%}<span class="kind kind--decide">fleet decision</span>
+                {%- else -%}<span class="kind kind--work">code changes</span>
+                {%- endcase -%}
+              </td>
+              <td class="wt__num">{{ entry.repos }}</td>
+              <td class="wt__num">{{ entry.total | thousands }}</td>
+              <td class="wt__bar">
+                <span class="meter" aria-hidden="true"><i style="width: {{ entry.total | times: 100 | divided_by: biggest.total }}%"></i></span>
+                <span class="wt__pct">{{ entry.total | times: 100 | divided_by: board.summary.findings }}%</span>
+              </td>
+              <td class="wt__cite">
+                {%- if entry.rule -%}
+                <a href="{{ '/atlas.html' | relative_url }}#{{ entry.rule }}">{{ entry.rule }}</a>
+                {%- else -%}
+                <span class="wt__none">none yet</span>
+                {%- endif -%}
+              </td>
+            </tr>
+            {%- endfor -%}
+          </tbody>
+        </table>
+
+        <p class="work__more">
+          <a href="#issues" data-view-link="issues">All {{ board.summary.by_sniff.size }} issues &rarr;</a>
+        </p>
+      </div>
+
+      <div class="lists">
+        <section class="list">
+          <h2>Widest reach</h2>
+          <p class="list__hint">One decision, taken everywhere.</p>
+          <ol>
+            {%- for entry in board.summary.by_sniff limit: 8 -%}
+            <li>
+              <a href="#issues" data-goto-issue="{{ entry.sniff }}">{{ entry.sniff | split: '.' | last }}</a>
+              <span class="meter" aria-hidden="true"><i style="width: {{ entry.x }}%"></i></span>
+              <b>{{ entry.repos }}</b>
+            </li>
+            {%- endfor -%}
+          </ol>
+        </section>
+
+        <section class="list">
+          <h2>Densest codebases</h2>
+          <p class="list__hint">Findings per file. Raw totals rank size.</p>
+          <ol>
+            {%- assign dense_max = board.summary.worst | first -%}
+            {%- for entry in board.summary.worst limit: 8 -%}
+            <li>
+              <a href="#repositories" data-goto-repo="{{ entry.name }}">{{ entry.name | remove: 'wp-' }}</a>
+              <span class="meter" aria-hidden="true"><i style="width: {{ entry.per_file | times: 100 | divided_by: dense_max.per_file }}%"></i></span>
+              <b>{{ entry.per_file }}</b>
+            </li>
+            {%- endfor -%}
+          </ol>
+        </section>
+
+        <section class="list">
+          <h2>Adoption</h2>
+          <p class="list__hint">Flat until repositories report for themselves.</p>
+          <div class="ladder">
+            {%- for rung in levels_desc -%}
+            {%- assign key = rung.level | append: '' -%}
+            {%- assign n = board.summary.by_level[key] | default: 0 -%}
+            {%- assign pct = n | times: 100 | divided_by: board.summary.repos -%}
+            <div class="ladder__row">
+              <span class="ladder__name">L{{ rung.level }} {{ rung.title }}</span>
+              <span class="ladder__track" aria-hidden="true">
+                <span class="ladder__fill ladder__fill--{{ rung.level }}" style="width: {{ pct }}%"></span>
+              </span>
+              <span class="ladder__n">{{ n }}</span>
+            </div>
+            {%- endfor -%}
+          </div>
+          <dl class="gaps">
+            <div><dt>Owned</dt><dd>{{ board.summary.owned }}/{{ board.summary.repos }}</dd></div>
+            <div><dt>AI context</dt><dd>{{ board.summary.ai_context }}/{{ board.summary.repos }}</dd></div>
+            <div><dt>Cited</dt><dd>{{ cited_pct }}%</dd></div>
+          </dl>
+        </section>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} ------------------------------------------------------ issues {%- endcomment -%}
+  <section class="view" id="view-issues" data-view="issues">
+    <div class="controls">
+      <div class="sift">
+        <svg class="sift__icon" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" focusable="false"><path d="M10.68 11.74a6 6 0 0 1-7.922-8.982 6 6 0 0 1 8.982 7.922l3.04 3.04a.749.749 0 1 1-1.06 1.06ZM11.5 7a4.5 4.5 0 1 0-9 0 4.5 4.5 0 0 0 9 0Z"/></svg>
+        <input class="sift__input" id="sift-issue" type="search" autocomplete="off"
+               placeholder="Filter {{ board.summary.by_sniff.size }} issues" aria-label="Filter issues by name">
+      </div>
+      <button type="button" class="chip" id="only-cited" aria-pressed="false">Only cited</button>
+      <p class="controls__tally" id="tally-issue" role="status">{{ board.summary.by_sniff.size }} shown</p>
+    </div>
+
+    <div class="view__scroll">
+      {%- comment -%}
+      Every affected repository is rendered here rather than fetched. It is the
+      point of the view, it costs a few hundred kilobytes once, and it keeps the
+      list working with JavaScript off and findable with the browser's own search.
+      {%- endcomment -%}
+      <ul class="issues" id="issues">
+        {%- for entry in board.summary.by_sniff -%}
+        <li class="issue" id="issue-{{ entry.sniff }}"
+            data-sniff="{{ entry.sniff | downcase }}"
+            data-cited="{% if entry.rule %}1{% else %}0{% endif %}">
+          <details>
+            <summary class="issue__head">
+              <code class="issue__name">{{ entry.sniff }}</code>
+              <span class="issue__meta">
+                <span class="issue__repos">{{ entry.repos }} repos</span>
+                {%- if entry.errors > 0 %}<span class="issue__err">{{ entry.errors | thousands }} errors</span>{% endif -%}
+                {%- if entry.warnings > 0 %}<span class="issue__warn">{{ entry.warnings | thousands }} warnings</span>{% endif -%}
+              </span>
+              {%- if entry.rule -%}
+              <span class="issue__cite">{{ entry.rule }}</span>
+              {%- else -%}
+              <span class="issue__cite issue__cite--none">no rule cites this yet</span>
+              {%- endif -%}
+            </summary>
+            <div class="issue__body">
+              {%- if entry.rule -%}
+              <p class="issue__standard">
+                Cites <a href="{{ '/atlas.html' | relative_url }}#{{ entry.rule }}">{{ entry.rule }}</a>
+              </p>
+              {%- endif -%}
+              <ol class="issue__where">
+                {%- for place in entry.in -%}
+                <li>
+                  <a href="https://github.com/{{ board.org }}/{{ place.name }}">{{ place.name }}</a>
+                  <span>
+                    {%- if place.errors > 0 %}<b class="issue__err">{{ place.errors }}e</b>{% endif -%}
+                    {%- if place.warnings > 0 %}<b class="issue__warn">{{ place.warnings }}w</b>{% endif -%}
+                  </span>
+                </li>
+                {%- endfor -%}
+              </ol>
+            </div>
+          </details>
+        </li>
+        {%- endfor -%}
+      </ul>
+      <p class="view__empty" id="issues-empty" hidden>Nothing matches.</p>
+    </div>
+  </section>
+
+  {%- comment -%} ------------------------------------------------ repositories {%- endcomment -%}
+  <section class="view" id="view-repositories" data-view="repositories">
+    <div class="controls">
+      <div class="sift">
+        <svg class="sift__icon" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" focusable="false"><path d="M10.68 11.74a6 6 0 0 1-7.922-8.982 6 6 0 0 1 8.982 7.922l3.04 3.04a.749.749 0 1 1-1.06 1.06ZM11.5 7a4.5 4.5 0 1 0-9 0 4.5 4.5 0 0 0 9 0Z"/></svg>
+        <input class="sift__input" id="sift" type="search" autocomplete="off"
+               placeholder="Filter {{ board.summary.repos }} repositories" aria-label="Filter repositories by name">
+      </div>
+
+      <div class="chips" role="group" aria-label="Filters">
+        {%- for type in site.artifact_types -%}
+        {%- assign bucket = board.summary.by_type[type.key] -%}
+        {%- if bucket -%}
+        <button type="button" class="chip" data-type="{{ type.key }}" aria-pressed="false">
+          {{ type.title }}<span class="chip__count">{{ bucket.repos }}</span>
+        </button>
+        {%- endif -%}
+        {%- endfor -%}
+        <button type="button" class="chip" data-visibility="private" aria-pressed="false">Private</button>
+        <button type="button" class="chip" data-has="findings" aria-pressed="false">With findings</button>
+      </div>
+
+      <p class="controls__tally" id="tally" role="status">{{ board.summary.repos }} shown</p>
+    </div>
+
+    <div class="view__scroll">
+      <table class="grid" id="grid">
+        <caption class="visually-hidden">
+          Every repository the standards bind, its maturity level, the version of
+          the enforcing package it declares, and what was found in it.
+        </caption>
+        <thead>
+          <tr>
+            <th scope="col" class="grid__sort" data-sort="name" aria-sort="none"><button type="button">Repository</button></th>
+            <th scope="col" class="grid__sort" data-sort="level" aria-sort="none"><button type="button">Level</button></th>
+            <th scope="col">Package</th>
+            <th scope="col" class="grid__sort" data-sort="findings" aria-sort="descending"><button type="button">Findings</button></th>
+            <th scope="col" class="grid__sort" data-sort="density" aria-sort="none"><button type="button">Per file</button></th>
+            <th scope="col">Source</th>
+          </tr>
+        </thead>
+        <tbody>
+          {%- comment -%}
+          Ordered by findings, not by name. Alphabetically the first screenful is
+          thirty-six workers that no rule binds yet, all reading "not scanned",
+          which is the least useful thing this table could open on. Sorted here
+          rather than in script so the order holds without JavaScript.
+          {%- endcomment -%}
+          {%- assign ranked_repos = board.repos | sort: 'finding_count' | reverse -%}
+          {%- for repo in ranked_repos -%}
+          {%- assign density = 0 -%}
+          {%- if repo.scan.files > 0 and repo.finding_count > 0 -%}
+          {%- comment -%}
+          Held as tenths so the sort attribute stays an integer, and divided back
+          only for display. A decimal in a data attribute sorts as a string.
+          {%- endcomment -%}
+          {%- assign density = repo.finding_count | times: 10 | divided_by: repo.scan.files -%}
+          {%- endif -%}
+          <tr class="row" data-repo="{{ repo.name }}" data-level="{{ repo.level }}"
+              data-type="{{ repo.artifact_type }}" data-private="{{ repo.private }}"
+              data-findings="{{ repo.finding_count | default: 0 }}" data-density="{{ density }}">
+            <th scope="row" class="row__name">
+              <a href="{{ repo.url }}">{{ repo.name }}</a>
+              {%- if repo.private %}<span class="lock" title="Private repository">private</span>{% endif -%}
+            </th>
+
+            <td><span class="pill pill--{{ repo.level }}">L{{ repo.level }}</span></td>
+
+            <td class="row__pin">
+              {%- if repo.packages == empty -%}
+                <span class="pin pin--na">none applies</span>
+              {%- elsif repo.signals.standards_package_present != true -%}
+                <span class="pin pin--none">not installed</span>
+              {%- elsif repo.signals.standards_package_pinned != true -%}
+                <span class="pin pin--floating">unpinned</span>
+              {%- elsif repo.signals.standards_package_current == true -%}
+                <span class="pin pin--current">current</span>
+              {%- else -%}
+                <span class="pin pin--behind">behind</span>
+              {%- endif -%}
+              {%- for pair in repo.packages -%}
+                {%- if pair[1] %}<code class="pin__at">{{ pair[1] }}</code>{% endif -%}
+              {%- endfor -%}
+            </td>
+
+            <td class="row__findings">
+              {%- if repo.finding_count > 0 -%}
+              <button type="button" class="count" data-open="{{ repo.name }}">
+                <span class="count__n">{{ repo.finding_count | thousands }}</span>
+                {%- if repo.error_count > 0 %}<span class="count__bad">{{ repo.error_count }}e</span>{% endif -%}
+                {%- if repo.cited_count > 0 %}<span class="count__cited">{{ repo.cited_count }} cited</span>{% endif -%}
+              </button>
+              {%- elsif repo.finding_source -%}
+              <span class="count count--clean">clean</span>
+              {%- else -%}
+              <span class="count count--quiet">not scanned</span>
+              {%- endif -%}
+            </td>
+
+            <td class="row__density">
+              {%- if density > 0 -%}{{ density | divided_by: 10.0 }}{%- else -%}<span class="count--quiet">&mdash;</span>{%- endif -%}
+            </td>
+
+            <td class="row__source">
+              {%- if repo.finding_source == 'reported' -%}
+              <span class="src src--reported" title="The repository's own CI published this">reported</span>
+              {%- elsif repo.finding_source == 'scanned' -%}
+              <span class="src src--scanned" title="Scanned centrally; the repository does not report yet">scanned</span>
+              {%- else -%}
+              <span class="src src--none">&mdash;</span>
+              {%- endif -%}
+            </td>
+          </tr>
+          {%- endfor -%}
+        </tbody>
+      </table>
+      <p class="view__empty" id="board-empty" hidden>Nothing matches.</p>
+    </div>
+  </section>
+
+  <footer class="dash__key">
+    <p><span class="pin pin--current">current</span> admits the latest release</p>
+    <p><span class="pin pin--behind">behind</span> pinned below it</p>
+    <p><span class="pin pin--floating">unpinned</span> takes whatever is newest, so a release can break it</p>
+    <p class="dash__key-note">
+      Severity is as the tools report it. The four Newfold sniffs follow our
+      policy; the rest carry the severities WordPress Coding Standards ships.
+    </p>
+  </footer>
+
+  <aside class="detail" id="detail" aria-live="polite" aria-label="Repository detail" hidden>
+    <button type="button" class="detail__close" id="detail-close" aria-label="Close detail">
+      <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" focusable="false"><path d="M3.72 3.72a.75.75 0 0 1 1.06 0L8 6.94l3.22-3.22a.749.749 0 0 1 1.275.326.749.749 0 0 1-.215.734L9.06 8l3.22 3.22a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L8 9.06l-3.22 3.22a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042L6.94 8 3.72 4.78a.75.75 0 0 1 0-1.06Z"/></svg>
+    </button>
+    <div class="detail__body" id="detail-body"></div>
+  </aside>
+</div>
+
+<script src="{{ '/assets/js/scorecard.js' | relative_url }}" defer></script>
+{%- endif -%}

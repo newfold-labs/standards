@@ -1,0 +1,14 @@
+---
+id: wp-security-checks
+standard: wp-security
+title: Nonces are verified, output is escaped and input is sanitized
+severity: warning
+engine: phpcs
+config:
+  # The whole category. Nonces, escaping, sanitization and safe database access
+  # are one standard, and splitting them into a rule each would add files
+  # without adding meaning.
+  sniffs: [WordPress.Security]
+applies_to: [plugin, theme, module]
+package: newfold-labs/wp-php-standards
+introduced_in: '1.2'

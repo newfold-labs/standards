@@ -8,6 +8,7 @@ tags: [naming, global-namespace, prefixing]
 related: [general-naming, general-naming-code, wp-php, wp-assets]
 order: 70
 enforceable: true
+enforced_by: general-naming-global-namespaces-prefixing
 ---
 
 Sometimes we need to execute code in a global namespace in PHP or JavaScript, or

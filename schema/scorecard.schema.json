@@ -1,0 +1,570 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://newfold-labs.github.io/standards/schema/scorecard.schema.json",
+  "title": "Newfold Labs standards scorecard",
+  "description": "The org sweep's output, read by the site at build time and published alongside it so other tooling can consume the same data. Validated in CI before the site builds; an invalid scorecard fails the build rather than rendering a wrong board.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "generated_at",
+    "org",
+    "policy_fingerprint",
+    "levels",
+    "signals",
+    "rules",
+    "summary",
+    "repos"
+  ],
+  "properties": {
+    "schema": {
+      "description": "Payload version. Bumped when a consumer would have to change to keep reading this file.",
+      "const": 1
+    },
+    "generated_at": {
+      "description": "When the sweep ran, ISO 8601. The board shows this so a stale board is visibly stale.",
+      "type": "string",
+      "format": "date-time"
+    },
+    "org": {
+      "type": "string",
+      "minLength": 1
+    },
+    "policy_fingerprint": {
+      "description": "Hash of the rules and levels every row was scored under. A change invalidates every stored row, which is what makes the incremental sweep safe.",
+      "type": "string",
+      "minLength": 8
+    },
+    "levels": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "required": [
+          "level",
+          "id",
+          "title",
+          "summary",
+          "requires"
+        ],
+        "properties": {
+          "level": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+          },
+          "title": {
+            "type": "string",
+            "minLength": 3
+          },
+          "summary": {
+            "type": "string",
+            "minLength": 3
+          },
+          "requires": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "signals": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "title",
+          "detail"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9]+(_[a-z0-9]+)*$"
+          },
+          "title": {
+            "type": "string",
+            "minLength": 3
+          },
+          "detail": {
+            "type": "string",
+            "minLength": 10
+          },
+          "read": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "rules": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "standard",
+          "title",
+          "severity",
+          "applies_to"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+          },
+          "standard": {
+            "type": "string",
+            "minLength": 3
+          },
+          "title": {
+            "type": "string",
+            "minLength": 3
+          },
+          "severity": {
+            "enum": [
+              "error",
+              "warning"
+            ]
+          },
+          "engine": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "applies_to": {
+            "type": "array",
+            "items": {
+              "enum": [
+                "any",
+                "plugin",
+                "theme",
+                "module",
+                "worker",
+                "service"
+              ]
+            }
+          },
+          "package": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "introduced_in": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      }
+    },
+    "package_versions": {
+      "description": "Latest release of each package a rule names, read at sweep time. Writing a current version down anywhere would make it wrong the day after the next release.",
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "summary": {
+      "type": "object",
+      "required": [
+        "repos",
+        "reporting",
+        "findings",
+        "by_level",
+        "by_rule"
+      ],
+      "properties": {
+        "repos": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "reporting": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "findings": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "by_level": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "integer"
+          }
+        },
+        "by_type": {
+          "type": "object"
+        },
+        "by_rule": {
+          "type": "object"
+        },
+        "scanned": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "with_findings": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "cited": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "errors": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "by_sniff": {
+          "description": "Every sniff that fired anywhere in the fleet, ordered by how many repositories it appears in and then by volume. Sorted here rather than in the template because Liquid cannot sort a hash by a nested value.",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "sniff",
+              "errors",
+              "warnings",
+              "repos"
+            ],
+            "properties": {
+              "sniff": {
+                "type": "string"
+              },
+              "errors": {
+                "type": "integer"
+              },
+              "warnings": {
+                "type": "integer"
+              },
+              "repos": {
+                "type": "integer"
+              },
+              "rule": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "in": {
+                "description": "The repositories this sniff fires in, worst first. Carried so an issue can be acted on across the fleet without a second request per issue.",
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "errors": {
+                      "type": "integer"
+                    },
+                    "warnings": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              },
+              "total": {
+                "type": "integer"
+              },
+              "x": {
+                "description": "Plot position for spread, 0-100.",
+                "type": "number"
+              },
+              "y": {
+                "description": "Plot position for volume on a log scale, 0-100.",
+                "type": "number"
+              }
+            }
+          }
+        },
+        "owned": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "ai_context": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "worst": {
+          "description": "Repositories ranked by findings per file rather than by raw count. One large repository holds a fifth of every finding in the fleet, so a raw ranking is a list of the biggest repositories rather than the worst ones.",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "findings": {
+                "type": "integer"
+              },
+              "errors": {
+                "type": "integer"
+              },
+              "files": {
+                "type": "integer"
+              },
+              "per_file": {
+                "type": "number"
+              }
+            }
+          }
+        },
+        "concentration": {
+          "description": "What share of all findings the loudest few issues account for. 83,195 is true, unusable and impossible to feel; 'ten issues are half of it' is a plan.",
+          "type": "object",
+          "properties": {
+            "top3": {
+              "type": "integer"
+            },
+            "top10": {
+              "type": "integer"
+            },
+            "top20": {
+              "type": "integer"
+            }
+          }
+        },
+        "loudest": {
+          "description": "Issues by sheer volume, which is a different order from by spread and calls for a different response.",
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "axis": {
+          "description": "Tick positions for the overview plot, carrying the same positions the marks use so the two cannot drift apart.",
+          "type": "object",
+          "properties": {
+            "max_repos": {
+              "type": "integer"
+            },
+            "max_total": {
+              "type": "integer"
+            },
+            "x": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "at": {
+                    "type": "number"
+                  },
+                  "label": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "y": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "at": {
+                    "type": "number"
+                  },
+                  "label": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "repos": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "name",
+          "url",
+          "private",
+          "artifact_type",
+          "level",
+          "signals",
+          "rules"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "url": {
+            "type": "string",
+            "format": "uri"
+          },
+          "private": {
+            "type": "boolean"
+          },
+          "artifact_type": {
+            "enum": [
+              "plugin",
+              "theme",
+              "module",
+              "worker",
+              "service"
+            ]
+          },
+          "language": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "packages": {
+            "description": "The constraint this repository declares for each package a rule names, verbatim. Carried so the board can show what to change rather than only that something should change.",
+            "type": "object",
+            "additionalProperties": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "pushed_at": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "level": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "signals": {
+            "description": "Each signal is true, false, or null. Null means we could not tell, which is not the same as false and must not be rendered as one.",
+            "type": "object",
+            "additionalProperties": {
+              "type": [
+                "boolean",
+                "null"
+              ]
+            }
+          },
+          "rules": {
+            "type": "object",
+            "additionalProperties": {
+              "enum": [
+                "pass",
+                "fail",
+                "ineligible",
+                "unknown",
+                "not_applicable"
+              ]
+            }
+          },
+          "finding_count": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "error_count": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "reported_at": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "finding_source": {
+            "description": "Where the findings shown for this repository came from. 'reported' is the repository telling us, via its own CI; 'scanned' is us looking, centrally. A report always wins over a scan. Null means neither exists yet.",
+            "enum": [
+              "reported",
+              "scanned",
+              null
+            ]
+          },
+          "cited_count": {
+            "description": "Findings that map to a documented rule, and so carry a standard id. The remainder are still shown; they just have nothing to cite yet.",
+            "type": "integer",
+            "minimum": 0
+          },
+          "scan": {
+            "description": "What the central scan found, kept separate from anything the repository reported itself.",
+            "type": [
+              "object",
+              "null"
+            ],
+            "properties": {
+              "files": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "errors": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "warnings": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "cited": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "uncited": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "by_sniff": {
+                "description": "Counts per sniff, which is how the board groups without shipping every finding to every reader.",
+                "type": "object",
+                "additionalProperties": {
+                  "type": "object",
+                  "properties": {
+                    "errors": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "warnings": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "rule": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "scan": {
+      "description": "Metadata about the central scan folded into this board, or null when none was run. The sniff count is asked of phpcs at scan time rather than written down, so a WPCS upgrade is reflected without anything here being kept in step.",
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "scanned_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "repos_scanned": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "sniffs": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    }
+  }
+}

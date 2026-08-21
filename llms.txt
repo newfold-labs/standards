@@ -30,4 +30,6 @@ artifact types it applies to, and whether conformance is machine-checkable.
 ## Optional
 
 - [Front matter schema]({{ "/schema/frontmatter.schema.json" | absolute_url }}): JSON Schema every document's metadata validates against
+- [Scorecard data]({{ "/scorecard/data.json" | absolute_url }}): which repositories meet which standards, as data, with a rule id on every verdict
+- [Scorecard schema]({{ "/schema/scorecard.schema.json" | absolute_url }}): JSON Schema the scorecard validates against
 - [Repository]({{ site.repository_url }}): source, contribution process and RFC template
