@@ -83,6 +83,20 @@ function relativise(path, root, checkout) {
 	return path;
 }
 
+/** How many PHP files a checkout actually holds, ignoring the paths we skip. */
+async function countPhpFiles(root) {
+	try {
+		const { stdout } = await run('bash', [
+			'-c',
+			`find ${JSON.stringify(root)} -name '*.php' -not -path '*/vendor/*' -not -path '*/node_modules/*' ` +
+				`-not -path '*/tests/*' -not -path '*/build/*' -not -path '*/dist/*' | head -1000 | wc -l`,
+		]);
+		return Number(stdout.trim()) || 0;
+	} catch {
+		return 0;
+	}
+}
+
 /** The sniffs the standard resolves to, asked of phpcs rather than written down. */
 async function catalogue(phpcs, standard) {
 	const { stdout } = await run(phpcs, ['--standard=' + standard, '-e'], { maxBuffer: 32 * 1024 * 1024 });
@@ -154,6 +168,11 @@ async function scanOne({ repo, token, org, phpcs, standard }) {
 				findings.push({
 					source: message.source,
 					severity: message.type === 'ERROR' ? 'error' : 'warning',
+					// phpcs knows which of its own findings phpcbf can rewrite. It is
+					// the most actionable fact in the report — the difference between
+					// "somebody must decide something" and "run one command" — and it
+					// costs nothing to carry.
+					fixable: message.fixable === true,
 					file: relative,
 					line: message.line ?? null,
 					message: String(message.message ?? '').slice(0, 500),
@@ -161,11 +180,20 @@ async function scanOne({ repo, token, org, phpcs, standard }) {
 			}
 		}
 
+		// A scan that processed nothing, in a checkout that plainly has PHP in it,
+		// did not find a clean repository: it failed and said nothing. Reporting
+		// that as zero findings is the worst thing this tool could do, so it is
+		// treated as a failure to scan.
+		const processed = Object.keys(report.files ?? {}).length;
+		if (processed === 0 && (await countPhpFiles(root)) > 0) {
+			throw new Error('phpcs processed no files in a checkout that contains PHP');
+		}
+
 		return {
 			repo,
 			scanned: true,
 			commit,
-			files: Object.keys(report.files ?? {}).length,
+			files: processed,
 			errors: report.totals?.errors ?? 0,
 			warnings: report.totals?.warnings ?? 0,
 			findings,
