@@ -1,0 +1,246 @@
+---
+layout: default
+title: Scorecard
+description: Where every repository the standards bind sits on the maturity ladder, and which checks it can run.
+permalink: /scorecard.html
+fullscreen: true
+---
+{%- comment -%}
+The board is server-rendered from _data/scorecard.json, written by the nightly
+sweep. Every row and every number is in the HTML before any script runs, so with
+JavaScript off this page is a complete, readable table of the fleet.
+
+JavaScript adds three things and no data: filtering, sorting, and the detail
+panel, which fetches one repository's findings on demand rather than shipping
+every finding in the fleet to everybody who opens the page.
+
+A cell has three states, not two. `ineligible` means the repository is pinned
+below the release that introduced the check and cannot run it, which is not the
+same as failing it and must never be coloured as though it were.
+{%- endcomment -%}
+{%- assign board = site.data.scorecard -%}
+
+{%- if board == nil -%}
+<div class="board board--empty">
+  <h1>Nothing swept yet</h1>
+  <p>
+    The scorecard is written by the org sweep, which has not run against this
+    checkout. Run <code>npm run sweep</code> with a token that can read the org,
+    or wait for the scheduled run.
+  </p>
+</div>
+{%- else -%}
+
+{%- assign history = site.data.scorecard_history -%}
+{%- assign levels_desc = board.levels | sort: "level" | reverse -%}
+
+<div class="board" id="board"
+     data-generated="{{ board.generated_at }}"
+     data-findings-base="{{ '/scorecard/findings/' | relative_url }}">
+
+  <header class="board__top">
+    <div class="board__title">
+      <h1>Scorecard</h1>
+      <p class="board__when">
+        {{ board.summary.repos }} repositories &middot; swept
+        <time datetime="{{ board.generated_at }}">{{ board.generated_at | date: "%-d %B %Y" }}</time>
+      </p>
+    </div>
+
+    {%- comment -%}
+    The ladder doubles as the legend and as the filter. Reading it top down
+    answers "how far along is the fleet" before anyone touches a control.
+    {%- endcomment -%}
+    <ol class="ladder" id="ladder">
+      {%- for rung in levels_desc -%}
+      {%- assign count = board.summary.by_level[rung.level] | default: 0 -%}
+      <li>
+        <button type="button" class="rung" data-level="{{ rung.level }}" aria-pressed="false"
+                title="{{ rung.summary }}">
+          <span class="rung__dot rung__dot--{{ rung.level }}" aria-hidden="true"></span>
+          <span class="rung__name">L{{ rung.level }} {{ rung.title }}</span>
+          <span class="rung__count">{{ count }}</span>
+        </button>
+      </li>
+      {%- endfor -%}
+    </ol>
+
+    {%- comment -%}
+    Trend, and only once there is a trend to show. The sweep records a point when
+    something actually changes rather than one a day, so a flat fleet does not
+    manufacture a chart out of identical numbers. A single point is a reading,
+    not a direction, so nothing renders until there are two.
+    {%- endcomment -%}
+    {%- if history and history.size > 1 -%}
+    <div class="trend" aria-hidden="true">
+      {%- for point in history -%}
+      <div class="trend__bar" title="{{ point.date }}">
+        {%- for rung in levels_desc -%}
+        {%- assign at = point.by_level[rung.level] | default: 0 -%}
+        {%- if at > 0 -%}
+        <span class="trend__slice trend__slice--{{ rung.level }}"
+              style="height: {{ at | times: 100 | divided_by: point.repos }}%"></span>
+        {%- endif -%}
+        {%- endfor -%}
+      </div>
+      {%- endfor -%}
+    </div>
+    <p class="visually-hidden">
+      Trend across {{ history.size }} recorded sweeps, from {{ history.first.date }} to {{ history.last.date }}.
+    </p>
+    {%- endif -%}
+  </header>
+
+  <div class="board__controls">
+    <div class="sift">
+      <svg class="sift__icon" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" focusable="false"><path d="M10.68 11.74a6 6 0 0 1-7.922-8.982 6 6 0 0 1 8.982 7.922l3.04 3.04a.749.749 0 1 1-1.06 1.06ZM11.5 7a4.5 4.5 0 1 0-9 0 4.5 4.5 0 0 0 9 0Z"/></svg>
+      <input class="sift__input" id="sift" type="search" autocomplete="off"
+             placeholder="Filter {{ board.summary.repos }} repositories" aria-label="Filter repositories by name">
+    </div>
+
+    <div class="chips" role="group" aria-label="Artifact type">
+      {%- for type in site.artifact_types -%}
+      {%- assign bucket = board.summary.by_type[type.key] -%}
+      {%- if bucket -%}
+      <button type="button" class="chip" data-type="{{ type.key }}" aria-pressed="false">
+        {{ type.title }}<span class="chip__count">{{ bucket.repos }}</span>
+      </button>
+      {%- endif -%}
+      {%- endfor -%}
+      <button type="button" class="chip" data-visibility="private" aria-pressed="false">Private</button>
+    </div>
+
+    <p class="board__tally" id="tally" role="status">{{ board.summary.repos }} shown</p>
+  </div>
+
+  <div class="board__scroll">
+    <table class="grid" id="grid">
+      <caption class="visually-hidden">
+        Every repository the standards bind, its maturity level, the version of the
+        enforcing package it declares, and its verdict for each rule.
+      </caption>
+      <thead>
+        <tr>
+          <th scope="col" class="grid__sort" data-sort="name" aria-sort="ascending">
+            <button type="button">Repository</button>
+          </th>
+          <th scope="col" class="grid__sort" data-sort="level" aria-sort="none">
+            <button type="button">Level</button>
+          </th>
+          <th scope="col">Enforcing package</th>
+          {%- for rule in board.rules -%}
+          <th scope="col" class="grid__rule">
+            {%- comment -%}
+            The header is the citation. A cell that says "fail" is only useful if
+            the standard behind it is one click away.
+            {%- endcomment -%}
+            <a href="{{ '/atlas.html' | relative_url }}#{{ rule.standard }}" title="{{ rule.title }}">
+              <span>{{ rule.id | replace: 'wp-', '' | replace: '-format', '' | replace: '-', ' ' }}</span>
+            </a>
+          </th>
+          {%- endfor -%}
+          <th scope="col" class="grid__sort" data-sort="findings" aria-sort="none">
+            <button type="button">Findings</button>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {%- for repo in board.repos -%}
+        <tr class="row" data-repo="{{ repo.name }}" data-level="{{ repo.level }}"
+            data-type="{{ repo.artifact_type }}" data-private="{{ repo.private }}"
+            data-findings="{{ repo.finding_count | default: 0 }}"
+            data-detail="{% if repo.finding_count > 0 %}1{% else %}0{% endif %}">
+          <th scope="row" class="row__name">
+            <a href="{{ repo.url }}">{{ repo.name }}</a>
+            {%- if repo.private %}<span class="lock" title="Private repository" aria-label="Private repository">private</span>{% endif -%}
+          </th>
+
+          <td class="row__level">
+            <span class="pill pill--{{ repo.level }}">L{{ repo.level }}</span>
+          </td>
+
+          {%- comment -%}
+          Four states, not three. A floating constraint admits the current
+          release, so folding it into "current" would rank the repositories a
+          release can break without warning above the ones that pinned. The
+          literal constraint is shown alongside, because the useful thing to know
+          is what to change it from.
+          {%- endcomment -%}
+          <td class="row__pin">
+            {%- if repo.packages == empty -%}
+              {%- comment -%}
+              No rule names a package for this artifact type yet, so the signals
+              above are vacuously true. Saying "current" here would claim credit
+              for meeting a standard that has not been written.
+              {%- endcomment -%}
+              <span class="pin pin--na">no standard yet</span>
+            {%- elsif repo.signals.standards_package_present != true -%}
+              <span class="pin pin--none">not installed</span>
+            {%- elsif repo.signals.standards_package_pinned != true -%}
+              <span class="pin pin--floating">unpinned</span>
+            {%- elsif repo.signals.standards_package_current == true -%}
+              <span class="pin pin--current">current</span>
+            {%- else -%}
+              <span class="pin pin--behind">behind</span>
+            {%- endif -%}
+            {%- for pair in repo.packages -%}
+              {%- if pair[1] -%}<code class="pin__at">{{ pair[1] }}</code>{%- endif -%}
+            {%- endfor -%}
+          </td>
+
+          {%- for rule in board.rules -%}
+          {%- assign verdict = repo.rules[rule.id] -%}
+          <td class="cell cell--{{ verdict }}" title="{{ rule.title }}">
+            {%- case verdict -%}
+              {%- when 'pass' -%}<span aria-label="passes">&check;</span>
+              {%- when 'fail' -%}<span aria-label="fails">&times;</span>
+              {%- when 'ineligible' -%}<span aria-label="cannot run this check">&ndash;</span>
+              {%- when 'not_applicable' -%}<span aria-label="does not apply"></span>
+              {%- else -%}<span aria-label="not reported">?</span>
+            {%- endcase -%}
+          </td>
+          {%- endfor -%}
+
+          <td class="row__findings">
+            {%- if repo.finding_count > 0 -%}
+            <button type="button" class="count" data-open="{{ repo.name }}">
+              {{ repo.finding_count }}{% if repo.error_count > 0 %} <span class="count__bad">{{ repo.error_count }} error</span>{% endif %}
+            </button>
+            {%- elsif repo.signals.check_reports -%}
+            <span class="count count--clean">clean</span>
+            {%- else -%}
+            <span class="count count--quiet">not reporting</span>
+            {%- endif -%}
+          </td>
+        </tr>
+        {%- endfor -%}
+      </tbody>
+    </table>
+
+    <p class="board__empty" id="board-empty" hidden>Nothing matches.</p>
+  </div>
+
+  {%- comment -%}
+  What the columns mean. Three states rather than two is the one thing on this
+  page that has to be taught, so it stays on screen.
+  {%- endcomment -%}
+  <footer class="board__key">
+    <p><span class="cell cell--pass">&check;</span> the check ran and passed</p>
+    <p><span class="cell cell--fail">&times;</span> the check ran and found something</p>
+    <p><span class="cell cell--ineligible">&ndash;</span> pinned below the release that added the check, so it cannot run</p>
+    <p><span class="cell cell--unknown">?</span> could run, but this repository reports nothing</p>
+    {%- for name_version in board.package_versions -%}
+    <p class="board__key-note">Current: <code>{{ name_version[0] }}</code> {{ name_version[1] }}</p>
+    {%- endfor -%}
+  </footer>
+
+  <aside class="detail" id="detail" aria-live="polite" aria-label="Repository detail" hidden>
+    <button type="button" class="detail__close" id="detail-close" aria-label="Close detail">
+      <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" focusable="false"><path d="M3.72 3.72a.75.75 0 0 1 1.06 0L8 6.94l3.22-3.22a.749.749 0 0 1 1.275.326.749.749 0 0 1-.215.734L9.06 8l3.22 3.22a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L8 9.06l-3.22 3.22a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042L6.94 8 3.72 4.78a.75.75 0 0 1 0-1.06Z"/></svg>
+    </button>
+    <div class="detail__body" id="detail-body"></div>
+  </aside>
+</div>
+
+<script src="{{ '/assets/js/scorecard.js' | relative_url }}" defer></script>
+{%- endif -%}
