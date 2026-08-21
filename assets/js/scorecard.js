@@ -1,54 +1,80 @@
 /*
  * Scorecard.
  *
- * The table is already complete and already correct when this file runs: every
- * row, every verdict and every total is server-rendered from the sweep. What
- * this adds is narrowing a fleet of 125 rows down to the handful you came to
- * look at, and pulling one repository's findings in when you ask for them.
+ * Three views, one dataset, all of it already in the HTML before this file runs.
+ * What this adds is the switch between views, the filters, the sort and the
+ * findings panel. No data, and nothing that changes what the page says.
  *
- * Two rules, the same two the atlas keeps. Filter state lives in the URL, so any
- * view of the board can be linked to and sent to the team that owns it. And rows
- * are never reordered by anything but an explicit sort, so a board you come back
- * to looks the way you left it.
+ * Two rules kept throughout. Every bit of state is in the URL, so a view narrowed
+ * to one team's repositories or opened on one issue is a link you can send them.
+ * And rows are never reordered except by an explicit sort, so a view you come
+ * back to looks the way you left it.
  *
- * Findings are fetched per repository rather than shipped with the page. The
- * fleet's findings together are far larger than the board, and almost nobody
- * opens more than one or two.
+ * With JavaScript off the views stack rather than switch, every issue is a real
+ * <details>, and the page reads top to bottom as one long report. Nothing below
+ * is needed to understand it.
  */
 (function () {
 	'use strict';
 
-	var board = document.getElementById('board');
-	if (!board) return;
+	var dash = document.getElementById('dash');
+	if (!dash) return;
+
+	var findingsBase = dash.dataset.findingsBase;
+	var atlasBase = dash.dataset.atlasBase;
+
+	var views = Array.prototype.slice.call(dash.querySelectorAll('.view'));
+	var tabs = Array.prototype.slice.call(dash.querySelectorAll('.switch__opt'));
+
+	dash.classList.add('is-live');
+
+	// ---- views ----------------------------------------------------------------
+
+	function show(name, push) {
+		if (!name || !views.some(function (view) { return view.dataset.view === name; })) name = 'overview';
+
+		views.forEach(function (view) { view.classList.toggle('is-on', view.dataset.view === name); });
+		tabs.forEach(function (tab) {
+			var on = tab.dataset.view === name;
+			tab.classList.toggle('is-on', on);
+			if (on) tab.setAttribute('aria-current', 'page');
+			else tab.removeAttribute('aria-current');
+		});
+
+		if (push) writeUrl(name);
+		return name;
+	}
+
+	var current = 'overview';
+
+	tabs.forEach(function (tab) {
+		tab.addEventListener('click', function (event) {
+			event.preventDefault();
+			current = show(tab.dataset.view, true);
+		});
+	});
+
+	// ---- repositories ---------------------------------------------------------
 
 	var grid = document.getElementById('grid');
-	var body = grid.querySelector('tbody');
-	var rows = Array.prototype.slice.call(body.querySelectorAll('.row'));
+	var gridBody = grid.querySelector('tbody');
+	var rows = Array.prototype.slice.call(gridBody.querySelectorAll('.row'));
 	var sift = document.getElementById('sift');
 	var tally = document.getElementById('tally');
-	var empty = document.getElementById('board-empty');
-	var detail = document.getElementById('detail');
-	var detailBody = document.getElementById('detail-body');
-	var detailClose = document.getElementById('detail-close');
-	var findingsBase = board.dataset.findingsBase;
-	var atlasBase = board.dataset.atlasBase;
+	var gridEmpty = document.getElementById('board-empty');
+	var chips = Array.prototype.slice.call(document.querySelectorAll('.chips .chip'));
 
-	var levelButtons = Array.prototype.slice.call(document.querySelectorAll('.rung'));
-	var chips = Array.prototype.slice.call(document.querySelectorAll('.chip'));
-
-	var state = { q: '', levels: [], types: [], privateOnly: false, sort: 'name', dir: 1 };
-
-	// ---- filtering ------------------------------------------------------------
+	var state = { q: '', types: [], privateOnly: false, withFindings: false, sort: 'name', dir: 1 };
 
 	function matches(row) {
 		if (state.q && row.dataset.repo.indexOf(state.q) === -1) return false;
-		if (state.levels.length && state.levels.indexOf(row.dataset.level) === -1) return false;
 		if (state.types.length && state.types.indexOf(row.dataset.type) === -1) return false;
 		if (state.privateOnly && row.dataset.private !== 'true') return false;
+		if (state.withFindings && Number(row.dataset.findings) === 0) return false;
 		return true;
 	}
 
-	function apply() {
+	function applyRepos() {
 		var shown = 0;
 		rows.forEach(function (row) {
 			var hit = matches(row);
@@ -57,44 +83,34 @@
 		});
 
 		tally.textContent = shown === rows.length ? shown + ' shown' : shown + ' of ' + rows.length + ' shown';
-		empty.hidden = shown !== 0;
+		gridEmpty.hidden = shown !== 0;
 
-		levelButtons.forEach(function (button) {
-			button.setAttribute('aria-pressed', String(state.levels.indexOf(button.dataset.level) !== -1));
-		});
 		chips.forEach(function (chip) {
 			var on = chip.dataset.type
 				? state.types.indexOf(chip.dataset.type) !== -1
-				: state.privateOnly;
+				: chip.dataset.has
+					? state.withFindings
+					: state.privateOnly;
 			chip.setAttribute('aria-pressed', String(on));
 		});
 
-		writeUrl();
+		writeUrl(current);
 	}
-
-	function toggle(list, value) {
-		var at = list.indexOf(value);
-		if (at === -1) list.push(value);
-		else list.splice(at, 1);
-		return list;
-	}
-
-	// ---- sorting --------------------------------------------------------------
 
 	function sortBy(key) {
 		if (state.sort === key) {
 			state.dir = -state.dir;
 		} else {
 			state.sort = key;
-			// Name reads best A to Z; the two numeric columns are asked about
-			// because somebody wants the worst offenders, so they start high.
+			// Name reads best A to Z. The numeric columns get asked about because
+			// somebody wants the worst offenders, so they start high.
 			state.dir = key === 'name' ? 1 : -1;
 		}
 
 		var sorted = rows.slice().sort(function (a, b) {
 			if (key === 'name') return a.dataset.repo.localeCompare(b.dataset.repo) * state.dir;
-			var left = Number(a.dataset[key === 'findings' ? 'findings' : 'level']);
-			var right = Number(b.dataset[key === 'findings' ? 'findings' : 'level']);
+			var left = Number(a.dataset[key]);
+			var right = Number(b.dataset[key]);
 			// Ties fall back to name so the order is total and a re-sort never
 			// shuffles rows that compare equal.
 			if (left === right) return a.dataset.repo.localeCompare(b.dataset.repo);
@@ -103,7 +119,7 @@
 
 		var fragment = document.createDocumentFragment();
 		sorted.forEach(function (row) { fragment.appendChild(row); });
-		body.appendChild(fragment);
+		gridBody.appendChild(fragment);
 		rows = sorted;
 
 		grid.querySelectorAll('.grid__sort').forEach(function (header) {
@@ -111,17 +127,105 @@
 			header.setAttribute('aria-sort', active ? (state.dir === 1 ? 'ascending' : 'descending') : 'none');
 		});
 
-		apply();
+		applyRepos();
 	}
 
 	grid.querySelectorAll('.grid__sort button').forEach(function (button) {
-		button.addEventListener('click', function () {
-			sortBy(button.parentNode.dataset.sort);
+		button.addEventListener('click', function () { sortBy(button.parentNode.dataset.sort); });
+	});
+
+	sift.addEventListener('input', function () {
+		state.q = sift.value.trim().toLowerCase();
+		applyRepos();
+	});
+	sift.addEventListener('keydown', function (event) {
+		if (event.key === 'Escape') { sift.value = ''; state.q = ''; applyRepos(); }
+	});
+
+	chips.forEach(function (chip) {
+		chip.addEventListener('click', function () {
+			if (chip.dataset.type) {
+				var at = state.types.indexOf(chip.dataset.type);
+				if (at === -1) state.types.push(chip.dataset.type);
+				else state.types.splice(at, 1);
+			} else if (chip.dataset.has) {
+				state.withFindings = !state.withFindings;
+			} else {
+				state.privateOnly = !state.privateOnly;
+			}
+			applyRepos();
 		});
 	});
 
-	// ---- detail ---------------------------------------------------------------
+	// ---- issues ---------------------------------------------------------------
 
+	var issues = Array.prototype.slice.call(document.querySelectorAll('.issue'));
+	var siftIssue = document.getElementById('sift-issue');
+	var tallyIssue = document.getElementById('tally-issue');
+	var issuesEmpty = document.getElementById('issues-empty');
+	var onlyCited = document.getElementById('only-cited');
+
+	var issueState = { q: '', cited: false };
+
+	function applyIssues() {
+		var shown = 0;
+		issues.forEach(function (issue) {
+			var hit =
+				(!issueState.q || issue.dataset.sniff.indexOf(issueState.q) !== -1) &&
+				(!issueState.cited || issue.dataset.cited === '1');
+			issue.hidden = !hit;
+			if (hit) shown++;
+		});
+
+		tallyIssue.textContent = shown === issues.length ? shown + ' shown' : shown + ' of ' + issues.length + ' shown';
+		issuesEmpty.hidden = shown !== 0;
+		onlyCited.setAttribute('aria-pressed', String(issueState.cited));
+		writeUrl(current);
+	}
+
+	siftIssue.addEventListener('input', function () {
+		issueState.q = siftIssue.value.trim().toLowerCase();
+		applyIssues();
+	});
+	siftIssue.addEventListener('keydown', function (event) {
+		if (event.key === 'Escape') { siftIssue.value = ''; issueState.q = ''; applyIssues(); }
+	});
+	onlyCited.addEventListener('click', function () {
+		issueState.cited = !issueState.cited;
+		applyIssues();
+	});
+
+	// Jumping from the overview into a view, landing on the thing that was clicked
+	// rather than at the top of a list of a hundred and twenty.
+	dash.addEventListener('click', function (event) {
+		var toIssue = event.target.closest('[data-goto-issue]');
+		if (toIssue) {
+			event.preventDefault();
+			current = show('issues', true);
+			var target = document.getElementById('issue-' + toIssue.dataset.gotoIssue);
+			if (target) {
+				var open = target.querySelector('details');
+				if (open) open.open = true;
+				target.scrollIntoView({ block: 'center', behavior: 'smooth' });
+				target.classList.add('is-lit');
+				window.setTimeout(function () { target.classList.remove('is-lit'); }, 1600);
+			}
+			return;
+		}
+
+		var toRepo = event.target.closest('[data-goto-repo]');
+		if (toRepo) {
+			event.preventDefault();
+			current = show('repositories', true);
+			openDetail(toRepo.dataset.gotoRepo);
+		}
+	});
+
+	// ---- findings panel -------------------------------------------------------
+
+	var detail = document.getElementById('detail');
+	var detailBody = document.getElementById('detail-body');
+	var detailClose = document.getElementById('detail-close');
 	var cache = {};
 
 	function escapeHtml(value) {
@@ -133,10 +237,10 @@
 	function renderFindings(repo, payload) {
 		var findings = (payload && payload.findings) || [];
 
-		// Grouped by sniff, because the fix is per sniff and not per line:
-		// somebody reading this is deciding what to go and change. Sniffs that
-		// cite a standard come first, since those are the ones with a documented
-		// reason behind them rather than an inherited default.
+		// Grouped by sniff, because the fix is per sniff and not per line: whoever
+		// opens this is deciding what to go and change. Cited sniffs sort first,
+		// since those have a documented reason behind them rather than an inherited
+		// default.
 		var groups = {};
 		findings.forEach(function (finding) {
 			var sniff = String(finding.source || 'unknown').split('.').slice(0, 3).join('.');
@@ -152,10 +256,8 @@
 			return a.localeCompare(b);
 		});
 
-		var cited = findings.filter(function (f) { return f.rule; }).length;
-
 		// A path on its own is something to copy and go hunting for. Linked to the
-		// commit that was scanned, it is the line itself, and it still points at
+		// commit that was scanned it is the line itself, and it keeps pointing at
 		// the right line after the file moves on.
 		function locate(finding) {
 			var path = escapeHtml(finding.file || '');
@@ -168,12 +270,15 @@
 			return '<a class="detail__where" href="' + escapeHtml(href) + '"><code>' + path + at + '</code></a>';
 		}
 
+		var cited = findings.filter(function (f) { return f.rule; }).length;
+		var shownOf =
+			payload && payload.total && payload.total > findings.length
+				? findings.length + ' of ' + payload.total + ' shown'
+				: findings.length + ' finding' + (findings.length === 1 ? '' : 's');
+
 		var html = '<h2>' + escapeHtml(repo) + '</h2>';
-		html += '<p class="detail__meta">' + findings.length + ' finding' + (findings.length === 1 ? '' : 's');
-		html += ', ' + cited + ' citing a standard';
-		if (payload && payload.source) {
-			html += '<span class="detail__source">' + escapeHtml(payload.source) + '</span>';
-		}
+		html += '<p class="detail__meta">' + shownOf + ', ' + cited + ' citing a standard';
+		if (payload && payload.source) html += '<span class="detail__source">' + escapeHtml(payload.source) + '</span>';
 		html += '</p>';
 
 		order.forEach(function (sniff) {
@@ -186,9 +291,9 @@
 			if (group.rule) {
 				html += '<a href="' + escapeHtml(atlasBase) + '#' + escapeHtml(group.rule) + '">' + escapeHtml(group.rule) + '</a>';
 			} else {
-				// Said plainly rather than left blank. The gap between what is
-				// found and what can be cited is the rules backlog, and an empty
-				// space would read as an oversight in the finding instead.
+				// Said plainly rather than left blank. The gap between what is found
+				// and what can be cited is the rules backlog, and empty space would
+				// read as something missing from the finding instead.
 				html += '<span class="detail__uncited">no rule cites this yet</span>';
 			}
 			html += '</p>';
@@ -201,18 +306,16 @@
 				if (finding.message) html += '<span>' + escapeHtml(finding.message) + '</span>';
 				html += '</li>';
 			});
-			if (group.list.length > 25) {
-				html += '<li class="detail__more">and ' + (group.list.length - 25) + ' more</li>';
-			}
+			if (group.list.length > 25) html += '<li class="detail__more">and ' + (group.list.length - 25) + ' more</li>';
 			html += '</ul></section>';
 		});
 
 		return html;
 	}
 
-	function open(repo) {
+	function openDetail(repo) {
 		detail.hidden = false;
-		board.classList.add('has-detail');
+		dash.classList.add('has-detail');
 
 		if (cache[repo]) {
 			detailBody.innerHTML = renderFindings(repo, cache[repo]);
@@ -231,9 +334,9 @@
 				detailBody.innerHTML = renderFindings(repo, payload);
 			})
 			.catch(function () {
-				// The detail file is written by the same sweep as the row, but a
-				// board can be served from a cache that is a sweep behind. Say so
-				// rather than showing an empty panel that reads as "no findings".
+				// The detail file is written by the same sweep as the row, but a board
+				// can be served from a cache a sweep behind. Say so rather than showing
+				// an empty panel, which reads as "nothing wrong here".
 				detailBody.innerHTML =
 					'<h2>' + escapeHtml(repo) + '</h2>' +
 					'<p class="detail__meta">No findings file for this repository. ' +
@@ -241,77 +344,58 @@
 			});
 	}
 
-	function close() {
+	function closeDetail() {
 		detail.hidden = true;
-		board.classList.remove('has-detail');
+		dash.classList.remove('has-detail');
 	}
 
-	body.addEventListener('click', function (event) {
+	gridBody.addEventListener('click', function (event) {
 		var trigger = event.target.closest('[data-open]');
 		if (!trigger) return;
 		event.preventDefault();
-		open(trigger.dataset.open);
+		openDetail(trigger.dataset.open);
 	});
 
-	detailClose.addEventListener('click', close);
-
+	detailClose.addEventListener('click', closeDetail);
 	document.addEventListener('keydown', function (event) {
-		if (event.key === 'Escape' && !detail.hidden) close();
+		if (event.key === 'Escape' && !detail.hidden) closeDetail();
 	});
 
 	// ---- url ------------------------------------------------------------------
 
-	function writeUrl() {
+	function writeUrl(view) {
 		var params = new URLSearchParams();
+		if (view && view !== 'overview') params.set('view', view);
 		if (state.q) params.set('q', state.q);
-		if (state.levels.length) params.set('level', state.levels.join(','));
 		if (state.types.length) params.set('type', state.types.join(','));
 		if (state.privateOnly) params.set('private', '1');
+		if (state.withFindings) params.set('found', '1');
+		if (issueState.q) params.set('issue', issueState.q);
+		if (issueState.cited) params.set('cited', '1');
 
 		var query = params.toString();
-		var url = window.location.pathname + (query ? '?' + query : '');
-		window.history.replaceState(null, '', url);
+		window.history.replaceState(null, '', window.location.pathname + (query ? '?' + query : ''));
 	}
 
 	function readUrl() {
 		var params = new URLSearchParams(window.location.search);
 		state.q = (params.get('q') || '').toLowerCase();
-		state.levels = params.get('level') ? params.get('level').split(',') : [];
 		state.types = params.get('type') ? params.get('type').split(',') : [];
 		state.privateOnly = params.get('private') === '1';
+		state.withFindings = params.get('found') === '1';
+		issueState.q = (params.get('issue') || '').toLowerCase();
+		issueState.cited = params.get('cited') === '1';
+
 		if (state.q) sift.value = state.q;
+		if (issueState.q) siftIssue.value = issueState.q;
+
+		// The hash is what the no-JavaScript links use, so it is honoured as a view
+		// name before falling back to the query parameter.
+		var hash = (window.location.hash || '').replace('#', '');
+		return params.get('view') || hash || 'overview';
 	}
 
-	// ---- wiring ---------------------------------------------------------------
-
-	sift.addEventListener('input', function () {
-		state.q = sift.value.trim().toLowerCase();
-		apply();
-	});
-
-	sift.addEventListener('keydown', function (event) {
-		if (event.key === 'Escape') {
-			sift.value = '';
-			state.q = '';
-			apply();
-		}
-	});
-
-	levelButtons.forEach(function (button) {
-		button.addEventListener('click', function () {
-			toggle(state.levels, button.dataset.level);
-			apply();
-		});
-	});
-
-	chips.forEach(function (chip) {
-		chip.addEventListener('click', function () {
-			if (chip.dataset.type) toggle(state.types, chip.dataset.type);
-			else state.privateOnly = !state.privateOnly;
-			apply();
-		});
-	});
-
-	readUrl();
-	apply();
+	current = show(readUrl(), false);
+	applyRepos();
+	applyIssues();
 })();
