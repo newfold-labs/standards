@@ -1,0 +1,152 @@
+name: Scorecard
+
+# The org sweep. Reads every repository the standards bind and writes the data
+# the board renders from.
+#
+# The data does not land on main. The default branch requires a pull request
+# with no bypass actors, so a scheduled job cannot push to it, and a pull request
+# a night that still needs a human approval is not automation. Rulesets here are
+# scoped to ~DEFAULT_BRANCH, so a side branch is writable with the token every
+# workflow already has. The site build picks the data up from there.
+#
+# Keeping it off main has a second benefit worth having on purpose: a daily data
+# commit would bury the repository's actual history under machine churn.
+
+on:
+  schedule:
+    # Early UTC, so the board is current before Europe starts and long after the
+    # US has stopped merging. Nothing depends on the exact minute.
+    - cron: '17 4 * * *'
+  workflow_dispatch:
+    inputs:
+      full:
+        description: Rescan every repository instead of only those that changed
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+# A sweep that is already running has newer data than the one queueing behind
+# it, but killing one partway leaves the branch untouched rather than damaged,
+# so cancelling is safe.
+concurrency:
+  group: scorecard
+  cancel-in-progress: true
+
+env:
+  DATA_BRANCH: scorecard-data
+
+jobs:
+  sweep:
+    name: Sweep the org
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+
+      # A repository-scoped GITHUB_TOKEN can only read this repository, so it
+      # cannot see the fleet. An org-installed App is the right credential:
+      # it is not tied to anyone's account and its permissions can stay at
+      # metadata plus contents, read-only.
+      - id: app-token
+        if: vars.SCORECARD_APP_ID != ''
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: ${{ vars.SCORECARD_APP_ID }}
+          private-key: ${{ secrets.SCORECARD_APP_PRIVATE_KEY }}
+          owner: ${{ github.repository_owner }}
+
+      - name: Check the sweep has a credential
+        env:
+          TOKEN: ${{ steps.app-token.outputs.token || secrets.SCORECARD_TOKEN }}
+        run: |
+          if [ -z "$TOKEN" ]; then
+            echo "::error::No credential for the sweep. Configure the SCORECARD_APP_ID variable" \
+                 "and SCORECARD_APP_PRIVATE_KEY secret, or set a SCORECARD_TOKEN secret that can" \
+                 "read the organisation. See meta/scorecard.md."
+            exit 1
+          fi
+
+      # Start from the last sweep's output so the incremental path has something
+      # to compare against. Without it every run is a full rescan: correct, but
+      # it reads 125 repositories to learn that none of them changed.
+      - name: Restore the previous sweep
+        run: |
+          if git fetch --depth 1 origin "$DATA_BRANCH" 2>/dev/null; then
+            git checkout FETCH_HEAD -- _data scorecard 2>/dev/null || true
+            echo "Restored the previous sweep from $DATA_BRANCH."
+          else
+            echo "No $DATA_BRANCH yet; this run is a full sweep."
+          fi
+
+      - name: Sweep
+        env:
+          SCORECARD_TOKEN: ${{ steps.app-token.outputs.token || secrets.SCORECARD_TOKEN }}
+        run: node scripts/sweep.mjs ${{ inputs.full && '--full' || '' }}
+
+      - name: Validate before publishing
+        run: npm run validate:scorecard
+
+      - name: Publish the data
+        run: |
+          set -euo pipefail
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          # An orphan branch each time: this is a snapshot, not a history, and
+          # the trend it needs is already inside scorecard_history.json. Letting
+          # it accumulate commits would grow the repository by a copy of the
+          # board every night for no reader.
+          git checkout --orphan publish
+          git rm -rq --cached . || true
+          git add -f _data/scorecard.json _data/scorecard_history.json
+          git add -f scorecard/findings 2>/dev/null || true
+
+          # Published every run rather than only on a change. The sweep stamps
+          # generated_at, so the file always differs anyway, and a board that
+          # shows when it last ran is more useful than one that goes quiet and
+          # leaves you guessing whether the job is broken or the fleet is still.
+          git commit -qm "Sweep $(date -u +%Y-%m-%dT%H:%MZ)"
+          git push -f origin "publish:$DATA_BRANCH"
+          echo "Published to $DATA_BRANCH."
+
+      - name: Summary
+        if: always()
+        run: |
+          if [ -f _data/scorecard.json ]; then
+            node -e '
+              const board = require("./_data/scorecard.json");
+              const rows = ["| Level | Repositories |", "| --- | ---: |"];
+              for (const rung of [...board.levels].reverse()) {
+                rows.push(`| L${rung.level} ${rung.title} | ${board.summary.by_level[rung.level] ?? 0} |`);
+              }
+              console.log([
+                `### Scorecard swept`, ``,
+                `${board.summary.repos} repositories, ${board.summary.reporting} reporting, ` +
+                `${board.summary.findings} findings.`, ``,
+                ...rows,
+              ].join("\n"));
+            ' >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+  # The board only changes when the data does, so publishing the data is what
+  # should trigger a rebuild. Pages builds from main, which the sweep never
+  # touches, so it has to be asked.
+  rebuild:
+    name: Rebuild the site
+    needs: sweep
+    runs-on: ubuntu-latest
+    permissions:
+      actions: write
+    steps:
+      - uses: actions/checkout@v4
+      - run: gh workflow run pages.yml --ref main
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
