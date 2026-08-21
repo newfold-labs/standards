@@ -66,127 +66,179 @@ used instead.
     </nav>
   </header>
 
-  {%- comment -%} ---------------------------------------------------- overview {%- endcomment -%}
+  {%- comment -%} ---------------------------------------------------- overview
+
+  Deliberately not a grid of equal boxes. The whole point of an overview is that
+  some things matter more than others, and a layout where every panel is the same
+  size and weight says the opposite.
+
+  So: one sentence, one number set large enough to be the first thing read, and
+  one plot. Everything else is quiet and dense, the way a working tool is.
+
+  The plot is the part that earns its place. Spread and volume disagree, and the
+  disagreement is what tells you which lever to pull: eighteen thousand findings
+  confined to twenty-five repositories is one mechanical pass, and five thousand
+  spread across sixty-four is a decision nobody has taken. Neither list alone
+  shows that.
+  {%- endcomment -%}
   <section class="view is-on" id="view-overview" data-view="overview">
+    <div class="ovw">
 
-    <div class="stats">
-      <div class="stat">
-        <span class="stat__n">{{ board.summary.findings }}</span>
-        <span class="stat__k">findings</span>
-        <span class="stat__sub">{{ board.summary.errors }} at error severity</span>
-      </div>
-      <div class="stat">
-        <span class="stat__n">{{ board.summary.by_sniff.size }}</span>
-        <span class="stat__k">distinct issues</span>
-        <span class="stat__sub">worst appears in {{ top_issue.repos }} repositories</span>
-      </div>
-      <div class="stat">
-        <span class="stat__n">{{ cited_pct }}<span class="stat__unit">%</span></span>
-        <span class="stat__k">cite a standard</span>
-        <span class="stat__sub">{{ board.summary.cited }} of {{ board.summary.findings }}</span>
-      </div>
-      <div class="stat">
-        <span class="stat__n">{{ board.summary.scanned }}</span>
-        <span class="stat__k">repositories scanned</span>
-        <span class="stat__sub">{{ board.summary.reporting }} report for themselves</span>
-      </div>
-    </div>
+      <div class="lede">
+        <p class="lede__kicker">Ten issues account for</p>
+        <p class="lede__big">{{ board.summary.concentration.top10 }}<span>%</span></p>
+        <p class="lede__say">
+          of all {{ board.summary.findings | thousands }} findings.
+          Three of them alone are {{ board.summary.concentration.top3 }}%.
+        </p>
 
-    <div class="panels">
-
-      {%- comment -%}
-      The lead panel, because it is the one that turns the board into work. An
-      issue in sixty repositories is one decision; the same finding spread across
-      sixty rows of a repository table is sixty investigations nobody starts.
-      {%- endcomment -%}
-      <section class="card card--wide">
-        <header class="card__head">
-          <h2>Worth fixing first</h2>
-          <p>Ordered by how many repositories a problem appears in, not by how loud it is in any one of them.</p>
-        </header>
-        <ol class="bars">
-          {%- for entry in board.summary.by_sniff limit: 12 -%}
-          {%- assign width = entry.repos | times: 100 | divided_by: top_issue.repos -%}
-          <li class="bar">
-            <a class="bar__label" href="#issues" data-goto-issue="{{ entry.sniff }}"><code>{{ entry.sniff }}</code></a>
-            <span class="bar__track" aria-hidden="true">
-              <span class="bar__fill{% if entry.errors > 0 %} bar__fill--err{% endif %}" style="width: {{ width }}%"></span>
-            </span>
-            <span class="bar__n">{{ entry.repos }}</span>
-            {%- if entry.rule -%}
-            <a class="bar__cite" href="{{ '/atlas.html' | relative_url }}#{{ entry.rule }}" title="{{ entry.rule }}">cited</a>
-            {%- else -%}
-            <span class="bar__cite bar__cite--none" title="No rule cites this yet">&mdash;</span>
-            {%- endif -%}
-          </li>
-          {%- endfor -%}
-        </ol>
-      </section>
-
-      <section class="card">
-        <header class="card__head">
-          <h2>Densest codebases</h2>
-          <p>Findings per file. Raw totals only rank by size.</p>
-        </header>
-        <ol class="rank">
-          {%- for entry in board.summary.worst limit: 10 -%}
-          <li>
-            <a class="rank__name" href="#repositories" data-goto-repo="{{ entry.name }}">{{ entry.name }}</a>
-            <span class="rank__n">{{ entry.per_file }}</span>
-            <span class="rank__sub">{{ entry.findings }} in {{ entry.files }} files</span>
-          </li>
-          {%- endfor -%}
-        </ol>
-      </section>
-
-      <section class="card">
-        <header class="card__head">
-          <h2>Adoption</h2>
-          <p>Flat until repositories report for themselves.</p>
-        </header>
-
-        <div class="ladder">
-          {%- for rung in levels_desc -%}
-          {%- assign key = rung.level | append: '' -%}
-          {%- assign n = board.summary.by_level[key] | default: 0 -%}
-          {%- assign pct = n | times: 100 | divided_by: board.summary.repos -%}
-          <div class="ladder__row">
-            <span class="ladder__name">L{{ rung.level }} {{ rung.title }}</span>
-            <span class="ladder__track" aria-hidden="true">
-              <span class="ladder__fill ladder__fill--{{ rung.level }}" style="width: {{ pct }}%"></span>
-            </span>
-            <span class="ladder__n">{{ n }}</span>
+        <dl class="facts">
+          <div>
+            <dt>Repositories scanned</dt>
+            <dd>{{ board.summary.scanned }}<span class="facts__of">of {{ board.summary.repos }}</span></dd>
           </div>
+          <div>
+            <dt>Distinct issues</dt>
+            <dd>{{ board.summary.by_sniff.size }}</dd>
+          </div>
+          <div>
+            <dt>Cite a standard</dt>
+            <dd>{{ cited_pct }}%<span class="facts__of">{{ board.summary.cited | thousands }} findings</span></dd>
+          </div>
+          <div>
+            <dt>Report for themselves</dt>
+            <dd>{{ board.summary.reporting }}<span class="facts__of">rest are scanned centrally</span></dd>
+          </div>
+        </dl>
+      </div>
+
+      <figure class="plot">
+        <figcaption class="plot__cap">
+          <b>Every issue, by reach and by volume</b>
+          <span>Each mark is one sniff. Filled marks cite a standard.</span>
+        </figcaption>
+
+        <div class="plot__frame">
+          {%- for tick in board.summary.axis.y -%}
+          <span class="tick tick--y" style="bottom: {{ tick.at }}%"><i>{{ tick.label }}</i></span>
+          {%- endfor -%}
+          {%- for tick in board.summary.axis.x -%}
+          <span class="tick tick--x" style="left: {{ tick.at }}%"><i>{{ tick.label }}</i></span>
+          {%- endfor -%}
+
+          <span class="plot__zone plot__zone--tr">systemic</span>
+          <span class="plot__zone plot__zone--tl">concentrated</span>
+          <span class="plot__zone plot__zone--br">widespread, quiet</span>
+
+          {%- for entry in board.summary.by_sniff -%}
+          <a class="dot{% if entry.rule %} dot--cited{% endif %}"
+             href="#issues" data-goto-issue="{{ entry.sniff }}"
+             style="left: {{ entry.x }}%; bottom: {{ entry.y }}%"
+             title="{{ entry.sniff }} — {{ entry.total | thousands }} findings in {{ entry.repos }} repositories"><span class="visually-hidden">{{ entry.sniff }}</span></a>
+          {%- endfor -%}
+
+          {%- comment -%}
+          Only the largest are labelled. Labelling all 121 would be a wall of
+          text, and the rest are one hover or one click away.
+          {%- endcomment -%}
+          {%- for entry in board.summary.loudest limit: 5 -%}
+          {%- for point in board.summary.by_sniff -%}
+          {%- if point.sniff == entry.sniff -%}
+          <span class="dot__tag" style="left: {{ point.x }}%; bottom: {{ point.y }}%">{{ entry.sniff | split: '.' | last }}</span>
+          {%- endif -%}
+          {%- endfor -%}
           {%- endfor -%}
         </div>
 
-        <dl class="gaps">
-          <div><dt>Have an owner</dt><dd>{{ board.summary.owned }} of {{ board.summary.repos }}</dd></div>
-          <div><dt>Carry AI context</dt><dd>{{ board.summary.ai_context }} of {{ board.summary.repos }}</dd></div>
-        </dl>
+        <div class="plot__axes">
+          <span class="plot__y">findings, log scale</span>
+          <span class="plot__x">repositories affected &rarr;</span>
+        </div>
+      </figure>
 
-        {%- comment -%}
-        Trend, and only once there is one. The sweep records a point when
-        something changes rather than one a day, and a single point is a reading
-        rather than a direction.
-        {%- endcomment -%}
-        {%- if history and history.size > 1 -%}
-        <div class="trend" aria-hidden="true">
-          {%- for point in history -%}
-          <div class="trend__bar" title="{{ point.date }}">
+      <div class="lists">
+        <section class="list">
+          <h2>Widest reach</h2>
+          <p class="list__hint">A decision to take once, everywhere.</p>
+          <ol>
+            {%- for entry in board.summary.by_sniff limit: 8 -%}
+            <li>
+              <a href="#issues" data-goto-issue="{{ entry.sniff }}">{{ entry.sniff | split: '.' | last }}</a>
+              <span class="list__bar" aria-hidden="true"><i style="width: {{ entry.x }}%"></i></span>
+              <b>{{ entry.repos }}</b>
+            </li>
+            {%- endfor -%}
+          </ol>
+        </section>
+
+        <section class="list">
+          <h2>Most findings</h2>
+          <p class="list__hint">Volume, which is often one mechanical pass.</p>
+          <ol>
+            {%- assign loud_max = board.summary.loudest | first -%}
+            {%- for entry in board.summary.loudest limit: 8 -%}
+            <li>
+              <a href="#issues" data-goto-issue="{{ entry.sniff }}">{{ entry.sniff | split: '.' | last }}</a>
+              <span class="list__bar" aria-hidden="true"><i style="width: {{ entry.total | times: 100 | divided_by: loud_max.total }}%"></i></span>
+              <b>{{ entry.total | thousands }}</b>
+            </li>
+            {%- endfor -%}
+          </ol>
+        </section>
+
+        <section class="list list--tight">
+          <h2>Densest codebases</h2>
+          <p class="list__hint">Findings per file. Raw totals rank size.</p>
+          <ol>
+            {%- assign dense_max = board.summary.worst | first -%}
+            {%- for entry in board.summary.worst limit: 8 -%}
+            <li>
+              <a href="#repositories" data-goto-repo="{{ entry.name }}">{{ entry.name | remove: 'wp-' }}</a>
+              <span class="list__bar" aria-hidden="true"><i style="width: {{ entry.per_file | times: 100 | divided_by: dense_max.per_file }}%"></i></span>
+              <b>{{ entry.per_file }}</b>
+            </li>
+            {%- endfor -%}
+          </ol>
+        </section>
+
+        <section class="list list--tight">
+          <h2>Adoption</h2>
+          <p class="list__hint">Flat until repositories report for themselves.</p>
+          <div class="ladder">
             {%- for rung in levels_desc -%}
             {%- assign key = rung.level | append: '' -%}
-            {%- assign at = point.by_level[key] | default: 0 -%}
-            {%- if at > 0 -%}
-            <span class="trend__slice trend__slice--{{ rung.level }}"
-                  style="height: {{ at | times: 100 | divided_by: point.repos }}%"></span>
-            {%- endif -%}
+            {%- assign n = board.summary.by_level[key] | default: 0 -%}
+            {%- assign pct = n | times: 100 | divided_by: board.summary.repos -%}
+            <div class="ladder__row">
+              <span class="ladder__name">L{{ rung.level }} {{ rung.title }}</span>
+              <span class="ladder__track" aria-hidden="true">
+                <span class="ladder__fill ladder__fill--{{ rung.level }}" style="width: {{ pct }}%"></span>
+              </span>
+              <span class="ladder__n">{{ n }}</span>
+            </div>
             {%- endfor -%}
           </div>
-          {%- endfor -%}
-        </div>
-        {%- endif -%}
-      </section>
+          <dl class="gaps">
+            <div><dt>Owned</dt><dd>{{ board.summary.owned }}/{{ board.summary.repos }}</dd></div>
+            <div><dt>AI context</dt><dd>{{ board.summary.ai_context }}/{{ board.summary.repos }}</dd></div>
+          </dl>
+          {%- if history and history.size > 1 -%}
+          <div class="trend" aria-hidden="true">
+            {%- for point in history -%}
+            <div class="trend__bar" title="{{ point.date }}">
+              {%- for rung in levels_desc -%}
+              {%- assign key = rung.level | append: '' -%}
+              {%- assign at = point.by_level[key] | default: 0 -%}
+              {%- if at > 0 -%}
+              <span class="trend__slice trend__slice--{{ rung.level }}" style="height: {{ at | times: 100 | divided_by: point.repos }}%"></span>
+              {%- endif -%}
+              {%- endfor -%}
+            </div>
+            {%- endfor -%}
+          </div>
+          {%- endif -%}
+        </section>
+      </div>
     </div>
   </section>
 
@@ -218,8 +270,8 @@ used instead.
               <code class="issue__name">{{ entry.sniff }}</code>
               <span class="issue__meta">
                 <span class="issue__repos">{{ entry.repos }} repos</span>
-                {%- if entry.errors > 0 %}<span class="issue__err">{{ entry.errors }} errors</span>{% endif -%}
-                {%- if entry.warnings > 0 %}<span class="issue__warn">{{ entry.warnings }} warnings</span>{% endif -%}
+                {%- if entry.errors > 0 %}<span class="issue__err">{{ entry.errors | thousands }} errors</span>{% endif -%}
+                {%- if entry.warnings > 0 %}<span class="issue__warn">{{ entry.warnings | thousands }} warnings</span>{% endif -%}
               </span>
               {%- if entry.rule -%}
               <span class="issue__cite">{{ entry.rule }}</span>
@@ -334,7 +386,7 @@ used instead.
             <td class="row__findings">
               {%- if repo.finding_count > 0 -%}
               <button type="button" class="count" data-open="{{ repo.name }}">
-                <span class="count__n">{{ repo.finding_count }}</span>
+                <span class="count__n">{{ repo.finding_count | thousands }}</span>
                 {%- if repo.error_count > 0 %}<span class="count__bad">{{ repo.error_count }}e</span>{% endif -%}
                 {%- if repo.cited_count > 0 %}<span class="count__cited">{{ repo.cited_count }} cited</span>{% endif -%}
               </button>
