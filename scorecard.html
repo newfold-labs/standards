@@ -36,7 +36,8 @@ same as failing it and must never be coloured as though it were.
 
 <div class="board" id="board"
      data-generated="{{ board.generated_at }}"
-     data-findings-base="{{ '/scorecard/findings/' | relative_url }}">
+     data-findings-base="{{ '/scorecard/findings/' | relative_url }}"
+     data-atlas-base="{{ '/atlas.html' | relative_url }}">
 
   <header class="board__top">
     <div class="board__title">
@@ -149,6 +150,7 @@ same as failing it and must never be coloured as though it were.
           <th scope="col" class="grid__sort" data-sort="findings" aria-sort="none">
             <button type="button">Findings</button>
           </th>
+          <th scope="col">Source</th>
         </tr>
       </thead>
       <tbody>
@@ -208,15 +210,33 @@ same as failing it and must never be coloured as though it were.
           </td>
           {%- endfor -%}
 
+          {%- comment -%}
+          Everything phpcs found, not only what a rule cites. The cited count is
+          shown beside it because the gap between the two is the rules backlog,
+          and hiding it would make the backlog invisible.
+          {%- endcomment -%}
           <td class="row__findings">
             {%- if repo.finding_count > 0 -%}
-            <button type="button" class="count" data-open="{{ repo.name }}">
-              {{ repo.finding_count }}{% if repo.error_count > 0 %} <span class="count__bad">{{ repo.error_count }} error</span>{% endif %}
+            <button type="button" class="count" data-open="{{ repo.name }}"
+                    title="{{ repo.finding_count }} findings, {{ repo.cited_count }} citing a documented standard">
+              <span class="count__n">{{ repo.finding_count }}</span>
+              {%- if repo.error_count > 0 %}<span class="count__bad">{{ repo.error_count }}e</span>{% endif -%}
+              {%- if repo.cited_count > 0 %}<span class="count__cited">{{ repo.cited_count }} cited</span>{% endif -%}
             </button>
-            {%- elsif repo.signals.check_reports -%}
+            {%- elsif repo.finding_source -%}
             <span class="count count--clean">clean</span>
             {%- else -%}
-            <span class="count count--quiet">not reporting</span>
+            <span class="count count--quiet">not scanned</span>
+            {%- endif -%}
+          </td>
+
+          <td class="row__source">
+            {%- if repo.finding_source == 'reported' -%}
+            <span class="src src--reported" title="The repository's own CI published this">reported</span>
+            {%- elsif repo.finding_source == 'scanned' -%}
+            <span class="src src--scanned" title="Scanned centrally; the repository does not report yet">scanned</span>
+            {%- else -%}
+            <span class="src src--none">&mdash;</span>
             {%- endif -%}
           </td>
         </tr>
@@ -226,6 +246,54 @@ same as failing it and must never be coloured as though it were.
 
     <p class="board__empty" id="board-empty" hidden>Nothing matches.</p>
   </div>
+
+  {%- comment -%}
+  What is wrong across the fleet, rather than in any one repository. This is the
+  view that answers what to fix first: one repository with forty array-spacing
+  findings is a tidy-up, and forty repositories with one each is a standard
+  nobody has been told about.
+
+  Sorted by how many repositories a sniff appears in rather than by raw count,
+  so a single noisy repository cannot dominate the list.
+  {%- endcomment -%}
+  {%- if board.summary.by_sniff and board.summary.by_sniff.size > 0 -%}
+  <details class="spread">
+    <summary class="spread__head">
+      Across the fleet
+      <span class="spread__hint">{{ board.summary.findings }} findings &middot; {{ board.summary.cited }} citing a standard</span>
+    </summary>
+    <div class="spread__body">
+      <table class="spread__table">
+        <thead>
+          <tr>
+            <th scope="col">Sniff</th>
+            <th scope="col">Repos</th>
+            <th scope="col">Errors</th>
+            <th scope="col">Warnings</th>
+            <th scope="col">Standard</th>
+          </tr>
+        </thead>
+        <tbody>
+          {%- for entry in board.summary.by_sniff -%}
+          <tr>
+            <th scope="row"><code>{{ entry.sniff }}</code></th>
+            <td>{{ entry.repos }}</td>
+            <td>{% if entry.errors > 0 %}<span class="spread__bad">{{ entry.errors }}</span>{% endif %}</td>
+            <td>{% if entry.warnings > 0 %}{{ entry.warnings }}{% endif %}</td>
+            <td>
+              {%- if entry.rule -%}
+              <a href="{{ '/atlas.html' | relative_url }}#{{ entry.rule }}">{{ entry.rule }}</a>
+              {%- else -%}
+              <span class="spread__uncited">no rule yet</span>
+              {%- endif -%}
+            </td>
+          </tr>
+          {%- endfor -%}
+        </tbody>
+      </table>
+    </div>
+  </details>
+  {%- endif -%}
 
   {%- comment -%}
   What the columns mean. Three states rather than two is the one thing on this
