@@ -24,7 +24,13 @@ permissions: {}
 
 jobs:
   review:
-    if: github.event.pull_request.draft == false && github.event.pull_request.head.repo.fork == false
+    # Dependabot opens a lockfile diff with nothing to review, and its pull
+    # requests are merged by a scheduled sweep, so a review comment on one is
+    # gateway spend nobody reads.
+    if: >-
+      github.event.pull_request.draft == false &&
+      github.event.pull_request.head.repo.fork == false &&
+      github.event.pull_request.user.login != 'dependabot[bot]'
     name: Review PR diff
     uses: newfold-labs/workflows/.github/workflows/reusable-code-review.yml@main
     with:
