@@ -12,7 +12,7 @@
  * board is built to say "not swept yet", so a fresh clone and a pull request
  * that never touches the data both validate cleanly.
  */
-import { existsSync, readFileSync } from 'node:fs';
+import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import Ajv from 'ajv/dist/2020.js';
 import addFormats from 'ajv-formats';
@@ -20,6 +20,7 @@ import { loadDocs, ROOT } from './lib/docs.mjs';
 import { loadRules } from './lib/scorecard.mjs';
 
 const SCORECARD_PATH = join(ROOT, '_data/scorecard.json');
+const FINDINGS_DIR = join(ROOT, 'scorecard/findings');
 
 if (!existsSync(SCORECARD_PATH)) {
 	console.log('No scorecard yet, nothing to validate.');
@@ -76,6 +77,31 @@ for (const repo of scorecard.repos ?? []) {
 	}
 	for (const id of Object.keys(repo.rules ?? {})) {
 		if (!ruleIds.has(id)) errors.push(`repos: ${repo.name} carries a verdict for unknown rule "${id}"`);
+	}
+}
+
+// Published findings must carry a repository-relative path. An absolute one is
+// the scanner's temp directory leaking out: it exposes the runner's layout, and
+// it is useless, because nobody can find
+// `/private/var/folders/.../T/nfd-scan-lcECRm/repo/includes/Thing.php` in a
+// repository. This shipped once precisely because nothing looked for it.
+if (existsSync(FINDINGS_DIR)) {
+	for (const file of readdirSync(FINDINGS_DIR)) {
+		if (!file.endsWith('.json')) continue;
+		let payload;
+		try {
+			payload = JSON.parse(readFileSync(join(FINDINGS_DIR, file), 'utf8'));
+		} catch {
+			errors.push(`findings/${file}: not valid JSON`);
+			continue;
+		}
+		const absolute = (payload.findings ?? []).filter((finding) => finding.file?.startsWith('/'));
+		if (absolute.length > 0) {
+			errors.push(
+				`findings/${file}: ${absolute.length} finding(s) carry an absolute path, ` +
+					`starting with "${absolute[0].file}"`
+			);
+		}
 	}
 }
 

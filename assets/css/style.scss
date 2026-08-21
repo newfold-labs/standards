@@ -2410,3 +2410,11 @@ pre {
 	font-size: 0.7rem;
 	font-style: italic;
 }
+
+.detail__where {
+	display: block;
+
+	code { color: var(--accent); }
+	&:hover { text-decoration: none; }
+	&:hover code { text-decoration: underline; }
+}

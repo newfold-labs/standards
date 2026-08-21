@@ -154,6 +154,20 @@
 
 		var cited = findings.filter(function (f) { return f.rule; }).length;
 
+		// A path on its own is something to copy and go hunting for. Linked to the
+		// commit that was scanned, it is the line itself, and it still points at
+		// the right line after the file moves on.
+		function locate(finding) {
+			var path = escapeHtml(finding.file || '');
+			var at = finding.line != null ? ':' + escapeHtml(finding.line) : '';
+			if (!payload.url || !payload.commit || !finding.file) return '<code>' + path + at + '</code>';
+			var href =
+				payload.url + '/blob/' + encodeURIComponent(payload.commit) + '/' +
+				finding.file.split('/').map(encodeURIComponent).join('/') +
+				(finding.line != null ? '#L' + encodeURIComponent(finding.line) : '');
+			return '<a class="detail__where" href="' + escapeHtml(href) + '"><code>' + path + at + '</code></a>';
+		}
+
 		var html = '<h2>' + escapeHtml(repo) + '</h2>';
 		html += '<p class="detail__meta">' + findings.length + ' finding' + (findings.length === 1 ? '' : 's');
 		html += ', ' + cited + ' citing a standard';
@@ -183,9 +197,7 @@
 			html += '<ul class="detail__list">';
 			group.list.slice(0, 25).forEach(function (finding) {
 				html += '<li class="detail__hit detail__hit--' + escapeHtml(finding.severity) + '">';
-				html += '<code>' + escapeHtml(finding.file || '');
-				if (finding.line != null) html += ':' + escapeHtml(finding.line);
-				html += '</code>';
+				html += locate(finding);
 				if (finding.message) html += '<span>' + escapeHtml(finding.message) + '</span>';
 				html += '</li>';
 			});

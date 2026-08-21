@@ -26,7 +26,7 @@
  *                         [--org newfold-labs] [--limit N] [--jobs N]
  */
 import { execFile } from 'node:child_process';
-import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs';
+import { mkdirSync, mkdtempSync, realpathSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { promisify } from 'node:util';
@@ -62,6 +62,25 @@ function parseArgs(argv) {
 	return args;
 }
 
+/**
+ * A repository-relative path, whatever phpcs reported.
+ *
+ * Both the resolved and unresolved checkout roots are tried, and if neither
+ * matches the path is cut at the checkout directory name. A published finding
+ * must never carry an absolute path: it leaks the runner's directory layout and,
+ * worse, it is useless, because nobody can find
+ * `/private/var/folders/.../T/nfd-scan-lcECRm/repo/includes/Thing.php` in a
+ * repository.
+ */
+function relativise(path, root, checkout) {
+	for (const prefix of [root, checkout]) {
+		if (prefix && path.startsWith(prefix + '/')) return path.slice(prefix.length + 1);
+	}
+	const marker = path.lastIndexOf('/repo/');
+	if (marker !== -1) return path.slice(marker + '/repo/'.length);
+	return path;
+}
+
 /** The sniffs the standard resolves to, asked of phpcs rather than written down. */
 async function catalogue(phpcs, standard) {
 	const { stdout } = await run(phpcs, ['--standard=' + standard, '-e'], { maxBuffer: 32 * 1024 * 1024 });
@@ -84,6 +103,17 @@ async function scanOne({ repo, token, org, phpcs, standard }) {
 		await run('git', ['clone', '--depth', '1', '--quiet', '--no-tags', url, checkout], {
 			timeout: 180_000,
 		});
+
+		// An empty repository has no HEAD to resolve. That is not a failure to
+		// scan, it is a repository with nothing in it, so the commit is simply
+		// unknown and the findings link by path alone.
+		let commit = null;
+		try {
+			const { stdout: head } = await run('git', ['-C', checkout, 'rev-parse', 'HEAD']);
+			commit = head.trim();
+		} catch {
+			commit = null;
+		}
 
 		let report;
 		try {
@@ -109,9 +139,15 @@ async function scanOne({ repo, token, org, phpcs, standard }) {
 			report = JSON.parse(error.stdout);
 		}
 
+		// phpcs reports resolved paths, and on macOS /var is a symlink to
+		// /private/var, so comparing against the path mkdtemp handed back matches
+		// nothing and every finding keeps its absolute temp path. Resolving the
+		// checkout first is what makes the prefix comparable.
+		const root = realpathSync(checkout);
+
 		const findings = [];
 		for (const [path, file] of Object.entries(report.files ?? {})) {
-			const relative = path.startsWith(checkout) ? path.slice(checkout.length + 1) : path;
+			const relative = relativise(path, root, checkout);
 			for (const message of file.messages ?? []) {
 				findings.push({
 					source: message.source,
@@ -126,6 +162,7 @@ async function scanOne({ repo, token, org, phpcs, standard }) {
 		return {
 			repo,
 			scanned: true,
+			commit,
 			files: Object.keys(report.files ?? {}).length,
 			errors: report.totals?.errors ?? 0,
 			warnings: report.totals?.warnings ?? 0,
@@ -186,6 +223,7 @@ async function main() {
 					JSON.stringify({
 						repo,
 						scanned: result.scanned,
+						commit: result.commit ?? null,
 						reason: result.reason ?? null,
 						files: result.files ?? 0,
 						errors: result.errors ?? 0,
@@ -218,6 +256,7 @@ async function main() {
 				repos: results.map((result) => ({
 					repo: result.repo,
 					scanned: result.scanned,
+					commit: result.commit ?? null,
 					reason: result.reason ?? null,
 					files: result.files ?? 0,
 					errors: result.errors ?? 0,

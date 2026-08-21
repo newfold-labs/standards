@@ -298,6 +298,11 @@ async function main() {
 						reported_at: compliance?.reported_at ?? null,
 						scanned_at: scanIndex?.scanned_at ?? null,
 						total: shown.length,
+						// The commit the scan read, so a line number links to the code
+						// as it was when the finding was made rather than to whatever
+						// that line holds today.
+						commit: scan?.commit ?? null,
+						url: repo.url,
 						findings: trimFindings(shown),
 					})
 				);
