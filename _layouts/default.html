@@ -33,21 +33,30 @@
       <span class="topbar__spacer"></span>
 
       {%- comment -%}
-      The same two documents, read two ways. The switch sits in the same place
-      in both, so moving between them is one click that never moves.
+      One corpus, read three ways: the documents themselves, the map of how they
+      relate, and how the fleet measures against them. The switch sits in the
+      same place in all three, so moving between them is one click that never
+      moves.
       {%- endcomment -%}
-      {%- assign on_atlas = false -%}
-      {%- if page.url == '/atlas.html' -%}{%- assign on_atlas = true -%}{%- endif -%}
+      {%- assign view = 'docs' -%}
+      {%- if page.url == '/atlas.html' -%}{%- assign view = 'atlas' -%}{%- endif -%}
+      {%- if page.url == '/scorecard.html' -%}{%- assign view = 'scorecard' -%}{%- endif -%}
       <nav class="views" aria-label="View">
-        <a class="views__opt{% unless on_atlas %} is-on{% endunless %}" href="{{ '/' | relative_url }}"
-           {% unless on_atlas %}aria-current="page"{% endunless %}>
+        <a class="views__opt{% if view == 'docs' %} is-on{% endif %}" href="{{ '/' | relative_url }}"
+           {% if view == 'docs' %}aria-current="page"{% endif %}>
           <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" focusable="false"><path d="M2 4a1 1 0 1 1 0-2 1 1 0 0 1 0 2Zm3.75-1.5a.75.75 0 0 0 0 1.5h8.5a.75.75 0 0 0 0-1.5h-8.5Zm0 5a.75.75 0 0 0 0 1.5h8.5a.75.75 0 0 0 0-1.5h-8.5Zm0 5a.75.75 0 0 0 0 1.5h8.5a.75.75 0 0 0 0-1.5h-8.5ZM3 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0Zm-1 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"/></svg>
           Docs
         </a>
-        <a class="views__opt{% if on_atlas %} is-on{% endif %}" href="{{ '/atlas.html' | relative_url }}"
-           {% if on_atlas %}aria-current="page"{% endif %}>
+        <a class="views__opt{% if view == 'atlas' %} is-on{% endif %}" href="{{ '/atlas.html' | relative_url }}"
+           {% if view == 'atlas' %}aria-current="page"{% endif %}>
           <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" focusable="false"><rect x="1.5" y="1.5" width="5.5" height="5.5" rx="1.25"/><rect x="9" y="1.5" width="5.5" height="5.5" rx="1.25"/><rect x="1.5" y="9" width="5.5" height="5.5" rx="1.25"/><rect x="9" y="9" width="5.5" height="5.5" rx="1.25"/></svg>
           Atlas
+        </a>
+        <a class="views__opt{% if view == 'scorecard' %} is-on{% endif %}" href="{{ '/scorecard.html' | relative_url }}"
+           {% if view == 'scorecard' %}aria-current="page"{% endif %}>
+          {%- comment -%}Octicon meter-16.{%- endcomment -%}
+          <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" focusable="false"><path d="M8 1a7 7 0 0 1 6.06 10.512.75.75 0 0 1-1.298-.75A5.5 5.5 0 1 0 3.238 10.76a.75.75 0 1 1-1.298.752A7 7 0 0 1 8 1Zm2.72 3.72a.75.75 0 0 1 1.133.977l-2.09 3.04a1.75 1.75 0 1 1-1.17-1.17l2.09-3.04a.784.784 0 0 1 .037-.043ZM8 8.75a.25.25 0 1 0 0 .5.25.25 0 0 0 0-.5Z"/></svg>
+          Scorecard
         </a>
       </nav>
 
