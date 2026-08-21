@@ -1815,9 +1815,13 @@ pre {
 }
 
 // ---- scorecard -------------------------------------------------------------
-// A table of the whole fleet, so the constraints are different from the reading
-// pages: full width, its own scroll container, and a header that stays put while
-// 125 rows go past underneath it.
+// A dashboard rather than a table. Three views over one dataset, because the
+// three questions people arrive with — how are we doing, what is wrong
+// everywhere, what is wrong here — have three different shapes.
+//
+// The palette is the site's own. Nothing here introduces a colour: severity uses
+// the same --bad and --warn the rest of the site uses, and the ladder uses the
+// ordinal ramp defined with the theme tokens.
 
 .visually-hidden {
 	position: absolute;
@@ -1826,93 +1830,355 @@ pre {
 	margin: -1px;
 	padding: 0;
 	overflow: hidden;
-	clip: rect(0 0 0 0);
 	clip-path: inset(50%);
 	white-space: nowrap;
 	border: 0;
 }
 
-.board {
+.dash {
 	display: flex;
 	flex-direction: column;
 	height: calc(100vh - #{$topbar-height});
 	min-height: 0;
+	background: var(--surface);
 }
 
-.board--empty {
+.dash--empty {
+	display: block;
 	max-width: $content-width;
+	height: auto;
 	margin: 0 auto;
 	padding: 4rem 1.5rem;
+	background: none;
 }
 
-.board__top {
+// ---- header and view switch
+
+.dash__top {
 	display: flex;
 	flex-wrap: wrap;
-	align-items: flex-end;
-	gap: 1.25rem 2rem;
-	padding: 1.25rem 1.5rem 0.875rem;
-	border-bottom: 1px solid var(--border);
-}
-
-.board__title h1 {
-	margin: 0;
-	font-size: 1.35rem;
-	line-height: 1.2;
-}
-
-.board__when {
-	margin: 0.2rem 0 0;
-	color: var(--muted);
-	font-size: 0.85rem;
-}
-
-// The ladder is the legend and the filter at once.
-.ladder {
-	display: flex;
-	flex-wrap: wrap;
-	gap: 0.4rem;
-	margin: 0;
-	padding: 0;
-	list-style: none;
-}
-
-.rung {
-	display: inline-flex;
 	align-items: center;
-	gap: 0.45rem;
-	padding: 0.35rem 0.6rem;
-	border: 1px solid var(--border);
-	border-radius: 999px;
+	gap: 0.75rem 1.5rem;
+	padding: 0.9rem 1.5rem;
+	border-bottom: 1px solid var(--border);
 	background: var(--bg);
-	color: var(--text);
-	font: inherit;
-	font-size: 0.8rem;
-	cursor: pointer;
+}
 
-	&:hover { background: var(--surface); }
+.dash__id {
+	h1 {
+		margin: 0;
+		font-size: 1.15rem;
+		line-height: 1.2;
+		letter-spacing: -0.01em;
+	}
 
-	&[aria-pressed="true"] {
-		border-color: var(--accent);
-		background: var(--surface);
+	p {
+		margin: 0.15rem 0 0;
+		color: var(--muted);
+		font-size: 0.78rem;
 	}
 }
 
-.rung__dot {
-	width: 0.6rem;
-	height: 0.6rem;
-	border-radius: 50%;
-	flex: none;
+.switch {
+	display: flex;
+	gap: 0.15rem;
+	margin-left: auto;
+	padding: 0.2rem;
+	border: 1px solid var(--border);
+	border-radius: 0.6rem;
+	background: var(--surface);
+}
+
+.switch__opt {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.4rem;
+	padding: 0.35rem 0.7rem;
+	border-radius: 0.45rem;
+	color: var(--muted);
+	font-size: 0.82rem;
+	font-weight: 500;
+
+	&:hover { color: var(--text); text-decoration: none; }
+
+	&.is-on {
+		background: var(--bg);
+		color: var(--text);
+		box-shadow: 0 1px 2px var(--shadow);
+	}
+}
+
+.switch__n {
+	padding: 0.05rem 0.3rem;
+	border-radius: 0.25rem;
+	background: var(--code-bg);
+	font-size: 0.68rem;
+	font-variant-numeric: tabular-nums;
+}
+
+// Without JavaScript every view is shown, stacked, and the switch is a set of
+// in-page links. The class is added by the script, so this is the default.
+.view { display: none; }
+.view.is-on { display: flex; flex-direction: column; min-height: 0; flex: 1 1 auto; }
+
+.dash:not(.is-live) {
+	.view { display: flex; flex-direction: column; }
+	.switch__opt.is-on { background: none; box-shadow: none; }
+}
+
+.view__scroll {
+	flex: 1 1 auto;
+	min-height: 0;
+	overflow: auto;
+}
+
+.view__empty {
+	padding: 2rem 1.5rem;
+	color: var(--muted);
+}
+
+// ---- overview
+
+#view-overview { overflow-y: auto; }
+
+.stats {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+	gap: 1px;
+	padding: 1px 0;
+	border-bottom: 1px solid var(--border);
+	background: var(--border);
+}
+
+.stat {
+	display: flex;
+	flex-direction: column;
+	gap: 0.1rem;
+	padding: 1rem 1.5rem;
+	background: var(--bg);
+}
+
+.stat__n {
+	font-size: 1.7rem;
+	font-weight: 650;
+	line-height: 1.1;
+	letter-spacing: -0.02em;
+	font-variant-numeric: tabular-nums;
+}
+
+.stat__unit { font-size: 1rem; font-weight: 500; color: var(--muted); }
+
+.stat__k {
+	font-size: 0.78rem;
+	font-weight: 600;
+}
+
+.stat__sub {
+	color: var(--muted);
+	font-size: 0.72rem;
+}
+
+.panels {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(19rem, 1fr));
+	gap: 1rem;
+	padding: 1rem 1.5rem 2rem;
+}
+
+.card {
+	display: flex;
+	flex-direction: column;
+	border: 1px solid var(--border);
+	border-radius: 0.75rem;
+	background: var(--bg);
+	overflow: hidden;
+}
+
+// The lead panel takes the full row on wide viewports: it is the one that turns
+// the board into work, and the two beside it are context for it.
+.card--wide { grid-column: 1 / -1; }
+
+.card__head {
+	padding: 0.9rem 1.1rem 0.7rem;
+	border-bottom: 1px solid var(--border);
+
+	h2 {
+		margin: 0;
+		font-size: 0.9rem;
+		font-weight: 650;
+	}
+
+	p {
+		margin: 0.2rem 0 0;
+		color: var(--muted);
+		font-size: 0.75rem;
+	}
+}
+
+// ---- bars: the "worth fixing first" list
+
+.bars {
+	margin: 0;
+	padding: 0.5rem 0.5rem 0.75rem;
+	list-style: none;
+}
+
+.bar {
+	display: grid;
+	grid-template-columns: minmax(0, 20rem) 1fr auto auto;
+	align-items: center;
+	gap: 0.75rem;
+	padding: 0.28rem 0.6rem;
+	border-radius: 0.4rem;
+
+	&:hover { background: var(--surface); }
+}
+
+.bar__label {
+	min-width: 0;
+	color: var(--text);
+
+	code {
+		display: block;
+		overflow: hidden;
+		font-size: 0.76rem;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+
+	&:hover { text-decoration: none; }
+	&:hover code { color: var(--accent); }
+}
+
+.bar__track {
+	height: 0.45rem;
+	border-radius: 999px;
+	background: var(--code-bg);
+	overflow: hidden;
+}
+
+.bar__fill {
+	display: block;
+	height: 100%;
+	border-radius: 999px;
+	background: var(--lvl-2);
+
+	// Anything reporting at error severity is drawn in the warning colour rather
+	// than the neutral one. Not red: under our policy most of these are not
+	// errors at all, they are WPCS defaults, and colouring them as failures would
+	// repeat a judgement we do not agree with.
+	&--err { background: var(--warn); }
+}
+
+.bar__n {
+	font-size: 0.78rem;
+	font-weight: 600;
+	font-variant-numeric: tabular-nums;
+	text-align: right;
+}
+
+.bar__cite {
+	width: 3rem;
+	font-size: 0.68rem;
+	text-align: right;
+
+	&--none { color: var(--border); }
+}
+
+// ---- rank: densest codebases
+
+.rank {
+	margin: 0;
+	padding: 0.5rem 0.5rem 0.75rem;
+	list-style: none;
+	counter-reset: rank;
+
+	li {
+		display: grid;
+		grid-template-columns: 1fr auto;
+		align-items: baseline;
+		gap: 0.2rem 0.75rem;
+		padding: 0.3rem 0.6rem;
+		border-radius: 0.4rem;
+
+		&:hover { background: var(--surface); }
+	}
+}
+
+.rank__name {
+	overflow: hidden;
+	font-size: 0.8rem;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.rank__n {
+	font-size: 0.85rem;
+	font-weight: 650;
+	font-variant-numeric: tabular-nums;
+}
+
+.rank__sub {
+	grid-column: 1 / -1;
+	color: var(--muted);
+	font-size: 0.7rem;
+}
+
+// ---- ladder
+
+.ladder { padding: 0.75rem 1.1rem 0.25rem; }
+
+.ladder__row {
+	display: grid;
+	grid-template-columns: 8.5rem 1fr 2rem;
+	align-items: center;
+	gap: 0.6rem;
+	padding: 0.16rem 0;
+}
+
+.ladder__name {
+	color: var(--muted);
+	font-size: 0.72rem;
+	white-space: nowrap;
+}
+
+.ladder__track {
+	height: 0.4rem;
+	border-radius: 999px;
+	background: var(--code-bg);
+	overflow: hidden;
+}
+
+.ladder__fill {
+	display: block;
+	height: 100%;
+	border-radius: 999px;
+}
+
+.ladder__n {
+	font-size: 0.72rem;
+	font-variant-numeric: tabular-nums;
+	text-align: right;
 }
 
 @for $i from 0 through 4 {
-	.rung__dot--#{$i} { background: var(--lvl-#{$i}); }
+	.ladder__fill--#{$i} { background: var(--lvl-#{$i}); }
 	.pill--#{$i} { background: var(--lvl-#{$i}); }
 	.trend__slice--#{$i} { background: var(--lvl-#{$i}); }
 }
 
-.rung__count {
-	color: var(--muted);
-	font-variant-numeric: tabular-nums;
+.gaps {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.4rem 1.5rem;
+	margin: 0.5rem 0 0;
+	padding: 0.7rem 1.1rem;
+	border-top: 1px solid var(--border);
+	font-size: 0.75rem;
+
+	div { display: flex; gap: 0.4rem; }
+	dt { color: var(--muted); }
+	dd { margin: 0; font-weight: 600; font-variant-numeric: tabular-nums; }
 }
 
 .trend {
@@ -1920,7 +2186,7 @@ pre {
 	align-items: flex-end;
 	gap: 2px;
 	height: 2.5rem;
-	margin-left: auto;
+	padding: 0 1.1rem 0.9rem;
 }
 
 .trend__bar {
@@ -1929,26 +2195,36 @@ pre {
 	width: 0.5rem;
 	height: 100%;
 	border-radius: 2px;
+	background: var(--code-bg);
 	overflow: hidden;
-	background: var(--surface);
 }
 
 .trend__slice { display: block; width: 100%; }
 
-.board__controls {
+// ---- controls, shared by both list views
+
+.controls {
 	display: flex;
 	flex-wrap: wrap;
 	align-items: center;
-	gap: 0.75rem;
-	padding: 0.75rem 1.5rem;
+	gap: 0.6rem;
+	padding: 0.7rem 1.5rem;
 	border-bottom: 1px solid var(--border);
+	background: var(--bg);
+}
+
+.controls__tally {
+	margin: 0 0 0 auto;
+	color: var(--muted);
+	font-size: 0.75rem;
+	font-variant-numeric: tabular-nums;
 }
 
 .sift {
 	position: relative;
 	display: flex;
 	align-items: center;
-	min-width: 15rem;
+	min-width: 14rem;
 }
 
 .sift__icon {
@@ -1960,79 +2236,168 @@ pre {
 
 .sift__input {
 	width: 100%;
-	padding: 0.4rem 0.6rem 0.4rem 1.9rem;
+	padding: 0.38rem 0.6rem 0.38rem 1.9rem;
 	border: 1px solid var(--border);
 	border-radius: 0.5rem;
-	background: var(--bg);
+	background: var(--surface);
 	color: var(--text);
 	font: inherit;
-	font-size: 0.85rem;
+	font-size: 0.82rem;
 
 	&:focus {
 		outline: 2px solid var(--accent);
 		outline-offset: -1px;
+		background: var(--bg);
 	}
 }
 
 .chips {
 	display: flex;
 	flex-wrap: wrap;
-	gap: 0.35rem;
+	gap: 0.3rem;
 }
 
 .chip {
-	padding: 0.3rem 0.6rem;
+	padding: 0.28rem 0.6rem;
 	border: 1px solid var(--border);
 	border-radius: 999px;
 	background: var(--bg);
 	color: var(--text);
 	font: inherit;
-	font-size: 0.8rem;
+	font-size: 0.78rem;
 	cursor: pointer;
 
 	&:hover { background: var(--surface); }
 
 	&[aria-pressed="true"] {
 		border-color: var(--accent);
-		background: var(--surface);
+		background: color-mix(in oklab, var(--accent) 10%, var(--bg));
 		font-weight: 600;
 	}
 }
 
 .chip__count {
-	margin-left: 0.35rem;
+	margin-left: 0.3rem;
 	color: var(--muted);
 	font-variant-numeric: tabular-nums;
 }
 
-.board__tally {
-	margin: 0 0 0 auto;
-	color: var(--muted);
+// ---- issues
+
+.issues {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.issue {
+	border-bottom: 1px solid var(--border);
+	background: var(--bg);
+
+	&.is-lit { animation: lit 1.6s ease-out; }
+}
+
+@keyframes lit {
+	from { background: color-mix(in oklab, var(--accent) 16%, var(--bg)); }
+	to { background: var(--bg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.issue.is-lit { animation: none; outline: 2px solid var(--accent); outline-offset: -2px; }
+}
+
+.issue__head {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) auto auto;
+	align-items: center;
+	gap: 0.75rem;
+	padding: 0.55rem 1.5rem;
+	cursor: pointer;
+	list-style: none;
+
+	&::-webkit-details-marker { display: none; }
+	&:hover { background: var(--surface); }
+}
+
+.issue__name {
+	overflow: hidden;
 	font-size: 0.8rem;
-	font-variant-numeric: tabular-nums;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
 
-.board__scroll {
-	flex: 1 1 auto;
-	min-height: 0;
-	overflow: auto;
+.issue__meta {
+	display: flex;
+	gap: 0.75rem;
+	font-size: 0.73rem;
+	font-variant-numeric: tabular-nums;
+	white-space: nowrap;
 }
+
+.issue__repos { font-weight: 600; }
+.issue__err { color: var(--bad); }
+.issue__warn { color: var(--warn); }
+
+.issue__cite {
+	width: 15rem;
+	overflow: hidden;
+	color: var(--accent);
+	font-size: 0.72rem;
+	text-align: right;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+
+	&--none { color: var(--muted); font-style: italic; }
+}
+
+.issue__body {
+	padding: 0.25rem 1.5rem 1rem;
+	background: var(--surface);
+}
+
+.issue__standard {
+	margin: 0 0 0.6rem;
+	font-size: 0.75rem;
+}
+
+.issue__where {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr));
+	gap: 0.1rem 1.25rem;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	font-size: 0.76rem;
+
+	li {
+		display: flex;
+		justify-content: space-between;
+		gap: 0.75rem;
+		padding: 0.15rem 0;
+		border-bottom: 1px solid var(--border);
+	}
+
+	b { margin-left: 0.4rem; font-weight: 600; font-variant-numeric: tabular-nums; }
+}
+
+// ---- repositories table
 
 .grid {
 	width: 100%;
 	border-collapse: collapse;
-	font-size: 0.85rem;
+	font-size: 0.82rem;
+	background: var(--bg);
 }
 
 .grid thead th {
 	position: sticky;
 	top: 0;
 	z-index: 2;
-	padding: 0.5rem 0.75rem;
+	padding: 0.5rem 0.9rem;
 	border-bottom: 1px solid var(--border);
 	background: var(--bg);
 	color: var(--muted);
-	font-size: 0.75rem;
+	font-size: 0.72rem;
 	font-weight: 600;
 	text-align: left;
 	white-space: nowrap;
@@ -2046,29 +2411,18 @@ pre {
 	font: inherit;
 	cursor: pointer;
 
-	&::after {
-		content: "";
-		display: inline-block;
-		width: 0.6rem;
-	}
+	&:hover { color: var(--text); }
+	&::after { content: ""; display: inline-block; width: 0.7rem; }
 }
 
 .grid__sort[aria-sort="ascending"] button::after { content: " \2191"; }
 .grid__sort[aria-sort="descending"] button::after { content: " \2193"; }
 
-.grid__rule {
-	max-width: 6rem;
-	white-space: normal;
-	text-align: center;
-
-	a { color: var(--muted); }
-}
-
 .grid tbody tr:hover { background: var(--surface); }
 
 .grid td,
 .grid tbody th {
-	padding: 0.4rem 0.75rem;
+	padding: 0.38rem 0.9rem;
 	border-bottom: 1px solid var(--border);
 	text-align: left;
 	font-weight: 400;
@@ -2077,9 +2431,10 @@ pre {
 
 .row__name {
 	white-space: nowrap;
-
 	a { font-weight: 500; }
 }
+
+.row__density { font-variant-numeric: tabular-nums; }
 
 .lock {
 	margin-left: 0.4rem;
@@ -2087,9 +2442,9 @@ pre {
 	border: 1px solid var(--border);
 	border-radius: 0.25rem;
 	color: var(--muted);
-	font-size: 0.65rem;
-	text-transform: uppercase;
+	font-size: 0.62rem;
 	letter-spacing: 0.03em;
+	text-transform: uppercase;
 }
 
 .pill {
@@ -2098,13 +2453,13 @@ pre {
 	padding: 0.1rem 0.35rem;
 	border-radius: 0.3rem;
 	color: #fff;
-	font-size: 0.7rem;
+	font-size: 0.68rem;
 	font-weight: 600;
 	text-align: center;
 }
 
 .pin {
-	font-size: 0.75rem;
+	font-size: 0.73rem;
 
 	&--current { color: var(--ok); }
 	&--behind { color: var(--warn); }
@@ -2116,22 +2471,7 @@ pre {
 .pin__at {
 	margin-left: 0.4rem;
 	color: var(--muted);
-	font-size: 0.72rem;
-}
-
-// Three states, and the third is not a failure. `ineligible` is deliberately
-// the same neutral as an empty cell rather than anything that reads as red: the
-// repository cannot run the check, which is a version problem and not a
-// violation of the standard.
-.cell {
-	text-align: center;
-	font-variant-numeric: tabular-nums;
-
-	&--pass { color: var(--ok); }
-	&--fail { color: var(--bad); font-weight: 700; }
-	&--ineligible { color: var(--muted); opacity: 0.55; }
-	&--unknown { color: var(--muted); opacity: 0.4; }
-	&--not_applicable { color: transparent; }
+	font-size: 0.7rem;
 }
 
 .count {
@@ -2140,48 +2480,66 @@ pre {
 	background: none;
 	color: var(--accent);
 	font: inherit;
-	font-size: 0.8rem;
+	font-size: 0.78rem;
 	cursor: pointer;
-	text-decoration: underline;
 
-	&--clean { color: var(--ok); cursor: default; text-decoration: none; }
-	&--quiet { color: var(--muted); cursor: default; text-decoration: none; }
+	&:hover .count__n { text-decoration: underline; }
+	&--clean { color: var(--ok); cursor: default; }
+	&--quiet { color: var(--muted); cursor: default; }
 }
 
-.count__bad { color: var(--bad); }
+.count__n { font-variant-numeric: tabular-nums; font-weight: 600; }
 
-.board__empty {
-	padding: 2rem 1.5rem;
+.count__bad {
+	margin-left: 0.3rem;
+	color: var(--bad);
+	font-size: 0.68rem;
+	font-variant-numeric: tabular-nums;
+}
+
+.count__cited {
+	margin-left: 0.3rem;
 	color: var(--muted);
+	font-size: 0.68rem;
 }
 
-.board__key {
+.src {
+	font-size: 0.68rem;
+	letter-spacing: 0.03em;
+	text-transform: uppercase;
+
+	// A repository telling us and us going and looking are different claims, so
+	// they do not get the same weight.
+	&--reported { color: var(--ok); font-weight: 600; }
+	&--scanned { color: var(--muted); }
+	&--none { color: var(--border); }
+}
+
+// ---- footer key
+
+.dash__key {
 	display: flex;
 	flex-wrap: wrap;
-	gap: 0.35rem 1.25rem;
-	padding: 0.6rem 1.5rem;
+	gap: 0.3rem 1.25rem;
+	padding: 0.55rem 1.5rem;
 	border-top: 1px solid var(--border);
-	background: var(--surface);
+	background: var(--bg);
 	color: var(--muted);
-	font-size: 0.75rem;
+	font-size: 0.72rem;
 
 	p { margin: 0; }
-
-	.cell {
-		display: inline-block;
-		width: 1rem;
-		margin-right: 0.15rem;
-	}
 }
 
-.board__key-note { margin-left: auto; }
+.dash__key-note { margin-left: auto; max-width: 34rem; text-align: right; }
+
+// ---- findings panel
 
 .detail {
 	position: fixed;
 	top: $topbar-height;
 	right: 0;
 	bottom: 0;
-	width: min(30rem, 100%);
+	width: min(32rem, 100%);
 	z-index: 30;
 	overflow-y: auto;
 	padding: 1.25rem 1.5rem 2rem;
@@ -2219,8 +2577,8 @@ pre {
 		display: flex;
 		justify-content: space-between;
 		gap: 0.5rem;
-		margin: 0 0 0.35rem;
-		font-size: 0.8rem;
+		margin: 0 0 0.2rem;
+		font-size: 0.78rem;
 		font-weight: 600;
 	}
 }
@@ -2228,170 +2586,8 @@ pre {
 .detail__meta {
 	margin: 0.25rem 0 1.25rem;
 	color: var(--muted);
-	font-size: 0.8rem;
-}
-
-.detail__rule {
-	margin-bottom: 1.5rem;
-	padding-top: 0.75rem;
-	border-top: 1px solid var(--border);
-}
-
-.detail__n {
-	color: var(--muted);
-	font-variant-numeric: tabular-nums;
-}
-
-.detail__errors {
-	margin: 0 0 0.4rem;
-	color: var(--bad);
-	font-size: 0.75rem;
-}
-
-.detail__list {
-	margin: 0;
-	padding: 0;
-	list-style: none;
-	font-size: 0.75rem;
-}
-
-.detail__hit {
-	padding: 0.25rem 0;
-	border-bottom: 1px solid var(--border);
-
-	code {
-		display: block;
-		color: var(--text);
-		word-break: break-all;
-	}
-
-	span {
-		display: block;
-		color: var(--muted);
-	}
-
-	&--error code { color: var(--bad); }
-}
-
-.detail__more {
-	padding-top: 0.4rem;
-	color: var(--muted);
-}
-
-@media (max-width: 60rem) {
-	.trend { display: none; }
-	.board__key-note { margin-left: 0; }
-
-	.detail {
-		top: auto;
-		width: 100%;
-		max-height: 75vh;
-		border-left: 0;
-		border-top: 1px solid var(--border);
-		border-radius: 0.875rem 0.875rem 0 0;
-	}
-}
-
-@media (max-width: 40rem) {
-	.board__top,
-	.board__controls { padding-left: 0.75rem; padding-right: 0.75rem; }
-
-	.board__tally { display: none; }
-	.grid__rule { display: none; }
-	.cell { display: none; }
-}
-
-// ---- scorecard: findings ---------------------------------------------------
-// Everything phpcs found is shown, so these carry the distinction the board
-// depends on: how much is wrong, versus how much of it maps to a standard we
-// have actually written down.
-
-.count__n { font-variant-numeric: tabular-nums; }
-
-.count__bad {
-	margin-left: 0.3rem;
-	color: var(--bad);
-	font-size: 0.7rem;
-	font-variant-numeric: tabular-nums;
-}
-
-.count__cited {
-	margin-left: 0.3rem;
-	color: var(--muted);
-	font-size: 0.7rem;
-}
-
-.src {
-	font-size: 0.7rem;
-	text-transform: uppercase;
-	letter-spacing: 0.03em;
-
-	// A repository telling us and us going and looking are different claims,
-	// so they do not get the same weight.
-	&--reported { color: var(--ok); font-weight: 600; }
-	&--scanned { color: var(--muted); }
-	&--none { color: var(--border); }
-}
-
-.spread {
-	border-top: 1px solid var(--border);
-	background: var(--surface);
-}
-
-.spread__head {
-	display: flex;
-	align-items: baseline;
-	gap: 0.6rem;
-	padding: 0.55rem 1.5rem;
-	font-size: 0.8rem;
-	font-weight: 600;
-	cursor: pointer;
-
-	&:hover { color: var(--accent); }
-}
-
-.spread__hint {
-	color: var(--muted);
-	font-weight: 400;
-	font-variant-numeric: tabular-nums;
-}
-
-.spread__body {
-	max-height: 22rem;
-	overflow: auto;
-	padding: 0 1.5rem 1rem;
-}
-
-.spread__table {
-	width: 100%;
-	border-collapse: collapse;
 	font-size: 0.78rem;
-
-	th[scope="col"] {
-		position: sticky;
-		top: 0;
-		background: var(--surface);
-		color: var(--muted);
-		font-size: 0.7rem;
-		font-weight: 600;
-		text-align: left;
-		padding: 0.3rem 0.5rem;
-	}
-
-	td,
-	th[scope="row"] {
-		padding: 0.25rem 0.5rem;
-		border-top: 1px solid var(--border);
-		text-align: left;
-		font-weight: 400;
-		font-variant-numeric: tabular-nums;
-	}
-
-	code { font-size: 0.72rem; }
 }
-
-.spread__bad { color: var(--bad); }
-.spread__uncited { color: var(--muted); font-style: italic; }
 
 .detail__source {
 	display: inline-block;
@@ -2399,22 +2595,75 @@ pre {
 	padding: 0.05rem 0.3rem;
 	border: 1px solid var(--border);
 	border-radius: 0.25rem;
-	font-size: 0.65rem;
+	font-size: 0.62rem;
 	text-transform: uppercase;
 }
 
-.detail__cite a { font-size: 0.7rem; }
+.detail__rule {
+	margin-bottom: 1.4rem;
+	padding-top: 0.75rem;
+	border-top: 1px solid var(--border);
+}
 
-.detail__uncited {
-	color: var(--muted);
-	font-size: 0.7rem;
-	font-style: italic;
+.detail__n { color: var(--muted); font-variant-numeric: tabular-nums; }
+.detail__cite { margin: 0 0 0.4rem; font-size: 0.7rem; }
+.detail__uncited { color: var(--muted); font-style: italic; }
+.detail__errors { margin: 0 0 0.4rem; color: var(--bad); font-size: 0.72rem; }
+
+.detail__list {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	font-size: 0.74rem;
+}
+
+.detail__hit {
+	padding: 0.25rem 0;
+	border-bottom: 1px solid var(--border);
+
+	code { display: block; word-break: break-all; }
+	span { display: block; color: var(--muted); }
+	&--error code { color: var(--bad); }
 }
 
 .detail__where {
 	display: block;
-
 	code { color: var(--accent); }
 	&:hover { text-decoration: none; }
 	&:hover code { text-decoration: underline; }
+}
+
+.detail__more { padding-top: 0.4rem; color: var(--muted); }
+
+// ---- narrower
+
+@media (max-width: 62rem) {
+	.bar { grid-template-columns: minmax(0, 1fr) 6rem auto auto; }
+	.issue__cite { width: 9rem; }
+	.dash__key-note { margin-left: 0; text-align: left; }
+
+	.detail {
+		top: auto;
+		width: 100%;
+		max-height: 78vh;
+		border-left: 0;
+		border-top: 1px solid var(--border);
+		border-radius: 0.875rem 0.875rem 0 0;
+	}
+}
+
+@media (max-width: 46rem) {
+	.dash__top,
+	.controls,
+	.stat,
+	.issue__head { padding-left: 0.9rem; padding-right: 0.9rem; }
+
+	.panels { padding: 0.75rem 0.9rem 2rem; }
+	.switch { margin-left: 0; width: 100%; }
+	.switch__opt { flex: 1 1 auto; justify-content: center; }
+	.controls__tally { display: none; }
+	.issue__head { grid-template-columns: minmax(0, 1fr) auto; }
+	.issue__cite { display: none; }
+	.row__density, .row__source { display: none; }
+	.grid thead th:nth-child(5), .grid thead th:nth-child(6) { display: none; }
 }
