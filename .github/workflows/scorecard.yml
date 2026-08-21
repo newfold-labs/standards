@@ -75,8 +75,8 @@ jobs:
           fi
 
       # Start from the last sweep's output so the incremental path has something
-      # to compare against. Without it every run is a full rescan: correct, but
-      # it reads 125 repositories to learn that none of them changed.
+      # to compare against. Without it every run re-reads 125 repositories to
+      # learn that none of them changed.
       - name: Restore the previous sweep
         run: |
           if git fetch --depth 1 origin "$DATA_BRANCH" 2>/dev/null; then
@@ -85,6 +85,40 @@ jobs:
           else
             echo "No $DATA_BRANCH yet; this run is a full sweep."
           fi
+
+      # The standard is installed once, here, and pointed at every checkout. A
+      # composer install per repository would be the entire cost of this job and
+      # would need registry credentials for private packages besides.
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          coverage: none
+          tools: composer
+
+      - name: Install the standard
+        run: |
+          set -euo pipefail
+          tag=$(gh api repos/${{ github.repository_owner }}/wp-php-standards/releases/latest --jq .tag_name)
+          echo "Installing wp-php-standards $tag"
+          git clone --depth 1 --branch "$tag" --quiet \
+            https://github.com/${{ github.repository_owner }}/wp-php-standards.git .standard
+          composer install --no-interaction --no-progress --working-dir=.standard
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token || secrets.GITHUB_TOKEN }}
+
+      # Not fatal. A scan that fails should cost the board its findings for the
+      # night, not its adoption and eligibility data, which the sweep reads
+      # straight from the API and is useful on its own.
+      - name: Scan the fleet
+        continue-on-error: true
+        env:
+          SCORECARD_TOKEN: ${{ steps.app-token.outputs.token || secrets.SCORECARD_TOKEN }}
+          PHPCS_BIN: ${{ github.workspace }}/.standard/vendor/bin/phpcs
+        run: |
+          node scripts/scan.mjs \
+            --standard "${{ github.workspace }}/.standard/Newfold" \
+            --out ./_scan \
+            --jobs 6
 
       - name: Sweep
         env:
@@ -127,11 +161,18 @@ jobs:
               for (const rung of [...board.levels].reverse()) {
                 rows.push(`| L${rung.level} ${rung.title} | ${board.summary.by_level[rung.level] ?? 0} |`);
               }
+              const top = (board.summary.by_sniff ?? []).slice(0, 10)
+                .map(s => `| \`${s.sniff}\` | ${s.repos} | ${s.errors} | ${s.warnings} | ${s.rule ?? "—"} |`);
               console.log([
                 `### Scorecard swept`, ``,
                 `${board.summary.repos} repositories, ${board.summary.reporting} reporting, ` +
-                `${board.summary.findings} findings.`, ``,
-                ...rows,
+                `${board.summary.scanned} scanned, ${board.summary.findings} findings ` +
+                `(${board.summary.cited} citing a standard).`, ``,
+                ...rows, ``,
+                `#### Most widespread`, ``,
+                `| Sniff | Repos | Errors | Warnings | Standard |`,
+                `| --- | ---: | ---: | ---: | --- |`,
+                ...top,
               ].join("\n"));
             ' >> "$GITHUB_STEP_SUMMARY"
           fi
