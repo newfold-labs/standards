@@ -1,0 +1,49 @@
+##
+# AI pull request review through the central reusable workflow, which routes the
+# diff via Cloudflare AI Gateway and posts one sticky comment plus file/line
+# annotations.
+#
+# Secrets (repository or organization): CLOUDFLARE_ACCOUNT_ID,
+# CLOUDFLARE_AI_GATEWAY_TOKEN. Variable (organization or repository):
+# CLOUDFLARE_AI_GATEWAY_ID, the gateway id path segment, which is not a secret.
+#
+# prompts_ref has to match the ref in uses:, since that is where the prompt
+# markdown is read from.
+##
+name: AI Code Review
+
+on:
+  pull_request:
+    types: [ opened, synchronize, reopened, ready_for_review ]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event_name == 'pull_request' && github.head_ref || github.sha }}
+  cancel-in-progress: true
+
+permissions: {}
+
+jobs:
+  review:
+    # Dependabot opens a lockfile diff with nothing to review, and its pull
+    # requests are merged by a scheduled sweep, so a review comment on one is
+    # gateway spend nobody reads.
+    if: >-
+      github.event.pull_request.draft == false &&
+      github.event.pull_request.head.repo.fork == false &&
+      github.event.pull_request.user.login != 'dependabot[bot]'
+    name: Review PR diff
+    uses: newfold-labs/workflows/.github/workflows/reusable-code-review.yml@main
+    with:
+      prompts_ref: main
+      # The reviewer loads one file as guidance and defaults to CLAUDE.md, which
+      # this repository does not have. Contributing is the closer fit: it is the
+      # only place that says which changes can go in as a pull request and which
+      # need an RFC first, and that is a judgement npm run validate cannot make.
+      guidance_file: meta/contributing.md
+    permissions:
+      contents: read
+      pull-requests: write
+      checks: write
+    secrets:
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      CLOUDFLARE_AI_GATEWAY_TOKEN: ${{ secrets.CLOUDFLARE_AI_GATEWAY_TOKEN }}
