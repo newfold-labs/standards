@@ -31,6 +31,7 @@
 	var detailBody = document.getElementById('detail-body');
 	var detailClose = document.getElementById('detail-close');
 	var findingsBase = board.dataset.findingsBase;
+	var atlasBase = board.dataset.atlasBase;
 
 	var levelButtons = Array.prototype.slice.call(document.querySelectorAll('.rung'));
 	var chips = Array.prototype.slice.call(document.querySelectorAll('.chip'));
@@ -132,31 +133,55 @@
 	function renderFindings(repo, payload) {
 		var findings = (payload && payload.findings) || [];
 
-		// Grouped by rule, because the fix is per rule and not per line: someone
-		// reading this is deciding what to go and change, not walking a list.
+		// Grouped by sniff, because the fix is per sniff and not per line:
+		// somebody reading this is deciding what to go and change. Sniffs that
+		// cite a standard come first, since those are the ones with a documented
+		// reason behind them rather than an inherited default.
 		var groups = {};
 		findings.forEach(function (finding) {
-			(groups[finding.rule] = groups[finding.rule] || []).push(finding);
+			var sniff = String(finding.source || 'unknown').split('.').slice(0, 3).join('.');
+			if (!groups[sniff]) groups[sniff] = { rule: finding.rule || null, list: [] };
+			groups[sniff].list.push(finding);
 		});
+
+		var order = Object.keys(groups).sort(function (a, b) {
+			var ruleA = groups[a].rule ? 0 : 1;
+			var ruleB = groups[b].rule ? 0 : 1;
+			if (ruleA !== ruleB) return ruleA - ruleB;
+			if (groups[b].list.length !== groups[a].list.length) return groups[b].list.length - groups[a].list.length;
+			return a.localeCompare(b);
+		});
+
+		var cited = findings.filter(function (f) { return f.rule; }).length;
 
 		var html = '<h2>' + escapeHtml(repo) + '</h2>';
 		html += '<p class="detail__meta">' + findings.length + ' finding' + (findings.length === 1 ? '' : 's');
-		if (payload && payload.reported_at) {
-			html += ' &middot; reported ' + escapeHtml(payload.reported_at.slice(0, 10));
+		html += ', ' + cited + ' citing a standard';
+		if (payload && payload.source) {
+			html += '<span class="detail__source">' + escapeHtml(payload.source) + '</span>';
 		}
 		html += '</p>';
 
-		Object.keys(groups).sort().forEach(function (rule) {
-			var list = groups[rule];
-			var errors = list.filter(function (f) { return f.severity === 'error'; }).length;
+		order.forEach(function (sniff) {
+			var group = groups[sniff];
+			var errors = group.list.filter(function (f) { return f.severity === 'error'; }).length;
+
 			html += '<section class="detail__rule">';
-			html += '<h3>' + escapeHtml(rule) + '<span class="detail__n">' + list.length + '</span></h3>';
+			html += '<h3><code>' + escapeHtml(sniff) + '</code><span class="detail__n">' + group.list.length + '</span></h3>';
+			html += '<p class="detail__cite">';
+			if (group.rule) {
+				html += '<a href="' + escapeHtml(atlasBase) + '#' + escapeHtml(group.rule) + '">' + escapeHtml(group.rule) + '</a>';
+			} else {
+				// Said plainly rather than left blank. The gap between what is
+				// found and what can be cited is the rules backlog, and an empty
+				// space would read as an oversight in the finding instead.
+				html += '<span class="detail__uncited">no rule cites this yet</span>';
+			}
+			html += '</p>';
 			if (errors) html += '<p class="detail__errors">' + errors + ' at error severity</p>';
+
 			html += '<ul class="detail__list">';
-			// Long lists are cut here rather than in the data: the file stays
-			// complete for anything reading it directly, and the panel stays
-			// something a person can actually scan.
-			list.slice(0, 50).forEach(function (finding) {
+			group.list.slice(0, 25).forEach(function (finding) {
 				html += '<li class="detail__hit detail__hit--' + escapeHtml(finding.severity) + '">';
 				html += '<code>' + escapeHtml(finding.file || '');
 				if (finding.line != null) html += ':' + escapeHtml(finding.line);
@@ -164,8 +189,8 @@
 				if (finding.message) html += '<span>' + escapeHtml(finding.message) + '</span>';
 				html += '</li>';
 			});
-			if (list.length > 50) {
-				html += '<li class="detail__more">and ' + (list.length - 50) + ' more</li>';
+			if (group.list.length > 25) {
+				html += '<li class="detail__more">and ' + (group.list.length - 25) + ' more</li>';
 			}
 			html += '</ul></section>';
 		});
