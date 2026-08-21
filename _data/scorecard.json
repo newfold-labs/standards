@@ -1,8 +1,8 @@
 {
 	"schema": 1,
-	"generated_at": "2026-08-21T08:55:15.417Z",
+	"generated_at": "2026-08-21T09:03:19.517Z",
 	"org": "newfold-labs",
-	"policy_fingerprint": "90e06236aeed6f31",
+	"policy_fingerprint": "950e4c5f9ec85ea6",
 	"levels": [
 		{
 			"level": 0,
@@ -44,6 +44,7 @@
 			"title": "Current",
 			"summary": "On the current release, owned, and readable by AI tooling",
 			"requires": [
+				"standards_package_pinned",
 				"standards_package_current",
 				"has_codeowners",
 				"has_ai_context"
@@ -55,6 +56,12 @@
 			"id": "standards_package_present",
 			"title": "Installs the standards package",
 			"detail": "composer.json requires newfold-labs/wp-php-standards, for artifact types that have a PHP standard. Types with no PHP standard yet satisfy this trivially rather than failing a check that does not exist for them.",
+			"read": "composer.json"
+		},
+		{
+			"id": "standards_package_pinned",
+			"title": "Pins the standards package",
+			"detail": "The declared constraint names a version rather than floating. @stable, * and branch aliases install whatever is newest whenever composer update runs, which admits the current release and so reads as maximally up-to-date while being the least predictable thing in the fleet. Rolling a change out as a version bump rather than an overnight CI failure is the point of pinning, so it is measured separately.",
 			"read": "composer.json"
 		},
 		{
@@ -184,11 +191,13 @@
 			"private": true,
 			"artifact_type": "worker",
 			"language": "TypeScript",
+			"packages": {},
 			"pushed_at": "2026-08-19T11:00:09Z",
 			"level": 1,
 			"signals": {
 				"standards_package_present": true,
-				"standards_package_current": null,
+				"standards_package_pinned": true,
+				"standards_package_current": true,
 				"check_reports": false,
 				"no_error_findings": null,
 				"has_codeowners": false,
@@ -208,11 +217,13 @@
 			"private": true,
 			"artifact_type": "worker",
 			"language": "JavaScript",
+			"packages": {},
 			"pushed_at": "2026-06-23T03:29:47Z",
 			"level": 1,
 			"signals": {
 				"standards_package_present": true,
-				"standards_package_current": null,
+				"standards_package_pinned": true,
+				"standards_package_current": true,
 				"check_reports": false,
 				"no_error_findings": null,
 				"has_codeowners": false,
@@ -232,11 +243,13 @@
 			"private": true,
 			"artifact_type": "worker",
 			"language": "JavaScript",
+			"packages": {},
 			"pushed_at": "2026-06-23T03:32:47Z",
 			"level": 1,
 			"signals": {
 				"standards_package_present": true,
-				"standards_package_current": null,
+				"standards_package_pinned": true,
+				"standards_package_current": true,
 				"check_reports": false,
 				"no_error_findings": null,
 				"has_codeowners": false,
@@ -256,11 +269,13 @@
 			"private": true,
 			"artifact_type": "worker",
 			"language": "JavaScript",
+			"packages": {},
 			"pushed_at": "2026-06-24T07:56:14Z",
 			"level": 1,
 			"signals": {
 				"standards_package_present": true,
-				"standards_package_current": null,
+				"standards_package_pinned": true,
+				"standards_package_current": true,
 				"check_reports": false,
 				"no_error_findings": null,
 				"has_codeowners": false,
@@ -280,11 +295,13 @@
 			"private": true,
 			"artifact_type": "worker",
 			"language": "JavaScript",
+			"packages": {},
 			"pushed_at": "2026-05-14T23:23:14Z",
 			"level": 1,
 			"signals": {
 				"standards_package_present": true,
-				"standards_package_current": null,
+				"standards_package_pinned": true,
+				"standards_package_current": true,
 				"check_reports": false,
 				"no_error_findings": null,
 				"has_codeowners": false,
@@ -304,11 +321,13 @@
 			"private": true,
 			"artifact_type": "worker",
 			"language": "JavaScript",
+			"packages": {},
 			"pushed_at": "2026-05-15T03:20:41Z",
 			"level": 1,
 			"signals": {
 				"standards_package_present": true,
-				"standards_package_current": null,
+				"standards_package_pinned": true,
+				"standards_package_current": true,
 				"check_reports": false,
 				"no_error_findings": null,
 				"has_codeowners": false,
@@ -328,11 +347,13 @@
 			"private": true,
 			"artifact_type": "worker",
 			"language": "JavaScript",
+			"packages": {},
 			"pushed_at": "2026-05-15T03:13:18Z",
 			"level": 1,
 			"signals": {
 				"standards_package_present": true,
-				"standards_package_current": null,
+				"standards_package_pinned": true,
+				"standards_package_current": true,
 				"check_reports": false,
 				"no_error_findings": null,
 				"has_codeowners": false,
@@ -352,11 +373,13 @@
 			"private": true,
 			"artifact_type": "worker",
 			"language": "TypeScript",
+			"packages": {},
 			"pushed_at": "2026-07-30T17:37:54Z",
 			"level": 1,
 			"signals": {
 				"standards_package_present": true,
-				"standards_package_current": null,
+				"standards_package_pinned": true,
+				"standards_package_current": true,
 				"check_reports": false,
 				"no_error_findings": null,
 				"has_codeowners": false,
@@ -376,11 +399,13 @@
 			"private": true,
 			"artifact_type": "worker",
 			"language": "TypeScript",
+			"packages": {},
 			"pushed_at": "2026-07-30T17:37:58Z",
 			"level": 1,
 			"signals": {
 				"standards_package_present": true,
-				"standards_package_current": null,
+				"standards_package_pinned": true,
+				"standards_package_current": true,
 				"check_reports": false,
 				"no_error_findings": null,
 				"has_codeowners": false,
@@ -400,11 +425,13 @@
 			"private": true,
 			"artifact_type": "worker",
 			"language": "JavaScript",
+			"packages": {},
 			"pushed_at": "2026-05-15T03:13:42Z",
 			"level": 1,
 			"signals": {
 				"standards_package_present": true,
-				"standards_package_current": null,
+				"standards_package_pinned": true,
+				"standards_package_current": true,
 				"check_reports": false,
 				"no_error_findings": null,
 				"has_codeowners": false,
@@ -424,11 +451,13 @@
 			"private": true,
 			"artifact_type": "worker",
 			"language": "JavaScript",
+			"packages": {},
 			"pushed_at": "2026-05-15T03:25:06Z",
 			"level": 1,
 			"signals": {
 				"standards_package_present": true,
-				"standards_package_current": null,
+				"standards_package_pinned": true,
+				"standards_package_current": true,
 				"check_reports": false,
 				"no_error_findings": null,
 				"has_codeowners": true,
@@ -448,11 +477,13 @@
 			"private": true,
 			"artifact_type": "worker",
 			"language": "JavaScript",
+			"packages": {},
 			"pushed_at": "2026-05-15T03:15:54Z",
 			"level": 1,
 			"signals": {
 				"standards_package_present": true,
-				"standards_package_current": null,
+				"standards_package_pinned": true,
+				"standards_package_current": true,
 				"check_reports": false,
 				"no_error_findings": null,
 				"has_codeowners": false,
@@ -472,11 +503,13 @@
 			"private": true,
 			"artifact_type": "worker",
 			"language": "JavaScript",
+			"packages": {},
 			"pushed_at": "2026-05-14T23:24:06Z",
 			"level": 1,
 			"signals": {
 				"standards_package_present": true,
-				"standards_package_current": null,
+				"standards_package_pinned": true,
+				"standards_package_current": true,
 				"check_reports": false,
 				"no_error_findings": null,
 				"has_codeowners": true,
@@ -496,11 +529,13 @@
 			"private": true,
 			"artifact_type": "worker",
 			"language": "JavaScript",
+			"packages": {},
 			"pushed_at": "2026-05-15T03:28:10Z",
 			"level": 1,
 			"signals": {
 				"standards_package_present": true,
-				"standards_package_current": null,
+				"standards_package_pinned": true,
+				"standards_package_current": true,
 				"check_reports": false,
 				"no_error_findings": null,
 				"has_codeowners": false,
@@ -520,11 +555,13 @@
 			"private": true,
 			"artifact_type": "worker",
 			"language": "TypeScript",
+			"packages": {},
 			"pushed_at": "2026-07-30T17:38:01Z",
 			"level": 1,
 			"signals": {
 				"standards_package_present": true,
-				"standards_package_current": null,
+				"standards_package_pinned": true,
+				"standards_package_current": true,
 				"check_reports": false,
 				"no_error_findings": null,
 				"has_codeowners": false,
@@ -544,11 +581,13 @@
 			"private": true,
 			"artifact_type": "worker",
 			"language": "JavaScript",
+			"packages": {},
 			"pushed_at": "2026-05-15T03:33:26Z",
 			"level": 1,
 			"signals": {
 				"standards_package_present": true,
-				"standards_package_current": null,
+				"standards_package_pinned": true,
+				"standards_package_current": true,
 				"check_reports": false,
 				"no_error_findings": null,
 				"has_codeowners": false,
@@ -568,11 +607,13 @@
 			"private": true,
 			"artifact_type": "worker",
 			"language": "JavaScript",
+			"packages": {},
 			"pushed_at": "2026-05-15T03:35:38Z",
 			"level": 1,
 			"signals": {
 				"standards_package_present": true,
-				"standards_package_current": null,
+				"standards_package_pinned": true,
+				"standards_package_current": true,
 				"check_reports": false,
 				"no_error_findings": null,
 				"has_codeowners": false,
@@ -592,11 +633,13 @@
 			"private": true,
 			"artifact_type": "worker",
 			"language": "JavaScript",
+			"packages": {},
 			"pushed_at": "2026-07-24T05:36:03Z",
 			"level": 1,
 			"signals": {
 				"standards_package_present": true,
-				"standards_package_current": null,
+				"standards_package_pinned": true,
+				"standards_package_current": true,
 				"check_reports": false,
 				"no_error_findings": null,
 				"has_codeowners": true,
@@ -616,11 +659,13 @@
 			"private": true,
 			"artifact_type": "worker",
 			"language": "TypeScript",
+			"packages": {},
 			"pushed_at": "2026-06-03T16:37:47Z",
 			"level": 1,
 			"signals": {
 				"standards_package_present": true,
-				"standards_package_current": null,
+				"standards_package_pinned": true,
+				"standards_package_current": true,
 				"check_reports": false,
 				"no_error_findings": null,
 				"has_codeowners": false,
@@ -640,11 +685,13 @@
 			"private": true,
 			"artifact_type": "worker",
 			"language": null,
+			"packages": {},
 			"pushed_at": "2026-07-17T10:11:47Z",
 			"level": 1,
 			"signals": {
 				"standards_package_present": true,
-				"standards_package_current": null,
+				"standards_package_pinned": true,
+				"standards_package_current": true,
 				"check_reports": false,
 				"no_error_findings": null,
 				"has_codeowners": false,
@@ -664,11 +711,13 @@
 			"private": true,
 			"artifact_type": "worker",
 			"language": "JavaScript",
+			"packages": {},
 			"pushed_at": "2026-05-14T23:24:49Z",
 			"level": 1,
 			"signals": {
 				"standards_package_present": true,
-				"standards_package_current": null,
+				"standards_package_pinned": true,
+				"standards_package_current": true,
 				"check_reports": false,
 				"no_error_findings": null,
 				"has_codeowners": false,
@@ -688,11 +737,13 @@
 			"private": true,
 			"artifact_type": "worker",
 			"language": "JavaScript",
+			"packages": {},
 			"pushed_at": "2026-05-14T23:24:56Z",
 			"level": 1,
 			"signals": {
 				"standards_package_present": true,
-				"standards_package_current": null,
+				"standards_package_pinned": true,
+				"standards_package_current": true,
 				"check_reports": false,
 				"no_error_findings": null,
 				"has_codeowners": false,
@@ -712,11 +763,13 @@
 			"private": true,
 			"artifact_type": "worker",
 			"language": null,
+			"packages": {},
 			"pushed_at": "2026-05-07T17:22:53Z",
 			"level": 1,
 			"signals": {
 				"standards_package_present": true,
-				"standards_package_current": null,
+				"standards_package_pinned": true,
+				"standards_package_current": true,
 				"check_reports": false,
 				"no_error_findings": null,
 				"has_codeowners": false,
@@ -736,11 +789,13 @@
 			"private": true,
 			"artifact_type": "worker",
 			"language": null,
+			"packages": {},
 			"pushed_at": "2026-05-07T17:25:04Z",
 			"level": 1,
 			"signals": {
 				"standards_package_present": true,
-				"standards_package_current": null,
+				"standards_package_pinned": true,
+				"standards_package_current": true,
 				"check_reports": false,
 				"no_error_findings": null,
 				"has_codeowners": false,
@@ -760,11 +815,13 @@
 			"private": true,
 			"artifact_type": "worker",
 			"language": "JavaScript",
+			"packages": {},
 			"pushed_at": "2026-05-15T03:39:01Z",
 			"level": 1,
 			"signals": {
 				"standards_package_present": true,
-				"standards_package_current": null,
+				"standards_package_pinned": true,
+				"standards_package_current": true,
 				"check_reports": false,
 				"no_error_findings": null,
 				"has_codeowners": false,
@@ -784,11 +841,13 @@
 			"private": true,
 			"artifact_type": "worker",
 			"language": "JavaScript",
+			"packages": {},
 			"pushed_at": "2026-07-22T00:17:48Z",
 			"level": 1,
 			"signals": {
 				"standards_package_present": true,
-				"standards_package_current": null,
+				"standards_package_pinned": true,
+				"standards_package_current": true,
 				"check_reports": false,
 				"no_error_findings": null,
 				"has_codeowners": false,
@@ -808,11 +867,13 @@
 			"private": true,
 			"artifact_type": "worker",
 			"language": null,
+			"packages": {},
 			"pushed_at": "2026-05-15T03:43:10Z",
 			"level": 1,
 			"signals": {
 				"standards_package_present": true,
-				"standards_package_current": null,
+				"standards_package_pinned": true,
+				"standards_package_current": true,
 				"check_reports": false,
 				"no_error_findings": null,
 				"has_codeowners": false,
@@ -832,11 +893,13 @@
 			"private": true,
 			"artifact_type": "worker",
 			"language": "JavaScript",
+			"packages": {},
 			"pushed_at": "2026-05-15T03:44:25Z",
 			"level": 1,
 			"signals": {
 				"standards_package_present": true,
-				"standards_package_current": null,
+				"standards_package_pinned": true,
+				"standards_package_current": true,
 				"check_reports": false,
 				"no_error_findings": null,
 				"has_codeowners": false,
@@ -856,11 +919,13 @@
 			"private": true,
 			"artifact_type": "worker",
 			"language": "JavaScript",
+			"packages": {},
 			"pushed_at": "2026-05-15T03:44:52Z",
 			"level": 1,
 			"signals": {
 				"standards_package_present": true,
-				"standards_package_current": null,
+				"standards_package_pinned": true,
+				"standards_package_current": true,
 				"check_reports": false,
 				"no_error_findings": null,
 				"has_codeowners": false,
@@ -880,11 +945,13 @@
 			"private": true,
 			"artifact_type": "worker",
 			"language": "JavaScript",
+			"packages": {},
 			"pushed_at": "2026-05-15T03:45:36Z",
 			"level": 1,
 			"signals": {
 				"standards_package_present": true,
-				"standards_package_current": null,
+				"standards_package_pinned": true,
+				"standards_package_current": true,
 				"check_reports": false,
 				"no_error_findings": null,
 				"has_codeowners": false,
@@ -904,11 +971,13 @@
 			"private": true,
 			"artifact_type": "worker",
 			"language": "JavaScript",
+			"packages": {},
 			"pushed_at": "2026-05-15T03:46:12Z",
 			"level": 1,
 			"signals": {
 				"standards_package_present": true,
-				"standards_package_current": null,
+				"standards_package_pinned": true,
+				"standards_package_current": true,
 				"check_reports": false,
 				"no_error_findings": null,
 				"has_codeowners": false,
@@ -928,11 +997,13 @@
 			"private": true,
 			"artifact_type": "worker",
 			"language": "JavaScript",
+			"packages": {},
 			"pushed_at": "2026-05-14T23:26:03Z",
 			"level": 1,
 			"signals": {
 				"standards_package_present": true,
-				"standards_package_current": null,
+				"standards_package_pinned": true,
+				"standards_package_current": true,
 				"check_reports": false,
 				"no_error_findings": null,
 				"has_codeowners": false,
@@ -952,11 +1023,13 @@
 			"private": true,
 			"artifact_type": "worker",
 			"language": "JavaScript",
+			"packages": {},
 			"pushed_at": "2026-05-15T03:47:04Z",
 			"level": 1,
 			"signals": {
 				"standards_package_present": true,
-				"standards_package_current": null,
+				"standards_package_pinned": true,
+				"standards_package_current": true,
 				"check_reports": false,
 				"no_error_findings": null,
 				"has_codeowners": false,
@@ -976,11 +1049,13 @@
 			"private": true,
 			"artifact_type": "worker",
 			"language": "JavaScript",
+			"packages": {},
 			"pushed_at": "2026-05-15T03:47:38Z",
 			"level": 1,
 			"signals": {
 				"standards_package_present": true,
-				"standards_package_current": null,
+				"standards_package_pinned": true,
+				"standards_package_current": true,
 				"check_reports": false,
 				"no_error_findings": null,
 				"has_codeowners": false,
@@ -1000,11 +1075,13 @@
 			"private": false,
 			"artifact_type": "worker",
 			"language": "JavaScript",
+			"packages": {},
 			"pushed_at": "2026-07-07T08:35:56Z",
 			"level": 1,
 			"signals": {
 				"standards_package_present": true,
-				"standards_package_current": null,
+				"standards_package_pinned": true,
+				"standards_package_current": true,
 				"check_reports": false,
 				"no_error_findings": null,
 				"has_codeowners": false,
@@ -1024,11 +1101,13 @@
 			"private": true,
 			"artifact_type": "worker",
 			"language": "TypeScript",
+			"packages": {},
 			"pushed_at": "2026-07-15T14:52:51Z",
 			"level": 1,
 			"signals": {
 				"standards_package_present": true,
-				"standards_package_current": null,
+				"standards_package_pinned": true,
+				"standards_package_current": true,
 				"check_reports": false,
 				"no_error_findings": null,
 				"has_codeowners": false,
@@ -1048,10 +1127,14 @@
 			"private": false,
 			"artifact_type": "module",
 			"language": "PHP",
+			"packages": {
+				"newfold-labs/wp-php-standards": "^1.2"
+			},
 			"pushed_at": "2026-08-20T22:14:16Z",
 			"level": 1,
 			"signals": {
 				"standards_package_present": true,
+				"standards_package_pinned": true,
 				"standards_package_current": false,
 				"check_reports": false,
 				"no_error_findings": null,
@@ -1072,10 +1155,14 @@
 			"private": false,
 			"artifact_type": "module",
 			"language": "PHP",
+			"packages": {
+				"newfold-labs/wp-php-standards": "^1.2"
+			},
 			"pushed_at": "2026-08-20T20:45:22Z",
 			"level": 1,
 			"signals": {
 				"standards_package_present": true,
+				"standards_package_pinned": true,
 				"standards_package_current": false,
 				"check_reports": false,
 				"no_error_findings": null,
@@ -1096,10 +1183,14 @@
 			"private": false,
 			"artifact_type": "module",
 			"language": "PHP",
+			"packages": {
+				"newfold-labs/wp-php-standards": "^1.2.5"
+			},
 			"pushed_at": "2026-07-31T14:24:42Z",
 			"level": 1,
 			"signals": {
 				"standards_package_present": true,
+				"standards_package_pinned": true,
 				"standards_package_current": false,
 				"check_reports": false,
 				"no_error_findings": null,
@@ -1120,10 +1211,14 @@
 			"private": false,
 			"artifact_type": "module",
 			"language": "PHP",
+			"packages": {
+				"newfold-labs/wp-php-standards": "^1.2"
+			},
 			"pushed_at": "2026-08-20T23:14:14Z",
 			"level": 1,
 			"signals": {
 				"standards_package_present": true,
+				"standards_package_pinned": true,
 				"standards_package_current": false,
 				"check_reports": false,
 				"no_error_findings": null,
@@ -1144,10 +1239,14 @@
 			"private": false,
 			"artifact_type": "module",
 			"language": "PHP",
+			"packages": {
+				"newfold-labs/wp-php-standards": null
+			},
 			"pushed_at": "2026-06-23T10:29:58Z",
 			"level": 0,
 			"signals": {
 				"standards_package_present": false,
+				"standards_package_pinned": false,
 				"standards_package_current": null,
 				"check_reports": false,
 				"no_error_findings": null,
@@ -1168,10 +1267,14 @@
 			"private": false,
 			"artifact_type": "module",
 			"language": "JavaScript",
+			"packages": {
+				"newfold-labs/wp-php-standards": "^1.2.6"
+			},
 			"pushed_at": "2026-08-18T06:11:20Z",
 			"level": 1,
 			"signals": {
 				"standards_package_present": true,
+				"standards_package_pinned": true,
 				"standards_package_current": false,
 				"check_reports": false,
 				"no_error_findings": null,
@@ -1192,10 +1295,14 @@
 			"private": true,
 			"artifact_type": "module",
 			"language": "PHP",
+			"packages": {
+				"newfold-labs/wp-php-standards": "^1.2"
+			},
 			"pushed_at": "2026-05-14T23:31:07Z",
 			"level": 1,
 			"signals": {
 				"standards_package_present": true,
+				"standards_package_pinned": true,
 				"standards_package_current": false,
 				"check_reports": false,
 				"no_error_findings": null,
@@ -1216,10 +1323,14 @@
 			"private": false,
 			"artifact_type": "module",
 			"language": "TypeScript",
+			"packages": {
+				"newfold-labs/wp-php-standards": "^1.2.5"
+			},
 			"pushed_at": "2026-08-12T15:18:17Z",
 			"level": 1,
 			"signals": {
 				"standards_package_present": true,
+				"standards_package_pinned": true,
 				"standards_package_current": false,
 				"check_reports": false,
 				"no_error_findings": null,
@@ -1240,10 +1351,14 @@
 			"private": false,
 			"artifact_type": "module",
 			"language": "PHP",
+			"packages": {
+				"newfold-labs/wp-php-standards": "^1.2.3"
+			},
 			"pushed_at": "2026-08-17T18:54:48Z",
 			"level": 1,
 			"signals": {
 				"standards_package_present": true,
+				"standards_package_pinned": true,
 				"standards_package_current": false,
 				"check_reports": false,
 				"no_error_findings": null,
@@ -1264,10 +1379,14 @@
 			"private": false,
 			"artifact_type": "module",
 			"language": "PHP",
+			"packages": {
+				"newfold-labs/wp-php-standards": "^1.2.6"
+			},
 			"pushed_at": "2026-08-20T18:11:35Z",
 			"level": 1,
 			"signals": {
 				"standards_package_present": true,
+				"standards_package_pinned": true,
 				"standards_package_current": false,
 				"check_reports": false,
 				"no_error_findings": null,
@@ -1288,10 +1407,14 @@
 			"private": false,
 			"artifact_type": "module",
 			"language": "PHP",
+			"packages": {
+				"newfold-labs/wp-php-standards": "^1.2"
+			},
 			"pushed_at": "2026-08-21T06:24:17Z",
 			"level": 1,
 			"signals": {
 				"standards_package_present": true,
+				"standards_package_pinned": true,
 				"standards_package_current": false,
 				"check_reports": false,
 				"no_error_findings": null,
@@ -1312,10 +1435,14 @@
 			"private": false,
 			"artifact_type": "module",
 			"language": "PHP",
+			"packages": {
+				"newfold-labs/wp-php-standards": "^1.2.6"
+			},
 			"pushed_at": "2026-08-20T18:01:11Z",
 			"level": 1,
 			"signals": {
 				"standards_package_present": true,
+				"standards_package_pinned": true,
 				"standards_package_current": false,
 				"check_reports": false,
 				"no_error_findings": null,
@@ -1336,10 +1463,14 @@
 			"private": false,
 			"artifact_type": "module",
 			"language": "PHP",
+			"packages": {
+				"newfold-labs/wp-php-standards": "^1.2"
+			},
 			"pushed_at": "2026-08-21T00:06:37Z",
 			"level": 1,
 			"signals": {
 				"standards_package_present": true,
+				"standards_package_pinned": true,
 				"standards_package_current": false,
 				"check_reports": false,
 				"no_error_findings": null,
@@ -1360,11 +1491,15 @@
 			"private": false,
 			"artifact_type": "module",
 			"language": "CSS",
+			"packages": {
+				"newfold-labs/wp-php-standards": "@stable"
+			},
 			"pushed_at": "2026-08-20T20:35:18Z",
 			"level": 1,
 			"signals": {
 				"standards_package_present": true,
-				"standards_package_current": true,
+				"standards_package_pinned": false,
+				"standards_package_current": false,
 				"check_reports": false,
 				"no_error_findings": null,
 				"has_codeowners": false,
@@ -1384,10 +1519,14 @@
 			"private": false,
 			"artifact_type": "module",
 			"language": "JavaScript",
+			"packages": {
+				"newfold-labs/wp-php-standards": "^1.2.6"
+			},
 			"pushed_at": "2026-08-20T17:48:38Z",
 			"level": 1,
 			"signals": {
 				"standards_package_present": true,
+				"standards_package_pinned": true,
 				"standards_package_current": false,
 				"check_reports": false,
 				"no_error_findings": null,
@@ -1408,10 +1547,14 @@
 			"private": false,
 			"artifact_type": "module",
 			"language": "PHP",
+			"packages": {
+				"newfold-labs/wp-php-standards": "^1.2.6"
+			},
 			"pushed_at": "2026-08-18T16:26:17Z",
 			"level": 1,
 			"signals": {
 				"standards_package_present": true,
+				"standards_package_pinned": true,
 				"standards_package_current": false,
 				"check_reports": false,
 				"no_error_findings": null,
@@ -1432,10 +1575,14 @@
 			"private": false,
 			"artifact_type": "module",
 			"language": "PHP",
+			"packages": {
+				"newfold-labs/wp-php-standards": "^1.2.3"
+			},
 			"pushed_at": "2026-08-17T18:17:10Z",
 			"level": 1,
 			"signals": {
 				"standards_package_present": true,
+				"standards_package_pinned": true,
 				"standards_package_current": false,
 				"check_reports": false,
 				"no_error_findings": null,
@@ -1456,10 +1603,14 @@
 			"private": false,
 			"artifact_type": "module",
 			"language": null,
+			"packages": {
+				"newfold-labs/wp-php-standards": null
+			},
 			"pushed_at": "2026-06-16T19:50:53Z",
 			"level": 0,
 			"signals": {
 				"standards_package_present": false,
+				"standards_package_pinned": false,
 				"standards_package_current": null,
 				"check_reports": false,
 				"no_error_findings": null,
@@ -1480,10 +1631,14 @@
 			"private": true,
 			"artifact_type": "module",
 			"language": "PHP",
+			"packages": {
+				"newfold-labs/wp-php-standards": "^1.2.4"
+			},
 			"pushed_at": "2026-08-20T10:37:44Z",
 			"level": 1,
 			"signals": {
 				"standards_package_present": true,
+				"standards_package_pinned": true,
 				"standards_package_current": false,
 				"check_reports": false,
 				"no_error_findings": null,
@@ -1504,10 +1659,14 @@
 			"private": false,
 			"artifact_type": "module",
 			"language": "JavaScript",
+			"packages": {
+				"newfold-labs/wp-php-standards": "^1.2"
+			},
 			"pushed_at": "2026-08-20T22:32:54Z",
 			"level": 1,
 			"signals": {
 				"standards_package_present": true,
+				"standards_package_pinned": true,
 				"standards_package_current": false,
 				"check_reports": false,
 				"no_error_findings": null,
@@ -1528,11 +1687,15 @@
 			"private": false,
 			"artifact_type": "module",
 			"language": "JavaScript",
+			"packages": {
+				"newfold-labs/wp-php-standards": "@stable"
+			},
 			"pushed_at": "2026-08-20T18:00:09Z",
 			"level": 1,
 			"signals": {
 				"standards_package_present": true,
-				"standards_package_current": true,
+				"standards_package_pinned": false,
+				"standards_package_current": false,
 				"check_reports": false,
 				"no_error_findings": null,
 				"has_codeowners": false,
@@ -1552,10 +1715,14 @@
 			"private": false,
 			"artifact_type": "module",
 			"language": "PHP",
+			"packages": {
+				"newfold-labs/wp-php-standards": "^1.2"
+			},
 			"pushed_at": "2026-08-21T03:43:58Z",
 			"level": 1,
 			"signals": {
 				"standards_package_present": true,
+				"standards_package_pinned": true,
 				"standards_package_current": false,
 				"check_reports": false,
 				"no_error_findings": null,
@@ -1576,10 +1743,14 @@
 			"private": false,
 			"artifact_type": "module",
 			"language": "CSS",
+			"packages": {
+				"newfold-labs/wp-php-standards": "^1.2.6"
+			},
 			"pushed_at": "2026-08-21T03:45:30Z",
 			"level": 1,
 			"signals": {
 				"standards_package_present": true,
+				"standards_package_pinned": true,
 				"standards_package_current": false,
 				"check_reports": false,
 				"no_error_findings": null,
@@ -1600,10 +1771,14 @@
 			"private": false,
 			"artifact_type": "module",
 			"language": "PHP",
+			"packages": {
+				"newfold-labs/wp-php-standards": null
+			},
 			"pushed_at": "2026-08-18T06:18:31Z",
 			"level": 0,
 			"signals": {
 				"standards_package_present": false,
+				"standards_package_pinned": false,
 				"standards_package_current": null,
 				"check_reports": false,
 				"no_error_findings": null,
@@ -1624,10 +1799,14 @@
 			"private": false,
 			"artifact_type": "module",
 			"language": "PHP",
+			"packages": {
+				"newfold-labs/wp-php-standards": "^1.2.6"
+			},
 			"pushed_at": "2026-08-21T00:27:25Z",
 			"level": 1,
 			"signals": {
 				"standards_package_present": true,
+				"standards_package_pinned": true,
 				"standards_package_current": false,
 				"check_reports": false,
 				"no_error_findings": null,
@@ -1648,10 +1827,14 @@
 			"private": false,
 			"artifact_type": "module",
 			"language": "PHP",
+			"packages": {
+				"newfold-labs/wp-php-standards": "^1.2.6"
+			},
 			"pushed_at": "2026-08-21T02:34:15Z",
 			"level": 1,
 			"signals": {
 				"standards_package_present": true,
+				"standards_package_pinned": true,
 				"standards_package_current": false,
 				"check_reports": false,
 				"no_error_findings": null,
@@ -1672,10 +1855,14 @@
 			"private": false,
 			"artifact_type": "module",
 			"language": "PHP",
+			"packages": {
+				"newfold-labs/wp-php-standards": null
+			},
 			"pushed_at": "2026-08-18T06:17:21Z",
 			"level": 0,
 			"signals": {
 				"standards_package_present": false,
+				"standards_package_pinned": false,
 				"standards_package_current": null,
 				"check_reports": false,
 				"no_error_findings": null,
@@ -1696,10 +1883,14 @@
 			"private": true,
 			"artifact_type": "module",
 			"language": null,
+			"packages": {
+				"newfold-labs/wp-php-standards": null
+			},
 			"pushed_at": "2026-02-09T22:54:17Z",
 			"level": 0,
 			"signals": {
 				"standards_package_present": false,
+				"standards_package_pinned": false,
 				"standards_package_current": null,
 				"check_reports": false,
 				"no_error_findings": null,
@@ -1720,11 +1911,15 @@
 			"private": false,
 			"artifact_type": "module",
 			"language": "PHP",
+			"packages": {
+				"newfold-labs/wp-php-standards": "@stable"
+			},
 			"pushed_at": "2026-06-23T03:26:47Z",
 			"level": 1,
 			"signals": {
 				"standards_package_present": true,
-				"standards_package_current": true,
+				"standards_package_pinned": false,
+				"standards_package_current": false,
 				"check_reports": false,
 				"no_error_findings": null,
 				"has_codeowners": false,
@@ -1744,10 +1939,14 @@
 			"private": false,
 			"artifact_type": "module",
 			"language": "JavaScript",
+			"packages": {
+				"newfold-labs/wp-php-standards": "^1.2"
+			},
 			"pushed_at": "2026-08-21T07:34:07Z",
 			"level": 1,
 			"signals": {
 				"standards_package_present": true,
+				"standards_package_pinned": true,
 				"standards_package_current": false,
 				"check_reports": false,
 				"no_error_findings": null,
@@ -1768,10 +1967,14 @@
 			"private": false,
 			"artifact_type": "module",
 			"language": "PHP",
+			"packages": {
+				"newfold-labs/wp-php-standards": "^1.2"
+			},
 			"pushed_at": "2026-08-20T14:38:28Z",
 			"level": 1,
 			"signals": {
 				"standards_package_present": true,
+				"standards_package_pinned": true,
 				"standards_package_current": false,
 				"check_reports": false,
 				"no_error_findings": null,
@@ -1792,10 +1995,14 @@
 			"private": false,
 			"artifact_type": "module",
 			"language": "PHP",
+			"packages": {
+				"newfold-labs/wp-php-standards": "^1.2"
+			},
 			"pushed_at": "2026-08-17T14:05:41Z",
 			"level": 1,
 			"signals": {
 				"standards_package_present": true,
+				"standards_package_pinned": true,
 				"standards_package_current": false,
 				"check_reports": false,
 				"no_error_findings": null,
@@ -1816,10 +2023,14 @@
 			"private": false,
 			"artifact_type": "module",
 			"language": "PHP",
+			"packages": {
+				"newfold-labs/wp-php-standards": "^1.2.6"
+			},
 			"pushed_at": "2026-08-20T19:50:35Z",
 			"level": 1,
 			"signals": {
 				"standards_package_present": true,
+				"standards_package_pinned": true,
 				"standards_package_current": false,
 				"check_reports": false,
 				"no_error_findings": null,
@@ -1840,10 +2051,14 @@
 			"private": false,
 			"artifact_type": "module",
 			"language": "JavaScript",
+			"packages": {
+				"newfold-labs/wp-php-standards": "^1.2"
+			},
 			"pushed_at": "2026-08-20T20:30:26Z",
 			"level": 1,
 			"signals": {
 				"standards_package_present": true,
+				"standards_package_pinned": true,
 				"standards_package_current": false,
 				"check_reports": false,
 				"no_error_findings": null,
@@ -1864,10 +2079,14 @@
 			"private": false,
 			"artifact_type": "module",
 			"language": "PHP",
+			"packages": {
+				"newfold-labs/wp-php-standards": "^1.2.6"
+			},
 			"pushed_at": "2026-08-21T08:43:04Z",
 			"level": 1,
 			"signals": {
 				"standards_package_present": true,
+				"standards_package_pinned": true,
 				"standards_package_current": false,
 				"check_reports": false,
 				"no_error_findings": null,
@@ -1888,10 +2107,14 @@
 			"private": false,
 			"artifact_type": "module",
 			"language": "PHP",
+			"packages": {
+				"newfold-labs/wp-php-standards": "^1.2.6"
+			},
 			"pushed_at": "2026-08-20T10:37:22Z",
 			"level": 1,
 			"signals": {
 				"standards_package_present": true,
+				"standards_package_pinned": true,
 				"standards_package_current": false,
 				"check_reports": false,
 				"no_error_findings": null,
@@ -1912,10 +2135,14 @@
 			"private": false,
 			"artifact_type": "module",
 			"language": "JavaScript",
+			"packages": {
+				"newfold-labs/wp-php-standards": "^1.2.6"
+			},
 			"pushed_at": "2026-08-21T06:14:55Z",
 			"level": 1,
 			"signals": {
 				"standards_package_present": true,
+				"standards_package_pinned": true,
 				"standards_package_current": false,
 				"check_reports": false,
 				"no_error_findings": null,
@@ -1936,10 +2163,14 @@
 			"private": false,
 			"artifact_type": "module",
 			"language": "PHP",
+			"packages": {
+				"newfold-labs/wp-php-standards": "^1.2"
+			},
 			"pushed_at": "2026-08-20T09:11:36Z",
 			"level": 1,
 			"signals": {
 				"standards_package_present": true,
+				"standards_package_pinned": true,
 				"standards_package_current": false,
 				"check_reports": false,
 				"no_error_findings": null,
@@ -1960,10 +2191,14 @@
 			"private": false,
 			"artifact_type": "module",
 			"language": "PHP",
+			"packages": {
+				"newfold-labs/wp-php-standards": "^1.2"
+			},
 			"pushed_at": "2026-08-20T21:44:12Z",
 			"level": 1,
 			"signals": {
 				"standards_package_present": true,
+				"standards_package_pinned": true,
 				"standards_package_current": false,
 				"check_reports": false,
 				"no_error_findings": null,
@@ -1984,10 +2219,14 @@
 			"private": false,
 			"artifact_type": "module",
 			"language": "PHP",
+			"packages": {
+				"newfold-labs/wp-php-standards": "^1.2.5"
+			},
 			"pushed_at": "2026-07-31T14:28:25Z",
 			"level": 1,
 			"signals": {
 				"standards_package_present": true,
+				"standards_package_pinned": true,
 				"standards_package_current": false,
 				"check_reports": false,
 				"no_error_findings": null,
@@ -2008,11 +2247,15 @@
 			"private": false,
 			"artifact_type": "module",
 			"language": "PHP",
+			"packages": {
+				"newfold-labs/wp-php-standards": "@stable"
+			},
 			"pushed_at": "2026-08-20T23:54:42Z",
 			"level": 1,
 			"signals": {
 				"standards_package_present": true,
-				"standards_package_current": true,
+				"standards_package_pinned": false,
+				"standards_package_current": false,
 				"check_reports": false,
 				"no_error_findings": null,
 				"has_codeowners": false,
@@ -2032,11 +2275,15 @@
 			"private": false,
 			"artifact_type": "module",
 			"language": "PHP",
+			"packages": {
+				"newfold-labs/wp-php-standards": "@stable"
+			},
 			"pushed_at": "2026-08-18T06:19:34Z",
 			"level": 1,
 			"signals": {
 				"standards_package_present": true,
-				"standards_package_current": true,
+				"standards_package_pinned": false,
+				"standards_package_current": false,
 				"check_reports": false,
 				"no_error_findings": null,
 				"has_codeowners": false,
@@ -2056,10 +2303,14 @@
 			"private": false,
 			"artifact_type": "module",
 			"language": null,
+			"packages": {
+				"newfold-labs/wp-php-standards": null
+			},
 			"pushed_at": "2026-06-16T20:05:30Z",
 			"level": 0,
 			"signals": {
 				"standards_package_present": false,
+				"standards_package_pinned": false,
 				"standards_package_current": null,
 				"check_reports": false,
 				"no_error_findings": null,
@@ -2080,10 +2331,14 @@
 			"private": false,
 			"artifact_type": "module",
 			"language": "CSS",
+			"packages": {
+				"newfold-labs/wp-php-standards": "^1.2.6"
+			},
 			"pushed_at": "2026-08-21T07:35:05Z",
 			"level": 1,
 			"signals": {
 				"standards_package_present": true,
+				"standards_package_pinned": true,
 				"standards_package_current": false,
 				"check_reports": false,
 				"no_error_findings": null,
@@ -2104,10 +2359,14 @@
 			"private": false,
 			"artifact_type": "module",
 			"language": "PHP",
+			"packages": {
+				"newfold-labs/wp-php-standards": "^1.2"
+			},
 			"pushed_at": "2026-08-21T00:13:11Z",
 			"level": 1,
 			"signals": {
 				"standards_package_present": true,
+				"standards_package_pinned": true,
 				"standards_package_current": false,
 				"check_reports": false,
 				"no_error_findings": null,
@@ -2128,10 +2387,14 @@
 			"private": false,
 			"artifact_type": "module",
 			"language": "CSS",
+			"packages": {
+				"newfold-labs/wp-php-standards": "^1.2.6"
+			},
 			"pushed_at": "2026-08-20T08:12:35Z",
 			"level": 1,
 			"signals": {
 				"standards_package_present": true,
+				"standards_package_pinned": true,
 				"standards_package_current": false,
 				"check_reports": false,
 				"no_error_findings": null,
@@ -2152,10 +2415,14 @@
 			"private": false,
 			"artifact_type": "module",
 			"language": "PHP",
+			"packages": {
+				"newfold-labs/wp-php-standards": "^1.2"
+			},
 			"pushed_at": "2026-08-21T06:15:12Z",
 			"level": 1,
 			"signals": {
 				"standards_package_present": true,
+				"standards_package_pinned": true,
 				"standards_package_current": false,
 				"check_reports": false,
 				"no_error_findings": null,
@@ -2176,11 +2443,15 @@
 			"private": false,
 			"artifact_type": "module",
 			"language": "PHP",
+			"packages": {
+				"newfold-labs/wp-php-standards": "@stable"
+			},
 			"pushed_at": "2026-08-07T11:01:57Z",
 			"level": 1,
 			"signals": {
 				"standards_package_present": true,
-				"standards_package_current": true,
+				"standards_package_pinned": false,
+				"standards_package_current": false,
 				"check_reports": false,
 				"no_error_findings": null,
 				"has_codeowners": false,
@@ -2200,10 +2471,14 @@
 			"private": true,
 			"artifact_type": "module",
 			"language": "CSS",
+			"packages": {
+				"newfold-labs/wp-php-standards": "^1.2"
+			},
 			"pushed_at": "2026-08-17T07:21:43Z",
 			"level": 1,
 			"signals": {
 				"standards_package_present": true,
+				"standards_package_pinned": true,
 				"standards_package_current": false,
 				"check_reports": false,
 				"no_error_findings": null,
@@ -2224,10 +2499,14 @@
 			"private": true,
 			"artifact_type": "plugin",
 			"language": "PHP",
+			"packages": {
+				"newfold-labs/wp-php-standards": "^1.2.4"
+			},
 			"pushed_at": "2026-08-04T08:23:54Z",
 			"level": 1,
 			"signals": {
 				"standards_package_present": true,
+				"standards_package_pinned": true,
 				"standards_package_current": false,
 				"check_reports": false,
 				"no_error_findings": null,
@@ -2248,10 +2527,14 @@
 			"private": true,
 			"artifact_type": "plugin",
 			"language": "PHP",
+			"packages": {
+				"newfold-labs/wp-php-standards": "^1.2.4"
+			},
 			"pushed_at": "2026-08-03T14:26:22Z",
 			"level": 1,
 			"signals": {
 				"standards_package_present": true,
+				"standards_package_pinned": true,
 				"standards_package_current": false,
 				"check_reports": false,
 				"no_error_findings": null,
@@ -2272,10 +2555,14 @@
 			"private": true,
 			"artifact_type": "plugin",
 			"language": "TypeScript",
+			"packages": {
+				"newfold-labs/wp-php-standards": null
+			},
 			"pushed_at": "2026-06-16T20:11:22Z",
 			"level": 0,
 			"signals": {
 				"standards_package_present": false,
+				"standards_package_pinned": false,
 				"standards_package_current": null,
 				"check_reports": false,
 				"no_error_findings": null,
@@ -2296,10 +2583,14 @@
 			"private": true,
 			"artifact_type": "plugin",
 			"language": "JavaScript",
+			"packages": {
+				"newfold-labs/wp-php-standards": "^1.2"
+			},
 			"pushed_at": "2026-08-20T15:28:30Z",
 			"level": 1,
 			"signals": {
 				"standards_package_present": true,
+				"standards_package_pinned": true,
 				"standards_package_current": false,
 				"check_reports": false,
 				"no_error_findings": null,
@@ -2320,10 +2611,14 @@
 			"private": false,
 			"artifact_type": "plugin",
 			"language": "JavaScript",
+			"packages": {
+				"newfold-labs/wp-php-standards": "^1.2.5"
+			},
 			"pushed_at": "2026-08-20T13:02:28Z",
 			"level": 1,
 			"signals": {
 				"standards_package_present": true,
+				"standards_package_pinned": true,
 				"standards_package_current": false,
 				"check_reports": false,
 				"no_error_findings": null,
@@ -2344,10 +2639,14 @@
 			"private": true,
 			"artifact_type": "plugin",
 			"language": "HTML",
+			"packages": {
+				"newfold-labs/wp-php-standards": null
+			},
 			"pushed_at": "2026-03-12T21:11:50Z",
 			"level": 0,
 			"signals": {
 				"standards_package_present": false,
+				"standards_package_pinned": false,
 				"standards_package_current": null,
 				"check_reports": false,
 				"no_error_findings": null,
@@ -2368,10 +2667,14 @@
 			"private": false,
 			"artifact_type": "plugin",
 			"language": "JavaScript",
+			"packages": {
+				"newfold-labs/wp-php-standards": "^1.2.6"
+			},
 			"pushed_at": "2026-08-21T02:41:55Z",
 			"level": 1,
 			"signals": {
 				"standards_package_present": true,
+				"standards_package_pinned": true,
 				"standards_package_current": false,
 				"check_reports": false,
 				"no_error_findings": null,
@@ -2392,10 +2695,14 @@
 			"private": false,
 			"artifact_type": "plugin",
 			"language": "JavaScript",
+			"packages": {
+				"newfold-labs/wp-php-standards": "^1.2"
+			},
 			"pushed_at": "2026-08-12T04:52:13Z",
 			"level": 1,
 			"signals": {
 				"standards_package_present": true,
+				"standards_package_pinned": true,
 				"standards_package_current": false,
 				"check_reports": false,
 				"no_error_findings": null,
@@ -2416,10 +2723,14 @@
 			"private": true,
 			"artifact_type": "plugin",
 			"language": "PHP",
+			"packages": {
+				"newfold-labs/wp-php-standards": null
+			},
 			"pushed_at": "2026-07-07T08:55:17Z",
 			"level": 0,
 			"signals": {
 				"standards_package_present": false,
+				"standards_package_pinned": false,
 				"standards_package_current": null,
 				"check_reports": false,
 				"no_error_findings": null,
@@ -2440,10 +2751,14 @@
 			"private": true,
 			"artifact_type": "plugin",
 			"language": "PHP",
+			"packages": {
+				"newfold-labs/wp-php-standards": "^1.2.4"
+			},
 			"pushed_at": "2026-08-03T13:43:57Z",
 			"level": 1,
 			"signals": {
 				"standards_package_present": true,
+				"standards_package_pinned": true,
 				"standards_package_current": false,
 				"check_reports": false,
 				"no_error_findings": null,
@@ -2464,10 +2779,14 @@
 			"private": false,
 			"artifact_type": "plugin",
 			"language": "JavaScript",
+			"packages": {
+				"newfold-labs/wp-php-standards": "^1.2.5"
+			},
 			"pushed_at": "2026-08-12T04:52:19Z",
 			"level": 1,
 			"signals": {
 				"standards_package_present": true,
+				"standards_package_pinned": true,
 				"standards_package_current": false,
 				"check_reports": false,
 				"no_error_findings": null,
@@ -2488,10 +2807,14 @@
 			"private": true,
 			"artifact_type": "plugin",
 			"language": "PHP",
+			"packages": {
+				"newfold-labs/wp-php-standards": null
+			},
 			"pushed_at": "2026-06-15T16:18:29Z",
 			"level": 0,
 			"signals": {
 				"standards_package_present": false,
+				"standards_package_pinned": false,
 				"standards_package_current": null,
 				"check_reports": false,
 				"no_error_findings": null,
@@ -2512,10 +2835,14 @@
 			"private": true,
 			"artifact_type": "plugin",
 			"language": "PHP",
+			"packages": {
+				"newfold-labs/wp-php-standards": "^1.2.4"
+			},
 			"pushed_at": "2026-08-03T14:34:05Z",
 			"level": 1,
 			"signals": {
 				"standards_package_present": true,
+				"standards_package_pinned": true,
 				"standards_package_current": false,
 				"check_reports": false,
 				"no_error_findings": null,
@@ -2536,10 +2863,14 @@
 			"private": true,
 			"artifact_type": "plugin",
 			"language": "PHP",
+			"packages": {
+				"newfold-labs/wp-php-standards": "^1.2.4"
+			},
 			"pushed_at": "2026-08-03T14:05:18Z",
 			"level": 1,
 			"signals": {
 				"standards_package_present": true,
+				"standards_package_pinned": true,
 				"standards_package_current": false,
 				"check_reports": false,
 				"no_error_findings": null,
@@ -2560,10 +2891,14 @@
 			"private": true,
 			"artifact_type": "plugin",
 			"language": "JavaScript",
+			"packages": {
+				"newfold-labs/wp-php-standards": null
+			},
 			"pushed_at": "2026-06-15T16:18:48Z",
 			"level": 0,
 			"signals": {
 				"standards_package_present": false,
+				"standards_package_pinned": false,
 				"standards_package_current": null,
 				"check_reports": false,
 				"no_error_findings": null,
@@ -2584,10 +2919,14 @@
 			"private": true,
 			"artifact_type": "plugin",
 			"language": "PHP",
+			"packages": {
+				"newfold-labs/wp-php-standards": "^1.2.4"
+			},
 			"pushed_at": "2026-08-04T08:45:14Z",
 			"level": 1,
 			"signals": {
 				"standards_package_present": true,
+				"standards_package_pinned": true,
 				"standards_package_current": false,
 				"check_reports": false,
 				"no_error_findings": null,
@@ -2608,10 +2947,14 @@
 			"private": true,
 			"artifact_type": "plugin",
 			"language": "PHP",
+			"packages": {
+				"newfold-labs/wp-php-standards": "^1.2.4"
+			},
 			"pushed_at": "2026-08-03T14:42:44Z",
 			"level": 1,
 			"signals": {
 				"standards_package_present": true,
+				"standards_package_pinned": true,
 				"standards_package_current": false,
 				"check_reports": false,
 				"no_error_findings": null,
@@ -2632,10 +2975,14 @@
 			"private": true,
 			"artifact_type": "plugin",
 			"language": "PHP",
+			"packages": {
+				"newfold-labs/wp-php-standards": "^1.2.6"
+			},
 			"pushed_at": "2026-08-12T04:52:23Z",
 			"level": 1,
 			"signals": {
 				"standards_package_present": true,
+				"standards_package_pinned": true,
 				"standards_package_current": false,
 				"check_reports": false,
 				"no_error_findings": null,
@@ -2656,10 +3003,14 @@
 			"private": false,
 			"artifact_type": "plugin",
 			"language": "JavaScript",
+			"packages": {
+				"newfold-labs/wp-php-standards": "^1.2.6"
+			},
 			"pushed_at": "2026-08-20T18:06:00Z",
 			"level": 1,
 			"signals": {
 				"standards_package_present": true,
+				"standards_package_pinned": true,
 				"standards_package_current": false,
 				"check_reports": false,
 				"no_error_findings": null,
@@ -2680,10 +3031,14 @@
 			"private": true,
 			"artifact_type": "plugin",
 			"language": null,
+			"packages": {
+				"newfold-labs/wp-php-standards": null
+			},
 			"pushed_at": "2026-06-16T20:16:13Z",
 			"level": 0,
 			"signals": {
 				"standards_package_present": false,
+				"standards_package_pinned": false,
 				"standards_package_current": null,
 				"check_reports": false,
 				"no_error_findings": null,
@@ -2704,10 +3059,14 @@
 			"private": true,
 			"artifact_type": "plugin",
 			"language": "PHP",
+			"packages": {
+				"newfold-labs/wp-php-standards": "^1.2.4"
+			},
 			"pushed_at": "2026-08-11T12:43:42Z",
 			"level": 1,
 			"signals": {
 				"standards_package_present": true,
+				"standards_package_pinned": true,
 				"standards_package_current": false,
 				"check_reports": false,
 				"no_error_findings": null,
@@ -2728,10 +3087,14 @@
 			"private": false,
 			"artifact_type": "plugin",
 			"language": "JavaScript",
+			"packages": {
+				"newfold-labs/wp-php-standards": "^1.2.4"
+			},
 			"pushed_at": "2026-08-12T04:52:37Z",
 			"level": 1,
 			"signals": {
 				"standards_package_present": true,
+				"standards_package_pinned": true,
 				"standards_package_current": false,
 				"check_reports": false,
 				"no_error_findings": null,
@@ -2752,10 +3115,14 @@
 			"private": true,
 			"artifact_type": "plugin",
 			"language": "PHP",
+			"packages": {
+				"newfold-labs/wp-php-standards": "^1.2.4"
+			},
 			"pushed_at": "2026-08-12T15:00:31Z",
 			"level": 1,
 			"signals": {
 				"standards_package_present": true,
+				"standards_package_pinned": true,
 				"standards_package_current": false,
 				"check_reports": false,
 				"no_error_findings": null,
@@ -2776,10 +3143,14 @@
 			"private": true,
 			"artifact_type": "plugin",
 			"language": "PHP",
+			"packages": {
+				"newfold-labs/wp-php-standards": "^1.2.4"
+			},
 			"pushed_at": "2026-08-21T01:34:16Z",
 			"level": 1,
 			"signals": {
 				"standards_package_present": true,
+				"standards_package_pinned": true,
 				"standards_package_current": false,
 				"check_reports": false,
 				"no_error_findings": null,
@@ -2800,10 +3171,14 @@
 			"private": true,
 			"artifact_type": "plugin",
 			"language": "PHP",
+			"packages": {
+				"newfold-labs/wp-php-standards": "^1.2.4"
+			},
 			"pushed_at": "2026-08-03T13:04:25Z",
 			"level": 1,
 			"signals": {
 				"standards_package_present": true,
+				"standards_package_pinned": true,
 				"standards_package_current": false,
 				"check_reports": false,
 				"no_error_findings": null,
@@ -2824,10 +3199,14 @@
 			"private": true,
 			"artifact_type": "plugin",
 			"language": "PHP",
+			"packages": {
+				"newfold-labs/wp-php-standards": "^1.2.4"
+			},
 			"pushed_at": "2026-08-04T12:26:42Z",
 			"level": 1,
 			"signals": {
 				"standards_package_present": true,
+				"standards_package_pinned": true,
 				"standards_package_current": false,
 				"check_reports": false,
 				"no_error_findings": null,
@@ -2848,10 +3227,14 @@
 			"private": true,
 			"artifact_type": "plugin",
 			"language": "PHP",
+			"packages": {
+				"newfold-labs/wp-php-standards": "^1.2.4"
+			},
 			"pushed_at": "2026-08-12T14:03:49Z",
 			"level": 1,
 			"signals": {
 				"standards_package_present": true,
+				"standards_package_pinned": true,
 				"standards_package_current": false,
 				"check_reports": false,
 				"no_error_findings": null,
@@ -2872,10 +3255,14 @@
 			"private": true,
 			"artifact_type": "plugin",
 			"language": "PHP",
+			"packages": {
+				"newfold-labs/wp-php-standards": "^1.2.4"
+			},
 			"pushed_at": "2026-08-12T12:52:42Z",
 			"level": 1,
 			"signals": {
 				"standards_package_present": true,
+				"standards_package_pinned": true,
 				"standards_package_current": false,
 				"check_reports": false,
 				"no_error_findings": null,
@@ -2896,10 +3283,14 @@
 			"private": true,
 			"artifact_type": "plugin",
 			"language": "PHP",
+			"packages": {
+				"newfold-labs/wp-php-standards": "^1.2.4"
+			},
 			"pushed_at": "2026-08-12T09:27:55Z",
 			"level": 1,
 			"signals": {
 				"standards_package_present": true,
+				"standards_package_pinned": true,
 				"standards_package_current": false,
 				"check_reports": false,
 				"no_error_findings": null,
@@ -2920,10 +3311,14 @@
 			"private": true,
 			"artifact_type": "plugin",
 			"language": "PHP",
+			"packages": {
+				"newfold-labs/wp-php-standards": "^1.2.4"
+			},
 			"pushed_at": "2026-08-04T07:50:11Z",
 			"level": 1,
 			"signals": {
 				"standards_package_present": true,
+				"standards_package_pinned": true,
 				"standards_package_current": false,
 				"check_reports": false,
 				"no_error_findings": null,
@@ -2944,10 +3339,14 @@
 			"private": true,
 			"artifact_type": "plugin",
 			"language": "PHP",
+			"packages": {
+				"newfold-labs/wp-php-standards": "^1.2.4"
+			},
 			"pushed_at": "2026-08-03T14:19:50Z",
 			"level": 1,
 			"signals": {
 				"standards_package_present": true,
+				"standards_package_pinned": true,
 				"standards_package_current": false,
 				"check_reports": false,
 				"no_error_findings": null,
@@ -2968,10 +3367,14 @@
 			"private": true,
 			"artifact_type": "plugin",
 			"language": "PHP",
+			"packages": {
+				"newfold-labs/wp-php-standards": "^1.2.4"
+			},
 			"pushed_at": "2026-08-06T10:42:05Z",
 			"level": 1,
 			"signals": {
 				"standards_package_present": true,
+				"standards_package_pinned": true,
 				"standards_package_current": false,
 				"check_reports": false,
 				"no_error_findings": null,
@@ -2992,10 +3395,14 @@
 			"private": true,
 			"artifact_type": "plugin",
 			"language": "JavaScript",
+			"packages": {
+				"newfold-labs/wp-php-standards": "^1.2.4"
+			},
 			"pushed_at": "2026-08-04T13:15:59Z",
 			"level": 1,
 			"signals": {
 				"standards_package_present": true,
+				"standards_package_pinned": true,
 				"standards_package_current": false,
 				"check_reports": false,
 				"no_error_findings": null,
@@ -3016,10 +3423,14 @@
 			"private": true,
 			"artifact_type": "plugin",
 			"language": "PHP",
+			"packages": {
+				"newfold-labs/wp-php-standards": "^1.2.4"
+			},
 			"pushed_at": "2026-08-03T13:17:05Z",
 			"level": 1,
 			"signals": {
 				"standards_package_present": true,
+				"standards_package_pinned": true,
 				"standards_package_current": false,
 				"check_reports": false,
 				"no_error_findings": null,
@@ -3040,10 +3451,14 @@
 			"private": false,
 			"artifact_type": "plugin",
 			"language": "JavaScript",
+			"packages": {
+				"newfold-labs/wp-php-standards": "^1.2.5"
+			},
 			"pushed_at": "2026-08-21T05:46:05Z",
 			"level": 1,
 			"signals": {
 				"standards_package_present": true,
+				"standards_package_pinned": true,
 				"standards_package_current": false,
 				"check_reports": false,
 				"no_error_findings": null,
@@ -3064,10 +3479,14 @@
 			"private": false,
 			"artifact_type": "plugin",
 			"language": "JavaScript",
+			"packages": {
+				"newfold-labs/wp-php-standards": "^1.2.6"
+			},
 			"pushed_at": "2026-08-20T13:00:54Z",
 			"level": 1,
 			"signals": {
 				"standards_package_present": true,
+				"standards_package_pinned": true,
 				"standards_package_current": false,
 				"check_reports": false,
 				"no_error_findings": null,
@@ -3088,10 +3507,14 @@
 			"private": false,
 			"artifact_type": "plugin",
 			"language": "JavaScript",
+			"packages": {
+				"newfold-labs/wp-php-standards": "^1.2.5"
+			},
 			"pushed_at": "2026-08-06T10:24:46Z",
 			"level": 1,
 			"signals": {
 				"standards_package_present": true,
+				"standards_package_pinned": true,
 				"standards_package_current": false,
 				"check_reports": false,
 				"no_error_findings": null,
@@ -3112,10 +3535,14 @@
 			"private": true,
 			"artifact_type": "plugin",
 			"language": "PHP",
+			"packages": {
+				"newfold-labs/wp-php-standards": "^1.2.4"
+			},
 			"pushed_at": "2026-08-05T10:38:23Z",
 			"level": 1,
 			"signals": {
 				"standards_package_present": true,
+				"standards_package_pinned": true,
 				"standards_package_current": false,
 				"check_reports": false,
 				"no_error_findings": null,
@@ -3136,10 +3563,14 @@
 			"private": true,
 			"artifact_type": "plugin",
 			"language": "JavaScript",
+			"packages": {
+				"newfold-labs/wp-php-standards": "^1.2.4"
+			},
 			"pushed_at": "2026-05-15T02:15:59Z",
 			"level": 1,
 			"signals": {
 				"standards_package_present": true,
+				"standards_package_pinned": true,
 				"standards_package_current": false,
 				"check_reports": false,
 				"no_error_findings": null,
@@ -3160,10 +3591,14 @@
 			"private": false,
 			"artifact_type": "theme",
 			"language": "PHP",
+			"packages": {
+				"newfold-labs/wp-php-standards": null
+			},
 			"pushed_at": "2026-05-15T01:41:16Z",
 			"level": 0,
 			"signals": {
 				"standards_package_present": false,
+				"standards_package_pinned": false,
 				"standards_package_current": null,
 				"check_reports": false,
 				"no_error_findings": null,
