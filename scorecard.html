@@ -68,103 +68,100 @@ used instead.
 
   {%- comment -%} ---------------------------------------------------- overview
 
-  Deliberately not a grid of equal boxes. The whole point of an overview is that
-  some things matter more than others, and a layout where every panel is the same
-  size and weight says the opposite.
+  Rewritten after watching it: the previous version encoded its most useful idea
+  as the position of a dot on a scatter plot and left the reader to decode it.
+  Saying a thing is clearer than plotting it.
 
-  So: one sentence, one number set large enough to be the first thing read, and
-  one plot. Everything else is quiet and dense, the way a working tool is.
-
-  The plot is the part that earns its place. Spread and volume disagree, and the
-  disagreement is what tells you which lever to pull: eighteen thousand findings
-  confined to twenty-five repositories is one mechanical pass, and five thousand
-  spread across sixty-four is a decision nobody has taken. Neither list alone
-  shows that.
+  So the work is named. phpcs already knows which of its findings phpcbf can
+  rewrite, which is the difference between "run one command" and "somebody has to
+  decide something", and that is the single most useful fact on the page. Each
+  issue carries the kind of work it is, and the table is ordered so the biggest
+  wins are at the top.
   {%- endcomment -%}
   <section class="view is-on" id="view-overview" data-view="overview">
     <div class="ovw">
 
-      <div class="lede">
-        <p class="lede__kicker">Ten issues account for</p>
-        <p class="lede__big">{{ board.summary.concentration.top10 }}<span>%</span></p>
-        <p class="lede__say">
-          of all {{ board.summary.findings | thousands }} findings.
-          Three of them alone are {{ board.summary.concentration.top3 }}%.
+      <div class="hero">
+        <p class="hero__kicker">Ten issues account for</p>
+        <p class="hero__big">{{ board.summary.concentration.top10 }}<span>%</span></p>
+        <p class="hero__say">
+          of all {{ board.summary.findings | thousands }} findings across
+          {{ board.summary.scanned }} repositories. Three of them alone are
+          {{ board.summary.concentration.top3 }}%.
         </p>
 
-        <dl class="facts">
-          <div>
-            <dt>Repositories scanned</dt>
-            <dd>{{ board.summary.scanned }}<span class="facts__of">of {{ board.summary.repos }}</span></dd>
-          </div>
-          <div>
-            <dt>Distinct issues</dt>
-            <dd>{{ board.summary.by_sniff.size }}</dd>
-          </div>
-          <div>
-            <dt>Cite a standard</dt>
-            <dd>{{ cited_pct }}%<span class="facts__of">{{ board.summary.cited | thousands }} findings</span></dd>
-          </div>
-          <div>
-            <dt>Report for themselves</dt>
-            <dd>{{ board.summary.reporting }}<span class="facts__of">rest are scanned centrally</span></dd>
-          </div>
-        </dl>
+        {%- if board.summary.fixable > 0 -%}
+        {%- assign fix_pct = board.summary.fixable | times: 100 | divided_by: board.summary.findings -%}
+        <p class="hero__fix">
+          <b>{{ board.summary.fixable | thousands }}</b> of them ({{ fix_pct }}%)
+          are fixed by running <code>phpcbf</code>&mdash; one command, no discussion.
+        </p>
+        {%- endif -%}
       </div>
 
-      <figure class="plot">
-        <figcaption class="plot__cap">
-          <b>Every issue, by reach and by volume</b>
-          <span>Each mark is one sniff. Filled marks cite a standard.</span>
-        </figcaption>
-
-        <div class="plot__frame">
-          {%- for tick in board.summary.axis.y -%}
-          <span class="tick tick--y" style="bottom: {{ tick.at }}%"><i>{{ tick.label }}</i></span>
-          {%- endfor -%}
-          {%- for tick in board.summary.axis.x -%}
-          <span class="tick tick--x" style="left: {{ tick.at }}%"><i>{{ tick.label }}</i></span>
-          {%- endfor -%}
-
-          <span class="plot__zone plot__zone--tr">systemic</span>
-          <span class="plot__zone plot__zone--tl">concentrated</span>
-          <span class="plot__zone plot__zone--br">widespread, quiet</span>
-
-          {%- for entry in board.summary.by_sniff -%}
-          <a class="dot{% if entry.rule %} dot--cited{% endif %}"
-             href="#issues" data-goto-issue="{{ entry.sniff }}"
-             style="left: {{ entry.x }}%; bottom: {{ entry.y }}%"
-             title="{{ entry.sniff }} — {{ entry.total | thousands }} findings in {{ entry.repos }} repositories"><span class="visually-hidden">{{ entry.sniff }}</span></a>
-          {%- endfor -%}
-
-          {%- comment -%}
-          Only the largest are labelled. Labelling all 121 would be a wall of
-          text, and the rest are one hover or one click away.
-          {%- endcomment -%}
-          {%- for entry in board.summary.loudest limit: 5 -%}
-          {%- for point in board.summary.by_sniff -%}
-          {%- if point.sniff == entry.sniff -%}
-          <span class="dot__tag" style="left: {{ point.x }}%; bottom: {{ point.y }}%">{{ entry.sniff | split: '.' | last }}</span>
-          {%- endif -%}
-          {%- endfor -%}
-          {%- endfor -%}
+      <div class="work">
+        <div class="work__head">
+          <h2>What the work is</h2>
+          <p>Ordered by size. The kind of work matters more than the count.</p>
         </div>
 
-        <div class="plot__axes">
-          <span class="plot__y">findings, log scale</span>
-          <span class="plot__x">repositories affected &rarr;</span>
-        </div>
-      </figure>
+        <table class="wt">
+          <thead>
+            <tr>
+              <th scope="col">Issue</th>
+              <th scope="col">Kind</th>
+              <th scope="col" class="wt__num">Repos</th>
+              <th scope="col" class="wt__num">Findings</th>
+              <th scope="col">Share of all findings</th>
+              <th scope="col">Standard</th>
+            </tr>
+          </thead>
+          <tbody>
+            {%- assign biggest = board.summary.loudest | first -%}
+            {%- for entry in board.summary.loudest -%}
+            <tr>
+              <th scope="row">
+                <a href="#issues" data-goto-issue="{{ entry.sniff }}">{{ entry.sniff }}</a>
+              </th>
+              <td>
+                {%- case entry.shape -%}
+                {%- when 'fix' -%}<span class="kind kind--fix">run phpcbf</span>
+                {%- when 'decide' -%}<span class="kind kind--decide">fleet decision</span>
+                {%- else -%}<span class="kind kind--work">code changes</span>
+                {%- endcase -%}
+              </td>
+              <td class="wt__num">{{ entry.repos }}</td>
+              <td class="wt__num">{{ entry.total | thousands }}</td>
+              <td class="wt__bar">
+                <span class="meter" aria-hidden="true"><i style="width: {{ entry.total | times: 100 | divided_by: biggest.total }}%"></i></span>
+                <span class="wt__pct">{{ entry.total | times: 100 | divided_by: board.summary.findings }}%</span>
+              </td>
+              <td class="wt__cite">
+                {%- if entry.rule -%}
+                <a href="{{ '/atlas.html' | relative_url }}#{{ entry.rule }}">{{ entry.rule }}</a>
+                {%- else -%}
+                <span class="wt__none">none yet</span>
+                {%- endif -%}
+              </td>
+            </tr>
+            {%- endfor -%}
+          </tbody>
+        </table>
+
+        <p class="work__more">
+          <a href="#issues" data-view-link="issues">All {{ board.summary.by_sniff.size }} issues &rarr;</a>
+        </p>
+      </div>
 
       <div class="lists">
         <section class="list">
           <h2>Widest reach</h2>
-          <p class="list__hint">A decision to take once, everywhere.</p>
+          <p class="list__hint">One decision, taken everywhere.</p>
           <ol>
             {%- for entry in board.summary.by_sniff limit: 8 -%}
             <li>
               <a href="#issues" data-goto-issue="{{ entry.sniff }}">{{ entry.sniff | split: '.' | last }}</a>
-              <span class="list__bar" aria-hidden="true"><i style="width: {{ entry.x }}%"></i></span>
+              <span class="meter" aria-hidden="true"><i style="width: {{ entry.x }}%"></i></span>
               <b>{{ entry.repos }}</b>
             </li>
             {%- endfor -%}
@@ -172,21 +169,6 @@ used instead.
         </section>
 
         <section class="list">
-          <h2>Most findings</h2>
-          <p class="list__hint">Volume, which is often one mechanical pass.</p>
-          <ol>
-            {%- assign loud_max = board.summary.loudest | first -%}
-            {%- for entry in board.summary.loudest limit: 8 -%}
-            <li>
-              <a href="#issues" data-goto-issue="{{ entry.sniff }}">{{ entry.sniff | split: '.' | last }}</a>
-              <span class="list__bar" aria-hidden="true"><i style="width: {{ entry.total | times: 100 | divided_by: loud_max.total }}%"></i></span>
-              <b>{{ entry.total | thousands }}</b>
-            </li>
-            {%- endfor -%}
-          </ol>
-        </section>
-
-        <section class="list list--tight">
           <h2>Densest codebases</h2>
           <p class="list__hint">Findings per file. Raw totals rank size.</p>
           <ol>
@@ -194,14 +176,14 @@ used instead.
             {%- for entry in board.summary.worst limit: 8 -%}
             <li>
               <a href="#repositories" data-goto-repo="{{ entry.name }}">{{ entry.name | remove: 'wp-' }}</a>
-              <span class="list__bar" aria-hidden="true"><i style="width: {{ entry.per_file | times: 100 | divided_by: dense_max.per_file }}%"></i></span>
+              <span class="meter" aria-hidden="true"><i style="width: {{ entry.per_file | times: 100 | divided_by: dense_max.per_file }}%"></i></span>
               <b>{{ entry.per_file }}</b>
             </li>
             {%- endfor -%}
           </ol>
         </section>
 
-        <section class="list list--tight">
+        <section class="list">
           <h2>Adoption</h2>
           <p class="list__hint">Flat until repositories report for themselves.</p>
           <div class="ladder">
@@ -221,22 +203,8 @@ used instead.
           <dl class="gaps">
             <div><dt>Owned</dt><dd>{{ board.summary.owned }}/{{ board.summary.repos }}</dd></div>
             <div><dt>AI context</dt><dd>{{ board.summary.ai_context }}/{{ board.summary.repos }}</dd></div>
+            <div><dt>Cited</dt><dd>{{ cited_pct }}%</dd></div>
           </dl>
-          {%- if history and history.size > 1 -%}
-          <div class="trend" aria-hidden="true">
-            {%- for point in history -%}
-            <div class="trend__bar" title="{{ point.date }}">
-              {%- for rung in levels_desc -%}
-              {%- assign key = rung.level | append: '' -%}
-              {%- assign at = point.by_level[key] | default: 0 -%}
-              {%- if at > 0 -%}
-              <span class="trend__slice trend__slice--{{ rung.level }}" style="height: {{ at | times: 100 | divided_by: point.repos }}%"></span>
-              {%- endif -%}
-              {%- endfor -%}
-            </div>
-            {%- endfor -%}
-          </div>
-          {%- endif -%}
         </section>
       </div>
     </div>
@@ -338,16 +306,23 @@ used instead.
         </caption>
         <thead>
           <tr>
-            <th scope="col" class="grid__sort" data-sort="name" aria-sort="ascending"><button type="button">Repository</button></th>
+            <th scope="col" class="grid__sort" data-sort="name" aria-sort="none"><button type="button">Repository</button></th>
             <th scope="col" class="grid__sort" data-sort="level" aria-sort="none"><button type="button">Level</button></th>
             <th scope="col">Package</th>
-            <th scope="col" class="grid__sort" data-sort="findings" aria-sort="none"><button type="button">Findings</button></th>
+            <th scope="col" class="grid__sort" data-sort="findings" aria-sort="descending"><button type="button">Findings</button></th>
             <th scope="col" class="grid__sort" data-sort="density" aria-sort="none"><button type="button">Per file</button></th>
             <th scope="col">Source</th>
           </tr>
         </thead>
         <tbody>
-          {%- for repo in board.repos -%}
+          {%- comment -%}
+          Ordered by findings, not by name. Alphabetically the first screenful is
+          thirty-six workers that no rule binds yet, all reading "not scanned",
+          which is the least useful thing this table could open on. Sorted here
+          rather than in script so the order holds without JavaScript.
+          {%- endcomment -%}
+          {%- assign ranked_repos = board.repos | sort: 'finding_count' | reverse -%}
+          {%- for repo in ranked_repos -%}
           {%- assign density = 0 -%}
           {%- if repo.scan.files > 0 and repo.finding_count > 0 -%}
           {%- comment -%}
