@@ -1,6 +1,6 @@
 {
 	"schema": 1,
-	"generated_at": "2026-08-21T10:47:44.578Z",
+	"generated_at": "2026-08-21T11:27:14.266Z",
 	"org": "newfold-labs",
 	"policy_fingerprint": "c4ba1b5f04c52c1e",
 	"levels": [
@@ -1133,7 +1133,10 @@
 						"errors": 0,
 						"warnings": 1
 					}
-				]
+				],
+				"total": 5594,
+				"x": 100,
+				"y": 87.9
 			},
 			{
 				"sniff": "WordPress.NamingConventions.PrefixAllGlobals",
@@ -1432,7 +1435,10 @@
 						"errors": 0,
 						"warnings": 1
 					}
-				]
+				],
+				"total": 14719,
+				"x": 90.6,
+				"y": 97.8
 			},
 			{
 				"sniff": "WordPress.NamingConventions.ValidVariableName",
@@ -1661,7 +1667,10 @@
 						"errors": 1,
 						"warnings": 0
 					}
-				]
+				],
+				"total": 1410,
+				"x": 68.8,
+				"y": 73.9
 			},
 			{
 				"sniff": "WordPress.Arrays.MultipleStatementAlignment",
@@ -1870,7 +1879,10 @@
 						"errors": 0,
 						"warnings": 1
 					}
-				]
+				],
+				"total": 3714,
+				"x": 62.5,
+				"y": 83.8
 			},
 			{
 				"sniff": "Generic.CodeAnalysis.UnusedFunctionParameter",
@@ -2079,7 +2091,10 @@
 						"errors": 0,
 						"warnings": 1
 					}
-				]
+				],
+				"total": 444,
+				"x": 62.5,
+				"y": 62.1
 			},
 			{
 				"sniff": "Newfold.PHP.NamespaceDeclaration",
@@ -2283,7 +2298,10 @@
 						"errors": 0,
 						"warnings": 3
 					}
-				]
+				],
+				"total": 1659,
+				"x": 60.9,
+				"y": 75.6
 			},
 			{
 				"sniff": "Universal.Arrays.DisallowShortArraySyntax",
@@ -2482,7 +2500,10 @@
 						"errors": 1,
 						"warnings": 0
 					}
-				]
+				],
+				"total": 13991,
+				"x": 59.4,
+				"y": 97.3
 			},
 			{
 				"sniff": "Squiz.Commenting.FunctionComment",
@@ -2676,7 +2697,10 @@
 						"errors": 1,
 						"warnings": 0
 					}
-				]
+				],
+				"total": 2446,
+				"x": 57.8,
+				"y": 79.5
 			},
 			{
 				"sniff": "Generic.Formatting.MultipleStatementAlignment",
@@ -2870,7 +2894,10 @@
 						"errors": 0,
 						"warnings": 1
 					}
-				]
+				],
+				"total": 1108,
+				"x": 57.8,
+				"y": 71.4
 			},
 			{
 				"sniff": "WordPress.NamingConventions.ValidFunctionName",
@@ -3064,7 +3091,10 @@
 						"errors": 1,
 						"warnings": 0
 					}
-				]
+				],
+				"total": 234,
+				"x": 57.8,
+				"y": 55.6
 			},
 			{
 				"sniff": "PEAR.Functions.FunctionCallSignature",
@@ -3253,7 +3283,10 @@
 						"errors": 1,
 						"warnings": 0
 					}
-				]
+				],
+				"total": 7301,
+				"x": 56.3,
+				"y": 90.7
 			},
 			{
 				"sniff": "PSR2.Classes.ClassDeclaration",
@@ -3432,7 +3465,10 @@
 						"errors": 1,
 						"warnings": 0
 					}
-				]
+				],
+				"total": 167,
+				"x": 53.1,
+				"y": 52.2
 			},
 			{
 				"sniff": "PSR2.Methods.FunctionClosingBrace",
@@ -3606,7 +3642,10 @@
 						"errors": 1,
 						"warnings": 0
 					}
-				]
+				],
+				"total": 242,
+				"x": 51.6,
+				"y": 55.9
 			},
 			{
 				"sniff": "PSR2.Files.EndFileNewline",
@@ -3775,7 +3814,10 @@
 						"errors": 1,
 						"warnings": 0
 					}
-				]
+				],
+				"total": 253,
+				"x": 50,
+				"y": 56.4
 			},
 			{
 				"sniff": "WordPress.Security.NonceVerification",
@@ -3939,7 +3981,10 @@
 						"errors": 0,
 						"warnings": 1
 					}
-				]
+				],
+				"total": 503,
+				"x": 48.4,
+				"y": 63.4
 			},
 			{
 				"sniff": "Squiz.Commenting.ClassComment",
@@ -4103,7 +4148,10 @@
 						"errors": 1,
 						"warnings": 0
 					}
-				]
+				],
+				"total": 486,
+				"x": 48.4,
+				"y": 63
 			},
 			{
 				"sniff": "Squiz.WhiteSpace.SuperfluousWhitespace",
@@ -4262,7 +4310,10 @@
 						"errors": 1,
 						"warnings": 0
 					}
-				]
+				],
+				"total": 240,
+				"x": 46.9,
+				"y": 55.9
 			},
 			{
 				"sniff": "NormalizedArrays.Arrays.CommaAfterLast",
@@ -4416,7 +4467,10 @@
 						"errors": 1,
 						"warnings": 0
 					}
-				]
+				],
+				"total": 592,
+				"x": 45.3,
+				"y": 65.1
 			},
 			{
 				"sniff": "Universal.NamingConventions.NoReservedKeywordParameterNames",
@@ -4560,7 +4614,10 @@
 						"errors": 0,
 						"warnings": 1
 					}
-				]
+				],
+				"total": 146,
+				"x": 42.2,
+				"y": 50.8
 			},
 			{
 				"sniff": "Generic.Commenting.Todo",
@@ -4704,7 +4761,10 @@
 						"errors": 0,
 						"warnings": 1
 					}
-				]
+				],
+				"total": 90,
+				"x": 42.2,
+				"y": 45.9
 			},
 			{
 				"sniff": "WordPress.WP.AlternativeFunctions",
@@ -4843,7 +4903,10 @@
 						"errors": 0,
 						"warnings": 1
 					}
-				]
+				],
+				"total": 136,
+				"x": 40.6,
+				"y": 50.1
 			},
 			{
 				"sniff": "Generic.WhiteSpace.DisallowSpaceIndent",
@@ -4977,7 +5040,10 @@
 						"errors": 1,
 						"warnings": 0
 					}
-				]
+				],
+				"total": 18257,
+				"x": 39.1,
+				"y": 100
 			},
 			{
 				"sniff": "WordPress.WhiteSpace.ControlStructureSpacing",
@@ -5111,7 +5177,10 @@
 						"errors": 1,
 						"warnings": 0
 					}
-				]
+				],
+				"total": 498,
+				"x": 39.1,
+				"y": 63.3
 			},
 			{
 				"sniff": "Generic.Commenting.DocComment",
@@ -5240,7 +5309,10 @@
 						"errors": 1,
 						"warnings": 0
 					}
-				]
+				],
+				"total": 499,
+				"x": 37.5,
+				"y": 63.3
 			},
 			{
 				"sniff": "WordPress.PHP.DiscouragedPHPFunctions",
@@ -5369,7 +5441,10 @@
 						"errors": 0,
 						"warnings": 1
 					}
-				]
+				],
+				"total": 66,
+				"x": 37.5,
+				"y": 42.7
 			},
 			{
 				"sniff": "WordPress.WhiteSpace.OperatorSpacing",
@@ -5493,7 +5568,10 @@
 						"errors": 1,
 						"warnings": 0
 					}
-				]
+				],
+				"total": 334,
+				"x": 35.9,
+				"y": 59.2
 			},
 			{
 				"sniff": "Squiz.ControlStructures.ControlSignature",
@@ -5612,7 +5690,10 @@
 						"errors": 1,
 						"warnings": 0
 					}
-				]
+				],
+				"total": 223,
+				"x": 34.4,
+				"y": 55.1
 			},
 			{
 				"sniff": "WordPress.PHP.YodaConditions",
@@ -5726,7 +5807,10 @@
 						"errors": 1,
 						"warnings": 0
 					}
-				]
+				],
+				"total": 553,
+				"x": 32.8,
+				"y": 64.4
 			},
 			{
 				"sniff": "Squiz.Commenting.FileComment",
@@ -5840,7 +5924,10 @@
 						"errors": 1,
 						"warnings": 0
 					}
-				]
+				],
+				"total": 252,
+				"x": 32.8,
+				"y": 56.4
 			},
 			{
 				"sniff": "Universal.WhiteSpace.PrecisionAlignment",
@@ -5939,7 +6026,10 @@
 						"errors": 0,
 						"warnings": 1
 					}
-				]
+				],
+				"total": 503,
+				"x": 28.1,
+				"y": 63.4
 			},
 			{
 				"sniff": "WordPress.Security.EscapeOutput",
@@ -6038,7 +6128,10 @@
 						"errors": 1,
 						"warnings": 0
 					}
-				]
+				],
+				"total": 213,
+				"x": 28.1,
+				"y": 54.6
 			},
 			{
 				"sniff": "WordPress.WP.I18n",
@@ -6137,7 +6230,10 @@
 						"errors": 0,
 						"warnings": 1
 					}
-				]
+				],
+				"total": 174,
+				"x": 28.1,
+				"y": 52.6
 			},
 			{
 				"sniff": "Generic.WhiteSpace.ScopeIndent",
@@ -6231,7 +6327,10 @@
 						"errors": 1,
 						"warnings": 0
 					}
-				]
+				],
+				"total": 860,
+				"x": 26.6,
+				"y": 68.9
 			},
 			{
 				"sniff": "NormalizedArrays.Arrays.ArrayBraceSpacing",
@@ -6325,7 +6424,10 @@
 						"errors": 1,
 						"warnings": 0
 					}
-				]
+				],
+				"total": 216,
+				"x": 26.6,
+				"y": 54.8
 			},
 			{
 				"sniff": "Squiz.PHP.CommentedOutCode",
@@ -6419,7 +6521,10 @@
 						"errors": 0,
 						"warnings": 1
 					}
-				]
+				],
+				"total": 38,
+				"x": 26.6,
+				"y": 37.1
 			},
 			{
 				"sniff": "WordPress.Arrays.ArrayIndentation",
@@ -6508,7 +6613,10 @@
 						"errors": 1,
 						"warnings": 0
 					}
-				]
+				],
+				"total": 591,
+				"x": 25,
+				"y": 65
 			},
 			{
 				"sniff": "WordPress.PHP.StrictInArray",
@@ -6597,7 +6705,10 @@
 						"errors": 0,
 						"warnings": 1
 					}
-				]
+				],
+				"total": 100,
+				"x": 25,
+				"y": 46.9
 			},
 			{
 				"sniff": "Universal.CodeAnalysis.NoDoubleNegative",
@@ -6681,7 +6792,10 @@
 						"errors": 1,
 						"warnings": 0
 					}
-				]
+				],
+				"total": 317,
+				"x": 23.4,
+				"y": 58.7
 			},
 			{
 				"sniff": "Squiz.Commenting.VariableComment",
@@ -6765,7 +6879,10 @@
 						"errors": 1,
 						"warnings": 0
 					}
-				]
+				],
+				"total": 220,
+				"x": 23.4,
+				"y": 55
 			},
 			{
 				"sniff": "WordPress.Arrays.ArrayDeclarationSpacing",
@@ -6844,7 +6961,10 @@
 						"errors": 1,
 						"warnings": 0
 					}
-				]
+				],
+				"total": 653,
+				"x": 21.9,
+				"y": 66.1
 			},
 			{
 				"sniff": "Universal.Operators.StrictComparisons",
@@ -6923,7 +7043,10 @@
 						"errors": 0,
 						"warnings": 1
 					}
-				]
+				],
+				"total": 147,
+				"x": 21.9,
+				"y": 50.9
 			},
 			{
 				"sniff": "Squiz.Strings.DoubleQuoteUsage",
@@ -7002,7 +7125,10 @@
 						"errors": 1,
 						"warnings": 0
 					}
-				]
+				],
+				"total": 140,
+				"x": 21.9,
+				"y": 50.4
 			},
 			{
 				"sniff": "WordPress.Arrays.ArrayKeySpacingRestrictions",
@@ -7081,7 +7207,10 @@
 						"errors": 1,
 						"warnings": 0
 					}
-				]
+				],
+				"total": 128,
+				"x": 21.9,
+				"y": 49.4
 			},
 			{
 				"sniff": "Squiz.PHP.EmbeddedPhp",
@@ -7155,7 +7284,10 @@
 						"errors": 1,
 						"warnings": 0
 					}
-				]
+				],
+				"total": 211,
+				"x": 20.3,
+				"y": 54.5
 			},
 			{
 				"sniff": "WordPress.DB.PreparedSQL",
@@ -7229,7 +7361,10 @@
 						"errors": 1,
 						"warnings": 0
 					}
-				]
+				],
+				"total": 139,
+				"x": 20.3,
+				"y": 50.3
 			},
 			{
 				"sniff": "WordPress.WP.Capabilities",
@@ -7303,7 +7438,10 @@
 						"errors": 0,
 						"warnings": 2
 					}
-				]
+				],
+				"total": 90,
+				"x": 20.3,
+				"y": 45.9
 			},
 			{
 				"sniff": "Generic.Functions.FunctionCallArgumentSpacing",
@@ -7372,7 +7510,10 @@
 						"errors": 1,
 						"warnings": 0
 					}
-				]
+				],
+				"total": 102,
+				"x": 18.8,
+				"y": 47.1
 			},
 			{
 				"sniff": "Generic.Functions.OpeningFunctionBraceKernighanRitchie",
@@ -7441,7 +7582,10 @@
 						"errors": 1,
 						"warnings": 0
 					}
-				]
+				],
+				"total": 87,
+				"x": 18.8,
+				"y": 45.5
 			},
 			{
 				"sniff": "Squiz.Functions.FunctionDeclarationArgumentSpacing",
@@ -7510,7 +7654,10 @@
 						"errors": 1,
 						"warnings": 0
 					}
-				]
+				],
+				"total": 70,
+				"x": 18.8,
+				"y": 43.3
 			},
 			{
 				"sniff": "WordPress.PHP.DevelopmentFunctions",
@@ -7579,7 +7726,10 @@
 						"errors": 0,
 						"warnings": 1
 					}
-				]
+				],
+				"total": 62,
+				"x": 18.8,
+				"y": 42.1
 			},
 			{
 				"sniff": "PSR2.Namespaces.NamespaceDeclaration",
@@ -7648,7 +7798,10 @@
 						"errors": 1,
 						"warnings": 0
 					}
-				]
+				],
+				"total": 28,
+				"x": 18.8,
+				"y": 34
 			},
 			{
 				"sniff": "Squiz.Commenting.InlineComment",
@@ -7712,7 +7865,10 @@
 						"errors": 1,
 						"warnings": 0
 					}
-				]
+				],
+				"total": 67,
+				"x": 17.2,
+				"y": 42.9
 			},
 			{
 				"sniff": "Universal.ControlStructures.DisallowLonelyIf",
@@ -7776,7 +7932,10 @@
 						"errors": 1,
 						"warnings": 0
 					}
-				]
+				],
+				"total": 33,
+				"x": 17.2,
+				"y": 35.6
 			},
 			{
 				"sniff": "Squiz.Functions.MultiLineFunctionDeclaration",
@@ -7840,7 +7999,10 @@
 						"errors": 1,
 						"warnings": 0
 					}
-				]
+				],
+				"total": 28,
+				"x": 17.2,
+				"y": 34
 			},
 			{
 				"sniff": "Universal.Operators.DisallowShortTernary",
@@ -7899,7 +8061,10 @@
 						"errors": 1,
 						"warnings": 0
 					}
-				]
+				],
+				"total": 359,
+				"x": 15.6,
+				"y": 60
 			},
 			{
 				"sniff": "Generic.WhiteSpace.IncrementDecrementSpacing",
@@ -7958,7 +8123,10 @@
 						"errors": 1,
 						"warnings": 0
 					}
-				]
+				],
+				"total": 49,
+				"x": 15.6,
+				"y": 39.7
 			},
 			{
 				"sniff": "WordPress.WP.EnqueuedResourceParameters",
@@ -8017,7 +8185,10 @@
 						"errors": 0,
 						"warnings": 1
 					}
-				]
+				],
+				"total": 18,
+				"x": 15.6,
+				"y": 29.5
 			},
 			{
 				"sniff": "Universal.WhiteSpace.CommaSpacing",
@@ -8071,7 +8242,10 @@
 						"errors": 1,
 						"warnings": 0
 					}
-				]
+				],
+				"total": 98,
+				"x": 14.1,
+				"y": 46.7
 			},
 			{
 				"sniff": "Generic.CodeAnalysis.RequireExplicitBooleanOperatorPrecedence",
@@ -8125,7 +8299,10 @@
 						"errors": 1,
 						"warnings": 0
 					}
-				]
+				],
+				"total": 27,
+				"x": 14.1,
+				"y": 33.6
 			},
 			{
 				"sniff": "WordPress.WP.GlobalVariablesOverride",
@@ -8174,7 +8351,10 @@
 						"errors": 1,
 						"warnings": 0
 					}
-				]
+				],
+				"total": 34,
+				"x": 12.5,
+				"y": 35.9
 			},
 			{
 				"sniff": "Squiz.Strings.ConcatenationSpacing",
@@ -8223,7 +8403,10 @@
 						"errors": 1,
 						"warnings": 0
 					}
-				]
+				],
+				"total": 32,
+				"x": 12.5,
+				"y": 35.3
 			},
 			{
 				"sniff": "Generic.Classes.OpeningBraceSameLine",
@@ -8272,7 +8455,10 @@
 						"errors": 1,
 						"warnings": 0
 					}
-				]
+				],
+				"total": 30,
+				"x": 12.5,
+				"y": 34.7
 			},
 			{
 				"sniff": "Universal.WhiteSpace.DisallowInlineTabs",
@@ -8321,7 +8507,10 @@
 						"errors": 1,
 						"warnings": 0
 					}
-				]
+				],
+				"total": 23,
+				"x": 12.5,
+				"y": 32
 			},
 			{
 				"sniff": "Generic.CodeAnalysis.EmptyPHPStatement",
@@ -8370,7 +8559,10 @@
 						"errors": 0,
 						"warnings": 1
 					}
-				]
+				],
+				"total": 19,
+				"x": 12.5,
+				"y": 30
 			},
 			{
 				"sniff": "Universal.Operators.DisallowStandalonePostIncrementDecrement",
@@ -8414,7 +8606,10 @@
 						"errors": 0,
 						"warnings": 1
 					}
-				]
+				],
+				"total": 44,
+				"x": 10.9,
+				"y": 38.6
 			},
 			{
 				"sniff": "WordPress.DateTime.RestrictedFunctions",
@@ -8458,7 +8653,10 @@
 						"errors": 1,
 						"warnings": 0
 					}
-				]
+				],
+				"total": 29,
+				"x": 10.9,
+				"y": 34.3
 			},
 			{
 				"sniff": "WordPress.PHP.NoSilencedErrors",
@@ -8502,7 +8700,10 @@
 						"errors": 0,
 						"warnings": 1
 					}
-				]
+				],
+				"total": 21,
+				"x": 10.9,
+				"y": 31
 			},
 			{
 				"sniff": "PSR2.ControlStructures.SwitchDeclaration",
@@ -8541,7 +8742,10 @@
 						"errors": 1,
 						"warnings": 0
 					}
-				]
+				],
+				"total": 28,
+				"x": 9.4,
+				"y": 34
 			},
 			{
 				"sniff": "Generic.Formatting.DisallowMultipleStatements",
@@ -8580,7 +8784,10 @@
 						"errors": 1,
 						"warnings": 0
 					}
-				]
+				],
+				"total": 25,
+				"x": 9.4,
+				"y": 32.8
 			},
 			{
 				"sniff": "Squiz.WhiteSpace.SemicolonSpacing",
@@ -8619,7 +8826,10 @@
 						"errors": 1,
 						"warnings": 0
 					}
-				]
+				],
+				"total": 9,
+				"x": 9.4,
+				"y": 22.4
 			},
 			{
 				"sniff": "Squiz.Commenting.BlockComment",
@@ -8653,7 +8863,10 @@
 						"errors": 1,
 						"warnings": 0
 					}
-				]
+				],
+				"total": 120,
+				"x": 7.8,
+				"y": 48.8
 			},
 			{
 				"sniff": "Squiz.Commenting.DocCommentAlignment",
@@ -8687,7 +8900,10 @@
 						"errors": 1,
 						"warnings": 0
 					}
-				]
+				],
+				"total": 55,
+				"x": 7.8,
+				"y": 40.8
 			},
 			{
 				"sniff": "Generic.WhiteSpace.ArbitraryParenthesesSpacing",
@@ -8721,7 +8937,10 @@
 						"errors": 2,
 						"warnings": 0
 					}
-				]
+				],
+				"total": 20,
+				"x": 7.8,
+				"y": 30.5
 			},
 			{
 				"sniff": "PSR12.Files.FileHeader",
@@ -8755,7 +8974,10 @@
 						"errors": 1,
 						"warnings": 0
 					}
-				]
+				],
+				"total": 13,
+				"x": 7.8,
+				"y": 26.1
 			},
 			{
 				"sniff": "WordPress.Security.SafeRedirect",
@@ -8789,7 +9011,10 @@
 						"errors": 0,
 						"warnings": 1
 					}
-				]
+				],
+				"total": 10,
+				"x": 7.8,
+				"y": 23.5
 			},
 			{
 				"sniff": "PSR2.ControlStructures.ElseIfDeclaration",
@@ -8823,7 +9048,10 @@
 						"errors": 0,
 						"warnings": 1
 					}
-				]
+				],
+				"total": 9,
+				"x": 7.8,
+				"y": 22.4
 			},
 			{
 				"sniff": "WordPress.DB.PreparedSQLPlaceholders",
@@ -8857,7 +9085,10 @@
 						"errors": 1,
 						"warnings": 0
 					}
-				]
+				],
+				"total": 9,
+				"x": 7.8,
+				"y": 22.4
 			},
 			{
 				"sniff": "Generic.ControlStructures.InlineControlStructure",
@@ -8886,7 +9117,10 @@
 						"errors": 1,
 						"warnings": 0
 					}
-				]
+				],
+				"total": 385,
+				"x": 6.3,
+				"y": 60.7
 			},
 			{
 				"sniff": "Squiz.Commenting.FunctionCommentThrowTag",
@@ -8915,7 +9149,10 @@
 						"errors": 1,
 						"warnings": 0
 					}
-				]
+				],
+				"total": 29,
+				"x": 6.3,
+				"y": 34.3
 			},
 			{
 				"sniff": "Squiz.Scope.MethodScope",
@@ -8944,7 +9181,10 @@
 						"errors": 2,
 						"warnings": 0
 					}
-				]
+				],
+				"total": 26,
+				"x": 6.3,
+				"y": 33.2
 			},
 			{
 				"sniff": "PSR2.Classes.PropertyDeclaration",
@@ -8973,7 +9213,10 @@
 						"errors": 0,
 						"warnings": 1
 					}
-				]
+				],
+				"total": 22,
+				"x": 6.3,
+				"y": 31.5
 			},
 			{
 				"sniff": "Squiz.Classes.SelfMemberReference",
@@ -9002,7 +9245,10 @@
 						"errors": 2,
 						"warnings": 0
 					}
-				]
+				],
+				"total": 16,
+				"x": 6.3,
+				"y": 28.3
 			},
 			{
 				"sniff": "Squiz.PHP.DisallowMultipleAssignments",
@@ -9031,7 +9277,10 @@
 						"errors": 1,
 						"warnings": 0
 					}
-				]
+				],
+				"total": 14,
+				"x": 6.3,
+				"y": 26.9
 			},
 			{
 				"sniff": "Universal.UseStatements.NoLeadingBackslash",
@@ -9060,7 +9309,10 @@
 						"errors": 1,
 						"warnings": 0
 					}
-				]
+				],
+				"total": 13,
+				"x": 6.3,
+				"y": 26.1
 			},
 			{
 				"sniff": "Newfold.PHP.ForbiddenUnionType",
@@ -9089,7 +9341,10 @@
 						"errors": 1,
 						"warnings": 0
 					}
-				]
+				],
+				"total": 12,
+				"x": 6.3,
+				"y": 25.3
 			},
 			{
 				"sniff": "Squiz.PHP.NonExecutableCode",
@@ -9118,7 +9373,10 @@
 						"errors": 0,
 						"warnings": 1
 					}
-				]
+				],
+				"total": 10,
+				"x": 6.3,
+				"y": 23.5
 			},
 			{
 				"sniff": "Generic.WhiteSpace.LanguageConstructSpacing",
@@ -9147,7 +9405,10 @@
 						"errors": 1,
 						"warnings": 0
 					}
-				]
+				],
+				"total": 7,
+				"x": 6.3,
+				"y": 19.8
 			},
 			{
 				"sniff": "WordPress.PHP.DontExtract",
@@ -9171,7 +9432,10 @@
 						"errors": 2,
 						"warnings": 0
 					}
-				]
+				],
+				"total": 26,
+				"x": 4.7,
+				"y": 33.2
 			},
 			{
 				"sniff": "Generic.CodeAnalysis.AssignmentInCondition",
@@ -9195,7 +9459,10 @@
 						"errors": 0,
 						"warnings": 1
 					}
-				]
+				],
+				"total": 11,
+				"x": 4.7,
+				"y": 24.4
 			},
 			{
 				"sniff": "Generic.CodeAnalysis.EmptyStatement",
@@ -9219,7 +9486,10 @@
 						"errors": 1,
 						"warnings": 0
 					}
-				]
+				],
+				"total": 4,
+				"x": 4.7,
+				"y": 14.1
 			},
 			{
 				"sniff": "Squiz.Commenting.EmptyCatchComment",
@@ -9243,7 +9513,10 @@
 						"errors": 1,
 						"warnings": 0
 					}
-				]
+				],
+				"total": 3,
+				"x": 4.7,
+				"y": 11.2
 			},
 			{
 				"sniff": "PSR12.Functions.ReturnTypeDeclaration",
@@ -9262,7 +9535,10 @@
 						"errors": 1,
 						"warnings": 0
 					}
-				]
+				],
+				"total": 49,
+				"x": 3.1,
+				"y": 39.7
 			},
 			{
 				"sniff": "PSR12.Traits.UseDeclaration",
@@ -9281,7 +9557,10 @@
 						"errors": 1,
 						"warnings": 0
 					}
-				]
+				],
+				"total": 18,
+				"x": 3.1,
+				"y": 29.5
 			},
 			{
 				"sniff": "PSR2.Methods.MethodDeclaration",
@@ -9300,7 +9579,10 @@
 						"errors": 0,
 						"warnings": 5
 					}
-				]
+				],
+				"total": 14,
+				"x": 3.1,
+				"y": 26.9
 			},
 			{
 				"sniff": "PSR2.Files.ClosingTag",
@@ -9319,7 +9601,10 @@
 						"errors": 1,
 						"warnings": 0
 					}
-				]
+				],
+				"total": 6,
+				"x": 3.1,
+				"y": 18.3
 			},
 			{
 				"sniff": "PSR12.Classes.ClassInstantiation",
@@ -9338,7 +9623,10 @@
 						"errors": 1,
 						"warnings": 0
 					}
-				]
+				],
+				"total": 5,
+				"x": 3.1,
+				"y": 16.4
 			},
 			{
 				"sniff": "Universal.CodeAnalysis.NoEchoSprintf",
@@ -9357,7 +9645,10 @@
 						"errors": 2,
 						"warnings": 0
 					}
-				]
+				],
+				"total": 5,
+				"x": 3.1,
+				"y": 16.4
 			},
 			{
 				"sniff": "Generic.Strings.UnnecessaryStringConcat",
@@ -9376,7 +9667,10 @@
 						"errors": 1,
 						"warnings": 0
 					}
-				]
+				],
+				"total": 5,
+				"x": 3.1,
+				"y": 16.4
 			},
 			{
 				"sniff": "Universal.CodeAnalysis.ConstructorDestructorReturn",
@@ -9395,7 +9689,10 @@
 						"errors": 0,
 						"warnings": 2
 					}
-				]
+				],
+				"total": 4,
+				"x": 3.1,
+				"y": 14.1
 			},
 			{
 				"sniff": "WordPress.WP.DeprecatedFunctions",
@@ -9414,7 +9711,10 @@
 						"errors": 1,
 						"warnings": 0
 					}
-				]
+				],
+				"total": 3,
+				"x": 3.1,
+				"y": 11.2
 			},
 			{
 				"sniff": "Universal.Arrays.DuplicateArrayKey",
@@ -9433,7 +9733,10 @@
 						"errors": 1,
 						"warnings": 0
 					}
-				]
+				],
+				"total": 3,
+				"x": 3.1,
+				"y": 11.2
 			},
 			{
 				"sniff": "PEAR.Files.IncludingFile",
@@ -9452,7 +9755,10 @@
 						"errors": 0,
 						"warnings": 1
 					}
-				]
+				],
+				"total": 2,
+				"x": 3.1,
+				"y": 7.1
 			},
 			{
 				"sniff": "WordPress.WP.CronInterval",
@@ -9471,7 +9777,10 @@
 						"errors": 0,
 						"warnings": 1
 					}
-				]
+				],
+				"total": 2,
+				"x": 3.1,
+				"y": 7.1
 			},
 			{
 				"sniff": "Modernize.FunctionCalls.Dirname",
@@ -9490,7 +9799,10 @@
 						"errors": 1,
 						"warnings": 0
 					}
-				]
+				],
+				"total": 2,
+				"x": 3.1,
+				"y": 7.1
 			},
 			{
 				"sniff": "WordPress.DateTime.CurrentTimeTimestamp",
@@ -9509,7 +9821,10 @@
 						"errors": 0,
 						"warnings": 1
 					}
-				]
+				],
+				"total": 2,
+				"x": 3.1,
+				"y": 7.1
 			},
 			{
 				"sniff": "Generic.CodeAnalysis.UselessOverridingMethod",
@@ -9523,7 +9838,10 @@
 						"errors": 0,
 						"warnings": 11
 					}
-				]
+				],
+				"total": 11,
+				"x": 1.6,
+				"y": 24.4
 			},
 			{
 				"sniff": "Generic.Files.OneObjectStructurePerFile",
@@ -9537,7 +9855,10 @@
 						"errors": 5,
 						"warnings": 0
 					}
-				]
+				],
+				"total": 5,
+				"x": 1.6,
+				"y": 16.4
 			},
 			{
 				"sniff": "Generic.Files.LineEndings",
@@ -9551,7 +9872,10 @@
 						"errors": 4,
 						"warnings": 0
 					}
-				]
+				],
+				"total": 4,
+				"x": 1.6,
+				"y": 14.1
 			},
 			{
 				"sniff": "WordPress.WP.DeprecatedParameters",
@@ -9565,7 +9889,10 @@
 						"errors": 4,
 						"warnings": 0
 					}
-				]
+				],
+				"total": 4,
+				"x": 1.6,
+				"y": 14.1
 			},
 			{
 				"sniff": "WordPress.WP.CapitalPDangit",
@@ -9579,7 +9906,10 @@
 						"errors": 0,
 						"warnings": 3
 					}
-				]
+				],
+				"total": 3,
+				"x": 1.6,
+				"y": 11.2
 			},
 			{
 				"sniff": "Squiz.WhiteSpace.ScopeKeywordSpacing",
@@ -9593,7 +9923,10 @@
 						"errors": 3,
 						"warnings": 0
 					}
-				]
+				],
+				"total": 3,
+				"x": 1.6,
+				"y": 11.2
 			},
 			{
 				"sniff": "WordPress.PHP.IniSet",
@@ -9607,7 +9940,10 @@
 						"errors": 0,
 						"warnings": 2
 					}
-				]
+				],
+				"total": 2,
+				"x": 1.6,
+				"y": 7.1
 			},
 			{
 				"sniff": "Generic.Formatting.SpaceAfterCast",
@@ -9621,7 +9957,10 @@
 						"errors": 2,
 						"warnings": 0
 					}
-				]
+				],
+				"total": 2,
+				"x": 1.6,
+				"y": 7.1
 			},
 			{
 				"sniff": "WordPress.WP.EnqueuedResources",
@@ -9635,7 +9974,10 @@
 						"errors": 1,
 						"warnings": 0
 					}
-				]
+				],
+				"total": 1,
+				"x": 1.6,
+				"y": 0
 			},
 			{
 				"sniff": "WordPress.WP.GetMetaSingle",
@@ -9649,7 +9991,10 @@
 						"errors": 0,
 						"warnings": 1
 					}
-				]
+				],
+				"total": 1,
+				"x": 1.6,
+				"y": 0
 			},
 			{
 				"sniff": "Generic.PHP.ForbiddenFunctions",
@@ -9663,7 +10008,10 @@
 						"errors": 1,
 						"warnings": 0
 					}
-				]
+				],
+				"total": 1,
+				"x": 1.6,
+				"y": 0
 			},
 			{
 				"sniff": "Squiz.WhiteSpace.CastSpacing",
@@ -9677,7 +10025,10 @@
 						"errors": 1,
 						"warnings": 0
 					}
-				]
+				],
+				"total": 1,
+				"x": 1.6,
+				"y": 0
 			},
 			{
 				"sniff": "Generic.PHP.LowerCaseConstant",
@@ -9691,7 +10042,10 @@
 						"errors": 1,
 						"warnings": 0
 					}
-				]
+				],
+				"total": 1,
+				"x": 1.6,
+				"y": 0
 			},
 			{
 				"sniff": "Generic.CodeAnalysis.ForLoopWithTestFunctionCall",
@@ -9705,7 +10059,10 @@
 						"errors": 0,
 						"warnings": 1
 					}
-				]
+				],
+				"total": 1,
+				"x": 1.6,
+				"y": 0
 			},
 			{
 				"sniff": "Squiz.PHP.DisallowSizeFunctionsInLoops",
@@ -9719,7 +10076,10 @@
 						"errors": 1,
 						"warnings": 0
 					}
-				]
+				],
+				"total": 1,
+				"x": 1.6,
+				"y": 0
 			},
 			{
 				"sniff": "PHPCompatibility.FunctionNameRestrictions.ReservedFunctionNames",
@@ -9733,7 +10093,139 @@
 						"errors": 0,
 						"warnings": 1
 					}
-				]
+				],
+				"total": 1,
+				"x": 1.6,
+				"y": 0
+			}
+		],
+		"concentration": {
+			"top3": 56,
+			"top10": 84,
+			"top20": 91
+		},
+		"axis": {
+			"max_repos": 64,
+			"max_total": 18257,
+			"x": [
+				{
+					"at": 1.6,
+					"label": "1"
+				},
+				{
+					"at": 7.8,
+					"label": "5"
+				},
+				{
+					"at": 15.6,
+					"label": "10"
+				},
+				{
+					"at": 31.3,
+					"label": "20"
+				},
+				{
+					"at": 62.5,
+					"label": "40"
+				},
+				{
+					"at": 93.8,
+					"label": "60"
+				}
+			],
+			"y": [
+				{
+					"at": 0,
+					"label": "1"
+				},
+				{
+					"at": 23.5,
+					"label": "10"
+				},
+				{
+					"at": 46.9,
+					"label": "100"
+				},
+				{
+					"at": 70.4,
+					"label": "1k"
+				},
+				{
+					"at": 93.9,
+					"label": "10k"
+				}
+			]
+		},
+		"loudest": [
+			{
+				"sniff": "Generic.WhiteSpace.DisallowSpaceIndent",
+				"total": 18257,
+				"errors": 18257,
+				"repos": 25,
+				"rule": null
+			},
+			{
+				"sniff": "WordPress.NamingConventions.PrefixAllGlobals",
+				"total": 14719,
+				"errors": 0,
+				"repos": 58,
+				"rule": "general-naming-global-namespaces-prefixing"
+			},
+			{
+				"sniff": "Universal.Arrays.DisallowShortArraySyntax",
+				"total": 13991,
+				"errors": 13991,
+				"repos": 38,
+				"rule": null
+			},
+			{
+				"sniff": "PEAR.Functions.FunctionCallSignature",
+				"total": 7301,
+				"errors": 7301,
+				"repos": 36,
+				"rule": null
+			},
+			{
+				"sniff": "Newfold.NamingConventions.ValidHookName",
+				"total": 5594,
+				"errors": 0,
+				"repos": 64,
+				"rule": "wp-hooks-naming-hook-name-format"
+			},
+			{
+				"sniff": "WordPress.Arrays.MultipleStatementAlignment",
+				"total": 3714,
+				"errors": 0,
+				"repos": 40,
+				"rule": null
+			},
+			{
+				"sniff": "Squiz.Commenting.FunctionComment",
+				"total": 2446,
+				"errors": 2446,
+				"repos": 37,
+				"rule": null
+			},
+			{
+				"sniff": "Newfold.PHP.NamespaceDeclaration",
+				"total": 1659,
+				"errors": 0,
+				"repos": 39,
+				"rule": "wp-php-namespace-format"
+			},
+			{
+				"sniff": "WordPress.NamingConventions.ValidVariableName",
+				"total": 1410,
+				"errors": 1410,
+				"repos": 44,
+				"rule": null
+			},
+			{
+				"sniff": "Generic.Formatting.MultipleStatementAlignment",
+				"total": 1108,
+				"errors": 0,
+				"repos": 37,
+				"rule": null
 			}
 		]
 	},
@@ -13603,7 +14095,7 @@
 			"packages": {
 				"newfold-labs/wp-php-standards": "^1.2.6"
 			},
-			"pushed_at": "2026-08-21T10:36:32Z",
+			"pushed_at": "2026-08-21T10:58:04Z",
 			"level": 1,
 			"signals": {
 				"standards_package_present": true,
