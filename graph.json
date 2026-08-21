@@ -1,0 +1,48 @@
+---
+layout: null
+permalink: /graph.json
+---
+{%- comment -%}
+The graph as data, generated from front matter at build time. Published rather
+than inlined so other tooling can read the corpus structure without scraping
+HTML, the same reason llms.txt exists.
+
+Edges are not emitted as a list. Every document carries `related`, the
+validator guarantees each id resolves, and the pairs are symmetric often
+enough that deduplicating here would mean doing set work in Liquid. The client
+builds the undirected edge list instead.
+{%- endcomment -%}
+{%- assign docs = site.pages | where_exp: "d", "d.id" | sort: "id" -%}
+{
+  "generated_by": "Jekyll from document front matter",
+  "document_count": {{ docs.size }},
+  "sections": [
+    {%- for s in site.sections %}
+    { "key": {{ s.key | jsonify }}, "title": {{ s.title | jsonify }}, "groups": {% if s.groups %}{{ s.groups | jsonify }}{% else %}[]{% endif %} }{% unless forloop.last %},{% endunless %}
+    {%- endfor %}
+  ],
+  "artifact_types": [
+    {%- for t in site.artifact_types %}
+    { "key": {{ t.key | jsonify }}, "title": {{ t.title | jsonify }} }{% unless forloop.last %},{% endunless %}
+    {%- endfor %}
+  ],
+  "nodes": [
+    {%- for d in docs %}
+    {
+      "id": {{ d.id | jsonify }},
+      "title": {{ d.title | jsonify }},
+      "summary": {{ d.summary | jsonify }},
+      "url": {{ d.url | relative_url | jsonify }},
+      "section": {{ d.section | jsonify }},
+      "group": {{ d.group | jsonify }},
+      "order": {{ d.order | jsonify }},
+      "status": {{ d.status | jsonify }},
+      "applies_to": {% if d.applies_to %}{{ d.applies_to | jsonify }}{% else %}[]{% endif %},
+      "enforceable": {{ d.enforceable | jsonify }},
+      "enforced_by": {{ d.enforced_by | jsonify }},
+      "tags": {% if d.tags %}{{ d.tags | jsonify }}{% else %}[]{% endif %},
+      "related": {% if d.related %}{{ d.related | jsonify }}{% else %}[]{% endif %}
+    }{% unless forloop.last %},{% endunless %}
+    {%- endfor %}
+  ]
+}
