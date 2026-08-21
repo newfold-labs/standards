@@ -31,6 +31,22 @@ this page is hand-maintained.
   </span>
 </a>
 
+{%- assign board = site.data.scorecard -%}
+{%- if board -%}
+<a class="atlas-cta" href="{{ '/scorecard.html' | relative_url }}">
+  <span class="atlas-cta__icon" aria-hidden="true">
+    <svg viewBox="0 0 16 16" width="18" height="18" focusable="false"><path d="M8 1a7 7 0 0 1 6.06 10.512.75.75 0 0 1-1.298-.75A5.5 5.5 0 1 0 3.238 10.76a.75.75 0 1 1-1.298.752A7 7 0 0 1 8 1Zm2.72 3.72a.75.75 0 0 1 1.133.977l-2.09 3.04a1.75 1.75 0 1 1-1.17-1.17l2.09-3.04a.784.784 0 0 1 .037-.043ZM8 8.75a.25.25 0 1 0 0 .5.25.25 0 0 0 0-.5Z"/></svg>
+  </span>
+  <span class="atlas-cta__text">
+    <b>Open the scorecard</b>
+    See where all {{ board.summary.repos }} repositories sit against these standards, and which checks each one can run.
+  </span>
+  <span class="atlas-cta__go" aria-hidden="true">
+    <svg viewBox="0 0 16 16" width="14" height="14" focusable="false"><path d="M8.22 2.97a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.749.749 0 0 1-1.275-.326.749.749 0 0 1 .215-.734L11.19 8.75H2.75a.75.75 0 0 1 0-1.5h8.44L8.22 4.03a.75.75 0 0 1 0-1.06Z"/></svg>
+  </span>
+</a>
+{%- endif -%}
+
 {% for s in site.sections %}
 {%- assign docs = site.pages
       | where: "section", s.key
