@@ -1,6 +1,6 @@
 {
 	"schema": 1,
-	"generated_at": "2026-08-21T09:44:05.979Z",
+	"generated_at": "2026-08-21T10:24:29.441Z",
 	"org": "newfold-labs",
 	"policy_fingerprint": "c4ba1b5f04c52c1e",
 	"levels": [
@@ -157,7 +157,7 @@
 		"newfold-labs/wp-php-standards": "2.0.0"
 	},
 	"scan": {
-		"scanned_at": "2026-08-21T09:36:17.109Z",
+		"scanned_at": "2026-08-21T10:23:43.870Z",
 		"repos_scanned": 89,
 		"sniffs": 302
 	},
@@ -165,10 +165,10 @@
 		"repos": 125,
 		"reporting": 0,
 		"scanned": 89,
-		"with_findings": 81,
-		"findings": 83195,
-		"cited": 22698,
-		"errors": 53937,
+		"with_findings": 80,
+		"findings": 82359,
+		"cited": 22181,
+		"errors": 53639,
 		"by_level": {
 			"0": 13,
 			"1": 112,
@@ -206,29 +206,29 @@
 		},
 		"by_rule": {
 			"general-naming-global-namespaces-prefixing": {
-				"pass": 31,
-				"fail": 58,
+				"pass": 32,
+				"fail": 57,
 				"ineligible": 0,
 				"unknown": 0,
 				"not_applicable": 36
 			},
 			"wp-hooks-naming-hook-name-format": {
-				"pass": 25,
-				"fail": 64,
+				"pass": 26,
+				"fail": 63,
 				"ineligible": 0,
 				"unknown": 0,
 				"not_applicable": 36
 			},
 			"wp-php-namespace-format": {
-				"pass": 50,
-				"fail": 39,
+				"pass": 51,
+				"fail": 38,
 				"ineligible": 0,
 				"unknown": 0,
 				"not_applicable": 36
 			},
 			"wp-security-checks": {
-				"pass": 54,
-				"fail": 35,
+				"pass": 55,
+				"fail": 34,
 				"ineligible": 0,
 				"unknown": 0,
 				"not_applicable": 36
@@ -238,50 +238,50 @@
 			{
 				"sniff": "Newfold.NamingConventions.ValidHookName",
 				"errors": 0,
-				"warnings": 5594,
-				"repos": 64,
+				"warnings": 5454,
+				"repos": 63,
 				"rule": "wp-hooks-naming-hook-name-format"
 			},
 			{
 				"sniff": "WordPress.NamingConventions.PrefixAllGlobals",
 				"errors": 0,
-				"warnings": 14719,
-				"repos": 58,
+				"warnings": 14375,
+				"repos": 57,
 				"rule": "general-naming-global-namespaces-prefixing"
 			},
 			{
 				"sniff": "WordPress.NamingConventions.ValidVariableName",
-				"errors": 1410,
+				"errors": 1409,
 				"warnings": 0,
-				"repos": 44,
+				"repos": 43,
 				"rule": null
 			},
 			{
 				"sniff": "WordPress.Arrays.MultipleStatementAlignment",
 				"errors": 0,
-				"warnings": 3714,
-				"repos": 40,
+				"warnings": 3703,
+				"repos": 39,
 				"rule": null
 			},
 			{
 				"sniff": "Generic.CodeAnalysis.UnusedFunctionParameter",
 				"errors": 0,
-				"warnings": 444,
-				"repos": 40,
+				"warnings": 439,
+				"repos": 39,
 				"rule": null
 			},
 			{
 				"sniff": "Newfold.PHP.NamespaceDeclaration",
 				"errors": 0,
-				"warnings": 1659,
-				"repos": 39,
+				"warnings": 1636,
+				"repos": 38,
 				"rule": "wp-php-namespace-format"
 			},
 			{
 				"sniff": "Universal.Arrays.DisallowShortArraySyntax",
-				"errors": 13991,
+				"errors": 13724,
 				"warnings": 0,
-				"repos": 38,
+				"repos": 37,
 				"rule": null
 			},
 			{
@@ -300,79 +300,72 @@
 			},
 			{
 				"sniff": "WordPress.NamingConventions.ValidFunctionName",
-				"errors": 234,
-				"warnings": 0,
-				"repos": 37,
-				"rule": null
-			},
-			{
-				"sniff": "PEAR.Functions.FunctionCallSignature",
-				"errors": 7301,
+				"errors": 227,
 				"warnings": 0,
 				"repos": 36,
 				"rule": null
 			},
 			{
-				"sniff": "PSR2.Classes.ClassDeclaration",
-				"errors": 167,
+				"sniff": "PEAR.Functions.FunctionCallSignature",
+				"errors": 7298,
 				"warnings": 0,
-				"repos": 34,
+				"repos": 35,
 				"rule": null
 			},
 			{
-				"sniff": "PSR2.Methods.FunctionClosingBrace",
-				"errors": 242,
+				"sniff": "PSR2.Classes.ClassDeclaration",
+				"errors": 165,
 				"warnings": 0,
 				"repos": 33,
 				"rule": null
 			},
 			{
-				"sniff": "PSR2.Files.EndFileNewline",
-				"errors": 253,
+				"sniff": "PSR2.Methods.FunctionClosingBrace",
+				"errors": 240,
 				"warnings": 0,
 				"repos": 32,
 				"rule": null
 			},
 			{
-				"sniff": "WordPress.Security.NonceVerification",
-				"errors": 145,
-				"warnings": 358,
-				"repos": 31,
-				"rule": "wp-security-checks"
-			},
-			{
-				"sniff": "Squiz.Commenting.ClassComment",
-				"errors": 486,
+				"sniff": "PSR2.Files.EndFileNewline",
+				"errors": 249,
 				"warnings": 0,
 				"repos": 31,
 				"rule": null
 			},
 			{
-				"sniff": "Squiz.WhiteSpace.SuperfluousWhitespace",
-				"errors": 240,
+				"sniff": "WordPress.Security.NonceVerification",
+				"errors": 145,
+				"warnings": 349,
+				"repos": 30,
+				"rule": "wp-security-checks"
+			},
+			{
+				"sniff": "Squiz.Commenting.ClassComment",
+				"errors": 484,
 				"warnings": 0,
 				"repos": 30,
 				"rule": null
 			},
 			{
-				"sniff": "NormalizedArrays.Arrays.CommaAfterLast",
-				"errors": 592,
+				"sniff": "Squiz.WhiteSpace.SuperfluousWhitespace",
+				"errors": 239,
 				"warnings": 0,
 				"repos": 29,
 				"rule": null
 			},
 			{
-				"sniff": "Universal.NamingConventions.NoReservedKeywordParameterNames",
-				"errors": 0,
-				"warnings": 146,
-				"repos": 27,
+				"sniff": "NormalizedArrays.Arrays.CommaAfterLast",
+				"errors": 588,
+				"warnings": 0,
+				"repos": 28,
 				"rule": null
 			},
 			{
-				"sniff": "Generic.Commenting.Todo",
+				"sniff": "Universal.NamingConventions.NoReservedKeywordParameterNames",
 				"errors": 0,
-				"warnings": 90,
-				"repos": 27,
+				"warnings": 145,
+				"repos": 26,
 				"rule": null
 			},
 			{
@@ -383,10 +376,10 @@
 				"rule": null
 			},
 			{
-				"sniff": "Generic.WhiteSpace.DisallowSpaceIndent",
-				"errors": 18257,
-				"warnings": 0,
-				"repos": 25,
+				"sniff": "Generic.Commenting.Todo",
+				"errors": 0,
+				"warnings": 88,
+				"repos": 26,
 				"rule": null
 			},
 			{
@@ -397,8 +390,8 @@
 				"rule": null
 			},
 			{
-				"sniff": "Generic.Commenting.DocComment",
-				"errors": 499,
+				"sniff": "Generic.WhiteSpace.DisallowSpaceIndent",
+				"errors": 18256,
 				"warnings": 0,
 				"repos": 24,
 				"rule": null
@@ -408,6 +401,13 @@
 				"errors": 0,
 				"warnings": 66,
 				"repos": 24,
+				"rule": null
+			},
+			{
+				"sniff": "Generic.Commenting.DocComment",
+				"errors": 497,
+				"warnings": 0,
+				"repos": 23,
 				"rule": null
 			},
 			{
@@ -446,13 +446,6 @@
 				"rule": null
 			},
 			{
-				"sniff": "WordPress.Security.EscapeOutput",
-				"errors": 213,
-				"warnings": 0,
-				"repos": 18,
-				"rule": "wp-security-checks"
-			},
-			{
 				"sniff": "WordPress.WP.I18n",
 				"errors": 80,
 				"warnings": 94,
@@ -472,6 +465,13 @@
 				"warnings": 0,
 				"repos": 17,
 				"rule": null
+			},
+			{
+				"sniff": "WordPress.Security.EscapeOutput",
+				"errors": 212,
+				"warnings": 0,
+				"repos": 17,
+				"rule": "wp-security-checks"
 			},
 			{
 				"sniff": "Squiz.PHP.CommentedOutCode",
@@ -586,13 +586,6 @@
 				"rule": null
 			},
 			{
-				"sniff": "PSR2.Namespaces.NamespaceDeclaration",
-				"errors": 28,
-				"warnings": 0,
-				"repos": 12,
-				"rule": null
-			},
-			{
 				"sniff": "Squiz.Commenting.InlineComment",
 				"errors": 67,
 				"warnings": 0,
@@ -614,6 +607,13 @@
 				"rule": null
 			},
 			{
+				"sniff": "PSR2.Namespaces.NamespaceDeclaration",
+				"errors": 27,
+				"warnings": 0,
+				"repos": 11,
+				"rule": null
+			},
+			{
 				"sniff": "Universal.Operators.DisallowShortTernary",
 				"errors": 359,
 				"warnings": 0,
@@ -628,13 +628,6 @@
 				"rule": null
 			},
 			{
-				"sniff": "WordPress.WP.EnqueuedResourceParameters",
-				"errors": 0,
-				"warnings": 18,
-				"repos": 10,
-				"rule": null
-			},
-			{
 				"sniff": "Universal.WhiteSpace.CommaSpacing",
 				"errors": 98,
 				"warnings": 0,
@@ -645,6 +638,13 @@
 				"sniff": "Generic.CodeAnalysis.RequireExplicitBooleanOperatorPrecedence",
 				"errors": 27,
 				"warnings": 0,
+				"repos": 9,
+				"rule": null
+			},
+			{
+				"sniff": "WordPress.WP.EnqueuedResourceParameters",
+				"errors": 0,
+				"warnings": 15,
 				"repos": 9,
 				"rule": null
 			},
@@ -7668,138 +7668,22 @@
 				"has_ai_context": false
 			},
 			"rules": {
-				"general-naming-global-namespaces-prefixing": "fail",
-				"wp-hooks-naming-hook-name-format": "fail",
-				"wp-php-namespace-format": "fail",
-				"wp-security-checks": "fail"
+				"general-naming-global-namespaces-prefixing": "pass",
+				"wp-hooks-naming-hook-name-format": "pass",
+				"wp-php-namespace-format": "pass",
+				"wp-security-checks": "pass"
 			},
 			"finding_source": "scanned",
-			"finding_count": 836,
-			"error_count": 298,
-			"cited_count": 517,
+			"finding_count": 0,
+			"error_count": 0,
+			"cited_count": 0,
 			"scan": {
-				"files": 52,
-				"errors": 298,
-				"warnings": 538,
-				"cited": 517,
-				"uncited": 319,
-				"by_sniff": {
-					"WordPress.NamingConventions.PrefixAllGlobals": {
-						"errors": 0,
-						"warnings": 344,
-						"rule": "general-naming-global-namespaces-prefixing"
-					},
-					"Universal.Arrays.DisallowShortArraySyntax": {
-						"errors": 267,
-						"warnings": 0,
-						"rule": null
-					},
-					"Newfold.NamingConventions.ValidHookName": {
-						"errors": 0,
-						"warnings": 140,
-						"rule": "wp-hooks-naming-hook-name-format"
-					},
-					"WordPress.Arrays.MultipleStatementAlignment": {
-						"errors": 0,
-						"warnings": 11,
-						"rule": null
-					},
-					"PEAR.Functions.FunctionCallSignature": {
-						"errors": 3,
-						"warnings": 0,
-						"rule": null
-					},
-					"PSR2.Files.EndFileNewline": {
-						"errors": 4,
-						"warnings": 0,
-						"rule": null
-					},
-					"NormalizedArrays.Arrays.CommaAfterLast": {
-						"errors": 4,
-						"warnings": 0,
-						"rule": null
-					},
-					"Newfold.PHP.NamespaceDeclaration": {
-						"errors": 0,
-						"warnings": 23,
-						"rule": "wp-php-namespace-format"
-					},
-					"Generic.CodeAnalysis.UnusedFunctionParameter": {
-						"errors": 0,
-						"warnings": 5,
-						"rule": null
-					},
-					"WordPress.Security.EscapeOutput": {
-						"errors": 1,
-						"warnings": 0,
-						"rule": "wp-security-checks"
-					},
-					"PSR2.Namespaces.NamespaceDeclaration": {
-						"errors": 1,
-						"warnings": 0,
-						"rule": null
-					},
-					"Squiz.Commenting.ClassComment": {
-						"errors": 2,
-						"warnings": 0,
-						"rule": null
-					},
-					"Generic.Commenting.DocComment": {
-						"errors": 2,
-						"warnings": 0,
-						"rule": null
-					},
-					"PSR2.Methods.FunctionClosingBrace": {
-						"errors": 2,
-						"warnings": 0,
-						"rule": null
-					},
-					"Generic.WhiteSpace.DisallowSpaceIndent": {
-						"errors": 1,
-						"warnings": 0,
-						"rule": null
-					},
-					"PSR2.Classes.ClassDeclaration": {
-						"errors": 2,
-						"warnings": 0,
-						"rule": null
-					},
-					"WordPress.Security.NonceVerification": {
-						"errors": 0,
-						"warnings": 9,
-						"rule": "wp-security-checks"
-					},
-					"Squiz.WhiteSpace.SuperfluousWhitespace": {
-						"errors": 1,
-						"warnings": 0,
-						"rule": null
-					},
-					"WordPress.NamingConventions.ValidFunctionName": {
-						"errors": 7,
-						"warnings": 0,
-						"rule": null
-					},
-					"WordPress.WP.EnqueuedResourceParameters": {
-						"errors": 0,
-						"warnings": 3,
-						"rule": null
-					},
-					"Generic.Commenting.Todo": {
-						"errors": 0,
-						"warnings": 2,
-						"rule": null
-					},
-					"Universal.NamingConventions.NoReservedKeywordParameterNames": {
-						"errors": 0,
-						"warnings": 1,
-						"rule": null
-					},
-					"WordPress.NamingConventions.ValidVariableName": {
-						"errors": 1,
-						"warnings": 0,
-						"rule": null
-					}
-				}
+				"files": 0,
+				"errors": 0,
+				"warnings": 0,
+				"cited": 0,
+				"uncited": 0,
+				"by_sniff": {}
 			},
 			"reported_at": null
 		},
