@@ -53,7 +53,13 @@ same as failing it and must never be coloured as though it were.
     {%- endcomment -%}
     <ol class="ladder" id="ladder">
       {%- for rung in levels_desc -%}
-      {%- assign count = board.summary.by_level[rung.level] | default: 0 -%}
+      {%- comment -%}
+      JSON object keys are strings, and Liquid will not match an integer against
+      one, so the level has to be stringified before it is used as a key. Without
+      this every count silently renders as the `default` rather than failing.
+      {%- endcomment -%}
+      {%- assign level_key = rung.level | append: '' -%}
+      {%- assign count = board.summary.by_level[level_key] | default: 0 -%}
       <li>
         <button type="button" class="rung" data-level="{{ rung.level }}" aria-pressed="false"
                 title="{{ rung.summary }}">
@@ -76,7 +82,8 @@ same as failing it and must never be coloured as though it were.
       {%- for point in history -%}
       <div class="trend__bar" title="{{ point.date }}">
         {%- for rung in levels_desc -%}
-        {%- assign at = point.by_level[rung.level] | default: 0 -%}
+        {%- assign level_key = rung.level | append: '' -%}
+        {%- assign at = point.by_level[level_key] | default: 0 -%}
         {%- if at > 0 -%}
         <span class="trend__slice trend__slice--{{ rung.level }}"
               style="height: {{ at | times: 100 | divided_by: point.repos }}%"></span>
