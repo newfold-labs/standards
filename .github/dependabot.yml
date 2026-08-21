@@ -32,3 +32,19 @@ updates:
     labels:
       - "dependencies"
       - "javascript"
+
+  # Maintain dependencies for Bundler (Jekyll and the plugins the site declares)
+  - package-ecosystem: "bundler"
+    directory: "/"
+    target-branch: "main"
+    allow:
+      - dependency-type: direct
+    schedule:
+      interval: "weekly"
+    versioning-strategy: increase
+    commit-message:
+      prefix: "Bundler"
+      include: "scope"
+    labels:
+      - "dependencies"
+      - "ruby"
