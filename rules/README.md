@@ -17,6 +17,11 @@ The documented format lives at
 renders on the site. `_template.yml` in this directory is a copyable starting
 point.
 
+`levels.yml` is not a rule. It holds the maturity ladder the scorecard scores
+repositories against, and the signals each rung is measured from, in the one
+place both the documentation and the scorer read. See
+[meta/scorecard.md](../meta/scorecard.md).
+
 ## Adding a rule
 
 1. Copy `_template.yml`.
@@ -27,3 +32,7 @@ point.
 4. Set `package` and `introduced_in` to the release that ships the check. Write
    the rule once that release exists: a rule pointing at a check nobody can run
    yet says a standard is enforced when it is not.
+
+The rule appears on the scorecard from the next sweep. Nothing else needs
+editing: the board reads whatever is in this directory, and the sweep rescores
+every repository whenever these files change.
