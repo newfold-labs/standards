@@ -30,6 +30,7 @@ import { ROOT } from './lib/docs.mjs';
 import { readJsonFromZip } from './lib/unzip.mjs';
 import {
 	artifactTypeOf,
+	citeFindings,
 	levelOf,
 	loadLevels,
 	loadRules,
@@ -37,6 +38,7 @@ import {
 	policyFingerprint,
 	signalsFor,
 	summarise,
+	summariseScan,
 	verdictsFor,
 } from './lib/scorecard.mjs';
 
@@ -44,19 +46,37 @@ const ARTIFACT_NAME = 'standards-compliance';
 const DATA_DIR = join(ROOT, '_data');
 const FINDINGS_DIR = join(ROOT, 'scorecard', 'findings');
 const SCORECARD_PATH = join(DATA_DIR, 'scorecard.json');
+const SCAN_DIR = join(ROOT, '_scan');
 const HISTORY_PATH = join(DATA_DIR, 'scorecard_history.json');
 
 /** Trend needs enough points to show a shape, not every point ever recorded. */
 const HISTORY_LIMIT = 400;
 
+/*
+ * Caps on the findings written into a detail file.
+ *
+ * The fleet scan produces about 83,000 findings and 25MB, almost all of it in a
+ * handful of repositories: the median repository has 83 findings and the worst
+ * has 15,735 in a 4.6MB file. Publishing that whole file to a public site, and
+ * fetching it when somebody clicks a row, helps nobody.
+ *
+ * So the individual lines are capped and the counts are not. Every number the
+ * board shows is the true total; what is trimmed is how many example lines you
+ * get per sniff, which is all anyone reads before going to fix it. A trimmed
+ * file says so, so a short list is never mistaken for the whole story.
+ */
+const MAX_PER_SNIFF = 25;
+const MAX_PER_REPO = 300;
+
 function parseArgs(argv) {
-	const args = { org: 'newfold-labs', full: false, dryRun: false, limit: 0 };
+	const args = { org: 'newfold-labs', full: false, dryRun: false, limit: 0, scanDir: SCAN_DIR };
 	for (let i = 0; i < argv.length; i++) {
 		const arg = argv[i];
 		if (arg === '--full') args.full = true;
 		else if (arg === '--dry-run') args.dryRun = true;
 		else if (arg === '--org') args.org = argv[++i];
 		else if (arg === '--limit') args.limit = Number(argv[++i]);
+		else if (arg === '--scan-dir') args.scanDir = argv[++i];
 	}
 	return args;
 }
@@ -139,6 +159,28 @@ async function complianceFor(client, repo) {
 	};
 }
 
+/**
+ * Keep a readable sample per sniff rather than every line.
+ *
+ * Order within a sniff is preserved, so what survives is the first occurrences
+ * in file order and not an arbitrary slice.
+ */
+function trimFindings(findings) {
+	const perSniff = new Map();
+	const kept = [];
+
+	for (const finding of findings) {
+		if (kept.length >= MAX_PER_REPO) break;
+		const sniff = String(finding.source ?? '').split('.').slice(0, 3).join('.');
+		const seen = perSniff.get(sniff) ?? 0;
+		if (seen >= MAX_PER_SNIFF) continue;
+		perSniff.set(sniff, seen + 1);
+		kept.push(finding);
+	}
+
+	return kept;
+}
+
 async function main() {
 	const args = parseArgs(process.argv.slice(2));
 	const rules = loadRules();
@@ -204,6 +246,20 @@ async function main() {
 		})
 	);
 
+	// The central scan, if one has been run. It is a separate job because it
+	// needs PHP and a checkout, neither of which the rest of the sweep wants.
+	const scanIndex = readJsonOr(join(args.scanDir, 'index.json'), null);
+	const scans = new Map();
+	if (scanIndex) {
+		for (const entry of scanIndex.repos ?? []) {
+			const detail = readJsonOr(join(args.scanDir, `${entry.repo}.json`), null);
+			if (detail?.scanned) scans.set(entry.repo, detail);
+		}
+		console.log(`Folding in a scan of ${scans.size} repositories from ${scanIndex.scanned_at}.`);
+	} else {
+		console.log('No central scan to fold in; findings will come only from repositories that report.');
+	}
+
 	const rows = [];
 
 	for (const repo of fleet) {
@@ -218,15 +274,32 @@ async function main() {
 
 		const type = artifactTypeOf(repo.name);
 		const compliance = complianceByRepo.get(repo.name) ?? null;
+		const scan = scans.get(repo.name) ?? null;
 		const signals = signalsFor({ node, compliance, rules, latestVersions });
-		const verdicts = verdictsFor({ node, compliance, rules, type });
+
+		// A repository's own report is the better claim and wins where it exists.
+		// The scan is what we have until it does, and the board says which it is
+		// showing rather than blurring the two into one number.
+		const reported = compliance ? citeFindings(compliance.findings, rules) : null;
+		const scanned = scan ? citeFindings(scan.findings, rules) : null;
+		const shown = reported ?? scanned ?? [];
+		const source = reported ? 'reported' : scanned ? 'scanned' : null;
+
+		const verdicts = verdictsFor({ node, findings: shown, hasEvidence: source !== null, rules, type });
 
 		if (!args.dryRun) {
 			const detailPath = join(FINDINGS_DIR, `${repo.name}.json`);
-			if (compliance && compliance.findings.length > 0) {
+			if (shown.length > 0) {
 				writeFileSync(
 					detailPath,
-					JSON.stringify({ repo: repo.name, reported_at: compliance.reported_at, findings: compliance.findings })
+					JSON.stringify({
+						repo: repo.name,
+						source,
+						reported_at: compliance?.reported_at ?? null,
+						scanned_at: scanIndex?.scanned_at ?? null,
+						total: shown.length,
+						findings: trimFindings(shown),
+					})
 				);
 			} else {
 				// A repository that fixed everything must stop serving the detail
@@ -246,8 +319,11 @@ async function main() {
 			level: levelOf(signals, levels),
 			signals,
 			rules: verdicts,
-			finding_count: compliance?.findings.length ?? 0,
-			error_count: compliance?.findings.filter((finding) => finding.severity === 'error').length ?? 0,
+			finding_source: source,
+			finding_count: shown.length,
+			error_count: shown.filter((finding) => finding.severity === 'error').length,
+			cited_count: shown.filter((finding) => finding.rule).length,
+			scan: summariseScan(scan, rules),
 			reported_at: compliance?.reported_at ?? null,
 		});
 	}
@@ -283,6 +359,16 @@ async function main() {
 			introduced_in: rule.introduced_in ?? null,
 		})),
 		package_versions: latestVersions,
+		// The sniff catalogue is asked of phpcs at scan time rather than written
+		// down, so a WPCS upgrade that adds or drops sniffs is reflected without
+		// anything here being kept in step.
+		scan: scanIndex
+			? {
+					scanned_at: scanIndex.scanned_at,
+					repos_scanned: scans.size,
+					sniffs: scanIndex.sniffs?.length ?? 0,
+				}
+			: null,
 		summary: summarise(rows, rules, levels),
 		repos: rows,
 	};
