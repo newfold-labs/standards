@@ -250,6 +250,7 @@ export function summariseScan(scan, rules) {
 		files: scan.files ?? 0,
 		errors: scan.errors ?? 0,
 		warnings: scan.warnings ?? 0,
+		fixable: (scan.findings ?? []).filter((finding) => finding.fixable).length,
 		cited,
 		uncited,
 		by_sniff: bySniff,
@@ -296,9 +297,17 @@ export function summarise(repos, rules, levels) {
 	const bySniff = {};
 	for (const repo of repos) {
 		for (const [sniff, counts] of Object.entries(repo.scan?.by_sniff ?? {})) {
-			const bucket = (bySniff[sniff] ??= { errors: 0, warnings: 0, repos: 0, rule: counts.rule ?? null, in: [] });
+			const bucket = (bySniff[sniff] ??= {
+				errors: 0,
+				warnings: 0,
+				fixable: 0,
+				repos: 0,
+				rule: counts.rule ?? null,
+				in: [],
+			});
 			bucket.errors += counts.errors;
 			bucket.warnings += counts.warnings;
+			bucket.fixable += counts.fixable ?? 0;
 			bucket.repos++;
 			// Which repositories, not just how many. Fixing something across the
 			// fleet starts with the list of places to go, and making the board ask
@@ -342,6 +351,22 @@ export function summarise(repos, rules, levels) {
 
 	// How much of the pile a handful of decisions would move. The headline number
 	// is otherwise 83,195, which is true, unusable, and impossible to feel.
+	// What kind of work each issue is. This is the question the board gets opened
+	// to answer, and it was previously left for the reader to infer from the
+	// position of a dot on a scatter plot. Saying it is clearer than encoding it.
+	//
+	//   fix       phpcbf rewrites all of it. One command, no discussion.
+	//   decide    it reaches most of the fleet, so it is a policy call before it
+	//             is any code at all.
+	//   work      real edits, in a bounded number of places.
+	for (const entry of spread) {
+		const fixableShare = entry.total === 0 ? 0 : entry.fixable / entry.total;
+		entry.fixable_pct = Math.round(fixableShare * 100);
+		if (fixableShare >= 0.9) entry.shape = 'fix';
+		else if (entry.repos >= maxRepos * 0.45) entry.shape = 'decide';
+		else entry.shape = 'work';
+	}
+
 	const ranked = [...spread].sort((a, b) => b.total - a.total);
 	const allFindings = ranked.reduce((sum, entry) => sum + entry.total, 0);
 	const share = (n) =>
@@ -365,9 +390,14 @@ export function summarise(repos, rules, levels) {
 		sniff: entry.sniff,
 		total: entry.total,
 		errors: entry.errors,
+		fixable: entry.fixable,
+		fixable_pct: entry.fixable_pct,
+		shape: entry.shape,
 		repos: entry.repos,
 		rule: entry.rule,
 	}));
+
+	const fixable = spread.reduce((sum, entry) => sum + entry.fixable, 0);
 
 	const byRule = {};
 	for (const rule of rules) {
@@ -410,6 +440,7 @@ export function summarise(repos, rules, levels) {
 		with_findings: shown.filter((repo) => (repo.finding_count ?? 0) > 0).length,
 		findings: repos.reduce((total, repo) => total + (repo.finding_count ?? 0), 0),
 		cited: repos.reduce((total, repo) => total + (repo.cited_count ?? 0), 0),
+		fixable,
 		errors: repos.reduce((total, repo) => total + (repo.error_count ?? 0), 0),
 		by_level: byLevel,
 		by_type: byType,

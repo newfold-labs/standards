@@ -103,9 +103,15 @@ export function tallyBySniff(findings, index) {
 	const tally = {};
 	for (const finding of findings) {
 		const { sniff } = parseSniff(finding.source);
-		const bucket = (tally[sniff] ??= { errors: 0, warnings: 0, rule: ruleForSniff(finding.source, index) });
+		const bucket = (tally[sniff] ??= {
+			errors: 0,
+			warnings: 0,
+			fixable: 0,
+			rule: ruleForSniff(finding.source, index),
+		});
 		if (finding.severity === 'error') bucket.errors++;
 		else bucket.warnings++;
+		if (finding.fixable) bucket.fixable++;
 	}
 	return tally;
 }
