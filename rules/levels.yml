@@ -1,0 +1,94 @@
+---
+id: maturity-levels
+title: Repository maturity levels
+summary: The ladder a repository climbs, and the signals each rung is measured from
+
+# Signals are the raw facts the sweep collects about a repository. Each one is a
+# yes or no, and every one is readable without cloning: the sweep asks the
+# GitHub API for a handful of files and reads them. A signal that needed a
+# checkout would put the whole fleet out of reach on a nightly budget.
+#
+# `unknown` is a third state and is not the same as false. A repository we could
+# not read is not a repository that failed.
+signals:
+  - id: standards_package_present
+    title: Installs the standards package
+    detail: >-
+      composer.json requires newfold-labs/wp-php-standards, for artifact types
+      that have a PHP standard. Types with no PHP standard yet satisfy this
+      trivially rather than failing a check that does not exist for them.
+    read: composer.json
+
+  - id: standards_package_current
+    title: Pinned to the current release
+    detail: >-
+      The declared constraint admits the latest release of the package. A
+      constraint that cannot reach the current version is what stops a repository
+      from ever running a newly added rule, so it is the signal that gates the
+      top of the ladder.
+    read: composer.json
+
+  - id: check_reports
+    title: Reports compliance from its own CI
+    detail: >-
+      The repository has uploaded a standards-compliance artifact. This is the
+      definition of adoption: the sweep never runs a linter itself, so a
+      repository that does not report is one we have no findings for.
+    read: actions artifact
+
+  - id: no_error_findings
+    title: No findings at error severity
+    detail: >-
+      The reported findings contain nothing at error severity. Warnings do not
+      block a level. Under our severity policy an error means the code cannot
+      parse, so this is a real gate rather than a tidiness one.
+    read: standards-compliance artifact
+
+  - id: has_codeowners
+    title: Has an owner
+    detail: >-
+      CODEOWNERS exists and is not empty. A row nobody owns is a row nobody
+      fixes, which is why ownership is a level and not a footnote.
+    read: .github/CODEOWNERS
+
+  - id: has_ai_context
+    title: Carries AI context
+    detail: >-
+      AGENTS.md exists, so AI tooling working in the repository can reach the
+      standards rather than guessing at them.
+    read: AGENTS.md
+
+# Levels are cumulative and evaluated in order: a repository sits at the highest
+# rung whose signals hold and whose every lower rung also holds. Reporting the
+# highest satisfied rung regardless of gaps below it would let a repository with
+# AI context but no ruleset outrank one that lints cleanly.
+levels:
+  - level: 0
+    id: unadopted
+    title: Not adopted
+    summary: Nothing here enforces a standard yet
+    requires: []
+
+  - level: 1
+    id: configured
+    title: Configured
+    summary: The enforcing package is installed, so the checks can run
+    requires: [standards_package_present]
+
+  - level: 2
+    id: reporting
+    title: Reporting
+    summary: The check runs in the repository's own CI and publishes what it found
+    requires: [check_reports]
+
+  - level: 3
+    id: clean
+    title: Clean
+    summary: Nothing outstanding at error severity
+    requires: [no_error_findings]
+
+  - level: 4
+    id: current
+    title: Current
+    summary: On the current release, owned, and readable by AI tooling
+    requires: [standards_package_current, has_codeowners, has_ai_context]
