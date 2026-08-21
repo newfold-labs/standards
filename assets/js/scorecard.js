@@ -64,7 +64,9 @@
 	var gridEmpty = document.getElementById('board-empty');
 	var chips = Array.prototype.slice.call(document.querySelectorAll('.chips .chip'));
 
-	var state = { q: '', types: [], privateOnly: false, withFindings: false, sort: 'name', dir: 1 };
+	// Matches the order the table is rendered in, so the first click on the
+	// Findings header flips it rather than appearing to do nothing.
+	var state = { q: '', types: [], privateOnly: false, withFindings: false, sort: 'findings', dir: -1 };
 
 	function matches(row) {
 		if (state.q && row.dataset.repo.indexOf(state.q) === -1) return false;
@@ -228,6 +230,13 @@
 	var detailClose = document.getElementById('detail-close');
 	var cache = {};
 
+	// The Liquid filter cannot reach anything rendered here, and a panel that says
+	// "300 of 15735" next to a table saying "15,735" looks like two different
+	// numbers.
+	function thousands(value) {
+		return String(value).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+	}
+
 	function escapeHtml(value) {
 		return String(value == null ? '' : value).replace(/[&<>"']/g, function (character) {
 			return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[character];
@@ -273,8 +282,8 @@
 		var cited = findings.filter(function (f) { return f.rule; }).length;
 		var shownOf =
 			payload && payload.total && payload.total > findings.length
-				? findings.length + ' of ' + payload.total + ' shown'
-				: findings.length + ' finding' + (findings.length === 1 ? '' : 's');
+				? thousands(findings.length) + ' of ' + thousands(payload.total) + ' shown'
+				: thousands(findings.length) + ' finding' + (findings.length === 1 ? '' : 's');
 
 		var html = '<h2>' + escapeHtml(repo) + '</h2>';
 		html += '<p class="detail__meta">' + shownOf + ', ' + cited + ' citing a standard';
@@ -286,7 +295,7 @@
 			var errors = group.list.filter(function (f) { return f.severity === 'error'; }).length;
 
 			html += '<section class="detail__rule">';
-			html += '<h3><code>' + escapeHtml(sniff) + '</code><span class="detail__n">' + group.list.length + '</span></h3>';
+			html += '<h3><code>' + escapeHtml(sniff) + '</code><span class="detail__n">' + thousands(group.list.length) + '</span></h3>';
 			html += '<p class="detail__cite">';
 			if (group.rule) {
 				html += '<a href="' + escapeHtml(atlasBase) + '#' + escapeHtml(group.rule) + '">' + escapeHtml(group.rule) + '</a>';
@@ -306,7 +315,9 @@
 				if (finding.message) html += '<span>' + escapeHtml(finding.message) + '</span>';
 				html += '</li>';
 			});
-			if (group.list.length > 25) html += '<li class="detail__more">and ' + (group.list.length - 25) + ' more</li>';
+			if (group.list.length > 25) {
+				html += '<li class="detail__more">and ' + thousands(group.list.length - 25) + ' more</li>';
+			}
 			html += '</ul></section>';
 		});
 
