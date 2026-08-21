@@ -43,6 +43,20 @@ jobs:
           ruby-version: '3.3'
           bundler-cache: true
 
+      # The scorecard is swept on a schedule and published to its own branch,
+      # because the default branch requires a pull request and a nightly job
+      # cannot open one. Main carries a committed snapshot so the board renders
+      # for a fresh clone and in pull requests; when the data branch exists it is
+      # newer, so it wins.
+      - name: Take the latest sweep
+        run: |
+          if git fetch --depth 1 origin scorecard-data 2>/dev/null; then
+            git checkout FETCH_HEAD -- _data scorecard
+            echo "Building against the latest sweep."
+          else
+            echo "No sweep published yet; building against the snapshot on main."
+          fi
+
       - id: pages
         uses: actions/configure-pages@v5
 
