@@ -16,6 +16,7 @@ import { readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import yaml from 'js-yaml';
 import { admits, isFloating } from './constraint.mjs';
+import { buildIndex, ruleForSniff, tallyBySniff } from './sniffs.mjs';
 import { ROOT } from './docs.mjs';
 
 export const RULES_DIR = join(ROOT, 'rules');
@@ -141,7 +142,15 @@ export function signalsFor({ node, compliance, rules, latestVersions }) {
 		standards_package_pinned: pinned,
 		standards_package_current: current,
 		check_reports: compliance !== null,
-		no_error_findings: compliance === null ? null : !compliance.findings.some((f) => f.severity === 'error'),
+		// Gated on findings that cite a documented standard, not on raw phpcs
+		// severity. The inherited sniffs carry WPCS's severities, where a missing
+		// docblock is an error and a security finding is a warning, so gating on
+		// those would measure the fleet against a policy we did not write and
+		// almost nothing would ever reach this rung.
+		no_error_findings:
+			compliance === null
+				? null
+				: !compliance.findings.some((f) => f.severity === 'error' && f.rule),
 		has_codeowners: hasOwner,
 		has_ai_context: Boolean(node.agents ?? node.claude),
 	};
@@ -168,18 +177,33 @@ export function levelOf(signals, levels) {
  * Per-rule verdicts for one repository.
  *
  * `not_applicable` — the rule does not bind this artifact type.
- * `ineligible`     — it binds, but the repository cannot run the check: the
- *                    package is absent, or pinned below `introduced_in`.
- * `unknown`        — it could run, but the repository has reported nothing.
- * `pass` / `fail`  — it ran and this is what it said.
+ * `pass` / `fail`  — something actually looked at the code and this is what it
+ *                    said. Evidence is the repository's own report where there
+ *                    is one, and the central scan otherwise.
+ * `ineligible`     — no evidence, and the repository could not have produced any
+ *                    itself: the package is absent or pinned below the release
+ *                    that introduced the rule.
+ * `unknown`        — no evidence, no reason it could not exist.
+ *
+ * Note what `ineligible` no longer means. Once the scan has looked at the code,
+ * a violation is a violation whether or not the repository's own pin could have
+ * caught it; the pin is reported in its own column. Withholding the finding
+ * because their CI would have missed it would hide a real problem behind a
+ * version number.
  */
-export function verdictsFor({ node, compliance, rules, type }) {
+export function verdictsFor({ node, findings, hasEvidence, rules, type }) {
 	const composer = parseJson(node.composer?.text);
 	const verdicts = {};
+	const failed = new Set((findings ?? []).map((finding) => finding.rule).filter(Boolean));
 
 	for (const rule of rules) {
 		if (!(rule.applies_to ?? []).includes(type)) {
 			verdicts[rule.id] = 'not_applicable';
+			continue;
+		}
+
+		if (hasEvidence) {
+			verdicts[rule.id] = failed.has(rule.id) ? 'fail' : 'pass';
 			continue;
 		}
 
@@ -188,28 +212,57 @@ export function verdictsFor({ node, compliance, rules, type }) {
 			verdicts[rule.id] = 'ineligible';
 			continue;
 		}
-
 		if (rule.package && rule.introduced_in) {
 			const reaches = admits(constraint, rule.introduced_in);
 			if (reaches === false) {
 				verdicts[rule.id] = 'ineligible';
 				continue;
 			}
-			if (reaches === null) {
-				verdicts[rule.id] = 'unknown';
-				continue;
-			}
 		}
 
-		if (compliance === null) {
-			verdicts[rule.id] = 'unknown';
-			continue;
-		}
-
-		verdicts[rule.id] = compliance.findings.some((finding) => finding.rule === rule.id) ? 'fail' : 'pass';
+		verdicts[rule.id] = 'unknown';
 	}
 
 	return verdicts;
+}
+
+/**
+ * Fold a central scan result into the shape the board reads.
+ *
+ * Kept separate from a repository's own report throughout. A scan is us looking
+ * at the repository; a report is the repository telling us. They are different
+ * claims and the board says which one it is showing.
+ */
+export function summariseScan(scan, rules) {
+	if (!scan || scan.scanned !== true) return null;
+	const index = buildIndex(rules);
+	const bySniff = tallyBySniff(scan.findings ?? [], index);
+
+	let cited = 0;
+	let uncited = 0;
+	for (const bucket of Object.values(bySniff)) {
+		const total = bucket.errors + bucket.warnings;
+		if (bucket.rule) cited += total;
+		else uncited += total;
+	}
+
+	return {
+		files: scan.files ?? 0,
+		errors: scan.errors ?? 0,
+		warnings: scan.warnings ?? 0,
+		cited,
+		uncited,
+		by_sniff: bySniff,
+	};
+}
+
+/** Attach the citing rule to each finding, so the detail file can link out. */
+export function citeFindings(findings, rules) {
+	const index = buildIndex(rules);
+	return (findings ?? []).map((finding) => ({
+		...finding,
+		rule: ruleForSniff(finding.source, index),
+	}));
 }
 
 /** The constraint each expected package is declared at, for display and for bump PRs. */
@@ -236,6 +289,35 @@ export function summarise(repos, rules, levels) {
 		bucket.levels[repo.level] = (bucket.levels[repo.level] ?? 0) + 1;
 	}
 
+	// What is actually wrong across the fleet, by sniff. This is the view that
+	// answers "what should we fix first", which no per-repository row can: one
+	// repository with forty array-spacing findings is a tidy-up, and forty
+	// repositories with one each is a standard nobody knows about.
+	const bySniff = {};
+	for (const repo of repos) {
+		for (const [sniff, counts] of Object.entries(repo.scan?.by_sniff ?? {})) {
+			const bucket = (bySniff[sniff] ??= { errors: 0, warnings: 0, repos: 0, rule: counts.rule ?? null });
+			bucket.errors += counts.errors;
+			bucket.warnings += counts.warnings;
+			bucket.repos++;
+		}
+	}
+
+	// Emitted as a sorted array rather than a map. Liquid cannot sort a hash by a
+	// value nested inside it, so ordering this here is the difference between the
+	// board showing what matters first and showing it alphabetically.
+	//
+	// Ordered by how many repositories a sniff appears in, then by volume. One
+	// repository with four hundred array-spacing findings is a tidy-up; forty
+	// repositories with one each is a standard nobody has been told about, and
+	// that is the more useful thing to see first.
+	const spread = Object.entries(bySniff)
+		.map(([sniff, counts]) => ({ sniff, ...counts }))
+		.sort((a, b) => {
+			if (b.repos !== a.repos) return b.repos - a.repos;
+			return b.errors + b.warnings - (a.errors + a.warnings);
+		});
+
 	const byRule = {};
 	for (const rule of rules) {
 		const tally = { pass: 0, fail: 0, ineligible: 0, unknown: 0, not_applicable: 0 };
@@ -246,12 +328,23 @@ export function summarise(repos, rules, levels) {
 		byRule[rule.id] = tally;
 	}
 
+	// Findings are split by where they came from and by whether anything can be
+	// cited for them. "How much is wrong" and "how much of it maps to a standard
+	// we have written down" are different questions and the second one is the
+	// backlog, so the board should never merge them into one number.
+	const shown = repos.filter((repo) => repo.finding_source !== null && repo.finding_source !== undefined);
+
 	return {
 		repos: repos.length,
 		reporting: repos.filter((repo) => repo.signals.check_reports).length,
+		scanned: repos.filter((repo) => repo.finding_source === 'scanned').length,
+		with_findings: shown.filter((repo) => (repo.finding_count ?? 0) > 0).length,
 		findings: repos.reduce((total, repo) => total + (repo.finding_count ?? 0), 0),
+		cited: repos.reduce((total, repo) => total + (repo.cited_count ?? 0), 0),
+		errors: repos.reduce((total, repo) => total + (repo.error_count ?? 0), 0),
 		by_level: byLevel,
 		by_type: byType,
 		by_rule: byRule,
+		by_sniff: spread,
 	};
 }
